@@ -1,0 +1,435 @@
+/* ============================================================================
+   LES RÉGLAGES DU SITE
+   Restaurant du Tennis
+
+   Tout ce qui se règle une seule fois vit ici : les trois polices, les couleurs,
+   les tailles de texte, les espacements. Le reste du site n'écrit jamais une
+   couleur ni une taille en dur — il pointe vers ce fichier.
+
+   Pour changer l'allure du site, c'est le seul fichier à ouvrir.
+   ============================================================================ */
+
+/* ---------------------------------------------------------------------------
+   LES POLICES DE LECTURE
+
+   Newsreader porte tout ce qui se lit lentement : les titres, les noms de
+   plats, le numéro de téléphone. C'est un caractère éditorial dessiné pour
+   l'écran, à contraste moyen, dont le dessin change avec la taille — l'axe
+   « opsz » affine ses déliés quand il grandit, les épaissit quand il rapetisse.
+   C'est ce qui lui donne son air de bulletin imprimé plutôt que d'interface.
+   Son italique est un vrai italique, pas une inclinaison : c'est le seul
+   ornement typographique que s'autorise le site.
+
+   Instrument Sans porte tout ce qui se lit vite : la navigation, les
+   descriptions, les boutons, les horaires. Une grotesque contemporaine, un rien
+   plus large que la moyenne, qui ne discute pas.
+
+   Les deux sont hébergées ici, jamais demandées à Google : aucune requête ne
+   part vers un tiers quand quelqu'un ouvre le site. Une troisième police — la
+   machine à écrire — les rejoint plus bas, pour les libellés.
+
+   Les fichiers sont dans `fonts/`. S'ils venaient à disparaître, une seule
+   commande les remet, depuis le dossier du site :
+
+       python3 scripts/telecharger-polices.py
+
+   Tant qu'ils manquent, le navigateur descend tout seul dans la pile de
+   secours : Georgia pour le serif, la grotesque du système pour le reste. Rien
+   n'est cassé, c'est simplement moins juste.
+   --------------------------------------------------------------------------- */
+@font-face {
+  font-family: Newsreader;
+  src: url(../fonts/newsreader.woff2) format("woff2");
+  font-weight: 200 800;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: Newsreader;
+  src: url(../fonts/newsreader-italique.woff2) format("woff2");
+  font-weight: 200 800;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Instrument Sans";
+  src: url(../fonts/instrument-sans.woff2) format("woff2");
+  font-weight: 400 700;
+  font-style: normal;
+  font-display: swap;
+}
+/* Les polices de secours sont ajustées pour occuper exactement la même place
+   que les vraies : rien ne saute au moment où celles-ci arrivent. */
+@font-face {
+  font-family: "Instrument secours";
+  src: local(Arial);
+  ascent-override: 92.5%;
+  descent-override: 24.4%;
+  line-gap-override: 0%;
+  size-adjust: 101.5%;
+}
+@font-face {
+  font-family: "Newsreader secours";
+  src: local(Georgia);
+  ascent-override: 92%;
+  descent-override: 26%;
+  line-gap-override: 0%;
+  size-adjust: 103%;
+}
+
+/* ---------------------------------------------------------------------------
+   LA TROISIÈME VOIX : LA MACHINE À ÉCRIRE
+
+   Elle ne porte aucun texte de lecture. Elle sert aux petites choses qu'on ne
+   lit pas vraiment mais qu'on repère : les intertitres en capitales, les
+   libellés des boutons, les légendes, les chiffres.
+
+   Dans une maison de tennis, elle a une seconde raison d'être : c'est la
+   typographie des tableaux d'affichage et des feuilles de match. Les horaires
+   et les prix alignés au millimètre lui doivent leur air de score.
+
+   DM Mono est une machine à écrire géométrique, plus fine et plus moderne qu'un
+   Courier — moins « vieille machine », plus « tableau de club ».
+   (Licence SIL Open Font, libre d'usage commercial.)
+   --------------------------------------------------------------------------- */
+@font-face {
+  font-family: "DM Mono";
+  src: url(../fonts/dm-mono.woff2) format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  /* -------------------------------------------------------------------------
+     LES COULEURS
+
+     Quatre matières, et pas une de plus. Elles ne viennent pas d'une palette
+     choisie sur un nuancier : elles viennent du lieu.
+
+       LA CRÈME ....... le papier. Un blanc cassé très peu jaune, celui d'une
+                        carte imprimée ou d'un maillot de club lavé cent fois.
+       LE SAPIN ....... l'encre. Le vert des arbres qui tiennent le fond du
+                        court. Il est si sombre qu'on le prend d'abord pour du
+                        noir, et c'est exactement ce qu'on lui demande.
+       LA FOUGÈRE ..... la végétation. Un vert plus clair et plus jaune, qui
+                        sert aux états et aux respirations.
+       LA TERRE BATTUE  la seule couleur vive du site. C'est l'ocre du court.
+                        Elle ne décore jamais : elle signale. Les prix, le
+                        bouton d'appel, l'état actif, et rien d'autre.
+
+     Le site est clair. Les photographies s'y détachent comme des tirages posés
+     sur une nappe de club-house, et le grain (voir « LE GRAIN ») empêche la
+     crème de ressembler à du blanc d'écran.
+     ------------------------------------------------------------------------- */
+
+  /* La terre battue, et ses variations. */
+  --terre-300: #e2a184; /* le survol, sur fond sapin uniquement */
+  --terre-400: #d98a66; /* les accents sur fond sapin */
+  --terre-500: #c0603a; /* la couleur exacte de la terre battue */
+  --terre-600: #a44e2c; /* les liens, les prix et les boutons sur la crème */
+  --terre-700: #8a3f22; /* le survol des boutons */
+
+  /* Le sapin : l'encre du site, et la surface sombre du pied de page. */
+  --sapin-900: #12291f; /* l'encre, et le fond du pied de page */
+  --sapin-700: #1c3b2c;
+  --sapin-500: #27523d; /* l'encre des DESSINS DE TENNIS du premier écran. Elle
+                           n'est pas posée par le CSS : elle est cuite dans les
+                           fichiers, par `scripts/preparer-dessins.py` */
+
+  /* La fougère : le vert clair. Les états, les filets vivants. */
+  --fougere-400: #7ea05c; /* sur fond sapin uniquement */
+  --fougere-500: #5f8248;
+  --fougere-600: #4a6a38; /* sur la crème */
+
+  /*
+    LES SURFACES — LE SITE EST CRÈME.
+
+    Il n'y a que trois surfaces, et c'est une règle : la crème pour presque
+    tout, un ton plus BAS pour la bande qui doit se détacher — sur du clair, on
+    détache en assombrissant, jamais en éclaircissant — et le sapin plein pour
+    le pied de page.
+
+    La crème est volontairement peu jaune. Un beige franc daterait le site de
+    dix ans ; ce qu'on cherche est le blanc légèrement chaud du papier, pas la
+    couleur du sable.
+  */
+  --creme: #f4f1e9; /* le fond du site */
+  --sable: #ece8de; /* la bande d'à côté, un ton plus bas */
+  --sapin: #12291f; /* le pied de page : le vert sapin plein */
+  --champ: #fffdf8; /* le fond des champs de formulaire, plus clair que la page */
+  /* La barre du haut laisse passer la page qui défile dessous : c'est la seule
+     surface translucide du site, et donc la seule qui ne peut pas se contenter
+     de `--creme`. Les deux valeurs doivent rester la même couleur. */
+  --creme-voile: rgb(244 241 233 / 0.92);
+
+  /* Les encres, sur la crème. Toutes tirent vers le vert : il n'y a pas un gris
+     neutre dans le site, ce qui est la moitié de sa chaleur. */
+  --texte-1: #12291f;
+  --texte-2: #55655a;
+  --texte-3: #5e6b60;
+
+  /* Les encres sur le sapin, quand le fond devient sombre. */
+  --texte-1-sombre: #f4f1e9;
+  --texte-2-sombre: #bdc7bd;
+  --texte-3-sombre: #9aa79c;
+
+  /* Les filets. Sur du clair, ils sont sombres — mais à peine. */
+  --filet-tenu: #ddd7c8;
+  --filet-tenu-sable: #d3cbb7;
+  --filet-tenu-sombre: #2c473a;
+  --filet-champ: #83877a; /* les bords de champ : lisibles, donc plus soutenus */
+  --filet-champ-sombre: #6e8378;
+
+  /* Ouvert / fermé. Le vert de la fougère dit ouvert, l'ocre dit fermé — ce
+     sont les deux verts et l'ocre du site, pas un feu tricolore importé. */
+  --etat-ouvert-clair: #4a6a38;
+  --etat-ferme-clair: #8a5910;
+  --etat-ouvert-sombre: #7fb069;
+  --etat-ferme-sombre: #dda94e;
+
+  /* -------------------------------------------------------------------------
+     LES CARACTÈRES
+     ------------------------------------------------------------------------- */
+  --serif: Newsreader, "Newsreader secours", "Iowan Old Style", Georgia, "Times New Roman", serif;
+  --sans: "Instrument Sans", "Instrument secours", -apple-system, "Helvetica Neue", Arial, sans-serif;
+  --mono: "DM Mono", "Courier New", Courier, ui-monospace, monospace;
+
+  --fs-h1: clamp(2rem, 1.4rem + 2.6vw, 3rem);
+  --fs-h2: clamp(1.75rem, 1.35rem + 1.9vw, 2.75rem);
+  --fs-h3: clamp(1.25rem, 1.11rem + 0.7vw, 1.625rem);
+  --fs-plat: clamp(1.0625rem, 1.02rem + 0.22vw, 1.25rem);
+  --fs-chapo: clamp(1.0625rem, 1rem + 0.4vw, 1.25rem);
+  --fs-corps: clamp(1rem, 0.95rem + 0.25vw, 1.25rem); /* 20 px sur grand écran */
+  --fs-corps-sm: 0.9375rem;
+  --fs-legende: 0.8125rem;
+  --fs-exergue: 0.75rem;
+
+  /* -------------------------------------------------------------------------
+     LES ESPACEMENTS
+
+     Une seule échelle, doublée à chaque cran ou presque. Rien dans le site ne
+     doit inventer une valeur en dehors d'elle.
+     ------------------------------------------------------------------------- */
+  --sp-1: 0.25rem;
+  --sp-2: 0.5rem;
+  --sp-3: 0.75rem;
+  --sp-4: 1rem;
+  --sp-5: 1.5rem;
+  --sp-6: 2rem;
+  --sp-7: 3rem;
+  --sp-8: 4rem;
+  --sp-9: 6rem;
+
+  /* -------------------------------------------------------------------------
+     L'AIR ENTRE LES BLOCS
+
+     C'est le réglage le plus important de la page : c'est lui, plus que les
+     couleurs, qui distingue une adresse qu'on choisit d'une page qui liste des
+     prestations.
+
+     UN SEUL CHIFFRE LE COMMANDE : le demi-joint. Le vide entre deux blocs est
+     toujours la somme de deux demi-joints — jamais une valeur posée d'un seul
+     côté, jamais une valeur inventée pour un endroit.
+
+     Trois intervalles seulement, dans un rapport de 1 à 2 à 3. Ils sont tous
+     dérivés du même chiffre : ils gardent donc leur rapport à TOUTES les
+     largeurs d'écran, et ne peuvent plus se croiser.
+
+       serré ...... deux blocs qui n'en font qu'un    (le titre et ses photos)
+       courant .... deux propos qui se suivent         (l'intervalle ordinaire)
+       souffle .... de part et d'autre d'un silence    (les paires muettes)
+
+     De 3 rem au doigt à 6,25 rem sur grand écran, pour le demi-joint : le vide
+     courant va donc de 96 à 200 px, et le souffle de 144 à 300 px.
+     ------------------------------------------------------------------------- */
+  --demi-joint: clamp(3rem, 1.6rem + 4.65vw, 6.25rem);
+
+  --joint-serre: var(--demi-joint);
+  --joint: calc(var(--demi-joint) * 2);
+  --joint-souffle: calc(var(--demi-joint) * 3);
+
+  /* -------------------------------------------------------------------------
+     LES LARGEURS
+
+     La colonne est volontairement étroite pour un écran d'aujourd'hui : sur un
+     grand moniteur, il reste une large bande de papier vide de chaque côté.
+     C'est ce qui empêche la page de ressembler à un tableau de bord.
+     ------------------------------------------------------------------------- */
+  --colonne: 1280px; /* bande de contenu de 1216 px à 1600 : la mesure exacte */
+  --colonne-large: 1520px; /* le ruban de photographies, lui seul */
+  --colonne-lecture: 620px; /* un paragraphe qui se lit d'une traite */
+  --marge: clamp(0.875rem, 3vw, 2rem); /* 14 px au doigt, 32 px sur grand écran */
+
+  /* -------------------------------------------------------------------------
+     L'ANGLE EST VIF
+
+     Les coins arrondis, les pilules et les cartes posées avec une ombre sont le
+     vocabulaire des pages fabriquées à la chaîne : on les reconnaît avant de
+     les lire. Une image qui touche le bord de l'écran et un filet d'un pixel
+     disent mieux qu'on a décidé quelque chose.
+     ------------------------------------------------------------------------- */
+  --arrondi: 0;
+  --arrondi-bouton: 2px;
+
+  /* -------------------------------------------------------------------------
+     LES HAUTEURS FIXES
+     ------------------------------------------------------------------------- */
+  --entete-h: 60px;
+  --entete-h-lg: 96px;
+  --barre-action-h: 56px;
+  --ancre-haut: calc(var(--entete-h) + 60px);
+
+  /* -------------------------------------------------------------------------
+     LE TEMPS
+
+     Rien ne dure plus d'une demi-seconde, sauf les apparitions au défilement.
+     Une interface qui se fait attendre paraît lente, jamais soignée.
+     ------------------------------------------------------------------------- */
+  --dur-vif: 0.16s;
+  --dur: 0.24s;
+  --dur-image: 0.7s;
+  --sortie: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --entree-sortie: cubic-bezier(0.65, 0, 0.35, 1);
+
+  /* -------------------------------------------------------------------------
+     L'APPARITION DES PHOTOGRAPHIES
+
+     La lenteur est le sujet. Deux secondes et demie de montée, sur une courbe
+     exponentielle : l'essentiel du déplacement se fait dans les six premiers
+     dixièmes, puis le bloc se pose sur une trajectoire de plus en plus douce.
+     C'est ce très long atterrissage qui donne l'impression de calme — une
+     apparition rapide, elle, se remarque.
+     ------------------------------------------------------------------------- */
+  --dur-apparition: 2.4s;
+  --retard-apparition: 0.2s;
+  --montee-apparition: 30px;
+
+  /* Approximation en Bézier de « expo.out » : 1 − 2^(−10t). */
+  --sortie-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --ancre-haut: calc(var(--entete-h-lg) + 60px);
+  }
+}
+
+/* ============================================================================
+   LES TROIS SURFACES
+
+   Une section déclare sur quelle surface elle est posée, et hérite d'un jeu
+   complet d'encres, de filets et de boutons accordés. Aucune section n'a
+   besoin de connaître les couleurs : elle connaît sa surface.
+
+   `--fond`, `--encre` et les autres sont les noms que le reste du site emploie.
+   Ils changent de valeur selon la surface, jamais de nom.
+   ============================================================================ */
+:root,
+.surface-creme {
+  --fond: var(--creme);
+  --encre: var(--texte-1);
+  --encre-2: var(--texte-2);
+  --encre-3: var(--texte-3);
+  --trait: var(--filet-tenu);
+  --trait-champ: var(--filet-champ);
+  --accent: var(--terre-600);
+  --focus: 0 0 0 2px var(--creme), 0 0 0 4px var(--terre-600);
+  --btn-fond: var(--terre-600);
+  --btn-fond-survol: var(--terre-700);
+  --btn-texte: #fff;
+  --btn2-trait: var(--filet-champ);
+  --btn2-texte: var(--texte-1);
+  /* Sur de la crème, un survol « un peu plus clair » ne se verrait pas : le
+     bouton s'assombrit d'un voile d'encre. */
+  --btn2-fond-survol: #12291f14;
+  --btn2-texte-survol: var(--texte-1);
+  --etat-ouvert: var(--etat-ouvert-clair);
+  --etat-ferme: var(--etat-ferme-clair);
+}
+
+/* Un ton plus BAS que le fond, pas plus haut : sur du clair, on détache une
+   bande en l'assombrissant. Elle sert à séparer deux sections voisines sans
+   avoir à tirer un trait. */
+.surface-sable {
+  --fond: var(--sable);
+  --encre: var(--texte-1);
+  --encre-2: var(--texte-2);
+  --encre-3: var(--texte-3);
+  --trait: var(--filet-tenu-sable);
+  --trait-champ: var(--filet-champ);
+  --accent: var(--terre-600);
+  --focus: 0 0 0 2px var(--sable), 0 0 0 4px var(--terre-600);
+  --btn-fond: var(--terre-600);
+  --btn-fond-survol: var(--terre-700);
+  --btn-texte: #fff;
+  --btn2-trait: var(--filet-champ);
+  --btn2-texte: var(--texte-1);
+  --btn2-fond-survol: #12291f14;
+  --btn2-texte-survol: var(--texte-1);
+  --etat-ouvert: var(--etat-ouvert-clair);
+  --etat-ferme: var(--etat-ferme-clair);
+}
+
+/* Le pied de page. C'est la seule surface sombre du site : le sapin plein, avec
+   la crème pour encre. Il ferme la page comme une bande de couverture. */
+.surface-sapin {
+  --fond: var(--sapin);
+  --encre: var(--texte-1-sombre);
+  --encre-2: var(--texte-2-sombre);
+  --encre-3: var(--texte-3-sombre);
+  --trait: var(--filet-tenu-sombre);
+  --trait-champ: var(--filet-champ-sombre);
+  --accent: var(--terre-400);
+  --focus: 0 0 0 2px var(--sapin), 0 0 0 4px var(--terre-400);
+  --btn-fond: var(--terre-400);
+  --btn-fond-survol: var(--terre-300);
+  --btn-texte: #12291f;
+  --btn2-trait: var(--filet-champ-sombre);
+  --btn2-texte: var(--texte-1-sombre);
+  --btn2-fond-survol: #f4f1e91f;
+  --btn2-texte-survol: var(--texte-1-sombre);
+  --etat-ouvert: var(--etat-ouvert-sombre);
+  --etat-ferme: var(--etat-ferme-sombre);
+}
+
+.surface-creme,
+.surface-sable,
+.surface-sapin {
+  background-color: var(--fond);
+  color: var(--encre);
+  position: relative;
+  isolation: isolate;
+}
+
+/* ---------------------------------------------------------------------------
+   LE GRAIN
+
+   Un bruit très fin sur la crème. On ne le voit pas, on le sent : c'est ce qui
+   sépare une surface d'un aplat d'écran, et c'est le remède le plus court à une
+   page qui paraît morte.
+
+   Sur du clair, le grain doit ASSOMBRIR — d'où le `multiply`. Un bruit posé en
+   `screen` sur de la crème serait strictement invisible. Sur le sapin du pied
+   de page, c'est l'inverse : il éclaircit, donc `screen`.
+
+   Il est posé en couche non cliquable, jamais en fond, pour ne pas empêcher les
+   surfaces de garder leur couleur propre.
+   --------------------------------------------------------------------------- */
+.surface-creme::after,
+.surface-sable::after,
+.surface-sapin::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.045;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23g)' opacity='0.5'/%3E%3C/svg%3E");
+}
+
+.surface-sapin::after {
+  opacity: 0.05;
+  mix-blend-mode: screen;
+}

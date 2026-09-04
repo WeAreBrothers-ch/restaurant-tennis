@@ -1,0 +1,5 @@
+User-Agent: *
+Allow: /
+
+Host: https://www.restaurant-du-tennis.ch
+Sitemap: https://www.restaurant-du-tennis.ch/sitemap.xml

@@ -1,0 +1,968 @@
+/* ============================================================================
+   LES COMPOSANTS COMMUNS
+   Ce que toutes les pages partagent : les boutons, le cadre des photographies,
+   l'en-tête, le menu du téléphone, la barre d'appel et le pied de page.
+   ============================================================================ */
+
+/* ============================================================================
+   LES BOUTONS
+   Trois seulement. Le plein pour appeler, le cerné pour aller voir, le souligné
+   pour tout le reste. Un quatrième serait un aveu d'indécision.
+   ============================================================================ */
+.bouton-base {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--sp-3);
+  min-height: 48px;
+  padding-inline: var(--sp-6);
+  border: 1px solid transparent;
+  border-radius: var(--arrondi-bouton);
+  font-family: var(--mono);
+  font-size: var(--fs-legende);
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  line-height: 1;
+  text-align: center;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition:
+    background-color var(--dur-vif) var(--sortie),
+    color var(--dur-vif) var(--sortie),
+    border-color var(--dur-vif) var(--sortie),
+    transform var(--dur-vif) var(--sortie);
+}
+
+.bouton-base:focus-visible {
+  outline: none;
+  box-shadow: var(--focus);
+}
+
+.bouton-base:active {
+  transform: scale(0.98);
+}
+
+.bouton-grand {
+  min-height: 56px;
+  padding-inline: var(--sp-7);
+}
+
+.bouton-pleineLargeur {
+  width: 100%;
+}
+
+.bouton-primaire {
+  background-color: var(--btn-fond);
+  color: var(--btn-texte);
+}
+
+.bouton-primaire:hover {
+  background-color: var(--btn-fond-survol);
+}
+
+.bouton-secondaire {
+  background-color: transparent;
+  border-color: var(--btn2-trait);
+  color: var(--btn2-texte);
+}
+
+.bouton-secondaire:hover {
+  background-color: var(--btn2-fond-survol);
+  border-color: var(--btn2-fond-survol);
+  color: var(--btn2-texte-survol);
+}
+
+/* Le lien-bouton : un mot souligné, et un trait qui s'épaissit au survol. */
+.bouton-tertiaire {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-3);
+  padding: var(--sp-2) 0;
+  background: none;
+  border: 0;
+  color: var(--accent);
+  font-family: var(--mono);
+  font-size: var(--fs-legende);
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 6px;
+  cursor: pointer;
+  transition: text-decoration-thickness var(--dur-vif) var(--sortie);
+}
+
+.bouton-tertiaire:hover {
+  text-decoration-thickness: 2px;
+}
+
+.bouton-tertiaire:active {
+  transform: none;
+}
+
+.bouton-tertiaire svg {
+  transition: transform var(--dur-vif) var(--sortie);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .bouton-tertiaire:hover svg {
+    transform: translateX(3px);
+  }
+}
+
+/* ============================================================================
+   LE CADRE DES PHOTOGRAPHIES
+   Un rapport imposé, un fond sable le temps du chargement, et rien d'autre :
+   pas de coin arrondi, pas d'ombre portée.
+   ============================================================================ */
+.photo-cadre {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  aspect-ratio: var(--ratio, 4 / 5);
+  background-color: var(--sable);
+  border-radius: var(--arrondi);
+}
+
+.photo-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ---------------------------------------------------------------------------
+   LES FORMATS
+
+   Cinq rapports, à poser au cas par cas. Deux photographies voisines n'en
+   prennent jamais le même : c'est ce qui empêche la page de ressembler à une
+   grille de vignettes.
+   --------------------------------------------------------------------------- */
+.photo-portrait {
+  --ratio: 4 / 5;
+}
+
+.photo-paysage {
+  --ratio: 4 / 3;
+}
+
+/* 448 × 310 : le rapport exact de la photographie paysage de la paire, relevé
+   sur le site de référence. Ce n'est ni 3/2 ni 16/10 — c'est le sien. */
+.photo-paysageLarge {
+  --ratio: 448 / 310;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .photo-zoom .photo-image {
+    transition: transform var(--dur-image) var(--sortie);
+  }
+
+  .photo-zoom:hover .photo-image,
+  a:hover > .photo-zoom .photo-image {
+    transform: scale(1.04);
+  }
+}
+
+a:focus-visible > .photo-zoom .photo-image {
+  transform: scale(1.03);
+}
+
+/* ---------------------------------------------------------------------------
+   LA DÉRIVE DES PHOTOGRAPHIES
+
+   La photographie est légèrement plus grande que son cadre, et elle glisse
+   lentement à l'intérieur pendant qu'on descend la page. Le cadre, lui, ne
+   bouge pas. L'image paraît alors se trouver derrière la page plutôt que
+   posée dessus — c'est le procédé du site de référence, et c'est ce qui donne
+   de la profondeur à une page par ailleurs très plate.
+
+   Le mouvement est calé sur le défilement, pas sur une horloge : il suit le
+   doigt ou la molette, à la vitesse qu'on lui donne, et s'arrête quand on
+   s'arrête.
+
+   Écrit avec `animation-timeline`, une fonction native du navigateur : aucun
+   JavaScript, et le calcul est fait hors du fil principal, donc sans saccade.
+   Là où le navigateur ne la connaît pas encore, la photographie reste
+   simplement immobile dans son cadre — on ne perd rien d'autre.
+
+   L'agrandissement (1,12) est le prix du procédé : c'est lui qui crée la
+   réserve dans laquelle l'image se déplace. Il est tenu au minimum, la
+   translation de ±4 % n'en consommant que les trois quarts.
+
+   Cet agrandissement n'est écrit nulle part ailleurs que dans les images-clés
+   ci-dessous : là où la dérive n'a pas lieu — navigateur qui l'ignore, ou
+   système réglé sur « animations réduites » — la photographie n'est pas
+   recadrée du tout. On ne paie le procédé que là où on en profite.
+   --------------------------------------------------------------------------- */
+@keyframes photo-derive {
+  from {
+    transform: scale(1.12) translateY(-4%);
+  }
+  to {
+    transform: scale(1.12) translateY(4%);
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   LA PHOTOGRAPHIE MONTRÉE EN ENTIER
+
+   Une assiette, un tajine, un plateau : un objet rond ou ovale qu'on ne coupe
+   pas. Ces photographies sont fabriquées avec la crème du site tout autour de
+   l'objet — le cadre disparaît donc, et l'objet flotte sur la page.
+
+   Elles ne prennent PAS la dérive au défilement : celle-ci agrandit l'image de
+   douze pour cent et la déplace, ce qui recouperait exactement ce qu'on vient
+   de sauver. La dérive est faite pour les scènes, pas pour les objets.
+   --------------------------------------------------------------------------- */
+.photo-entiere {
+  background-color: transparent;
+}
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .photo-derive .photo-image {
+      animation: photo-derive linear both;
+      animation-timeline: view();
+      /* Du moment où le cadre entre par le bas de l'écran à celui où il sort
+         par le haut : exactement la course du site de référence. */
+      animation-range: entry 0% exit 100%;
+    }
+  }
+}
+
+/* ============================================================================
+   L'ENSEIGNE
+
+   Le nom de la maison n'est pas une image : c'est du texte, composé dans les
+   polices du site. Trois raisons, et elles suffisent.
+
+   Un logo en fichier doit être fourni en clair ET en sombre, redessiné à chaque
+   taille, et il pèse. Écrite, l'enseigne est nette sur tous les écrans, prend
+   la couleur de la surface sur laquelle elle est posée, se lit par Google et
+   par les lecteurs d'écran, et ne coûte pas un octet de plus.
+
+   Elle a toujours la même construction — trois lignes, trois voix :
+
+       RESTAURANT DU     la machine à écrire, en terre battue : le générique
+       Tennis            le serif, en grand : le nom
+       ÉCUBLENS          la machine à écrire, en petit : le lieu
+
+   TOUT EST EN « em » : une seule taille à régler par emplacement, et les trois
+   lignes gardent leur rapport. La barre du haut n'affiche que les deux
+   premières — au-dessous de 30 px de haut, la troisième ne serait plus lisible.
+
+   ⚠ Si le client fournit un logo dessiné, il remplace `.enseigne` partout,
+   sans rien changer d'autre : les emplacements sont déjà dimensionnés.
+   ============================================================================ */
+.enseigne {
+  display: inline-grid;
+  justify-items: start;
+  gap: 0.14em;
+  line-height: 1;
+  /* Le nom ne se coupe jamais, même dans une barre étroite. */
+  white-space: nowrap;
+}
+
+.enseigne-sur {
+  font-family: var(--mono);
+  font-size: 0.3em;
+  font-weight: 400;
+  letter-spacing: 0.28em;
+  /* La lettre espacée creuse un vide à droite du dernier caractère : on le
+     reprend pour que le bloc reste optiquement aligné à gauche. */
+  margin-right: -0.28em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.enseigne-nom {
+  font-family: var(--serif);
+  font-size: 1em;
+  font-weight: 400;
+  font-variation-settings: "opsz" 72;
+  letter-spacing: -0.015em;
+  color: var(--encre);
+}
+
+.enseigne-lieu {
+  font-family: var(--mono);
+  font-size: 0.22em;
+  font-weight: 400;
+  letter-spacing: 0.34em;
+  margin-right: -0.34em;
+  text-transform: uppercase;
+  color: var(--encre-3);
+}
+
+/* La barre du haut et le menu du téléphone : deux lignes, pas trois. */
+.enseigne--barre .enseigne-lieu,
+.enseigne--menu .enseigne-lieu {
+  display: none;
+}
+
+.enseigne--barre {
+  font-size: 24px;
+  transition: font-size var(--dur) var(--entree-sortie);
+}
+
+@media (min-width: 1024px) {
+  .enseigne--barre {
+    font-size: 30px;
+  }
+
+  .header-entete[data-compact="true"] .enseigne--barre {
+    font-size: 24px;
+  }
+}
+
+.enseigne--menu {
+  font-size: 24px;
+}
+
+.enseigne--pied {
+  font-size: clamp(34px, 5.5vw, 54px);
+}
+
+/* Dans le premier écran, l'enseigne est centrée et c'est le plus grand élément
+   de la page : c'est elle qui donne l'échelle de tout le reste. */
+.enseigne--premier {
+  justify-items: center;
+  font-size: clamp(54px, 13vw, 150px);
+  text-align: center;
+}
+
+.enseigne--premier .enseigne-sur,
+.enseigne--premier .enseigne-lieu {
+  /* Centrées, les lettres espacées se rattrapent des deux côtés. */
+  margin-right: 0;
+  text-indent: 0.28em;
+}
+
+/* ============================================================================
+   L'EN-TÊTE
+
+   Une barre crème pleine, sur toutes les pages, y compris l'accueil. Il avait
+   été posé par-dessus l'ouverture de la page, sans fond ; c'est un effet qu'on
+   voit partout et qui oblige ce qu'il y a dessous à se ternir pour que les
+   libellés restent lisibles. Le site de référence ne le fait pas : sa barre est
+   toujours pleine, et la page commence dessous, entière et claire.
+
+   Passé quelques dizaines de pixels de défilement, la barre se resserre
+   simplement d'un cran.
+   ============================================================================ */
+.header-entete {
+  position: fixed;
+  top: 0;
+  inset-inline: 0;
+  z-index: 60;
+}
+
+.header-barre {
+  background-color: var(--creme-voile);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--filet-tenu);
+  transition:
+    background-color var(--dur) var(--entree-sortie),
+    border-color var(--dur) var(--entree-sortie);
+}
+
+/* Au doigt : l'enseigne à gauche, le bouton du menu à droite, et tout l'espace
+   entre les deux. Les deux se posent à la même distance du bord, celle de la
+   marge du site. */
+.header-barreContenu {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: var(--sp-4);
+  height: var(--entete-h);
+  transition: height var(--dur) var(--entree-sortie);
+}
+
+/* Le bouton du menu se tient à droite, seul : la barre du téléphone ne porte
+   plus que l'enseigne et lui. */
+.header-boutonMenu {
+  grid-column: 2;
+  justify-self: end;
+  /* Le trait de l'icône revient sur le bord de la barre, comme l'enseigne en
+     face : c'est le vide du bouton autour de lui qui le décalait. */
+  margin-right: calc(-1 * var(--sp-3));
+}
+
+@media (min-width: 1024px) {
+  .header-barreContenu {
+    grid-template-columns: auto 1fr auto;
+    height: var(--entete-h-lg);
+  }
+
+  .header-entete[data-compact="true"] .header-barreContenu {
+    height: var(--entete-h);
+  }
+}
+
+.header-logoLien {
+  display: inline-flex;
+  align-items: center;
+  grid-column: 1;
+  justify-self: start;
+  padding: var(--sp-2);
+  margin: calc(-1 * var(--sp-2));
+}
+
+.header-nav {
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .header-nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: var(--sp-7);
+  }
+}
+
+.header-lienNav {
+  position: relative;
+  padding-block: var(--sp-3);
+  color: var(--encre);
+  font-family: var(--mono);
+  font-size: var(--fs-legende);
+  font-weight: 400;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  transition: color var(--dur-vif) var(--sortie);
+}
+
+/* Le trait qui pousse depuis la gauche au survol. */
+.header-lienNav::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  inset-inline: 0;
+  height: 1px;
+  background-color: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--dur) var(--entree-sortie);
+}
+
+.header-lienNav[aria-current="page"]::after {
+  transform: scaleX(1);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .header-lienNav:hover::after {
+    transform: scaleX(1);
+  }
+}
+
+/* Réservation et état d'ouverture : le grand écran seulement. Au doigt, ils
+   n'avaient pas la place de se lire — l'état s'y écrasait en « Fe » — et le
+   numéro est de toute façon dans le menu et dans la barre du bas. */
+.header-actions {
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .header-actions {
+    display: flex;
+    grid-column: 3;
+    justify-content: flex-end;
+    align-items: center;
+    gap: var(--sp-3);
+  }
+}
+
+.header-reserverLong {
+  display: none !important;
+}
+
+@media (min-width: 1024px) {
+  .header-reserverLong {
+    display: inline-flex !important;
+  }
+}
+
+.header-iconeSeule {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 48px;
+  height: 48px;
+  background: none;
+  border: 0;
+  color: var(--encre);
+  cursor: pointer;
+  transition: color var(--dur-vif) var(--sortie);
+}
+
+.header-iconeSeule:hover {
+  color: var(--accent);
+}
+
+.header-iconeSeule:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+}
+
+@media (min-width: 1024px) {
+  .header-boutonMenu {
+    display: none;
+  }
+}
+
+/* L'état d'ouverture, calculé chez le visiteur, posé juste avant le bouton
+   d'appel : c'est là qu'on regarde avant de décrocher son téléphone. */
+/* Écrit à deux classes : la règle commune de l'état, plus bas dans ce fichier,
+   rallumerait sinon celle-ci — c'est ainsi qu'il apparaissait au téléphone,
+   coupé faute de place. */
+.header-actions .header-etat {
+  display: none;
+}
+
+@media (min-width: 1180px) {
+  .header-actions .header-etat {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--sp-2);
+    min-width: 0;
+    margin-right: var(--sp-3);
+    color: var(--encre-2);
+    font-size: var(--fs-legende);
+    white-space: nowrap;
+  }
+}
+
+/* ============================================================================
+   OUVERT / FERMÉ
+   ============================================================================ */
+.etatouverturelive-etat {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  min-width: 0;
+  overflow: hidden;
+  color: var(--encre-2);
+  font-family: var(--mono);
+  font-size: var(--fs-legende);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.etatouverturelive-pastille {
+  flex: none;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: currentColor;
+}
+
+.etatouverturelive-etat[data-ouvert="true"] .etatouverturelive-pastille {
+  background-color: var(--etat-ouvert);
+}
+
+.etatouverturelive-etat[data-ouvert="false"] .etatouverturelive-pastille {
+  background-color: var(--etat-ferme);
+}
+
+.etatouverturelive-libelle {
+  color: var(--encre);
+  font-weight: 600;
+}
+
+.etatouverturelive-detail {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ============================================================================
+   LE MENU DU TÉLÉPHONE
+
+   Il s'appuie sur <dialog> : le piégeage du focus, la touche Échap et le rôle
+   de dialogue sont assurés par le navigateur, pas par nous.
+   ============================================================================ */
+.menumobile-panneau {
+  width: 100%;
+  max-width: 100%;
+  height: 100%;
+  max-height: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  overflow: auto;
+  overscroll-behavior: contain;
+  padding-bottom: env(safe-area-inset-bottom);
+  background-color: var(--sapin);
+  color: var(--texte-1-sombre);
+}
+
+.menumobile-panneau::backdrop {
+  background-color: rgb(18 41 31 / 0.94);
+}
+
+@media (min-width: 1024px) {
+  .menumobile-panneau {
+    display: none;
+  }
+}
+
+.menumobile-entete {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--sp-4);
+  height: var(--entete-h);
+  border-bottom: 1px solid var(--filet-tenu-sombre);
+}
+
+.menumobile-fermer {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 48px;
+  height: 48px;
+  margin-right: calc(-1 * var(--sp-3));
+  background: none;
+  border: 0;
+  color: var(--texte-1-sombre);
+  cursor: pointer;
+}
+
+.menumobile-fermer:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -4px;
+}
+
+.menumobile-liens {
+  display: grid;
+  padding-block: var(--sp-7);
+}
+
+.menumobile-lien {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--sp-4);
+  padding-block: var(--sp-4);
+  border-bottom: 1px solid var(--filet-tenu-sombre);
+  color: var(--texte-1-sombre);
+  font-family: var(--serif);
+  font-size: clamp(1.75rem, 1.2rem + 2.5vw, 2.25rem);
+  font-weight: 400;
+  line-height: 1.2;
+  opacity: 0;
+  transform: translateY(8px);
+  animation: menumobile-entree var(--dur) var(--sortie) forwards;
+  animation-delay: var(--delai, 0s);
+}
+
+.menumobile-lien[aria-current="page"] {
+  color: var(--terre-400);
+}
+
+.menumobile-lien svg {
+  flex: none;
+  color: var(--texte-3-sombre);
+  transform: translateY(-0.15em);
+}
+
+@keyframes menumobile-entree {
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .menumobile-lien {
+    opacity: 1;
+    transform: none;
+    animation: none;
+  }
+}
+
+.menumobile-pied {
+  display: grid;
+  gap: var(--sp-4);
+  padding-block: var(--sp-7) var(--sp-9);
+}
+
+.menumobile-pied address {
+  color: var(--texte-2-sombre);
+  font-size: var(--fs-corps-sm);
+  line-height: 1.6;
+}
+
+/* ============================================================================
+   LA BARRE D'APPEL DU TÉLÉPHONE
+   Elle monte une fois le premier écran passé : plus haut, elle ne ferait que
+   recouvrir l'enseigne.
+   ============================================================================ */
+.barreaction-barre {
+  position: fixed;
+  /* Le bas de l'écran, et rien d'autre : les navigateurs recalent eux-mêmes
+     leurs éléments fixes quand leur barre d'outils se replie ou revient. Une
+     correction de notre part s'ajouterait à la leur, et c'est un vide sous la
+     barre qu'on verrait alors passer. */
+  bottom: 0;
+  inset-inline: 0;
+  z-index: 50;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  /* La barre d'accueil de l'iPhone : les boutons s'arrêtent au-dessus d'elle,
+     mais la couleur, elle, descend jusqu'au bord. */
+  padding-bottom: env(safe-area-inset-bottom);
+  border-top: 1px solid var(--filet-tenu);
+  transform: translateY(100%);
+  transition: transform var(--dur) var(--entree-sortie);
+  /* Elle se replace au pixel près : on la garde sur sa propre couche pour que
+     le navigateur n'ait jamais à repeindre la page derrière elle. */
+  will-change: transform;
+}
+
+.barreaction-barre[data-visible="true"] {
+  transform: none;
+}
+
+/* Le clavier occupe le bas de l'écran : la barre s'efface le temps de la
+   saisie plutôt que de venir se poser dessus. Écrit après la règle du dessus,
+   qui a la même force : c'est l'ordre qui tranche. */
+.barreaction-barre[data-saisie="true"] {
+  transform: translateY(100%);
+}
+
+@media (min-width: 1024px) {
+  .barreaction-barre {
+    display: none;
+  }
+}
+
+.barreaction-action {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--sp-2);
+  min-height: var(--barre-action-h);
+  font-family: var(--mono);
+  font-size: var(--fs-legende);
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.barreaction-action:focus-visible {
+  outline: 2px solid var(--creme);
+  outline-offset: -4px;
+}
+
+.barreaction-carte {
+  background-color: var(--sapin);
+  color: var(--texte-1-sombre);
+}
+
+.barreaction-appeler {
+  background-color: var(--terre-600);
+  color: #fff;
+}
+
+/* ============================================================================
+   LE PIED DE PAGE
+   Généreux : c'est la dernière chose qu'on lit, et souvent la seule qu'on
+   relise. Adresse, horaires, téléphone, plan — tout y est en clair.
+
+   Au doigt, généreux ne veut pas dire étalé. Les quatre colonnes s'y empilent,
+   et les intervalles du grand écran y creusaient des trous qu'on traverse au
+   pouce sans rien y lire : le pied faisait près de deux écrans de haut. Les
+   mesures écrites ici sont donc celles du téléphone ; les grandes reviennent à
+   600 px, là où les colonnes se remettent côte à côte.
+   ============================================================================ */
+.footer-pied {
+  padding-top: var(--demi-joint);
+  padding-bottom: calc(var(--demi-joint) + var(--barre-action-h) + env(safe-area-inset-bottom));
+}
+
+@media (min-width: 1024px) {
+  .footer-pied {
+    padding-bottom: var(--demi-joint);
+  }
+}
+
+/* Le nom de la maison, une dernière fois, en grand. */
+.footer-enseigne {
+  padding-bottom: var(--sp-6);
+  border-bottom: 1px solid var(--trait);
+}
+
+.footer-devise {
+  max-width: 44ch;
+  margin-top: var(--sp-4);
+  color: var(--encre-2);
+  font-size: var(--fs-corps-sm);
+  line-height: 1.6;
+}
+
+@media (min-width: 600px) {
+  .footer-enseigne {
+    padding-bottom: var(--sp-8);
+  }
+
+  .footer-devise {
+    margin-top: var(--sp-5);
+    line-height: 1.7;
+  }
+}
+
+.footer-colonnes {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--sp-6);
+  padding-block: var(--sp-6);
+  border-bottom: 1px solid var(--trait);
+}
+
+@media (min-width: 600px) {
+  .footer-colonnes {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--sp-7) var(--sp-6);
+    padding-block: var(--sp-8);
+  }
+}
+
+@media (min-width: 1024px) {
+  .footer-colonnes {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* L'intertitre appartient à son bloc : il s'en approche plutôt que de flotter
+   à mi-chemin entre deux. */
+.footer-colonne h2 {
+  margin-bottom: var(--sp-3);
+  color: var(--accent);
+  font-family: var(--mono);
+  font-size: var(--fs-exergue);
+  font-weight: 400;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+@media (min-width: 600px) {
+  .footer-colonne h2 {
+    margin-bottom: var(--sp-5);
+  }
+}
+
+.footer-colonne p,
+.footer-colonne address,
+.footer-colonne li {
+  color: var(--encre-2);
+  font-size: var(--fs-corps-sm);
+  line-height: 1.6;
+}
+
+@media (min-width: 600px) {
+  .footer-colonne p,
+  .footer-colonne address,
+  .footer-colonne li {
+    line-height: 1.7;
+  }
+}
+
+/* Un lien de pied de page est presque toujours seul sur sa ligne : on peut donc
+   lui donner de la hauteur sans déranger la phrase autour. Sans `inline-block`,
+   ce rembourrage ne compterait pas et la cible resterait plus fine qu'un
+   pouce. */
+.footer-colonne a {
+  display: inline-block;
+  padding-block: var(--sp-2);
+  transition: color var(--dur-vif) var(--sortie);
+}
+
+.footer-colonne a:hover {
+  color: var(--encre);
+}
+
+.footer-colonne address a,
+.footer-colonne p a {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+/* Le numéro de téléphone : sur un téléphone, c'est ce qu'on vient chercher.
+   Il se lit avant le reste de sa colonne, et se touche sans viser. Il garde le
+   soulignement des autres liens du pied — c'est ce qui dit qu'on peut appuyer
+   dessus — mais posé plus bas, pour ne pas coller aux chiffres. */
+.footer-telephone {
+  color: var(--encre);
+  font-size: var(--fs-corps);
+  letter-spacing: 0.01em;
+  text-underline-offset: 5px;
+  font-variant-numeric: tabular-nums;
+}
+
+.footer-telephone:hover {
+  color: var(--accent);
+}
+
+.footer-horaire {
+  padding-block: var(--sp-2);
+  font-variant-numeric: tabular-nums;
+}
+
+.footer-horaire dt {
+  color: var(--encre);
+}
+
+.footer-horaire dd {
+  margin: 0;
+}
+
+.footer-fermeture {
+  color: var(--accent);
+}
+
+/* Les quatre liens du site tiennent sur une ligne au doigt : empilés, ils
+   ajoutaient à eux seuls un tiers d'écran de haut pour quatre mots. */
+.footer-navPied {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 var(--sp-6);
+}
+
+.footer-navPied a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px; /* la cible du pouce */
+  padding-block: 0;
+}
+
+@media (min-width: 600px) {
+  .footer-navPied {
+    display: grid;
+    gap: var(--sp-2);
+  }
+
+  .footer-navPied a {
+    min-height: 0;
+    padding-block: var(--sp-2);
+  }
+}
+
+.footer-mentions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-1) var(--sp-5);
+  margin-top: var(--sp-5);
+  color: var(--encre-3);
+  font-size: var(--fs-legende);
+  line-height: 1.6;
+}
+
+@media (min-width: 600px) {
+  .footer-mentions {
+    gap: var(--sp-2) var(--sp-6);
+    margin-top: var(--sp-6);
+  }
+}

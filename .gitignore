@@ -1,0 +1,16 @@
+.DS_Store
+
+# Fichiers générés par l’éditeur
+.vscode/
+
+# Secrets et configuration locale — ne jamais committer
+.env
+.env.*
+
+# Lien vers le projet Vercel
+.vercel/
+
+# `dessins-source/` EST versionné, volontairement : ce sont les dessins tels
+# qu'ils sont arrivés, avant détourage. Sans eux, on ne peut plus refaire le
+# travail de `scripts/preparer-dessins.py`. Ils ne sont simplement pas envoyés
+# sur le FTP du site — ils ne servent qu'à la fabrication.

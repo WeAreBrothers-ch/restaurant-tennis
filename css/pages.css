@@ -1,0 +1,644 @@
+/* ============================================================================
+   LES PAGES INTÉRIEURES
+   La carte, les spécialités, le contact, et la page d'erreur. Plus les composants
+   qu'elles se partagent : les lignes de plats, le formulaire, le plan d'accès.
+   ============================================================================ */
+
+/* ============================================================================
+   LE HAUT DES PAGES INTÉRIEURES
+   Un titre, une phrase, et la photographie ensuite. Jamais l'inverse : on doit
+   savoir sur quelle page on est avant de voir une texture.
+   ============================================================================ */
+.page-entete {
+  margin-bottom: var(--sp-6);
+}
+
+/* La carte n'est pas une section ordinaire — elle est coupée en trois colonnes
+   par deux photographies de respiration — mais elle porte le même demi-joint
+   que toutes les autres, en haut comme en bas. Auparavant le vide du haut
+   était emprunté à la première colonne de plats (64 px de plus), ce qui faisait
+   deux choses à la fois : ouvrir la page, et décaler chaque reprise de lecture
+   après une photographie. */
+.page-carte,
+.page-specialites {
+  padding-block: var(--demi-joint);
+}
+
+.page-colonneCarte,
+.page-colonneSpecialites {
+  max-width: var(--colonne-lecture);
+  margin-inline: auto;
+}
+
+@media (min-width: 1100px) {
+  .page-colonneCarte,
+  .page-colonneSpecialites {
+    max-width: 1120px;
+  }
+}
+
+.page-supplements {
+  max-width: 60ch;
+  margin-top: var(--sp-3);
+  color: var(--encre-3);
+  font-size: var(--fs-legende);
+  line-height: 1.5;
+}
+
+/* ============================================================================
+   UNE LIGNE DE PLAT
+   Le nom, un rappel pointillé, le prix. C'est la mise en page d'une carte
+   imprimée, et elle n'a pas été améliorée depuis.
+   ============================================================================ */
+.lignedeplat-plat {
+  padding-block: var(--sp-4);
+  border-bottom: 1px solid var(--trait);
+  break-inside: avoid;
+}
+
+.lignedeplat-plat:last-child {
+  border-bottom: 0;
+}
+
+@media (min-width: 1100px) {
+  .lignedeplat-plat:last-child {
+    border-bottom: 1px solid var(--trait);
+  }
+}
+
+.lignedeplat-ligne {
+  display: flex;
+  align-items: baseline;
+  gap: var(--sp-3);
+}
+
+.lignedeplat-nom {
+  color: var(--encre);
+  font-family: var(--serif);
+  font-size: var(--fs-plat);
+  font-weight: 500;
+  line-height: 1.25;
+}
+
+.lignedeplat-rappel {
+  flex: auto;
+  min-width: 2rem;
+  border-bottom: 1px dotted var(--trait-champ);
+  transform: translateY(0.1em);
+}
+
+.lignedeplat-prix {
+  color: var(--encre);
+  font-size: var(--fs-corps-sm);
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+.lignedeplat-parPersonne {
+  color: var(--encre-3);
+  font-size: var(--fs-legende);
+  font-weight: 400;
+  letter-spacing: 0.02em;
+}
+
+.lignedeplat-description {
+  max-width: 60ch;
+  margin-top: var(--sp-2);
+  color: var(--encre-2);
+  font-size: var(--fs-corps-sm);
+  line-height: 1.5;
+}
+
+.lignedeplat-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-1) var(--sp-4);
+  margin-top: var(--sp-2);
+  color: var(--encre-3);
+  font-family: var(--mono);
+  font-size: var(--fs-legende);
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+
+.lignedeplat-meta b {
+  color: var(--accent);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ============================================================================
+   UNE CATÉGORIE DE LA CARTE
+   ============================================================================ */
+.categoriecarte-categorie + .categoriecarte-categorie {
+  margin-top: var(--sp-9);
+}
+
+.categoriecarte-titre {
+  color: var(--encre);
+  font-family: var(--serif);
+  font-size: var(--fs-h3);
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  line-height: 1.15;
+  text-transform: uppercase;
+}
+
+.categoriecarte-note {
+  max-width: 60ch;
+  margin-top: var(--sp-3);
+  color: var(--encre-3);
+  font-size: var(--fs-legende);
+  line-height: 1.5;
+}
+
+.categoriecarte-liste {
+  margin-top: var(--sp-5);
+  border-top: 1px solid var(--trait);
+}
+
+@media (min-width: 1100px) {
+  .categoriecarte-liste,
+  .page-liste {
+    columns: 2;
+    column-gap: clamp(2.5rem, 5vw, 4.5rem);
+  }
+}
+
+.page-liste {
+  border-top: 1px solid var(--trait);
+}
+
+/* ============================================================================
+   LES GARNITURES ET LES SAUCES
+   ============================================================================ */
+.garnitures-bloc {
+  margin-top: var(--sp-9);
+  padding-top: var(--sp-8);
+  border-top: 1px solid var(--trait);
+}
+
+.garnitures-titre {
+  color: var(--encre);
+  font-family: var(--serif);
+  font-size: var(--fs-h3);
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  line-height: 1.15;
+  text-transform: uppercase;
+}
+
+.garnitures-intro {
+  max-width: 60ch;
+  margin-top: var(--sp-3);
+  color: var(--encre-2);
+  font-size: var(--fs-corps-sm);
+  line-height: 1.6;
+}
+
+.garnitures-sousTitre {
+  margin-top: var(--sp-7);
+  margin-bottom: var(--sp-3);
+  color: var(--encre-3);
+  font-family: var(--mono);
+  font-size: var(--fs-exergue);
+  font-weight: 400;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.garnitures-sauces {
+  border-top: 1px solid var(--trait);
+}
+
+.garnitures-sauce {
+  display: flex;
+  align-items: baseline;
+  gap: var(--sp-3);
+  padding-block: var(--sp-3);
+  border-bottom: 1px solid var(--trait);
+  color: var(--encre);
+  font-size: var(--fs-corps-sm);
+}
+
+.garnitures-rappel {
+  flex: auto;
+  min-width: 1.5rem;
+  border-bottom: 1px dotted var(--trait-champ);
+  transform: translateY(0.1em);
+}
+
+.garnitures-prix {
+  font-weight: 600;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ============================================================================
+   L'IMAGE DE RESPIRATION
+   Une photographie large posée au milieu d'une longue liste : elle coupe la
+   lecture au bon endroit, là où l'œil commence à fatiguer.
+   ============================================================================ */
+/* Elle coupe la lecture : elle prend donc l'intervalle courant, le même que
+   celui qui sépare deux sections — et le même au-dessus qu'en dessous. Elle
+   avait 96 px au-dessus et 160 en dessous : posée de travers dans sa liste. */
+.respirationcarte-respiration {
+  margin-block: var(--joint);
+}
+
+.respirationcarte-cadre {
+  --ratio: 4 / 3;
+}
+
+@media (min-width: 700px) {
+  .respirationcarte-cadre {
+    --ratio: 2 / 1;
+  }
+}
+
+/* ============================================================================
+   LA PAGE CONTACT
+   ============================================================================ */
+.page-adresse,
+.page-coordonnees {
+  color: var(--encre-2);
+  font-size: var(--fs-corps-sm);
+  line-height: 1.7;
+}
+
+.page-coordonnees a {
+  padding-block: var(--sp-2);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+.page-coordonnees a:hover {
+  color: var(--encre);
+}
+
+.page-semaine {
+  margin-top: var(--sp-6);
+  border-top: 1px solid var(--trait);
+}
+
+@media (min-width: 800px) {
+  .page-semaine {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: clamp(2rem, 5vw, 5rem);
+  }
+
+  .page-jour:nth-child(4) {
+    border-top: 1px solid var(--trait);
+  }
+}
+
+.page-jour {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--sp-4);
+  padding-block: var(--sp-4);
+  border-bottom: 1px solid var(--trait);
+  font-size: var(--fs-corps-sm);
+  font-variant-numeric: tabular-nums;
+}
+
+.page-jour dt {
+  color: var(--encre);
+}
+
+.page-jour dd {
+  margin: 0;
+  color: var(--encre-2);
+  text-align: right;
+}
+
+.page-jour[data-ferme="true"] dd {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.page-message {
+  display: grid;
+  gap: var(--sp-7);
+}
+
+@media (min-width: 900px) {
+  .page-message {
+    grid-template-columns: minmax(0, 4fr) minmax(0, 6fr);
+    align-items: start;
+    gap: clamp(2.5rem, 5vw, 5rem);
+  }
+
+  .page-messageTexte {
+    position: sticky;
+    top: calc(var(--entete-h-lg) + var(--sp-7));
+  }
+}
+
+.page-carteFormulaire {
+  padding: clamp(1.5rem, 3vw, 2.5rem);
+  border: 1px solid var(--trait);
+  background-color: var(--champ);
+}
+
+/* ============================================================================
+   LE FORMULAIRE
+
+   Il fonctionne sans JavaScript : `action` et `method` sont posés sur la
+   balise, donc un envoi ordinaire part quand même.
+   ============================================================================ */
+.formulairecontact-formulaire,
+.formulairecontact-duo {
+  display: grid;
+  gap: var(--sp-5);
+}
+
+@media (min-width: 560px) {
+  .formulairecontact-duo {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.formulairecontact-champ {
+  display: grid;
+  gap: var(--sp-2);
+}
+
+.formulairecontact-champ label {
+  color: var(--encre);
+  font-family: var(--mono);
+  font-size: var(--fs-legende);
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.formulairecontact-champ input,
+.formulairecontact-champ textarea {
+  width: 100%;
+  min-height: 48px;
+  padding: var(--sp-3) var(--sp-4);
+  border: 1px solid var(--trait-champ);
+  border-radius: var(--arrondi);
+  background-color: var(--champ);
+  color: var(--encre);
+  font-family: var(--sans);
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.formulairecontact-champ textarea {
+  min-height: 160px;
+  resize: vertical;
+}
+
+.formulairecontact-champ input::placeholder,
+.formulairecontact-champ textarea::placeholder {
+  color: var(--encre-3);
+}
+
+.formulairecontact-champ input:focus-visible,
+.formulairecontact-champ textarea:focus-visible {
+  outline: none;
+  border-color: var(--encre);
+  box-shadow: var(--focus);
+}
+
+.formulairecontact-champ[data-erreur="true"] input,
+.formulairecontact-champ[data-erreur="true"] textarea {
+  border-color: var(--accent);
+}
+
+.formulairecontact-erreur {
+  color: var(--accent);
+  font-size: var(--fs-legende);
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.formulairecontact-aide {
+  color: var(--encre-3);
+  font-size: var(--fs-legende);
+  line-height: 1.5;
+}
+
+.formulairecontact-piege {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.formulairecontact-reponse {
+  padding: var(--sp-4) var(--sp-5);
+  border-left: 2px solid var(--accent);
+  color: var(--encre-2);
+  font-size: var(--fs-corps-sm);
+  line-height: 1.55;
+}
+
+.formulairecontact-reponse[data-statut="succes"] {
+  border-left-color: var(--etat-ouvert);
+  color: var(--encre);
+}
+
+.formulairecontact-reponse a {
+  white-space: nowrap;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+.formulairecontact-envoi {
+  justify-self: start;
+}
+
+/* ============================================================================
+   LE PLAN D'ACCÈS
+
+   Le fond est une image : rien n'est demandé à OpenStreetMap tant que le
+   visiteur ne l'a pas décidé. C'est meilleur pour la vitesse d'affichage comme
+   pour sa vie privée.
+   ============================================================================ */
+.plan-plan {
+  position: relative;
+  height: 400px;
+  overflow: hidden;
+  /* Ce qu'on voit le temps que l'image de plan arrive : un aplat de sable, pas
+     un trou. */
+  background-color: var(--sable);
+}
+
+@media (min-width: 900px) {
+  .plan-plan {
+    height: 460px;
+  }
+}
+
+/* Le fond de plan est une capture de carte : tel quel, ses couleurs vives et
+   son gris d'application jurent avec la crème de la page et attirent l'œil plus
+   que tout le reste. On le calme — sans l'inverser, ce qui rendrait les rues
+   illisibles. */
+.plan-fond {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* Sur une page sombre, le plan était assombri pour s'y fondre. Sur de la
+     crème c'est l'inverse : on le décolore et on l'éclaircit, pour qu'il ait
+     l'air d'un plan imprimé au dos d'un carton d'invitation plutôt que d'une
+     capture d'écran collée là. */
+  filter: saturate(0.3) contrast(0.9) brightness(1.06);
+}
+
+.plan-cadre {
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.plan-marqueur {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  margin: -44px 0 0 -22px;
+  border: 1px solid var(--texte-1-sombre);
+  border-radius: 50%;
+  background-color: var(--sapin);
+  color: var(--terre-400);
+  pointer-events: none;
+}
+
+.plan-ouvrir {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: end;
+  width: 100%;
+  padding: var(--sp-5);
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+
+.plan-ouvrir:focus-visible {
+  outline: 2px solid var(--sapin);
+  outline-offset: -4px;
+}
+
+.plan-etiquette {
+  padding: var(--sp-3) var(--sp-5);
+  border: 1px solid var(--filet-champ);
+  background-color: var(--creme);
+  color: var(--texte-1);
+  font-family: var(--mono);
+  font-size: var(--fs-legende);
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition:
+    background-color var(--dur-vif) var(--sortie),
+    color var(--dur-vif) var(--sortie);
+}
+
+.plan-ouvrir:hover .plan-etiquette {
+  background-color: var(--sapin);
+  border-color: var(--sapin);
+  color: var(--texte-1-sombre);
+}
+
+.plan-credit {
+  padding-block: var(--sp-3);
+  color: var(--encre-3);
+  font-family: var(--mono);
+  font-size: var(--fs-legende);
+}
+
+.plan-credit a {
+  padding-block: var(--sp-2);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* ============================================================================
+   LE BLOC « RÉSERVER » EN BAS DES PAGES
+   ============================================================================ */
+.appelreservation-bloc {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--sp-4);
+  margin-top: var(--sp-9);
+  padding-top: var(--sp-8);
+  border-top: 1px solid var(--trait);
+}
+
+.appelreservation-titre {
+  font-size: var(--fs-h3);
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+.appelreservation-detail {
+  color: var(--encre-2);
+  font-size: var(--fs-corps-sm);
+  line-height: 1.6;
+}
+
+.appelreservation-action {
+  margin-top: var(--sp-2);
+}
+
+/* ============================================================================
+   LA PAGE INTROUVABLE
+   ============================================================================ */
+.not-found-page {
+  display: grid;
+  align-content: center;
+  min-height: 60svh;
+  padding-block: var(--demi-joint);
+}
+
+.not-found-code {
+  color: var(--accent);
+  font-family: var(--mono);
+  font-size: var(--fs-exergue);
+  font-weight: 400;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.not-found-titre {
+  max-width: 18ch;
+  margin-top: var(--sp-4);
+  font-size: var(--fs-h1);
+  letter-spacing: -0.025em;
+  line-height: 1.04;
+}
+
+.not-found-chapo {
+  max-width: 52ch;
+  margin-top: var(--sp-5);
+  color: var(--encre-2);
+  font-size: var(--fs-chapo);
+  line-height: 1.55;
+}
+
+.not-found-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--sp-4) var(--sp-6);
+  margin-top: var(--sp-8);
+}

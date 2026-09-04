@@ -1,0 +1,1135 @@
+/* ============================================================================
+   LA PAGE D'ACCUEIL
+
+   Le principe de mise en page, relevé sur le site de référence et appliqué ici :
+
+   1. AUCUNE PHOTOGRAPHIE NE TOUCHE LE BORD DE L'ÉCRAN — sauf le ruban, qui
+      sort par la droite pour dire qu'il continue. C'est l'inverse de la
+      version précédente, où les images débordaient un peu partout.
+
+   2. DEUX PHOTOGRAPHIES NE SONT JAMAIS D'ACCORD. Pas la même largeur, pas le
+      même format, pas la même hauteur de départ. Une grille régulière se lit
+      comme un tableau ; un décalage se lit comme une page composée.
+
+   3. LE VIDE EST UN ÉLÉMENT. Entre deux blocs, il y a parfois un écran entier
+      de crème avec un simple dessin au trait posé au milieu. C'est là que la
+      page respire, et c'est ce qui manquait le plus.
+
+   4. LA COLONNE EST ÉTROITE. Sur un grand écran, une large bande de papier
+      reste vide de chaque côté.
+   ============================================================================ */
+
+/* ============================================================================
+   1. LE PREMIER ÉCRAN
+
+   Un écran entier de crème, l'enseigne au milieu, neuf dessins au trait autour.
+   Rien d'autre. Le texte d'accroche a quitté cet écran : le nom de la maison est
+   l'enseigne elle-même.
+
+   LES DESSINS ONT DEUX ENCRES, ET C'EST LE SUJET DE LA PAGE.
+   Cinq sont en TERRE BATTUE — le serveur, les couverts, le convive, les verres,
+   le plateau : c'est la table. Quatre sont en VERT SAPIN — la raquette, le
+   joueur, le filet, les chaussures : c'est le club. On lit les deux d'un coup
+   d'œil, et on a compris où l'on est avant d'avoir lu une ligne.
+
+   Ils sont mélangés à dessein : jamais deux dessins de la même encre côte à
+   côte, sinon la page se coupe en deux.
+
+   TOUT LE MOUVEMENT TIENT DANS UN SEUL CHIFFRE : `--p`, l'avancée du premier
+   défilement, de 0 (rien n'a bougé) à 1 (on a quitté l'écran). Le script ne
+   fait qu'écrire ce chiffre ; c'est la feuille de style qui en tire la chute
+   et la vrille de chaque dessin. Une seule écriture par image de rendu, pas
+   neuf.
+
+   Le même chiffre sert à l'arrivée : les dessins entrent en partant de
+   `--p: -0.3`, c'est-à-dire un peu plus haut et penchés dans l'autre sens, et
+   se posent. Le geste d'arrivée et le geste de départ sont donc le même
+   mouvement, joué dans un sens puis dans l'autre.
+   ============================================================================ */
+
+/* Déclarer `--p` lui donne un type : il devient un vrai nombre, interpolable,
+   et il vaut 0 tant que personne ne l'a écrit — y compris sans JavaScript. */
+@property --p {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 0;
+}
+
+.premier {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: calc(100svh - var(--entete-h));
+  padding-block: var(--joint-serre);
+  /* Trois dessins débordent volontairement : on les coupe ici, jamais avec une
+     barre de défilement horizontale. */
+  overflow: hidden;
+}
+
+@media (min-width: 1024px) {
+  .premier {
+    min-height: calc(100svh - var(--entete-h-lg));
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   L'ENSEIGNE
+
+   Elle occupe une bande centrale que les dessins ne franchissent jamais. Sa
+   taille est bornée par l'écran ET par une valeur en pixels : au-delà, une
+   enseigne qui grandit avec la fenêtre finit par avoir l'air d'un fond d'écran.
+
+   Elle est composée, pas dessinée : tout son dispositif est dans le composant
+   `.enseigne` de `composants.css`. Ici, on ne règle que sa taille et son
+   mouvement.
+   --------------------------------------------------------------------------- */
+.premier-titre {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  transform: translateY(calc(var(--p) * -3rem)) scale(calc(1 - var(--p) * 0.06));
+  opacity: calc(1 - var(--p) * 0.85);
+}
+
+/* ---------------------------------------------------------------------------
+   LE CHAMP DE DESSINS
+   --------------------------------------------------------------------------- */
+.premier-champ {
+  position: absolute;
+  inset: 0;
+  /* Un dessin ne prend jamais le clic : tout ce qui est cliquable est ailleurs. */
+  pointer-events: none;
+  /* Ils s'effacent en partant, sans disparaître tout à fait : il en reste une
+     trace quand la bande d'accès direct arrive. */
+  opacity: calc(1 - var(--p) * 0.7);
+  --echelle: 0.54;
+}
+
+/* Sous 380 px de large, les dessins gardaient leur taille pendant que l'écran
+   rétrécissait : ils finissaient par se toucher, et le couvert sortait par la
+   gauche. Un cran d'échelle en dessous suffit à tout dégager. */
+@media (max-width: 379px) {
+  .premier-champ {
+    --echelle: 0.46;
+  }
+}
+
+@media (min-width: 700px) {
+  .premier-champ {
+    --echelle: 0.72;
+  }
+}
+
+@media (min-width: 1100px) {
+  .premier-champ {
+    --echelle: 1;
+  }
+}
+
+/* Au-delà, la page continue de s'élargir mais les dessins, eux, sont réglés en
+   pixels : ils rapetissent à vue d'œil pendant que l'enseigne, elle, va jusqu'à
+   150 px de corps. Un dernier cran les remet à l'échelle du grand écran. */
+@media (min-width: 1600px) {
+  .premier-champ {
+    --echelle: 1.18;
+  }
+}
+
+/*
+  Chaque dessin porte cinq réglages, et rien d'autre :
+
+    --x --y ... où il est, en pourcentage de l'écran
+    --l ....... sa largeur de référence, ramenée par --echelle
+    --r ....... de combien il penche au repos
+    --chute ... de combien il descend quand on quitte l'écran
+    --vrille .. de combien il tourne en descendant
+
+  La chute et la vrille changent de valeur ET DE SIGNE d'un dessin à l'autre :
+  c'est ce qui donne l'impression d'un désordre, alors que chaque position est
+  choisie. Deux dessins qui tomberaient à la même vitesse se liraient comme une
+  grille qui glisse.
+*/
+.premier-piece {
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  width: calc(var(--l) * var(--echelle));
+  height: auto;
+  transform: translate(-50%, -50%) translateY(calc(var(--p) * var(--chute)))
+    rotate(calc(var(--r) + var(--p) * var(--vrille)));
+}
+
+/* Le navigateur n'est prévenu que sur les écrans qui ont de quoi tenir neuf
+   couches composées. Au doigt, la promesse coûterait plus qu'elle ne rapporte. */
+@media (min-width: 1100px) {
+  .premier-piece {
+    will-change: transform;
+  }
+}
+
+.premier-piece--serveur {
+  --x: 11%;
+  --y: 26%;
+  --l: 245px;
+  --r: -13deg;
+  --chute: 260px;
+  --vrille: 15deg;
+}
+
+/* Le couvert est de loin le dessin le plus haut : à largeur égale il occupe
+   deux fois et demie la hauteur des autres. Il est donc tenu beaucoup plus
+   étroit que ses voisins — c'est sa hauteur, pas sa largeur, qui lui donne son
+   poids. */
+.premier-piece--couvert {
+  --x: 88%;
+  --y: 19%;
+  --l: 100px;
+  --r: 12deg;
+  --chute: 115px;
+  --vrille: -14deg;
+}
+
+.premier-piece--convive {
+  --x: 25%;
+  --y: 83%;
+  --l: 190px;
+  --r: 7deg;
+  --chute: 190px;
+  --vrille: -11deg;
+}
+
+.premier-piece--raquette {
+  --x: 8%;
+  --y: 72%;
+  --l: 135px;
+  --r: 9deg;
+  --chute: 105px;
+  --vrille: 16deg;
+}
+
+.premier-piece--trinquer {
+  --x: 93%;
+  --y: 52%;
+  --l: 120px;
+  --r: -8deg;
+  --chute: 100px;
+  --vrille: 21deg;
+}
+
+.premier-piece--joueur {
+  --x: 82%;
+  --y: 78%;
+  --l: 225px;
+  --r: -6deg;
+  --chute: 280px;
+  --vrille: -17deg;
+}
+
+.premier-piece--plateau {
+  --x: 63%;
+  --y: 12%;
+  --l: 180px;
+  --r: 15deg;
+  --chute: 175px;
+  --vrille: 13deg;
+}
+
+.premier-piece--filet {
+  --x: 45%;
+  --y: 84%;
+  --l: 215px;
+  --r: -15deg;
+  --chute: 135px;
+  --vrille: -19deg;
+}
+
+.premier-piece--baskets {
+  --x: 34%;
+  --y: 10%;
+  --l: 200px;
+  --r: 18deg;
+  --chute: 165px;
+  --vrille: -20deg;
+}
+
+/* AU DOIGT, LA COMPOSITION CHANGE DE NATURE.
+
+   Sur grand écran, l'enseigne est une île au milieu et les dessins font le
+   tour. Sur un téléphone elle barre l'écran d'un bord à l'autre : il ne reste
+   plus une couronne, mais DEUX BANDES — l'une au-dessus, l'autre en dessous —
+   et les colonnes latérales sont trop étroites pour tenir quoi que ce soit.
+
+   Les neuf dessins se répartissent donc cinq en haut, quatre en bas, et chaque
+   bande est remplie en quinconce : jamais deux dessins à la même hauteur, jamais
+   deux du même côté l'un sous l'autre. C'est ce qui évite les deux trous qu'on
+   avait — la bande de gauche à mi-hauteur, et le dessous de l'enseigne à droite.
+
+   Aucun n'est coupé par le bord gauche ou droit : sur un écran étroit, un dessin
+   à moitié sorti se lit comme une erreur, pas comme un parti pris. Seul celui du
+   bas peut l'être, et par le bas — là où la page continue.
+
+   Seules les positions changent ici : les tailles sont déjà ramenées par
+   `--echelle`, et les chutes restent celles du grand écran. */
+@media (max-width: 699px) {
+  .premier-piece--serveur {
+    --x: 27%;
+    --y: 11%;
+  }
+
+  .premier-piece--raquette {
+    --x: 16%;
+    --y: 32%;
+  }
+
+  .premier-piece--plateau {
+    --x: 60%;
+    --y: 24%;
+  }
+
+  .premier-piece--couvert {
+    --x: 85%;
+    --y: 10%;
+  }
+
+  .premier-piece--baskets {
+    --x: 72%;
+    --y: 37%;
+  }
+
+  .premier-piece--trinquer {
+    --x: 17%;
+    --y: 63%;
+  }
+
+  .premier-piece--convive {
+    --x: 27%;
+    --y: 85%;
+  }
+
+  .premier-piece--joueur {
+    --x: 73%;
+    --y: 71%;
+  }
+
+  .premier-piece--filet {
+    --x: 68%;
+    --y: 95%;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   LE TÉLÉPHONE TENU À L'HORIZONTALE
+
+   Là, le premier écran ne fait plus que 330 px de haut. L'enseigne en occupe
+   déjà le tiers, et les neuf dessins n'ont plus de bandes où se ranger : ils
+   s'empilent les uns sur les autres.
+
+   La réponse n'est pas de tout rapetisser jusqu'à l'illisible, c'est d'en
+   montrer moins. Les quatre plus grands — qui sont tous des dessins EN HAUTEUR,
+   donc les premiers à ne plus rentrer — se retirent. Restent les cinq dessins
+   larges et bas, qui sont justement ceux qui conviennent à un écran large et
+   bas.
+   --------------------------------------------------------------------------- */
+@media (max-height: 560px) {
+  .enseigne--premier {
+    font-size: clamp(40px, 9vw, 84px);
+  }
+
+  .premier-champ {
+    --echelle: 0.5;
+  }
+
+  .premier-piece--serveur,
+  .premier-piece--joueur,
+  .premier-piece--couvert,
+  .premier-piece--convive {
+    display: none;
+  }
+
+  .premier-piece--plateau {
+    --x: 13%;
+    --y: 16%;
+  }
+
+  .premier-piece--raquette {
+    --x: 47%;
+    --y: 14%;
+  }
+
+  .premier-piece--baskets {
+    --x: 85%;
+    --y: 17%;
+  }
+
+  .premier-piece--trinquer {
+    --x: 20%;
+    --y: 82%;
+  }
+
+  .premier-piece--filet {
+    --x: 74%;
+    --y: 84%;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   L'ARRIVÉE
+
+   Elle n'existe que si le script a marqué la page. Sans JavaScript, sans
+   IntersectionObserver, ou si le système demande un mouvement réduit, les
+   dessins sont simplement là — c'est la même règle que partout ailleurs sur
+   le site.
+
+   `backwards` et non `both` : passé la dernière image, la règle rend la main,
+   et `--p` redevient celui que le défilement écrit. Sans quoi le dessin
+   resterait figé à sa position d'arrivée.
+   --------------------------------------------------------------------------- */
+[data-js="on"] .premier-piece {
+  animation: premier-arrivee var(--dur-apparition) var(--sortie-expo) backwards;
+  animation-delay: var(--retard, 0s);
+}
+
+.premier-piece--baskets {
+  --retard: 60ms;
+}
+.premier-piece--plateau {
+  --retard: 120ms;
+}
+.premier-piece--raquette {
+  --retard: 180ms;
+}
+.premier-piece--couvert {
+  --retard: 240ms;
+}
+.premier-piece--trinquer {
+  --retard: 300ms;
+}
+.premier-piece--convive {
+  --retard: 360ms;
+}
+.premier-piece--filet {
+  --retard: 420ms;
+}
+.premier-piece--joueur {
+  --retard: 480ms;
+}
+
+@keyframes premier-arrivee {
+  from {
+    opacity: 0;
+    --p: -0.3;
+  }
+}
+
+/* ============================================================================
+   3. LA BANDE D'ACCÈS DIRECT
+
+   Les quatre seules questions qu'on se pose devant un site de restaurant. Le
+   site de référence n'en a pas — mais il vend des chambres, pas un service à
+   midi. Ici, savoir tout de suite si c'est ouvert et où c'est vaut mieux qu'un
+   écran de vide de plus.
+   ============================================================================ */
+/* La bande est réglée par ses deux filets : elle ne peut pas porter de vide en
+   dessous sans que le filet du bas descende avec. C'est donc la section qui la
+   suit qui porte le joint entier — un cas, une règle, écrite ici. */
+.accesdirect-bande {
+  border-block: 1px solid var(--trait);
+}
+
+.accesdirect-bande + .section {
+  padding-top: var(--joint);
+}
+
+.accesdirect-grille {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  max-width: var(--colonne);
+  margin-inline: auto;
+}
+
+@media (min-width: 900px) {
+  .accesdirect-grille {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+.accesdirect-cellule {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: var(--sp-3);
+  min-height: 118px;
+  padding: var(--sp-5) var(--marge);
+  border-left: 1px solid var(--trait);
+  border-top: 1px solid var(--trait);
+  transition: background-color var(--dur-vif) var(--sortie);
+}
+
+/* Les filets ne doublent jamais celui de la bande, ni celui du bord. */
+.accesdirect-cellule:nth-child(-n + 2) {
+  border-top: 0;
+}
+
+.accesdirect-cellule:nth-child(odd) {
+  border-left: 0;
+}
+
+@media (min-width: 900px) {
+  .accesdirect-cellule {
+    border-top: 0;
+    border-left: 1px solid var(--trait);
+  }
+
+  .accesdirect-cellule:first-child {
+    border-left: 0;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .accesdirect-cellule:hover {
+    background-color: var(--sable);
+  }
+}
+
+.accesdirect-cellule:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+}
+
+.accesdirect-libelle {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--sp-3);
+  color: var(--encre-3);
+  font-family: var(--mono);
+  font-size: var(--fs-exergue);
+  letter-spacing: 0.18em;
+  line-height: 1.2;
+  text-transform: uppercase;
+  transition: color var(--dur-vif) var(--sortie);
+}
+
+.accesdirect-cellule:hover .accesdirect-libelle,
+.accesdirect-cellule:focus-visible .accesdirect-libelle {
+  color: var(--accent);
+}
+
+.accesdirect-libelle svg {
+  flex: none;
+}
+
+.accesdirect-valeur {
+  color: var(--encre);
+  font-family: var(--serif);
+  font-size: var(--fs-plat);
+  font-weight: 500;
+  line-height: 1.3;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ============================================================================
+   4. LE MOTIF TEXTE / PHOTOGRAPHIE
+
+   Toutes les proportions de ce bloc viennent d'une MESURE prise au navigateur
+   sur le site de référence, à 1600 px de large — pas d'une estimation à l'œil :
+
+     bande de contenu ...... 1216 px  (marges de 192 px de chaque côté)
+     photographie ..........  614 px  soit 38 % de l'écran, en paysage 4/3
+     colonne de texte ......  602 px
+     texte, largeur réelle ..  456 px
+     vide entre le texte et la photographie ..............  90 px
+     vide entre le texte et le bord extérieur de la bande .  56 px
+
+   Le premier relevé donnait 736 px pour la photographie : il mesurait l'image
+   AGRANDIE par la dérive (× 1,2), pas son cadre. Toutes les valeurs ci-dessus
+   sont prises sur les cadres, transformations neutralisées.
+   ============================================================================ */
+.duo-duo {
+  display: grid;
+  gap: var(--sp-8);
+  align-items: start;
+}
+
+@media (min-width: 900px) {
+  /*
+    Par défaut la photographie est à gauche : c'est elle qui prend les 55 %.
+    Quand elle passe à droite, les deux proportions s'échangent avec elle —
+    sinon la photographie se retrouve dans la colonne étroite et rétrécit d'un
+    bloc à l'autre, ce qui casse tout le rythme.
+  */
+  .duo-duo {
+    grid-template-columns: minmax(0, 614fr) minmax(0, 602fr);
+    gap: 0;
+  }
+
+  .duo-droite {
+    grid-template-columns: minmax(0, 602fr) minmax(0, 614fr);
+  }
+
+  .duo-droite .duo-visuel {
+    order: 2;
+  }
+
+  /*
+    Le texte se serre CONTRE la photographie et laisse tout le vide du côté
+    extérieur. C'est ce déséquilibre voulu qui fait respirer la page — un texte
+    centré dans sa colonne donnerait deux blocs qui se font face, donc un
+    tableau.
+  */
+  /*
+    Le texte est plaqué contre le bord EXTÉRIEUR de sa colonne, à 56 px, et
+    laisse donc 90 px entre lui et la photographie. C'est ce déséquilibre qui
+    fait respirer la page : un texte centré dans sa colonne donnerait deux
+    blocs qui se font face, donc un tableau.
+  */
+  .duo-texte {
+    margin-left: auto;
+    padding-right: 56px;
+  }
+
+  .duo-droite .duo-texte {
+    margin-left: 0;
+    padding-right: 0;
+    padding-left: 56px;
+  }
+}
+
+.duo-visuel {
+  position: relative;
+}
+
+.duo-texte {
+  /* 512 px de boîte pour 456 px de texte : les 56 px de marge extérieure sont
+     compris dedans. */
+  max-width: 32rem;
+}
+
+.duo-titre {
+  font-size: var(--fs-h1);
+  letter-spacing: -0.025em;
+  line-height: 1.06;
+}
+
+.duo-texte > * + * {
+  margin-top: var(--sp-5);
+}
+
+.duo-texte > [data-actions] {
+  margin-top: var(--sp-7);
+}
+
+@media (max-width: 899px) {
+  .duo-texte {
+    order: 1;
+  }
+
+  .duo-visuel {
+    order: 2;
+  }
+
+  /* Au doigt, la photographie de ces deux blocs s'intercale entre le texte et
+     la paire d'images qui suit : trois photographies d'affilée. Celle de la
+     salle montrait la même pièce que la paire ; celle des spécialités, un objet
+     rond qu'un écran étroit étire sur presque toute sa hauteur, en pure perte —
+     le même tajine ouvre déjà la page des spécialités. On les retire : sur
+     petit écran, elles n'ajoutaient que de la longueur. */
+  .duo-visuel--horsMobile {
+    display: none;
+  }
+}
+
+/* Un duo sans image : le titre prend la colonne de lecture et rien d'autre. */
+.duo-seul {
+  display: block;
+}
+
+.duo-seul .duo-texte {
+  max-width: var(--colonne-lecture);
+  margin-inline: 0;
+}
+
+/* ============================================================================
+   4 bis. LA PAIRE D'IMAGES, ET SON DESSIN
+
+   Après chaque bloc texte/photographie, deux photographies seules, sans un mot,
+   et un dessin au trait posé SOUS LA PLUS COURTE des deux — dans sa colonne,
+   aligné sur son bord intérieur. Le dessin n'est pas un bloc à part qui
+   flotterait au milieu de la page : il achève la paire.
+
+   Tout est mesuré au navigateur sur le site de référence, aux deux extrémités
+   de l'échelle.
+
+                                    à 1600 px        à 390 px
+     bande de contenu ............. 1216            362
+     photographie paysage ......... 448 (36,8 %)    169 (46,7 %)
+     photographie portrait ........ 434 (35,7 %)    169 (46,7 %)
+     vide entre les deux .......... 212             24
+     marge extérieure, côté paysage  32             14
+     marge extérieure, côté portrait 90             14
+     décalage vertical ............ 116             49
+     dessin ....................... 192             99
+     vide au-dessus du dessin ..... 149             73
+     format paysage ............... 1,44            4/3
+     format portrait .............. 4/5             3/4
+
+   La photographie paysage est TOUJOURS la plus basse des deux, et c'est
+   toujours elle qui porte le dessin. Seul son côté change d'une paire à
+   l'autre — c'est ce qui empêche deux blocs successifs de se ressembler.
+   ============================================================================ */
+/* Deux photographies sans un mot : c'est un silence, pas un propos. Il se
+   sépare donc de ses voisines par le SOUFFLE — une fois et demie l'intervalle
+   courant — et symétriquement : on entre dans le silence et on en sort de la
+   même façon.
+
+   Les deux voisines apportant chacune leur demi-joint, celle-ci pose les deux
+   demi-joints qui manquent pour atteindre le souffle. */
+.paire-section {
+  padding-block: calc(var(--joint-souffle) - var(--demi-joint));
+}
+
+.paire {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 24px;
+  align-items: start;
+}
+
+/* La paysage descend encore, mais à peine : 16 px au doigt, 32 sur grand
+   écran. Il reste juste ce qu'il faut de décalage pour que les deux
+   photographies ne démarrent pas sur la même ligne — le reste tenait la
+   colonne du dessin beaucoup trop bas. */
+.paire-paysage {
+  margin-top: clamp(1rem, 2vw, 2rem);
+}
+
+/* Les formats changent avec la taille de l'écran — c'est le cas chez eux
+   aussi, leurs classes disent « aspect-[4/3] sm:aspect-[322/223] ». Au doigt,
+   des images moins étirées tiennent mieux dans une demi-colonne. */
+@media (max-width: 899px) {
+  .paire .photo-paysageLarge {
+    --ratio: 4 / 3;
+  }
+
+  .paire .photo-portrait {
+    --ratio: 3 / 4;
+  }
+}
+
+/*
+  Sur grand écran, les photographies cessent de remplir leur colonne. Les
+  quatre valeurs ci-dessous sont les quatre positions mesurées : chaque format
+  garde sa largeur, et seule sa marge change selon le côté où il se trouve.
+*/
+@media (min-width: 900px) {
+  .paire {
+    gap: 0;
+  }
+
+  .paire-colonne:first-child .paire-paysage {
+    width: 73.68%;
+    margin-left: 5.26%;
+  }
+
+  .paire-colonne:last-child .paire-paysage {
+    width: 73.68%;
+    margin-left: 21.05%;
+  }
+
+  .paire-colonne:first-child .paire-portrait {
+    width: 71.38%;
+    margin-left: 14.8%;
+  }
+
+  .paire-colonne:last-child .paire-portrait {
+    width: 71.38%;
+    margin-left: 13.82%;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   LE DESSIN AU TRAIT
+
+   Il vit dans la colonne de la photographie paysage, sous elle, et s'aligne
+   sur son bord INTÉRIEUR — celui qui regarde le centre de la page. Jamais
+   centré : le milieu est la seule position qui ne veut rien dire.
+   --------------------------------------------------------------------------- */
+/* Ils passent en grand. À 192 px au maximum, posés dans un demi-écran de crème,
+   ils avaient l'air d'un timbre oublié — surtout depuis que le premier écran en
+   montre neuf en pleine taille. À 300 px ils deviennent le troisième élément de
+   la paire, au lieu de sa signature. */
+.trait-dessin {
+  display: block;
+  width: clamp(140px, 17vw, 300px);
+  height: auto;
+  margin-top: clamp(2.5rem, 5vw, 5rem);
+}
+
+/* Les deux verres et les mains à la bouteille sont presque carrés. À largeur
+   égale ils pèseraient deux fois plus qu'un dessin couché : on les réduit pour
+   que tous fassent la même hauteur à l'œil. */
+.trait-dessin--haut {
+  width: clamp(128px, 12.5vw, 225px);
+}
+
+/* Colonne de gauche : le dessin se cale à droite, sous le bord intérieur —
+   mais pas collé à lui. Les 14 % le décollent du milieu de la page, où les
+   deux colonnes se rejoignent. */
+.paire-colonne:first-child .trait-dessin {
+  margin-left: auto;
+  margin-right: 14%;
+}
+
+/* Colonne de droite : il se cale à gauche. Ici pas de retrait — le décoller du
+   milieu le pousserait contre le bord de l'écran au doigt. */
+.paire-colonne:last-child .trait-dessin {
+  margin-left: 0;
+}
+
+@media (min-width: 900px) {
+  .paire-colonne:first-child .trait-dessin {
+    margin-right: 21.06%;
+  }
+
+  .paire-colonne:last-child .trait-dessin {
+    margin-left: 21.05%;
+  }
+}
+
+/* ============================================================================
+   6. LES PLATS QUI SIGNENT LA MAISON
+
+   Quatre assiettes, alignées. C'est le seul bloc de la page qui reste en
+   grille régulière, et pour une raison : on y compare quatre plats et quatre
+   prix. Un décalage rendrait la comparaison pénible.
+   ============================================================================ */
+.platssignature-entete {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: var(--sp-5) var(--sp-7);
+  margin-bottom: var(--sp-8);
+}
+
+.platssignature-grille {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--sp-7) var(--sp-5);
+}
+
+@media (min-width: 1024px) {
+  .platssignature-grille {
+    grid-template-columns: repeat(4, 1fr);
+    gap: clamp(1.25rem, 2.5vw, 2.25rem);
+  }
+}
+
+.platssignature-plat {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.platssignature-plat:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 6px;
+}
+
+.platssignature-nom {
+  margin-top: var(--sp-4);
+  color: var(--encre);
+  font-family: var(--serif);
+  font-size: var(--fs-plat);
+  font-weight: 500;
+  line-height: 1.25;
+  transition: color var(--dur-vif) var(--sortie);
+}
+
+.platssignature-plat:hover .platssignature-nom,
+.platssignature-plat:focus-visible .platssignature-nom {
+  color: var(--accent);
+}
+
+.platssignature-description {
+  margin-top: var(--sp-2);
+  color: var(--encre-2);
+  font-size: var(--fs-corps-sm);
+  line-height: 1.5;
+}
+
+/* Le prix est poussé en bas de sa carte : les quatre prix tombent alors sur la
+   même ligne, et deux plats se comparent d'un coup d'œil. */
+.platssignature-prix {
+  margin-top: auto;
+  padding-top: var(--sp-3);
+  color: var(--accent);
+  font-family: var(--mono);
+  font-size: var(--fs-corps-sm);
+  letter-spacing: 0.04em;
+  font-variant-numeric: tabular-nums;
+}
+
+.platssignature-suffixePrix {
+  color: var(--encre-3);
+}
+
+/* ============================================================================
+   7. À TABLE — LE RUBAN DE PHOTOGRAPHIES
+
+   Le seul endroit de la page où quelque chose sort de l'écran : le ruban
+   continue à droite, et c'est ce débord qui le dit. Les deux flèches sont
+   posées dans la marge de gauche, l'une sous l'autre, sans cadre — comme sur le
+   site de référence.
+
+   Les photographies y sont fixes dans leur cadre : la dérive au défilement est
+   faite pour un bloc qu'on dépasse verticalement, pas pour un ruban qu'on fait
+   glisser en travers. Les deux mouvements ensemble se lisent comme un défaut.
+   ============================================================================ */
+.ruban-section {
+  padding-block: 0;
+  overflow: hidden;
+}
+
+.ruban-piste {
+  position: relative;
+}
+
+.ruban-fleches {
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .ruban-fleches {
+    position: absolute;
+    top: var(--sp-6);
+    left: var(--marge);
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-1);
+  }
+}
+
+/* Une flèche nue : pas de rond, pas de cadre. */
+.ruban-fleche {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  background: none;
+  border: 0;
+  color: var(--encre);
+  cursor: pointer;
+  transition:
+    color var(--dur-vif) var(--sortie),
+    opacity var(--dur-vif) var(--sortie),
+    transform var(--dur-vif) var(--sortie);
+}
+
+.ruban-fleche:hover:not(:disabled) {
+  color: var(--accent);
+}
+
+.ruban-fleche:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.ruban-fleche:disabled {
+  opacity: 0.25;
+  cursor: default;
+}
+
+.ruban-defile {
+  display: flex;
+  /* 14 px au doigt, 44 px sur grand écran : les deux valeurs relevées. */
+  gap: clamp(14px, 2.75vw, 44px);
+  padding-inline: var(--marge);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline-start: var(--marge);
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+  scroll-behavior: smooth;
+}
+
+/* La place des flèches : 56 px, ce qui pose la première image à 88 px du bord
+   sur un écran de 1600 — la référence en donne 90. */
+@media (min-width: 1024px) {
+  .ruban-defile {
+    padding-inline-start: calc(var(--marge) + 56px);
+    scroll-padding-inline-start: calc(var(--marge) + 56px);
+  }
+}
+
+.ruban-defile::-webkit-scrollbar {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ruban-defile {
+    scroll-behavior: auto;
+  }
+}
+
+.ruban-vignette {
+  flex: 0 0 80vw; /* la mesure au doigt */
+  scroll-snap-align: start;
+}
+
+/* À la souris, la vignette valait 63 % de l'écran : sur un grand moniteur, un
+   gros plan d'assiette y occupait presque toute la largeur et se lisait comme
+   une texture, plus comme un plat. Elle prend maintenant la moitié de l'écran,
+   sans jamais dépasser 720 px — au-delà, on n'ajoute plus rien à ce qu'on voit,
+   on agrandit seulement. Deux photographies tiennent ainsi côte à côte, et la
+   troisième déborde assez pour dire que le ruban continue. */
+@media (min-width: 900px) {
+  .ruban-vignette {
+    flex-basis: min(52vw, 720px);
+  }
+}
+
+/* Ici, et seulement ici, toutes les vignettes ont le même format. Le décalage
+   est la règle de la page — mais dans un ruban qu'on fait glisser, des hauteurs
+   inégales se lisent comme un défaut d'alignement, pas comme un parti pris.
+   Le rapport 1,58 est celui relevé chez eux. */
+.ruban-vignette .photo-cadre {
+  --ratio: 1264 / 800;
+}
+
+/* ============================================================================
+   8. VENIR CHEZ NOUS
+   ============================================================================ */
+.infospratiques-colonnes {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--sp-6);
+  margin-top: var(--sp-8);
+}
+
+@media (min-width: 768px) {
+  .infospratiques-colonnes {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0;
+  }
+}
+
+.infospratiques-colonne {
+  padding-block: var(--sp-5);
+  border-top: 1px solid var(--trait);
+}
+
+@media (min-width: 768px) {
+  .infospratiques-colonne {
+    padding: 0 var(--sp-7);
+    border-top: 0;
+    border-left: 1px solid var(--trait);
+  }
+
+  .infospratiques-colonne:first-child {
+    padding-left: 0;
+    border-left: 0;
+  }
+
+  .infospratiques-colonne:last-child {
+    padding-right: 0;
+  }
+}
+
+.infospratiques-colonne h3 {
+  margin-bottom: var(--sp-5);
+  color: var(--encre-3);
+  font-family: var(--mono);
+  font-size: var(--fs-exergue);
+  font-weight: 400;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.infospratiques-colonne p,
+.infospratiques-colonne address {
+  color: var(--encre);
+  font-size: var(--fs-corps-sm);
+  line-height: 1.7;
+}
+
+.infospratiques-colonne p a,
+.infospratiques-colonne address a {
+  padding-block: var(--sp-2);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+.infospratiques-telephone {
+  display: inline-block;
+  margin-bottom: var(--sp-2);
+  font-family: var(--serif);
+  font-size: var(--fs-h3);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  font-variant-numeric: tabular-nums;
+}
+
+.infospratiques-telephone:hover {
+  text-decoration: underline;
+  text-underline-offset: 5px;
+}
+
+.infospratiques-action {
+  margin-top: var(--sp-6);
+}
+
+/* Le plan reste dans la colonne, comme tout le reste : il ne va pas d'un bord
+   de l'écran à l'autre. */
+.plan-bloc {
+  margin-top: var(--sp-9);
+}
+
+/* ============================================================================
+   9. LE GRAND APPEL
+
+   La réservation se fait au téléphone, uniquement. Ce n'est pas une limite à
+   cacher : c'est le dernier mot de la page, écrit en grand.
+   ============================================================================ */
+.bandeauappel-bande {
+  padding-block: var(--demi-joint);
+  text-align: center;
+}
+
+.bandeauappel-titre {
+  font-size: var(--fs-h2);
+  letter-spacing: -0.02em;
+  line-height: 1.06;
+}
+
+.bandeauappel-numero {
+  display: inline-block;
+  margin-top: var(--sp-6);
+  color: var(--encre);
+  font-family: var(--serif);
+  font-size: clamp(2.25rem, 1.2rem + 4.6vw, 4rem);
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 12px;
+  transition: text-decoration-thickness var(--dur-vif) var(--sortie);
+}
+
+.bandeauappel-numero:hover {
+  text-decoration-thickness: 2px;
+}
+
+.bandeauappel-detail {
+  margin-top: var(--sp-7);
+  color: var(--encre-2);
+  font-family: var(--mono);
+  font-size: var(--fs-legende);
+  line-height: 1.8;
+}

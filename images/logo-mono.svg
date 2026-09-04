@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Restaurant du Tennis">
+  <title>Restaurant du Tennis</title>
+  <circle cx="32" cy="32" r="28" fill="#c0603a"/>
+  <g fill="none" stroke="#f4f1e9" stroke-width="2.95" stroke-linecap="round">
+    <path d="M4.61 26.18 C 14.08 9.28, 49.92 9.28, 59.39 26.18"/>
+    <path d="M4.61 37.82 C 14.08 54.72, 49.92 54.72, 59.39 37.82"/>
+  </g>
+</svg>

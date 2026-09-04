@@ -1,0 +1,601 @@
+<!doctype html>
+<html lang="fr-CH">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Les deux polices sont demandées avant tout le reste : le nom de la maison
+         est du texte, pas une image, et il ne doit pas s'afficher d'abord en
+         Georgia puis sauter en Newsreader sous les yeux du visiteur. -->
+    <link rel="preload" href="fonts/instrument-sans.woff2" as="font" crossorigin type="font/woff2" />
+    <link rel="preload" href="fonts/newsreader.woff2" as="font" crossorigin type="font/woff2" />
+    <meta name="theme-color" content="#F4F1E9" />
+    <title>Contact et accès — Restaurant du Tennis, Écublens</title>
+    <meta
+      name="description"
+      content="Restaurant du Tennis, chemin des Esserts 6 à Écublens. Horaires, plan d’accès, itinéraire et formulaire de contact. Réservation par téléphone au 021 555 41 14."
+    />
+    <meta name="application-name" content="Restaurant du Tennis" />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <link rel="canonical" href="https://www.restaurant-du-tennis.ch/contact/" />
+    <meta property="og:title" content="Contact et accès — Restaurant du Tennis, Écublens" />
+    <meta
+      property="og:description"
+      content="Restaurant du Tennis, chemin des Esserts 6 à Écublens. Horaires, plan d’accès, itinéraire et formulaire de contact. Réservation par téléphone au 021 555 41 14."
+    />
+    <meta property="og:url" content="https://www.restaurant-du-tennis.ch/contact/" />
+    <meta property="og:site_name" content="Restaurant du Tennis" />
+    <meta property="og:locale" content="fr_CH" />
+    <meta property="og:image" content="https://www.restaurant-du-tennis.ch/images/og-2026-09a.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="La terrasse du Restaurant du Tennis, au bord des courts en terre battue, à Écublens"
+    />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Contact et accès — Restaurant du Tennis, Écublens" />
+    <meta
+      name="twitter:description"
+      content="Restaurant du Tennis, chemin des Esserts 6 à Écublens. Horaires, plan d’accès, itinéraire et formulaire de contact. Réservation par téléphone au 021 555 41 14."
+    />
+    <meta name="twitter:image" content="https://www.restaurant-du-tennis.ch/images/og-2026-09a.jpg" />
+    <link
+      rel="icon"
+      href="/favicon.ico?favicon.3zxueus_twa87.ico"
+      sizes="32x32"
+      type="image/x-icon"
+    />
+    <link rel="icon" href="images/logo-mono.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+    <meta name="next-size-adjust" content="" />
+    <link rel="stylesheet" href="css/tokens.css" />
+    <link rel="stylesheet" href="css/base.css" />
+    <link rel="stylesheet" href="css/composants.css" />
+    <link rel="stylesheet" href="css/accueil.css" />
+    <link rel="stylesheet" href="css/pages.css" />
+    <script src="js/apparitions.js"></script>
+    <script src="js/entete.js" defer></script>
+    <script src="js/barre-action.js" defer></script>
+    <script src="js/menu-mobile.js" defer></script>
+    <script src="js/horaires.js" defer></script>
+    <script src="js/galerie.js" defer></script>
+    <script src="js/plan.js" defer></script>
+    <script src="js/formulaire.js" defer></script>
+  </head>
+  <body data-page="contact">
+    <a class="lienEvitement" href="#contenu">Aller au contenu</a>
+    <header class="header-entete" data-compact="false">
+      <div class="header-barre">
+        <div class="wrap header-barreContenu">
+          <a class="header-logoLien" aria-label="Restaurant du Tennis, accueil" href="index.html"
+            ><span class="enseigne enseigne--barre"><span class="enseigne-sur">Restaurant du</span><span class="enseigne-nom">Tennis</span><span class="enseigne-lieu">Écublens</span></span></a>
+          <nav class="header-nav" aria-label="Navigation principale">
+            <a class="header-lienNav" href="carte.html">La carte</a
+            ><a class="header-lienNav" href="specialites.html">Spécialités</a
+            ><a class="header-lienNav" aria-current="page" href="contact.html">Contact</a>
+          </nav>
+          <div class="header-actions">
+            <span class="header-etat etatouverturelive-etat"
+              ><span class="etatouverturelive-pastille"></span
+              ><span class="etatouverturelive-detail">Midi et soir, du mardi au dimanche</span></span
+            >
+            <a
+              href="tel:+41215554114"
+              class="bouton-base bouton-primaire header-reserverLong"
+              aria-label="Réserver par téléphone au +41 21 555 41 14"
+              data-analytics="call"
+              ><svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="square"
+                stroke-linejoin="miter"
+                aria-hidden="true"
+                focusable="false"
+              >
+                <path
+                  d="M6.5 3h-3v3a14.5 14.5 0 0 0 14.5 14.5h3v-3l-4-1.5-2.5 2.5a11.5 11.5 0 0 1-9-9L8 7z"
+                ></path></svg
+              >Réserver ·
+              <!-- -->021 555 41 14</a
+            >
+          </div>
+          <button
+            type="button"
+            class="header-iconeSeule header-boutonMenu"
+            aria-label="Ouvrir le menu de navigation"
+            aria-expanded="false"
+            aria-controls="menu-mobile"
+          >
+            <svg
+              width="22"
+              height="22"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.5"
+              stroke-linecap="square"
+              stroke-linejoin="miter"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <path d="M3 6h18 M3 12h18 M3 18h18"></path>
+            </svg></button
+          >
+        </div>
+      </div>
+    </header>
+    <dialog id="menu-mobile" class="menumobile-panneau surface-sapin" aria-label="Navigation du site">
+      <div class="wrap">
+        <div class="menumobile-entete">
+          <span class="enseigne enseigne--menu"><span class="enseigne-sur">Restaurant du</span><span class="enseigne-nom">Tennis</span><span class="enseigne-lieu">Écublens</span></span><button type="button" class="menumobile-fermer" aria-label="Fermer le menu">
+            <svg
+              width="22"
+              height="22"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.5"
+              stroke-linecap="square"
+              stroke-linejoin="miter"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <path d="M5 5l14 14 M19 5L5 19"></path>
+            </svg>
+          </button>
+        </div>
+        <nav class="menumobile-liens" aria-label="Navigation principale">
+          <a class="menumobile-lien" href="carte.html" style="--delai: 0ms"
+            >La carte<svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.5"
+              stroke-linecap="square"
+              stroke-linejoin="miter"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <path d="M4 12h15 M13 6l6 6-6 6"></path></svg></a
+          ><a class="menumobile-lien" href="specialites.html" style="--delai: 40ms"
+            >Spécialités<svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.5"
+              stroke-linecap="square"
+              stroke-linejoin="miter"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <path d="M4 12h15 M13 6l6 6-6 6"></path></svg></a
+          ><a class="menumobile-lien" aria-current="page" href="contact.html" style="--delai: 80ms"
+            >Contact<svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.5"
+              stroke-linecap="square"
+              stroke-linejoin="miter"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <path d="M4 12h15 M13 6l6 6-6 6"></path></svg
+          ></a>
+        </nav>
+        <div class="menumobile-pied">
+          <a
+            href="tel:+41215554114"
+            class="bouton-base bouton-primaire bouton-grand bouton-pleineLargeur"
+            data-analytics="call"
+            ><svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.5"
+              stroke-linecap="square"
+              stroke-linejoin="miter"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <path
+                d="M6.5 3h-3v3a14.5 14.5 0 0 0 14.5 14.5h3v-3l-4-1.5-2.5 2.5a11.5 11.5 0 0 1-9-9L8 7z"
+              ></path></svg
+            >Réserver · 021 555 41 14</a
+          >
+          <address>Chemin des Esserts 6, 1024 Écublens<br />Fermé le lundi</address>
+        </div>
+      </div>
+    </dialog>
+    <main id="contenu">
+      <section class="surface-creme section">
+        <div class="wrapLarge duo-duo duo-droite">
+          <div class="duo-visuel">
+            <div class="photo-cadre photo-derive" style="--ratio: 1100 / 1375">
+              <img
+                alt="La salle du Restaurant du Tennis, chemin des Esserts 6 à Écublens, vue depuis l’entrée"
+                fetchpriority="high"
+                width="1100"
+                height="1375"
+                decoding="async"
+                data-nimg="1"
+                class="photo-image"
+                style="color: transparent"
+                src="images/duo-contact-2026-09a.jpg"
+              />
+            </div>
+          </div>
+          <div class="duo-texte" style="--reveal-delai: 90ms">
+            <img
+              class="marque marque--gueridon"
+              src="images/trait-gueridon-2026-09a.svg"
+              alt=""
+              width="559"
+              height="683"
+              loading="lazy"
+              decoding="async"
+            />
+            <h1 class="duo-titre">
+              Contact et accès — Restaurant du Tennis, <em class="italique">Écublens</em>
+            </h1>
+            <p class="chapo">
+              Chemin des Esserts 6, au club-house du Tennis Club d’Écublens, en Crochy. Parking gratuit sur place.
+            </p>
+            <address class="page-adresse">
+              Restaurant du Tennis<br />Chemin des Esserts 6<br />1024<!-- -->
+              <!-- -->Écublens<!-- -->, Suisse
+            </address>
+            <p class="page-coordonnees">
+              <a href="tel:+41215554114" data-analytics="call">+41 21 555 41 14</a><br /><a
+                href="mailto:contact@restaurant-du-tennis.ch"
+                >contact@restaurant-du-tennis.ch</a
+              >
+            </p>
+            <div data-actions="true">
+              <a
+                href="https://www.google.com/maps/dir/?api=1&amp;destination=Chemin%20des%20Esserts%206%2C%201024%20Ecublens%2C%20Suisse"
+                class="bouton-base bouton-secondaire"
+                rel="noopener"
+                target="_blank"
+                ><svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linecap="square"
+                  stroke-linejoin="miter"
+                  aria-hidden="true"
+                  focusable="false"
+                >
+                  <path
+                    d="M12 21s7-6.2 7-11a7 7 0 1 0-14 0c0 4.8 7 11 7 11z M12 12.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z"
+                  ></path></svg
+                >Ouvrir l’itinéraire</a
+              >
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="surface-creme section" aria-labelledby="titre-horaires" id="horaires">
+        <div class="wrapLarge">
+          <img
+            class="marque marque--trinquer"
+            src="images/trait-trinquer-2026-09a.svg"
+            alt=""
+            width="745"
+            height="733"
+            loading="lazy"
+            decoding="async"
+          />
+          <h2 class="titreSection" id="titre-horaires">
+            Midi et soir, <em class="italique">sauf le lundi</em>
+          </h2>
+          <dl class="page-semaine">
+            <div class="page-jour" data-ferme="true">
+              <dt>Lundi</dt>
+              <dd>Fermé</dd>
+            </div>
+            <div class="page-jour" data-ferme="false">
+              <dt>Mardi</dt>
+              <dd>11h30 – 14h00 · 18h30 – 22h00</dd>
+            </div>
+            <div class="page-jour" data-ferme="false">
+              <dt>Mercredi</dt>
+              <dd>11h30 – 14h00 · 18h30 – 22h00</dd>
+            </div>
+            <div class="page-jour" data-ferme="false">
+              <dt>Jeudi</dt>
+              <dd>11h30 – 14h00 · 18h30 – 22h00</dd>
+            </div>
+            <div class="page-jour" data-ferme="false">
+              <dt>Vendredi</dt>
+              <dd>11h30 – 14h00 · 18h30 – 22h00</dd>
+            </div>
+            <div class="page-jour" data-ferme="false">
+              <dt>Samedi</dt>
+              <dd>11h30 – 14h30 · 18h30 – 22h00</dd>
+            </div>
+            <div class="page-jour" data-ferme="false">
+              <dt>Dimanche</dt>
+              <dd>11h30 – 14h30 · 18h30 – 22h00</dd>
+            </div>
+          </dl>
+        </div>
+      </section>
+      <section class="surface-sable bandeauappel-bande" aria-labelledby="titre-reserver">
+        <div class="wrap">
+          <img
+            class="marque marque--cocktail"
+            src="images/trait-cocktail-2026-09a.svg"
+            alt=""
+            width="838"
+            height="1131"
+            loading="lazy"
+            decoding="async"
+          />
+          <h2 class="bandeauappel-titre" id="titre-reserver">
+            Une table se réserve <em class="italique">au téléphone</em>
+          </h2>
+          <a
+            class="bandeauappel-numero"
+            href="tel:+41215554114"
+            data-analytics="call"
+            aria-label="Appeler le restaurant au +41 21 555 41 14"
+            >+41 21 555 41 14</a
+          >
+          <p class="bandeauappel-detail">Du mardi au dimanche, midi et soir. Fermé le lundi.</p>
+        </div>
+      </section>
+      <section class="surface-creme section" aria-label="Plan d’accès">
+        <div class="wrapLarge">
+          <div
+            class="plan-plan"
+            data-carte="https://www.openstreetmap.org/export/embed.html?bbox=6.564724%2C46.531237%2C6.572724%2C46.535237&layer=mapnik&marker=46.533237%2C6.568724"
+            data-titre="Plan d’accès au Restaurant du Tennis, Chemin des Esserts 6, 1024 Écublens"
+          >
+            <img
+              alt="Plan du quartier de Écublens à Écublens, situant le Restaurant du Tennis au Chemin des Esserts 6"
+              loading="lazy"
+              width="1440"
+              height="800"
+              decoding="async"
+              data-nimg="1"
+              class="plan-fond"
+              style="color: transparent"
+              src="images/plan.jpg"
+            /><span class="plan-marqueur" aria-hidden="true"
+              ><svg
+                width="22"
+                height="22"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="square"
+                stroke-linejoin="miter"
+                aria-hidden="true"
+                focusable="false"
+              >
+                <path
+                  d="M12 21s7-6.2 7-11a7 7 0 1 0-14 0c0 4.8 7 11 7 11z M12 12.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z"
+                ></path></svg></span
+            ><button type="button" class="plan-ouvrir">
+              <span class="plan-etiquette">Ouvrir le plan interactif</span>
+            </button>
+          </div>
+          <p class="plan-credit">
+            Fond de plan<!-- -->
+            <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener"
+              >© les contributeurs OpenStreetMap</a
+            >
+          </p>
+        </div>
+      </section>
+      <!--
+  LE FORMULAIRE DE CONTACT
+  Le site n'a pas de serveur : les messages passent par un service de
+  réception. Remplacez l'adresse dans l'attribut « action » du <form>
+  ci-dessous par la vôtre (Formspree, Basin, Formcarry, ou un script sur
+  votre hébergement). Tant que ce n'est pas fait, l'envoi échoue et le
+  visiteur est renvoyé vers le téléphone.
+-->
+      <section class="surface-creme section" aria-labelledby="titre-message">
+        <div class="wrapLarge page-message">
+          <div class="page-messageTexte">
+            <img
+              class="marque marque--couvert"
+              src="images/trait-couvert-2026-09a.svg"
+              alt=""
+              width="326"
+              height="919"
+              loading="lazy"
+              decoding="async"
+            />
+            <h2 class="titreSection" id="titre-message">Écrivez-nous</h2>
+            <p class="chapo">
+              Groupe, allergie, événement privé : posez votre question ici. Pour réserver une table,
+              le téléphone reste le plus rapide.
+            </p>
+          </div>
+          <div class="page-carteFormulaire">
+            <form
+              data-telephone="021 555 41 14"
+              class="formulairecontact-formulaire"
+              novalidate=""
+              action="https://formspree.io/f/VOTRE-IDENTIFIANT"
+              enctype="multipart/form-data"
+              method="post"
+            >
+              <div class="formulairecontact-duo">
+                <p class="formulairecontact-champ" data-erreur="false">
+                  <label for="nom">Votre nom</label
+                  ><input
+                    id="nom"
+                    type="text"
+                    autocomplete="name"
+                    required=""
+                    maxlength="80"
+                    aria-invalid="false"
+                    name="nom"
+                  />
+                </p>
+                <p class="formulairecontact-champ" data-erreur="false">
+                  <label for="email">Votre e-mail</label
+                  ><input
+                    id="email"
+                    type="email"
+                    inputmode="email"
+                    autocomplete="email"
+                    spellcheck="false"
+                    required=""
+                    maxlength="120"
+                    aria-invalid="false"
+                    name="email"
+                  />
+                </p>
+              </div>
+              <p class="formulairecontact-champ">
+                <label for="sujet">Sujet</label
+                ><input
+                  id="sujet"
+                  type="text"
+                  autocomplete="off"
+                  maxlength="120"
+                  placeholder="Table de 12 le samedi soir…"
+                  name="sujet"
+                />
+              </p>
+              <p class="formulairecontact-champ" data-erreur="false">
+                <label for="message">Votre message</label
+                ><textarea
+                  id="message"
+                  name="message"
+                  autocomplete="off"
+                  required=""
+                  maxlength="2000"
+                  aria-invalid="false"
+                  aria-describedby="aide-message"
+                ></textarea
+                ><span class="formulairecontact-aide" id="aide-message"
+                  >Pour réserver une table, appelez-nous : c’est immédiat et confirmé.</span
+                >
+              </p>
+              <p class="formulairecontact-piege" aria-hidden="true">
+                <label for="site">Ne remplissez pas ce champ</label
+                ><input id="site" type="text" tabindex="-1" autocomplete="off" name="site" />
+              </p>
+              <div aria-live="polite" data-reponse></div>
+              <button
+                type="submit"
+                class="bouton-base bouton-primaire bouton-grand formulairecontact-envoi"
+              >
+                Envoyer le message
+              </button>
+            </form>
+          </div>
+        </div>
+      </section>
+      
+    </main>
+    <footer class="surface-sapin footer-pied">
+      <div class="wrap">
+        <div class="footer-colonnes">
+          <div class="footer-colonne">
+            <h2>Adresse</h2>
+            <address>
+              Restaurant du Tennis<br />Chemin des Esserts 6<br />1024<!-- -->
+              <!-- -->Écublens<br /><a
+                href="https://www.google.com/maps/dir/?api=1&amp;destination=Chemin%20des%20Esserts%206%2C%201024%20Ecublens%2C%20Suisse"
+                target="_blank"
+                rel="noopener"
+                >Voir l’itinéraire</a
+              >
+            </address>
+          </div>
+          <div class="footer-colonne">
+            <h2>Horaires</h2>
+            <dl>
+              <div class="footer-horaire">
+                <dt>Mardi – vendredi</dt>
+                <dd>11h30 – 14h00 · 18h30 – 22h00</dd>
+              </div>
+              <div class="footer-horaire">
+                <dt>Samedi – dimanche</dt>
+                <dd>11h30 – 14h30 · 18h30 – 22h00</dd>
+              </div>
+              <div class="footer-horaire">
+                <dt>Lundi</dt>
+                <dd class="footer-fermeture">Fermé</dd>
+              </div>
+            </dl>
+          </div>
+          <div class="footer-colonne">
+            <h2>Réservation</h2>
+            <p>
+              <a class="footer-telephone" href="tel:+41215554114" data-analytics="call">+41 21 555 41 14</a><br /><a
+                href="mailto:contact@restaurant-du-tennis.ch"
+                >contact@restaurant-du-tennis.ch</a
+              ><br />Réservation par téléphone
+            </p>
+          </div>
+          <div class="footer-colonne">
+            <h2>Le site</h2>
+            <nav class="footer-navPied" aria-label="Navigation de pied de page">
+              <a href="index.html">Accueil</a><a href="carte.html">La carte</a
+              ><a href="specialites.html">Spécialités</a><a href="contact.html">Contact</a>
+            </nav>
+          </div>
+        </div>
+        <p class="footer-mentions">
+          <span
+            >©
+            <!-- -->2026<!-- -->
+            <!-- -->Restaurant du Tennis</span
+          ><span>Chemin des Esserts 6, 1024 Écublens</span
+          ><span>Brasserie, grillades et spécialités marocaines</span>
+        </p>
+      </div>
+    </footer>
+    <div class="barreaction-barre" data-visible="false" aria-hidden="true">
+      <a class="barreaction-action barreaction-carte" tabindex="-1" href="carte.html">La carte</a
+      ><a
+        class="barreaction-action barreaction-appeler"
+        href="tel:+41215554114"
+        data-analytics="call"
+        tabindex="-1"
+        aria-label="Appeler le restaurant au +41 21 555 41 14"
+        ><svg
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.5"
+          stroke-linecap="square"
+          stroke-linejoin="miter"
+          aria-hidden="true"
+          focusable="false"
+        >
+          <path
+            d="M6.5 3h-3v3a14.5 14.5 0 0 0 14.5 14.5h3v-3l-4-1.5-2.5 2.5a11.5 11.5 0 0 1-9-9L8 7z"
+          ></path></svg
+        >Appeler</a
+      >
+    </div>
+  </body>
+</html>
