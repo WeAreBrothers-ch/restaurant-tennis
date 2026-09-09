@@ -22,24 +22,25 @@
 /* ============================================================================
    1. LE PREMIER ÉCRAN
 
-   Un écran entier de crème, l'enseigne au milieu, neuf dessins au trait autour.
+   Un écran entier de crème, l'enseigne au milieu, huit dessins au trait autour.
    Rien d'autre. Le texte d'accroche a quitté cet écran : le nom de la maison est
    l'enseigne elle-même.
 
    LES DESSINS ONT DEUX ENCRES, ET C'EST LE SUJET DE LA PAGE.
-   Cinq sont en TERRE BATTUE — le serveur, les couverts, le convive, les verres,
-   le plateau : c'est la table. Quatre sont en VERT SAPIN — la raquette, le
-   joueur, le filet, les chaussures : c'est le club. On lit les deux d'un coup
-   d'œil, et on a compris où l'on est avant d'avoir lu une ligne.
+   Deux sont en TERRE BATTUE — les verres et le couvert : c'est la table. Six
+   sont en VERT SAPIN — le service, la raquette, le joueur, le filet, les
+   chaussures, les balles : c'est le club. On lit les deux d'un coup d'œil, et
+   on a compris où l'on est avant d'avoir lu une ligne.
 
-   Ils sont mélangés à dessein : jamais deux dessins de la même encre côte à
-   côte, sinon la page se coupe en deux.
+   Les deux dessins de table sont DIAGONALEMENT OPPOSÉS : l'ocre traverse
+   l'écran, et l'œil fait le trajet. C'est ce qui remplace la règle
+   d'alternance du site modèle, devenue impossible à six contre deux.
 
    TOUT LE MOUVEMENT TIENT DANS UN SEUL CHIFFRE : `--p`, l'avancée du premier
    défilement, de 0 (rien n'a bougé) à 1 (on a quitté l'écran). Le script ne
    fait qu'écrire ce chiffre ; c'est la feuille de style qui en tire la chute
    et la vrille de chaque dessin. Une seule écriture par image de rendu, pas
-   neuf.
+   huit.
 
    Le même chiffre sert à l'arrivée : les dessins entrent en partant de
    `--p: -0.3`, c'est-à-dire un peu plus haut et penchés dans l'autre sens, et
@@ -167,76 +168,86 @@
   }
 }
 
-.premier-piece--serveur {
+/* LES HUIT DESSINS, ET LEURS DEUX ENCRES.
+
+   Six sont en VERT SAPIN — le service, la raquette, le joueur, le filet, les
+   chaussures, les balles : c'est le club. Deux sont en TERRE BATTUE — les
+   verres et le couvert : c'est la table.
+
+   La règle d'alternance du site modèle — jamais deux dessins de la même encre
+   côte à côte — ne tient plus : avec six dessins d'une couleur et deux de
+   l'autre, elle est arithmétiquement impossible. Elle est remplacée par une
+   règle qui, elle, tient : LES DEUX DESSINS DE TABLE SONT DIAGONALEMENT
+   OPPOSÉS — le couvert en haut à droite, les verres en bas à gauche. L'ocre
+   traverse l'écran, et l'œil fait le trajet.
+
+   Les largeurs ne sont pas égales : elles sont choisies pour que chaque dessin
+   pèse OPTIQUEMENT autant que ses voisins. Les verres et le couvert sont des
+   dessins couchés — trois fois plus larges que hauts pour les premiers — et il
+   leur faut deux fois la largeur d'un dessin debout pour ne pas disparaître. */
+.premier-piece--service {
   --x: 11%;
-  --y: 26%;
-  --l: 245px;
+  --y: 27%;
+  --l: 185px;
   --r: -13deg;
   --chute: 260px;
   --vrille: 15deg;
 }
 
-/* Le couvert est de loin le dessin le plus haut : à largeur égale il occupe
-   deux fois et demie la hauteur des autres. Il est donc tenu beaucoup plus
-   étroit que ses voisins — c'est sa hauteur, pas sa largeur, qui lui donne son
-   poids. */
 .premier-piece--couvert {
-  --x: 88%;
-  --y: 19%;
-  --l: 100px;
-  --r: 12deg;
-  --chute: 115px;
+  --x: 84%;
+  --y: 16%;
+  --l: 250px;
+  --r: 8deg;
+  --chute: 130px;
   --vrille: -14deg;
 }
 
-.premier-piece--convive {
-  --x: 25%;
-  --y: 83%;
-  --l: 190px;
-  --r: 7deg;
+.premier-piece--verres {
+  --x: 22%;
+  --y: 84%;
+  --l: 330px;
+  --r: -6deg;
   --chute: 190px;
   --vrille: -11deg;
 }
 
 .premier-piece--raquette {
   --x: 8%;
-  --y: 72%;
+  --y: 70%;
   --l: 135px;
   --r: 9deg;
   --chute: 105px;
   --vrille: 16deg;
 }
 
-.premier-piece--trinquer {
-  --x: 93%;
-  --y: 52%;
-  --l: 120px;
+/* Le tube de balles est le plus étroit de tous : à largeur égale il serait
+   deux fois plus haut que le joueur. */
+.premier-piece--balles {
+  --x: 94%;
+  --y: 50%;
+  --l: 95px;
   --r: -8deg;
   --chute: 100px;
   --vrille: 21deg;
 }
 
+/* Le joueur est arrivé en septembre au trait continu, en remplacement du fusain
+   précédent. Il est passé de debout à couché — 470 × 358 au lieu de 460 × 566 —
+   et il lui faut donc plus de largeur pour peser autant, et un peu moins de
+   bord à droite pour ne pas toucher le tube de balles. */
 .premier-piece--joueur {
-  --x: 82%;
-  --y: 78%;
-  --l: 225px;
+  --x: 78%;
+  --y: 76%;
+  --l: 265px;
   --r: -6deg;
   --chute: 280px;
   --vrille: -17deg;
 }
 
-.premier-piece--plateau {
-  --x: 63%;
-  --y: 12%;
-  --l: 180px;
-  --r: 15deg;
-  --chute: 175px;
-  --vrille: 13deg;
-}
-
 .premier-piece--filet {
-  --x: 45%;
-  --y: 84%;
+  --x: 47%;
+  --y: 92%;
   --l: 215px;
   --r: -15deg;
   --chute: 135px;
@@ -244,7 +255,7 @@
 }
 
 .premier-piece--baskets {
-  --x: 34%;
+  --x: 33%;
   --y: 10%;
   --l: 200px;
   --r: 18deg;
@@ -259,77 +270,64 @@
    plus une couronne, mais DEUX BANDES — l'une au-dessus, l'autre en dessous —
    et les colonnes latérales sont trop étroites pour tenir quoi que ce soit.
 
-   Les neuf dessins se répartissent donc cinq en haut, quatre en bas, et chaque
-   bande est remplie en quinconce : jamais deux dessins à la même hauteur, jamais
-   deux du même côté l'un sous l'autre. C'est ce qui évite les deux trous qu'on
-   avait — la bande de gauche à mi-hauteur, et le dessous de l'enseigne à droite.
+   Les huit dessins se répartissent donc quatre en haut, quatre en bas, et
+   chaque bande est remplie en quinconce : jamais deux dessins à la même
+   hauteur, jamais deux du même côté l'un sous l'autre.
 
-   Aucun n'est coupé par le bord gauche ou droit : sur un écran étroit, un dessin
-   à moitié sorti se lit comme une erreur, pas comme un parti pris. Seul celui du
-   bas peut l'être, et par le bas — là où la page continue.
+   Aucun n'est coupé par le bord gauche ou droit : sur un écran étroit, un
+   dessin à moitié sorti se lit comme une erreur, pas comme un parti pris. Seul
+   celui du bas peut l'être, et par le bas — là où la page continue.
 
    Seules les positions changent ici : les tailles sont déjà ramenées par
    `--echelle`, et les chutes restent celles du grand écran. */
 @media (max-width: 699px) {
-  .premier-piece--serveur {
-    --x: 27%;
+  .premier-piece--service {
+    --x: 20%;
     --y: 11%;
   }
 
-  .premier-piece--raquette {
-    --x: 16%;
-    --y: 32%;
-  }
-
-  .premier-piece--plateau {
-    --x: 60%;
-    --y: 24%;
+  .premier-piece--balles {
+    --x: 78%;
+    --y: 17%;
   }
 
   .premier-piece--couvert {
-    --x: 85%;
-    --y: 10%;
+    --x: 26%;
+    --y: 32%;
   }
 
   .premier-piece--baskets {
-    --x: 72%;
+    --x: 66%;
     --y: 37%;
   }
 
-  .premier-piece--trinquer {
-    --x: 17%;
-    --y: 63%;
+  /* Les verres descendent plus bas qu'on ne l'attendrait : l'enseigne du
+     téléphone ne s'arrête pas au lieu, elle se termine par les deux raquettes
+     croisées, et la bande centrale à laisser libre descend d'autant. */
+  .premier-piece--verres {
+    --x: 66%;
+    --y: 73%;
   }
 
-  .premier-piece--convive {
-    --x: 27%;
-    --y: 85%;
+  .premier-piece--raquette {
+    --x: 15%;
+    --y: 68%;
   }
 
   .premier-piece--joueur {
-    --x: 73%;
-    --y: 71%;
+    --x: 71%;
+    --y: 88%;
   }
 
   .premier-piece--filet {
-    --x: 68%;
+    --x: 27%;
     --y: 95%;
   }
 }
 
-/* ---------------------------------------------------------------------------
-   LE TÉLÉPHONE TENU À L'HORIZONTALE
-
-   Là, le premier écran ne fait plus que 330 px de haut. L'enseigne en occupe
-   déjà le tiers, et les neuf dessins n'ont plus de bandes où se ranger : ils
-   s'empilent les uns sur les autres.
-
-   La réponse n'est pas de tout rapetisser jusqu'à l'illisible, c'est d'en
-   montrer moins. Les quatre plus grands — qui sont tous des dessins EN HAUTEUR,
-   donc les premiers à ne plus rentrer — se retirent. Restent les cinq dessins
-   larges et bas, qui sont justement ceux qui conviennent à un écran large et
-   bas.
-   --------------------------------------------------------------------------- */
+/* UN TÉLÉPHONE COUCHÉ, ou une très petite fenêtre : il ne reste plus de bande.
+   Les trois plus grands dessins sortent, les cinq autres se rangent en deux
+   files, au-dessus et au-dessous de l'enseigne. */
 @media (max-height: 560px) {
   .enseigne--premier {
     font-size: clamp(40px, 9vw, 84px);
@@ -339,14 +337,13 @@
     --echelle: 0.5;
   }
 
-  .premier-piece--serveur,
+  .premier-piece--service,
   .premier-piece--joueur,
-  .premier-piece--couvert,
-  .premier-piece--convive {
+  .premier-piece--couvert {
     display: none;
   }
 
-  .premier-piece--plateau {
+  .premier-piece--balles {
     --x: 13%;
     --y: 16%;
   }
@@ -361,16 +358,17 @@
     --y: 17%;
   }
 
-  .premier-piece--trinquer {
-    --x: 20%;
+  .premier-piece--verres {
+    --x: 24%;
     --y: 82%;
   }
 
   .premier-piece--filet {
-    --x: 74%;
+    --x: 76%;
     --y: 84%;
   }
 }
+
 
 /* ---------------------------------------------------------------------------
    L'ARRIVÉE
@@ -392,26 +390,26 @@
 .premier-piece--baskets {
   --retard: 60ms;
 }
-.premier-piece--plateau {
+.premier-piece--balles {
   --retard: 120ms;
 }
 .premier-piece--raquette {
   --retard: 180ms;
 }
 .premier-piece--couvert {
-  --retard: 240ms;
+  --retard: 250ms;
 }
-.premier-piece--trinquer {
-  --retard: 300ms;
-}
-.premier-piece--convive {
-  --retard: 360ms;
+.premier-piece--verres {
+  --retard: 320ms;
 }
 .premier-piece--filet {
-  --retard: 420ms;
+  --retard: 390ms;
+}
+.premier-piece--service {
+  --retard: 460ms;
 }
 .premier-piece--joueur {
-  --retard: 480ms;
+  --retard: 530ms;
 }
 
 @keyframes premier-arrivee {
@@ -628,12 +626,12 @@
     order: 2;
   }
 
-  /* Au doigt, la photographie de ces deux blocs s'intercale entre le texte et
-     la paire d'images qui suit : trois photographies d'affilée. Celle de la
-     salle montrait la même pièce que la paire ; celle des spécialités, un objet
-     rond qu'un écran étroit étire sur presque toute sa hauteur, en pure perte —
-     le même tajine ouvre déjà la page des spécialités. On les retire : sur
-     petit écran, elles n'ajoutaient que de la longueur. */
+  /* Au doigt, la photographie de ces deux blocs s'intercale entre son texte et
+     le bloc suivant, qui en porte déjà une : deux, parfois trois photographies
+     d'affilée. Celle de la salle du soir montre la même pièce que le bandeau qui
+     la suit ; celle des rigatoni ouvre déjà la page Pizza & Pasta, à deux clics
+     de là. On les retire : sur petit écran, elles n'ajoutaient que de la
+     longueur. */
   .duo-visuel--horsMobile {
     display: none;
   }
@@ -650,228 +648,208 @@
 }
 
 /* ============================================================================
-   4 bis. LA PAIRE D'IMAGES, ET SON DESSIN
+   5 bis. LA RESPIRATION
 
-   Après chaque bloc texte/photographie, deux photographies seules, sans un mot,
-   et un dessin au trait posé SOUS LA PLUS COURTE des deux — dans sa colonne,
-   aligné sur son bord intérieur. Le dessin n'est pas un bloc à part qui
-   flotterait au milieu de la page : il achève la paire.
+   UN ÉCRAN DE CRÈME, UN DESSIN AU MILIEU, ET RIEN D'AUTRE.
 
-   Tout est mesuré au navigateur sur le site de référence, aux deux extrémités
-   de l'échelle.
+   Ce bloc remplace les deux paires d'images du site modèle — deux
+   photographies côte à côte, avec un dessin au trait posé sous la plus courte.
+   Il les remplace pour une raison arithmétique, pas pour une raison de goût :
+   une paire demande deux photographies qui ne servent nulle part ailleurs sur
+   la page, et cette page en a exactement autant qu'elle a d'emplacements. La
+   dernière paire aurait dû répéter une image déjà vue plus haut, ce que la
+   maison s'interdit.
 
-                                    à 1600 px        à 390 px
-     bande de contenu ............. 1216            362
-     photographie paysage ......... 448 (36,8 %)    169 (46,7 %)
-     photographie portrait ........ 434 (35,7 %)    169 (46,7 %)
-     vide entre les deux .......... 212             24
-     marge extérieure, côté paysage  32             14
-     marge extérieure, côté portrait 90             14
-     décalage vertical ............ 116             49
-     dessin ....................... 192             99
-     vide au-dessus du dessin ..... 149             73
-     format paysage ............... 1,44            4/3
-     format portrait .............. 4/5             3/4
+   Mais le principe qu'elle portait, lui, reste : « le vide est un élément ».
+   Il s'agit d'un silence entre deux propos, et c'est le seul endroit du site,
+   hors du premier écran, où un dessin passe en grand. On garde donc le silence
+   et on retire les photographies — ce qui, à bien y regarder, est le silence
+   plus franc des deux.
 
-   La photographie paysage est TOUJOURS la plus basse des deux, et c'est
-   toujours elle qui porte le dessin. Seul son côté change d'une paire à
-   l'autre — c'est ce qui empêche deux blocs successifs de se ressembler.
+   Il se sépare de ses voisines par le SOUFFLE, et symétriquement : on entre
+   dans le silence et on en sort de la même façon. Les deux voisines apportant
+   chacune leur demi-joint, celui-ci pose les deux qui manquent.
    ============================================================================ */
-/* Deux photographies sans un mot : c'est un silence, pas un propos. Il se
-   sépare donc de ses voisines par le SOUFFLE — une fois et demie l'intervalle
-   courant — et symétriquement : on entre dans le silence et on en sort de la
-   même façon.
-
-   Les deux voisines apportant chacune leur demi-joint, celle-ci pose les deux
-   demi-joints qui manquent pour atteindre le souffle. */
-.paire-section {
+.respiration-section {
   padding-block: calc(var(--joint-souffle) - var(--demi-joint));
 }
 
-.paire {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  gap: 24px;
-  align-items: start;
-}
-
-/* La paysage descend encore, mais à peine : 16 px au doigt, 32 sur grand
-   écran. Il reste juste ce qu'il faut de décalage pour que les deux
-   photographies ne démarrent pas sur la même ligne — le reste tenait la
-   colonne du dessin beaucoup trop bas. */
-.paire-paysage {
-  margin-top: clamp(1rem, 2vw, 2rem);
-}
-
-/* Les formats changent avec la taille de l'écran — c'est le cas chez eux
-   aussi, leurs classes disent « aspect-[4/3] sm:aspect-[322/223] ». Au doigt,
-   des images moins étirées tiennent mieux dans une demi-colonne. */
-@media (max-width: 899px) {
-  .paire .photo-paysageLarge {
-    --ratio: 4 / 3;
-  }
-
-  .paire .photo-portrait {
-    --ratio: 3 / 4;
-  }
-}
-
-/*
-  Sur grand écran, les photographies cessent de remplir leur colonne. Les
-  quatre valeurs ci-dessous sont les quatre positions mesurées : chaque format
-  garde sa largeur, et seule sa marge change selon le côté où il se trouve.
-*/
-@media (min-width: 900px) {
-  .paire {
-    gap: 0;
-  }
-
-  .paire-colonne:first-child .paire-paysage {
-    width: 73.68%;
-    margin-left: 5.26%;
-  }
-
-  .paire-colonne:last-child .paire-paysage {
-    width: 73.68%;
-    margin-left: 21.05%;
-  }
-
-  .paire-colonne:first-child .paire-portrait {
-    width: 71.38%;
-    margin-left: 14.8%;
-  }
-
-  .paire-colonne:last-child .paire-portrait {
-    width: 71.38%;
-    margin-left: 13.82%;
-  }
-}
-
-/* ---------------------------------------------------------------------------
-   LE DESSIN AU TRAIT
-
-   Il vit dans la colonne de la photographie paysage, sous elle, et s'aligne
-   sur son bord INTÉRIEUR — celui qui regarde le centre de la page. Jamais
-   centré : le milieu est la seule position qui ne veut rien dire.
-   --------------------------------------------------------------------------- */
-/* Ils passent en grand. À 192 px au maximum, posés dans un demi-écran de crème,
-   ils avaient l'air d'un timbre oublié — surtout depuis que le premier écran en
-   montre neuf en pleine taille. À 300 px ils deviennent le troisième élément de
-   la paire, au lieu de sa signature. */
-.trait-dessin {
+/* Le dessin n'est PAS centré sur la page : il est posé au tiers, du côté
+   opposé à la photographie du bloc précédent. Le milieu exact est la seule
+   position qui ne veuille rien dire. */
+.respiration-dessin {
   display: block;
-  width: clamp(140px, 17vw, 300px);
+  width: clamp(150px, 22vw, 320px);
   height: auto;
-  margin-top: clamp(2.5rem, 5vw, 5rem);
+  margin-inline: auto;
+  transform: rotate(-5deg);
 }
 
-/* Les deux verres et les mains à la bouteille sont presque carrés. À largeur
-   égale ils pèseraient deux fois plus qu'un dessin couché : on les réduit pour
-   que tous fassent la même hauteur à l'œil. */
-.trait-dessin--haut {
-  width: clamp(128px, 12.5vw, 225px);
-}
-
-/* Colonne de gauche : le dessin se cale à droite, sous le bord intérieur —
-   mais pas collé à lui. Les 14 % le décollent du milieu de la page, où les
-   deux colonnes se rejoignent. */
-.paire-colonne:first-child .trait-dessin {
-  margin-left: auto;
-  margin-right: 14%;
-}
-
-/* Colonne de droite : il se cale à gauche. Ici pas de retrait — le décoller du
-   milieu le pousserait contre le bord de l'écran au doigt. */
-.paire-colonne:last-child .trait-dessin {
-  margin-left: 0;
-}
-
-@media (min-width: 900px) {
-  .paire-colonne:first-child .trait-dessin {
-    margin-right: 21.06%;
-  }
-
-  .paire-colonne:last-child .trait-dessin {
-    margin-left: 21.05%;
+@media (min-width: 700px) {
+  .respiration-dessin {
+    margin-left: 62%;
+    transform: translateX(-50%) rotate(-5deg);
   }
 }
 
 /* ============================================================================
-   6. LES PLATS QUI SIGNENT LA MAISON
+   6. LE TABLEAU D'AFFICHAGE
 
-   Quatre assiettes, alignées. C'est le seul bloc de la page qui reste en
-   grille régulière, et pour une raison : on y compare quatre plats et quatre
-   prix. Un décalage rendrait la comparaison pénible.
+   C'EST LE BLOC QUI REMPLACE LA GRILLE DE QUATRE ASSIETTES du site modèle, et
+   ce n'est pas un caprice de mise en page : c'est une conséquence de la carte.
+
+   La carte imprimée du restaurant marque d'une étoile les plats qui signent la
+   maison. Ils sont onze, pas quatre. Une grille de photographies en aurait
+   montré quatre — donc en aurait caché sept — et il aurait fallu quatre
+   photographies de studio qu'on n'a pas.
+
+   Alors on ne montre pas : ON AFFICHE. Onze lignes, le nom de code à gauche, le
+   plat au milieu, le prix à droite, dans la machine à écrire, sur des filets
+   d'un pixel. C'est le tableau d'un club de tennis — celui où l'on lit les
+   tirages et les résultats — et c'est la seule chose de cette page qui ne
+   pourrait se trouver sur aucun autre site de restaurant.
+
+   Deux colonnes sur grand écran, une seule au doigt. Les lignes se lisent de
+   haut en bas dans chaque colonne : le tableau est rempli par le HTML dans
+   l'ordre, jamais par `grid-auto-flow: column`, qui obligerait à connaître le
+   nombre de lignes d'avance.
    ============================================================================ */
-.platssignature-entete {
+.tableau-entete {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: flex-end;
   gap: var(--sp-5) var(--sp-7);
-  margin-bottom: var(--sp-8);
+  margin-bottom: var(--sp-7);
 }
 
-.platssignature-grille {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: var(--sp-7) var(--sp-5);
+.tableau-grille {
+  border-top: 1px solid var(--trait);
 }
 
-@media (min-width: 1024px) {
-  .platssignature-grille {
-    grid-template-columns: repeat(4, 1fr);
-    gap: clamp(1.25rem, 2.5vw, 2.25rem);
+@media (min-width: 900px) {
+  .tableau-grille {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: clamp(2.5rem, 5vw, 5rem);
+    /* Sur deux colonnes, le filet du haut ne peut plus être celui de la grille :
+       il doit s'interrompre dans la gouttière. Il repasse donc aux deux
+       premières lignes, qui sont les seules à ouvrir une colonne. */
+    border-top: 0;
+  }
+
+  .tableau-ligne:nth-child(-n + 2) {
+    border-top: 1px solid var(--trait);
   }
 }
 
-.platssignature-plat {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
+.tableau-ligne {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: baseline;
+  gap: var(--sp-2) var(--sp-4);
+  padding-block: var(--sp-4);
+  border-bottom: 1px solid var(--trait);
 }
 
-.platssignature-plat:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 6px;
+.tableau-code {
+  grid-column: 1 / -1;
+  color: var(--accent);
+  font-family: var(--mono);
+  font-size: var(--fs-exergue);
+  letter-spacing: 0.18em;
+  line-height: 1.2;
+  text-transform: uppercase;
 }
 
-.platssignature-nom {
-  margin-top: var(--sp-4);
-  color: var(--encre);
+.tableau-nom {
   font-family: var(--serif);
   font-size: var(--fs-plat);
   font-weight: 500;
   line-height: 1.25;
+}
+
+/* Chaque ligne mène à sa famille dans la carte. Le lien ne se souligne pas au
+   repos — dix soulignements de suite feraient un peigne — mais il se souligne au
+   survol, et l'ancre saute sous la barre du haut grâce à `--ancre-haut`. */
+.tableau-nom a {
+  color: var(--encre);
+  text-decoration: none;
   transition: color var(--dur-vif) var(--sortie);
 }
 
-.platssignature-plat:hover .platssignature-nom,
-.platssignature-plat:focus-visible .platssignature-nom {
+.tableau-nom a:hover,
+.tableau-nom a:focus-visible {
   color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
 }
 
-.platssignature-description {
-  margin-top: var(--sp-2);
-  color: var(--encre-2);
-  font-size: var(--fs-corps-sm);
-  line-height: 1.5;
-}
-
-/* Le prix est poussé en bas de sa carte : les quatre prix tombent alors sur la
-   même ligne, et deux plats se comparent d'un coup d'œil. */
-.platssignature-prix {
-  margin-top: auto;
-  padding-top: var(--sp-3);
-  color: var(--accent);
+.tableau-prix {
+  color: var(--encre);
   font-family: var(--mono);
   font-size: var(--fs-corps-sm);
   letter-spacing: 0.04em;
+  white-space: nowrap;
   font-variant-numeric: tabular-nums;
 }
 
-.platssignature-suffixePrix {
+/* ============================================================================
+   LE BANDEAU
+
+   Une seule photographie, large, tenue par une légende posée dans sa marge.
+
+   Elle prend la place que le site modèle donnait à sa PREMIÈRE paire d'images
+   — la seconde ayant laissé la sienne à la respiration, plus haut.
+
+   Ce site-ci n'a qu'une photographie qui dise le lieu : la vue sur les courts
+   depuis la salle. Une photographie qui porte tout le propos ne se met pas à
+   côté d'une autre. Elle se met seule, et on écrit à côté d'elle ce qu'elle
+   montre.
+
+   La règle de la maison tient quand même : elle ne touche aucun bord de
+   l'écran, et son format n'est celui d'aucune autre photographie de la page.
+   ============================================================================ */
+.bandeau-section {
+  padding-block: var(--joint-souffle);
+}
+
+.bandeau-bandeau {
+  display: grid;
+  gap: var(--sp-5);
+}
+
+@media (min-width: 900px) {
+  .bandeau-bandeau {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 19rem);
+    align-items: end;
+    gap: clamp(2rem, 4vw, 3.5rem);
+  }
+}
+
+.bandeau-cadre {
+  --ratio: 16 / 9;
+}
+
+.bandeau-legende {
+  max-width: 40ch;
+  color: var(--encre-2);
+  font-size: var(--fs-corps-sm);
+  line-height: 1.6;
+}
+
+/* Le premier mot de la légende est une étiquette, pas une phrase : il annonce
+   ce qu'on regarde, dans la machine à écrire, comme au dos d'un tirage. */
+.bandeau-etiquette {
+  display: block;
+  margin-bottom: var(--sp-3);
+  padding-bottom: var(--sp-3);
+  border-bottom: 1px solid var(--trait);
   color: var(--encre-3);
+  font-family: var(--mono);
+  font-size: var(--fs-exergue);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
 }
 
 /* ============================================================================

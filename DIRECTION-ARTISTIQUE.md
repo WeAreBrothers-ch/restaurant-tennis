@@ -1,6 +1,6 @@
-# Direction artistique — Restaurant du Tennis, Écublens
+# Direction artistique — Restaurant Tennis Club Écublens
 
-> Version 1.0 — 4 septembre 2026 · **le site est crème**
+> Version 2.0 — 9 septembre 2026 · **le site est crème**
 > Périmètre : le site du restaurant du club-house du Tennis Club d'Écublens.
 > Ce document dit ce qui a été décidé et pourquoi. Il ne décrit pas ce qu'il faudrait
 > faire un jour : il décrit ce qui est dans le code.
@@ -10,17 +10,34 @@
 ## 0. D'où vient ce site
 
 C'est la reprise, pour le même client, du site du Restaurant L'Étoile à Lausanne.
-**La structure, la mise en page, les rythmes et les mécaniques sont identiques** —
-c'est une demande, et c'est un choix sain : cette architecture a été éprouvée, elle
-est claire, et elle tient sur un téléphone.
+**Les mécaniques et les rythmes sont ceux de l'Étoile** — la barre du haut, les
+apparitions au défilement, la dérive des photographies, les trois intervalles, le
+ruban qui sort par la droite. C'est une demande, et c'est un choix sain : cette
+architecture a été éprouvée, elle est claire, et elle tient sur un téléphone.
 
-Trois choses seulement changent : **les couleurs, les dessins, la typographie.**
-Autrement dit : tout ce qui fait qu'on ne reconnaît pas l'autre site.
+**Ce qui a changé, en revanche, va plus loin que la couleur.** L'ossature commune
+n'est plus une mise en page commune. Quatre partis séparent aujourd'hui les deux
+sites, et trois d'entre eux viennent du restaurant lui-même, pas d'un goût :
 
-C'est plus qu'il n'y paraît. L'Étoile était **noir** — un noir plein, sur lequel des
-photographies prises à la bougie brillaient comme sur une nappe sombre. Le Restaurant
-du Tennis est **crème**. Ce n'est pas la même couleur inversée : c'est un autre parti,
-qui demande d'autres photographies, d'autres dessins, et une autre typographie.
+1. **La carte a une gouttière.** Chaque plat de la maison porte un nom de code de
+   tennis — ACE, TIE-BREAK, LE VESTIAIRE. Il occupe une colonne à part, à gauche,
+   séparée du plat par un filet vertical qui descend toute la page. L'Étoile
+   alignait un nom, un rappel pointillé, un prix ; ici la page se lit comme une
+   feuille de match. Voir le chapitre 5 bis.
+2. **La carte tient sur une colonne**, là où l'Étoile en mettait deux au-delà de
+   1100 px : la gouttière des noms de code occupe déjà la moitié de la mesure.
+3. **L'accueil n'a plus de grille de quatre assiettes.** Elle est remplacée par un
+   tableau d'affichage — dix lignes, sans une photographie. Voir le chapitre 5 ter.
+4. **L'accueil n'a plus qu'une paire d'images sur deux.** La seconde a laissé la
+   place à un bandeau : une seule photographie large, tenue par une légende posée
+   dans sa marge.
+
+Restent les couleurs, les dessins et la typographie, qui changent aussi. C'est
+plus qu'il n'y paraît. L'Étoile était **noir** — un noir plein, sur lequel des
+photographies prises à la bougie brillaient comme sur une nappe sombre. Le
+Restaurant Tennis Club est **crème**. Ce n'est pas la même couleur inversée : c'est
+un autre parti, qui demande d'autres photographies, d'autres dessins, et une autre
+typographie.
 
 ---
 
@@ -82,9 +99,11 @@ C'est la seule chose que le site dit **par la couleur seule**, sans un mot :
 | La terre battue | `#A44E2C` | **La table** — le serveur, les couverts, le convive, les verres, le plateau |
 | Le vert sapin | `#27523D` | **Le club** — la raquette, le joueur au service, le filet, les chaussures |
 
-Sur le premier écran, les neuf dessins alternent : jamais deux de la même encre
-côte à côte. On lit les deux familles d'un coup d'œil, et on a compris qu'on est
-au restaurant d'un tennis avant d'avoir lu une ligne.
+Sur le premier écran, les huit dessins se répartissent six contre deux : le club
+l'emporte largement, et les deux dessins de table sont **diagonalement opposés** —
+le couvert en haut à droite, les verres en bas à gauche. L'ocre traverse l'écran, et
+l'œil fait le trajet. C'est ce qui remplace la règle d'alternance du site modèle,
+devenue arithmétiquement impossible à six contre deux.
 
 L'encre n'est pas posée par le CSS : elle est **cuite dans les fichiers**, par
 `scripts/preparer-dessins.py`. C'est ce script qui détoure un dessin arrivé en
@@ -124,36 +143,68 @@ saute au moment où les vraies arrivent.
 
 ## 4. L'enseigne
 
-**Le nom de la maison n'est pas une image.** C'est du texte, composé dans les polices
-du site, en trois lignes et trois voix :
+**Le nom de la maison n'est pas une image.** C'est du texte, composé dans les
+polices du site, en trois lignes et trois voix :
 
 ```
-RESTAURANT DU        la machine à écrire, en terre battue — le générique
-Tennis               le serif, en grand — le nom
-ÉCUBLENS             la machine à écrire, en petit — le lieu
+RESTAURANT      la machine à écrire, en terre battue — le générique
+Tennis Club     le serif, en grand — le nom
+ÉCUBLENS        la machine à écrire, en petit — le lieu
 ```
 
-Trois raisons, et elles suffisent : un logo en fichier doit être fourni en clair ET en
-sombre, redessiné à chaque taille, et il pèse ; écrite, l'enseigne est nette sur tous
-les écrans, prend la couleur de la surface sur laquelle elle est posée, est lue par
-Google et par les lecteurs d'écran, et ne coûte pas un octet.
+### Le logo est remonté, pas collé
 
-Elle occupe quatre emplacements — la barre du haut, le menu du téléphone, le pied de
-page, et le premier écran — tous réglés par une seule taille en `em`.
+Le client a fourni un logo : ces trois lignes, encadrées de deux filets à losange,
+avec deux raquettes croisées en dessous, en crème sur un vert sombre.
 
-**Si le client fournit un logo dessiné, il remplace le composant `.enseigne` partout,
-sans rien changer d'autre.** Les emplacements sont déjà dimensionnés.
+Il n'est pas posé sur le site en fichier. Il est **refait avec les moyens du
+site** : les filets et les losanges sont dessinés par la feuille de style
+(`.enseigne-regle`, deux pseudo-éléments et pas une image) ; les deux raquettes
+sont un dessin au trait, `images/marque-raquettes.svg`.
 
-La marque du navigateur, elle, est dessinée : **une balle de tennis en terre battue,
-coutures crème**. Elle est en SVG (`images/logo-mono.svg`), en `.ico` et en PNG pour
-l'écran d'accueil des iPhone.
+Trois raisons, et elles suffisent : un logo en fichier doit être fourni en clair ET
+en sombre, redessiné à chaque taille, et il pèse ; remonté, il est net sur tous les
+écrans, prend la couleur de la surface sur laquelle il est posé, est lu par Google
+et par les lecteurs d'écran, et ne coûte presque rien.
+
+**Les raquettes sont posées en masque, jamais en `<img>`.** Un SVG chargé par
+`<img>` est un document isolé : `currentColor` n'y vaut plus rien et retombe au
+noir. En masque, c'est la couleur de fond de l'élément qui passe au travers du
+dessin — donc l'encre de sa surface. Un seul fichier pour les deux fonds, sapin sur
+la page et crème sur le pied de page.
+
+### Où l'enseigne est ornée, et où elle ne l'est pas
+
+| Emplacement | Ce qu'on en voit |
+| --- | --- |
+| Le premier écran | Le logo entier : filets, losanges, raquettes |
+| Le pied de page | Le logo entier, calé à gauche, raquettes agrandies |
+| La barre du haut | Le nom seul, sur deux lignes |
+| Le menu du téléphone | Le nom seul, sur deux lignes |
+
+Les deux derniers composent l'enseigne à trente pixels. À cette taille, les filets
+se confondent avec le texte et le cordage des raquettes devient une tache grise :
+la règle est de ne pas les y mettre, pas de les rétrécir.
+
+Une seule taille en `em` règle chaque emplacement — **sauf les raquettes du pied de
+page**, qui ont leur propre échelle. Le pied compose le nom à cinquante pixels
+contre cent cinquante sur le premier écran ; à la même proportion, le cordage
+tomberait sous les vingt pixels.
+
+### La marque du navigateur
+
+Elle, en revanche, **n'est pas les raquettes** : c'est une **balle de tennis en
+terre battue, coutures crème**. Contrainte de taille, pas choix de goût — à seize
+pixels dans un onglet, la balle ne fait plus que douze pixels de large, et un
+cordage y devient un aplat. Elle est en SVG (`images/logo-mono.svg`), en `.ico` et
+en PNG pour l'écran d'accueil des iPhone ; les trois portent le même dessin.
 
 ---
 
 ## 5. Le premier écran
 
-Un écran entier de crème. L'enseigne au milieu. **Neuf dessins au trait** tout
-autour — cinq en terre battue, quatre en vert sapin. Rien d'autre : pas de
+Un écran entier de crème. L'enseigne au milieu. **Huit dessins au trait** tout
+autour — deux en terre battue, six en vert sapin. Rien d'autre : pas de
 photographie, pas d'accroche, pas de bouton.
 
 C'est un parti pris, et il se défend : un grand visuel en ouverture oblige à poser du
@@ -170,17 +221,100 @@ Tout le mouvement tient dans un seul chiffre, `--p`, l'avancée du premier défi
 Le script ne fait qu'écrire ce chiffre ; c'est le CSS qui en tire la chute de chacun.
 Une écriture par image de rendu, pas neuf.
 
-**Quatre des neuf dessins sont ceux du client** : la raquette, le joueur au service,
-le filet et les chaussures. Ils sont arrivés en capture d'écran, chacun dans un style
-et une palette différents — un lavis bleu, un fusain noir, un feutre vert. Le script
-`scripts/preparer-dessins.py` les a détourés et repassés au vert sapin : c'est
-l'encre unique qui les fait tenir ensemble, et avec les cinq autres.
+**Les huit dessins sont ceux du client, sans exception.** Ceux du site modèle ont
+tous été retirés en septembre. Ils sont arrivés en captures d'écran, chacun dans un
+style et une palette différents — un lavis bleu, un feutre vert, un trait noir. Le
+script `scripts/preparer-dessins.py` les a détourés et repassés à l'encre de la
+maison : c'est cette encre unique qui les fait tenir ensemble.
 
 > **⚠ Les cinq dessins de table viennent encore du site modèle**, simplement repassés
 > en terre battue. Si le client en fournit d'autres, la consigne est la même : des
 > **dessins au trait, sur fond clair uni**, que le script se charge de détourer. Une
 > chose à savoir : sur de la crème, **un trait fin disparaît**. Les dessins qui
 > tiennent sont ceux qui ont de la matière — hachures, aplats, traits appuyés.
+
+---
+
+## 5 bis. La carte, et sa gouttière
+
+C'est le chapitre le plus important de cette version, et le seul qui ne doit rien
+au site modèle.
+
+La carte imprimée du restaurant a une particularité : **chaque plat y porte deux
+noms.** Celui du plat — « Capricciosa » — et un nom de code emprunté au tennis —
+« ACE ». Le second est composé en petites capitales dans une colonne à part, à
+gauche, séparée du plat par un filet vertical.
+
+C'est ce filet qui fait toute la carte. Sans lui on lit une liste ; avec lui on lit
+une feuille de match. Le site le reprend tel quel :
+
+```
+ACE   │  CAPRICCIOSA ................................. 21.—
+      │  Olives noires, salami piquant & œuf
+```
+
+Trois conséquences, et elles sont toutes voulues :
+
+1. **La carte tient sur une colonne.** Le site modèle en mettait deux au-delà de
+   1100 px. La gouttière des noms de code occupe déjà douze rem ; à deux colonnes
+   il ne resterait au plat que trois cents pixels, et la description se casserait
+   en escalier.
+2. **Le filet vertical est porté par la ligne, pas par le nom de code.** Posé en
+   bordure de celui-ci, il s'arrêtait au texte : cinquante-neuf segments de deux
+   centimètres séparés par des trous, là où le papier a un trait continu. Il est
+   donc posé en couche absolue, sur toute la hauteur de la ligne, et déborde d'un
+   pixel pour croiser le filet horizontal suivant — comme sur du papier.
+3. **Au doigt, la gouttière disparaît.** En dessous de 700 px il n'y a pas la place
+   d'une colonne : le nom de code passe au-dessus du plat, en terre battue, comme
+   une étiquette. C'est le seul endroit où il prend la couleur d'accent ; dans la
+   gouttière, il est en encre pâle et c'est le filet qui le tient.
+
+**L'étoile des plats signature n'est pas un caractère.** Seize plats la portent sur
+la carte imprimée. Dans le HTML, le plat porte `data-signature="true"` et rien
+d'autre ; c'est le CSS qui dessine l'étoile. Un « ★ » écrit au milieu d'un nom est
+épelé par les lecteurs d'écran, et ce n'est pas un mot : c'est une marque.
+
+Enfin, la carte a **un sommaire**, ce que le site modèle n'avait pas. Il a une
+carte courte ; celle-ci compte cinquante-neuf plats sur deux pages. Sans index, il
+faut faire défiler quatre écrans pour savoir s'il y a des pizzas. C'est une liste
+de liens, pas une barre d'onglets : elle ne suit pas le défilement, elle ne
+surligne pas la famille courante. Un sommaire de livre.
+
+---
+
+## 5 ter. Le tableau d'affichage
+
+Il remplace, sur l'accueil, la grille de quatre assiettes du site modèle.
+
+Ce n'est pas un caprice de mise en page, c'est une conséquence de la carte. Les
+plats que la maison signe d'une étoile sont **seize**, pas quatre. Une grille de
+quatre photographies en aurait montré quatre — donc en aurait caché douze — et
+aurait demandé quatre photographies de studio qu'on n'a pas.
+
+Alors on ne montre pas : **on affiche.** Dix lignes tirées des seize, choisies pour
+couvrir toute la carte, de la saucisse de veau à vingt francs au tomahawk à cent
+vingt. Le nom de code à gauche, le plat, le prix, dans la machine à écrire, sur des
+filets d'un pixel. C'est le tableau d'un club de tennis — celui où l'on lit les
+tirages et les résultats — et c'est le seul bloc de ce site qui ne pourrait se
+trouver sur aucun autre.
+
+Deux colonnes sur grand écran, une seule au doigt. Chaque ligne mène à sa famille
+dans la carte.
+
+---
+
+## 5 quater. Le bandeau
+
+Il prend la place de la **deuxième** des deux paires d'images du site modèle.
+
+Deux paires successives, c'était deux fois le même geste dans une page qui en a
+peu. Et surtout : ce restaurant n'a qu'une photographie qui dise le lieu — la vue
+sur les quatre courts en terre battue, prise depuis une table de la salle,
+derrière les baies. Une photographie qui porte tout le propos ne se met pas à côté
+d'une autre. Elle se met seule, et on écrit à côté d'elle ce qu'elle montre.
+
+La règle de la maison tient quand même : elle ne touche aucun bord de l'écran, et
+son format — 16/9 — n'est celui d'aucune autre photographie de la page.
 
 ---
 
@@ -216,19 +350,36 @@ C'est le point où le passage du noir au crème coûte le plus cher.
 Le site modèle était noir : ses photographies, prises à la bougie, sur fond sombre,
 s'y fondaient. **Posées sur de la crème, les mêmes photographies font des trous.**
 
-Les photographies du Restaurant du Tennis doivent donc être :
+**Neuf photographies du restaurant sont aujourd'hui en ligne**, et elles se
+divisent nettement en deux :
+
+| | Ce qu'elles montrent | Sur la crème |
+| --- | --- | --- |
+| **Quatre de jour** | La vue sur les courts depuis la salle, l'entrecôte, la salade, le burger | Elles tiennent. Ce sont elles qui portent la page |
+| **Cinq du soir** | Le bar et la salle, les rigatoni, le poisson en feuilleté, les desserts, les olives | Fond sombre, lumière chaude, contraste fort. Elles font le trou annoncé |
+
+C'est acceptable en l'état — ce sont les vraies photographies du restaurant, et
+mieux vaut le vrai lieu sombre qu'un faux lieu clair. Mais la série reste à
+compléter, et le brief ne change pas :
 
 - **de jour**, en lumière naturelle ;
 - **claires** — un fond sombre est un trou dans la page ;
 - **de plein air** dès que c'est possible : la terrasse, les courts, les arbres ;
 - **franches** : une assiette, une table, un geste. Pas de mise en scène.
 
-Le brief complet, emplacement par emplacement, avec les noms de fichiers et les
-dimensions attendus, est dans **`PHOTOS-A-FOURNIR.md`**. C'est le document à remettre
-au photographe.
+Deux photographies manquent particulièrement : **la terrasse dressée** et **une
+pizza**. La page Pizza & Pasta porte aujourd'hui une assiette de rigatoni prise au
+passe, faute de mieux.
 
-> **⚠ Toutes les photographies du site sont aujourd'hui celles du site modèle.** Elles
-> sont sombres, et elles montrent un restaurant italien. Aucune n'est utilisable.
+Une conséquence technique, écrite dans la feuille de style : quatre de ces neuf
+photographies ont été prises **debout**, et le sujet n'y est pas au centre du
+fichier — l'assiette est en bas, les courts sont en haut. Un cadre en paysage les
+viderait de leur sujet. Deux classes le disent, `photo-bas` et `photo-haut`, et
+elles ne servent qu'à ça.
+
+Le brief complet, emplacement par emplacement, avec les noms de fichiers et les
+dimensions attendus, est dans **`PHOTOS-A-FOURNIR.md`**. C'est le document à
+remettre au photographe.
 
 ---
 
@@ -256,9 +407,14 @@ alors que les changements de couleur.
 
 | Quoi | Qui décide |
 | --- | --- |
-| La carte réelle — plats, prix, familles | Le client. Ce qui est en ligne est provisoire et marqué comme tel dans le code |
+| La page des desserts | Le client. Elle existe sur la carte imprimée mais n'a pas été photographiée : la famille est en ligne, vide, et **rien n'a été inventé** |
+| La page des boissons | Le client. Aucune n'a été fournie ; le site n'en parle pas |
+| La provenance du poulet | Le client. La ligne était coupée sur la photographie du bas de carte |
 | Les horaires réels | Le client. Ceux qui sont en ligne ne sont pas confirmés |
-| Les neuf dessins du premier écran | Le client les fournit |
-| Les photographies | Le photographe, sur la base de `PHOTOS-A-FOURNIR.md` |
-| Un logo dessiné | Facultatif. L'enseigne composée tient très bien toute seule |
+| Les cinq dessins de table | Le client. Quatre des neuf sont déjà les siens |
+| Les photographies de jour | Le photographe, sur la base de `PHOTOS-A-FOURNIR.md` |
 | Le nom de domaine, l'e-mail, le téléphone | À confirmer — voir `CONTENU-SITE.md` |
+
+**La carte, elle, est décidée** : cinquante-neuf plats et cinquante-neuf prix,
+relevés sur la carte imprimée en septembre 2026. Le logo aussi : il est fourni, et
+il est en ligne.

@@ -1,4 +1,4 @@
-# Photos à fournir — Restaurant du Tennis
+# Photos à fournir — Restaurant Tennis Club Écublens
 
 > Ce document est le brief de la séance photo. Il liste, emplacement par
 > emplacement, ce que le site attend : le sujet, la forme de l’image et sa taille.
@@ -9,14 +9,19 @@
 **Le site est crème.** Fond blanc cassé, encre vert sapin, une seule couleur vive :
 l’ocre de la terre battue.
 
-Les 21 images en place aujourd’hui viennent du site qui a servi de modèle. Elles ont
-été prises **de nuit, à la bougie, sur des fonds noirs**, pour un site noir. Posées
-sur une page crème, elles ne se détachent pas : **elles y font des trous**. Ce sont
-des rectangles sombres au milieu du papier, et l’œil ne voit plus qu’eux.
+Les images du site modèle ont toutes été retirées. **Neuf photographies du
+restaurant sont maintenant en ligne**, fournies par la maison — le détail est plus
+bas.
 
-Toutes sont à remplacer, sans exception. Et chaque photographie qui les remplacera
-doit être **lumineuse, prise de jour, aux ombres douces** — un tirage clair posé sur
-une nappe de club-house, pas une photo de restaurant du soir.
+Quatre d’entre elles sont prises de jour et tiennent très bien. **Cinq sont prises
+le soir, en salle, sur fond sombre.** Posées sur une page crème, celles-là ne se
+détachent pas : **elles y font des trous**. Ce sont des rectangles sombres au
+milieu du papier, et l’œil ne voit plus qu’eux.
+
+Elles restent en ligne — mieux vaut le vrai lieu sombre qu’un faux lieu clair — mais
+ce sont les premières à remplacer. Et chaque photographie qui les remplacera doit
+être **lumineuse, prise de jour, aux ombres douces** — un tirage clair posé sur une
+nappe de club-house, pas une photo de restaurant du soir.
 
 C’est aussi ce que le lieu raconte : le club-house du Tennis Club d’Écublens, quatre
 courts en terre battue et un synthétique, une terrasse, des arbres. On y mange
@@ -26,8 +31,9 @@ c’est le sujet.
 ### Ce qu’on veut voir
 
 La terrasse au bord des courts en terre battue. La salle ouverte sur les courts,
-côté baies vitrées. Les grillades. Les tajines en cocotte de terre. Le couscous. Les
-filets de perche. La salade du club. Le thé à la menthe à la théière. Le bar.
+côté baies vitrées. Une pizza qui sort du four. Les pâtes et les risottos. Le
+plateau d’entrecôte au Café de Paris sur son réchaud. Le rösti et la saucisse de
+veau. La planchette de charcuterie. Le bar.
 
 ### Deux formats, et une règle qui en découle
 
@@ -52,9 +58,9 @@ site ne peut pas fabriquer par recadrage.
   bleue.
 - **Le fond** : clair et naturel — bois, nappe crème, gravier ocre du court,
   feuillage. Jamais de fond noir, jamais de fond blanc surexposé.
-- **L’angle des plats** : vue de dessus pour les assiettes plates et les salades ;
-  vue à 45° pour les grillades, les tajines et le couscous, dont on veut voir le
-  relief et la cocotte.
+- **L’angle des plats** : vue de dessus pour les pizzas, les assiettes plates et
+  les salades ; vue à 45° pour les grillades, les pâtes et les grandes pièces, dont
+  on veut voir le relief.
 - **Le cadrage des plats** : le plat occupe 60 à 75 % de l’image, avec une marge de
   sécurité de 8 % tout autour — le site recadre la même photo en plusieurs formats.
 - **Les personnes** : pas de personnel qui pose, pas de portrait. Si quelqu’un est
@@ -65,90 +71,84 @@ site ne peut pas fabriquer par recadrage.
 
 ---
 
-## Les 21 emplacements
+## Où en est-on : neuf photographies en ligne
 
-Les noms de fichiers disent déjà ce que chaque image doit montrer : le sujet est
-inscrit dans le nom, et le site n’attend rien d’autre à cet endroit.
+**Neuf photographies du restaurant sont déjà publiées**, fournies par la maison en
+septembre 2026. Ce document ne demande donc plus une série complète : il dit ce qui
+tient, ce qui tient mal, et ce qui manque.
 
-Les dimensions sont celles **écrites dans les pages du site**. Fournir exactement
-ces dimensions est le plus simple. Une image plus grande est acceptée à une
-condition : **le rapport largeur / hauteur doit être exactement le même**, et les
-deux chiffres `width` et `height` doivent alors être corrigés dans la page
-concernée — sinon la mise en page saute au chargement.
+| Fichier | Ce qu’il montre | Verdict |
+| --- | --- | --- |
+| `courts-baies-2026-09b.jpg` | Les courts et la terrasse, vus d’une table de la salle | **La meilleure.** Elle porte l’accueil, la page Contact et la vignette de partage |
+| `plat-entrecote-2026-09b.jpg` | Entrecôte Café de Paris et frites, de jour | Tient très bien |
+| `plat-salade-2026-09b.jpg` | Salade mêlée, de jour | Tient très bien |
+| `plat-burger-2026-09b.jpg` | Burger et panier de frites, de jour | Tient très bien |
+| `salle-bar-2026-09b.jpg` | La salle et le bar, le soir | Sombre. Fait un trou sur la crème |
+| `plat-rigatoni-serre-2026-09b.jpg` | Rigatoni pistacchio & burrata, sous la lampe du passe | Sombre, et prise au passe plutôt qu’en salle |
+| `plat-poisson-2026-09b.jpg` | Poisson en feuilleté, sauce crémeuse | Sombre |
+| `plat-desserts-2026-09b.jpg` | Deux desserts portés en salle | Sombre |
+| `apero-olives-2026-09b.jpg` | Olives marinées sur une table | Sombre |
 
-### Accueil — le ruban « À table »
+Cinq sur neuf sont prises le soir, en salle, sur fond sombre. **C’est le point
+faible de la série** : le site est crème, et une photographie sombre y fait un trou
+au lieu d’un tirage posé sur une nappe. Elles restent en ligne — mieux vaut le vrai
+lieu sombre qu’un faux lieu clair — mais elles sont les premières à remplacer.
 
-Sept photographies qui défilent, juste sous le titre. C’est la première chose qu’on
-voit du restaurant, et le seul endroit où les plats et le lieu se mélangent.
+---
 
-| Nom du fichier | Format | Dimensions | Ce qu’on veut y voir |
+## Les cinq photographies qui manquent
+
+Par ordre d’utilité. Toutes de jour, en lumière naturelle, sur fond clair.
+
+| Ce qu’on veut | Où elle irait | Format | Dimensions |
 | --- | --- | --- | --- |
-| `ruban-1-perche-2026-09a.jpg` | 8:5 | 1264 × 800 | Filets de perche meunière, citron et pommes vapeur |
-| `ruban-2-tajine-2026-09a.jpg` | 8:5 | 1264 × 800 | Un tajine de poulet au citron confit et olives, servi en cocotte de terre |
-| `ruban-3-terrasse-2026-09a.jpg` | 8:5 | 1264 × 800 | La terrasse, tables dressées au bord des courts |
-| `ruban-4-grillade-2026-09a.jpg` | 8:5 | 1264 × 800 | Une entrecôte grillée et des frites maison |
-| `ruban-5-couscous-2026-09a.jpg` | 8:5 | 1264 × 800 | Un couscous royal, semoule et bouillon de légumes |
-| `ruban-6-menthe-2026-09a.jpg` | 8:5 | 1264 × 800 | Le thé à la menthe, servi à la théière |
-| `ruban-7-salade-2026-09a.jpg` | 8:5 | 1264 × 800 | La salade du club : poulet grillé, œuf, croûtons, copeaux de parmesan |
+| **La terrasse dressée**, avant le service, au bord des courts | Le ruban de l’accueil, en tête | 4:5 | 1200 × 1500 |
+| **Une pizza**, sortie du four, plan serré | L’ouverture de la page Pizza & Pasta, à la place des rigatoni | 4:5 | 1100 × 1375 |
+| **La salle de jour**, baies ouvertes sur les courts | Le bloc « Le club-house » de l’accueil, à la place de la salle du soir | 4:3 | 1280 × 960 |
+| **Une assiette de pâtes de jour**, sur une table de la salle | Le ruban | 4:5 | 1200 × 1500 |
+| **Le bar de jour**, ou une table dressée en gros plan | Le bandeau de la page Carte | 5:2 | 1290 × 516 |
 
-### Accueil — les deux grandes images
+Aucun de ces cinq n’est bloquant : chaque emplacement porte aujourd’hui une image.
+Ce sont des remplacements, pas des trous.
 
-Chacune occupe une demi-page, en face d’un texte. C’est le format qui sert le mieux
-une photographie : elle garde son cadrage, et rien n’est laissé vide à côté d’elle.
+---
 
-| Nom du fichier | Format | Dimensions | Ce qu’on veut y voir |
-| --- | --- | --- | --- |
-| `bloc-salle-2026-09a.jpg` | 4:3 | 1280 × 960 | La salle, tables dressées face aux courts, en pleine lumière du jour |
-| `bloc-tajines-2026-09a.jpg` | 4:3 | 1280 × 960 | Un tajine d’agneau aux pruneaux et amandes, en cocotte de terre, plan large |
+## Les douze emplacements du site
 
-### Accueil — les deux paires
+Neuf fichiers, douze emplacements : certaines photographies servent sur deux pages.
+Ce n’est jamais deux fois sur la même page.
 
-Deux images côte à côte, une en largeur et une en hauteur. C’est là que le lieu se
-montre, et nulle part ailleurs aussi bien.
+| Emplacement | Fichier aujourd’hui | Format demandé |
+| --- | --- | --- |
+| Accueil — ruban, 6 vignettes | entrecôte, salade, poisson, burger, olives, desserts | portrait ou paysage, indifférent |
+| Accueil — bloc « Le club-house » | `salle-bar-2026-09b.jpg` | 4:3 |
+| Accueil — bandeau « Depuis la salle » | `courts-baies-2026-09b.jpg` | 16:9 |
+| Accueil — bloc « Neuf pizzas » | `plat-rigatoni-serre-2026-09b.jpg` | 4:3 |
+| Carte — bandeau de respiration | `salle-bar-2026-09b.jpg` | 5:2 |
+| Pizza & Pasta — ouverture | `plat-rigatoni-serre-2026-09b.jpg` | 4:5 |
+| Contact — ouverture | `courts-baies-2026-09b.jpg` | 4:5 |
+| Partage (WhatsApp, Facebook) | `og-2026-09b.jpg` | 1,9:1 — 1200 × 630 |
 
-| Nom du fichier | Format | Dimensions | Ce qu’on veut y voir |
-| --- | --- | --- | --- |
-| `paire-terrasse-2026-09a.jpg` | 3:2 | 1200 × 800 | La terrasse dressée avant le service, au bord des courts |
-| `paire-salle-2026-09a.jpg` | 4:5 | 1000 × 1250 | La salle côté baies vitrées, ouverte sur les courts |
-| `paire-courts-2026-09a.jpg` | 4:5 | 1000 × 1250 | Les courts en terre battue, vus depuis la terrasse |
-| `paire-bar-2026-09a.jpg` | 3:2 | 1200 × 800 | Le bar |
-
-### Accueil — les quatre plats signature
-
-Quatre assiettes présentées ensemble, chacune avec son nom et son prix. Elles
-doivent se ressembler : même distance, même lumière, même fond. Photographiées dans
-la même heure, idéalement.
-
-| Nom du fichier | Format | Dimensions | Ce qu’on veut y voir |
-| --- | --- | --- | --- |
-| `plat-mixedgrill-2026-09a.jpg` | 4:5 | 1000 × 1250 | Le mixed grill du club : entrecôte, brochette de poulet, merguez, côtelette d’agneau |
-| `plat-tajine-2026-09a.jpg` | 4:5 | 1000 × 1250 | Le tajine de poulet au citron confit et olives, en cocotte de terre |
-| `plat-perche-2026-09a.jpg` | 4:5 | 1000 × 1250 | Les filets de perche meunière, beurre, citron, persil |
-| `plat-couscous-2026-09a.jpg` | 4:5 | 1000 × 1250 | Le couscous royal : poulet, agneau, merguez, brochette |
-
-> Ces quatre plats sont ceux que le site annonce aujourd’hui. **La carte étant
-> encore provisoire, ce choix reste à confirmer avec la cuisine** — mais il se fixe
-> avant la séance, pas après.
-
-### Les autres pages
-
-| Nom du fichier | Format | Dimensions | Où et quoi |
-| --- | --- | --- | --- |
-| `respiration-carte-1-2026-09a.jpg` | 5:2 | 1290 × 516 | Page Carte, bandeau entre deux catégories — la terrasse au bord des courts, en bande très large |
-| `duo-specialites-2026-09a.jpg` | 4:5 | 1100 × 1375 | Page Spécialités, image d’ouverture — un tajine de poulet au citron confit, en cocotte de terre |
-| `duo-contact-2026-09a.jpg` | 4:5 | 1100 × 1375 | Page Contact, image d’ouverture — la salle vue depuis l’entrée, telle qu’on la découvre en arrivant |
-| `og-2026-09a.jpg` | 1,9:1 | 1200 × 630 | La vignette qui s’affiche quand on partage le site sur WhatsApp, Facebook ou par message. Une image large et immédiatement reconnaissable : la terrasse et les courts |
-
-**Le bandeau de la page Carte est le seul emplacement vraiment large du site.**
-Cadré en bande, il ne montre pas une scène entière mais une tranche : le bord d’un
-court, une rangée de tables, une ligne d’arbres. C’est exactement ce qu’on demande à
-une respiration entre deux listes de prix.
+**Le bandeau de la page Carte est l’emplacement le plus large du site.** Cadré en
+bande, il ne montre pas une scène entière mais une tranche : le bord d’un court,
+une rangée de tables, une ligne d’arbres. C’est exactement ce qu’on demande à une
+respiration entre deux listes de prix.
 
 **Deux emplacements occupent toute la largeur de l’écran** : ce bandeau et la
 vignette de partage. Sur un grand écran d’ordinateur, une image livrée à la
 dimension exacte manquera un peu de netteté. Si le photographe peut livrer ces deux
 fichiers **au double** (2580 × 1032 et 2400 × 1260), c’est mieux — il faut alors
 doubler les chiffres `width` et `height` dans les pages qui les appellent.
+
+### Une chose à savoir sur le cadrage
+
+Quatre des neuf photographies actuelles ont été prises **debout**, et leur sujet
+n’est pas au centre du fichier : l’assiette est en bas, les courts sont en haut. Un
+cadre en paysage les viderait de leur sujet. Deux classes de la feuille de style le
+rattrapent — `photo-bas` et `photo-haut` — et elles ne servent qu’à ça.
+
+Une photographie livrée **avec son sujet au centre** n’en a pas besoin. C’est la
+manière la plus simple de ne pas y penser.
 
 ---
 
@@ -158,16 +158,18 @@ doubler les chiffres `width` et `height` dans les pages qui les appellent.
 | --- | --- | --- |
 | `images/plan.jpg` | 1440 × 800 | Fond du plan d’accès de la page Contact. **Il est déjà fait et juste** : le quartier d’En Crochy, à Écublens, restaurant au centre. Fabriqué à partir d’OpenStreetMap par `python3 scripts/fabriquer-plan.py`. À refaire seulement si l’adresse change |
 
-**Les neuf dessins au trait** du haut de l’accueil (`images/trait-*-2026-09a.svg` et
-`.png`) ne sont pas non plus des photographies. Ils viennent du site modèle et ont
-simplement été repassés en terre battue. Ils sont à remplacer, mais c’est un travail
-d’illustration, pas de photographie.
+**Les huit dessins au trait** du haut de l’accueil (`images/trait-*.png`) ne sont pas
+non plus des photographies, et il n’y a rien à photographier de ce côté : ils sont
+tous fournis par la maison. Leurs originaux vivent dans `dessins-source/`, et un
+script les détoure et les repasse à l’encre du site — `python3
+scripts/preparer-dessins.py`. Pour en ajouter un, il suffit de déposer le fichier
+dans ce dossier et d’ajouter une ligne au tableau `SOURCES` du script.
 
 ---
 
 ## Comment remplacer une photo
 
-Les fichiers portent un **millésime** dans leur nom : `paire-terrasse-2026-09a.jpg`.
+Les fichiers portent un **millésime** dans leur nom : `plat-entrecote-2026-09b.jpg`.
 Ce n’est pas une coquetterie. Les navigateurs gardent les images en mémoire d’après
 leur adresse : si on remplace une photo sans changer son nom, les visiteurs déjà
 venus continuent de voir l’ancienne, parfois pendant des semaines. Changer le
@@ -196,18 +198,18 @@ corrigez la phrase en même temps que l’image.
 
 ## Ce qui reste à décider avant la séance
 
-- **La carte.** Elle est encore provisoire : les 46 lignes de `carte.html` et les 18
-  de `specialites.html` ont été écrites pour fixer la mise en page, pas par le
-  restaurant. Les quatre plats signature et les sept assiettes du ruban en
-  dépendent directement. Photographier avant d’avoir arrêté la carte, c’est refaire
-  la séance.
+- **Rien, du côté de la carte.** Elle est arrêtée : cinquante-neuf plats relevés sur
+  la carte imprimée. Les plats à photographier en priorité sont donc connus, et ce
+  sont ceux que la maison marque d’une étoile — le plateau d’entrecôte, la tagliata,
+  la pizza Tennis, le risotto aux crevettes, la saucisse de veau aux oignons.
 - **La saison.** Le restaurant est un club-house avec terrasse : les photos d’été,
   courts occupés et feuillage vert, ne ressemblent pas à celles de novembre. Mieux
   vaut viser la belle saison, et l’assumer toute l’année.
 - **Les courts.** Les prises depuis la terrasse supposent l’accord du club, et un
   moment où les courts sont beaux : terre fraîchement passée, lignes nettes.
-- **Le logo.** Facultatif. L’enseigne du site est composée en typographie, sur trois
-  lignes, et tient très bien toute seule. Si un logo dessiné existe, un fichier
+- **Le logo est fourni et en ligne.** Il a été remonté dans les polices du site :
+  les filets à losange sont dessinés en CSS, les raquettes croisées sont un fichier
+  au trait. Rien à photographier. Pour mémoire, si un autre logo dessiné arrivait, un fichier
   vectoriel (SVG ou Illustrator) est nécessaire.
 - **Les réseaux sociaux.** S’ils existent, ils doivent être ajoutés au pied de page
   et aux données envoyées à Google.

@@ -1,4 +1,4 @@
-# Restaurant du Tennis — la fiche de référence
+# Restaurant Tennis Club Écublens — la fiche de référence
 
 Toutes les informations du site sont ici, et **une seule fois**. Si une ligne de ce
 document change, elle change aussi dans les cinq pages du site. La liste des
@@ -16,10 +16,11 @@ informations existent à plusieurs endroits ».
 
 | | |
 | --- | --- |
-| Nom d'usage | **Restaurant du Tennis** |
-| Nom complet (référencement) | Restaurant du Tennis — Écublens |
+| Nom d'usage | **Restaurant Tennis Club** |
+| Nom complet (référencement) | Restaurant Tennis Club Écublens |
 | Le lieu | Le club-house du Tennis Club d'Écublens |
-| Enseigne | Trois lignes composées : « Restaurant du » / « Tennis » / « Écublens ». Ce n'est pas une image, c'est du texte (voir `.enseigne` dans `css/composants.css`) |
+| Enseigne | Trois lignes composées : « Restaurant » / « Tennis Club » / « Écublens », d'après le logo fourni par le client. Ce n'est pas une image, c'est du texte (voir `.enseigne` dans `css/composants.css`) |
+| Logo | Les deux filets à losange sont dessinés en CSS ; les deux raquettes croisées sont `images/marque-raquettes.svg`, posé en masque pour prendre l'encre de sa surface |
 
 ## Où
 
@@ -36,8 +37,8 @@ informations existent à plusieurs endroits ».
 | | | |
 | --- | --- | --- |
 | Téléphone | +41 21 555 41 14 — affiché « 021 555 41 14 » | **À CONFIRMER** |
-| E-mail | contact@restaurant-du-tennis.ch | **À CONFIRMER** |
-| Site | https://www.restaurant-du-tennis.ch/ | **À CONFIRMER** — le nom de domaine n'est pas réservé |
+| E-mail | contact@restaurant-tennis-club.ch | **À CONFIRMER** |
+| Site | https://www.restaurant-tennis-club.ch/ | **À CONFIRMER** — le nom de domaine n'est pas réservé |
 | Réservation | Par téléphone uniquement | **À CONFIRMER** |
 
 ## Les horaires
@@ -69,16 +70,48 @@ search.ch : la moindre différence affaiblit la position dans les recherches loc
 
 ## La cuisine
 
-D'après les sources publiques, **à faire valider** :
+**Relevée sur la carte imprimée**, photographiée en septembre 2026. Ce n'est plus
+une hypothèse : c'est la carte du restaurant, mot à mot.
 
-- brasserie de club-house : grillades, poissons du lac, croûtes au fromage, rösti,
-  salades repas, plat du jour à midi ;
-- **spécialités marocaines** : tajines, couscous, harira, briouates, thé à la menthe ;
-- terrasse, environ 60 couverts, parking gratuit.
+- **brasserie de club-house** : saucisse de veau du boucher, rösti, malakoff,
+  entrecôte de cheval au Café de Paris, roastbeef sauce tartare ;
+- **italien** : neuf pizzas, trois foccacias, huit pâtes, deux risottos ;
+- **viandes et poissons** : entrecôte, tagliata, piccata, dorade, gambas ;
+- **grandes pièces à partager** : plateau d'entrecôte au Café de Paris sur réchaud,
+  fondue bourguignonne au filet, tomahawk ou côte de bœuf — les deux dernières sur
+  commande, minimum deux personnes ;
+- hamburgers, wraps, salades repas, menu enfant jusqu'à douze ans ;
+- terrasse, parking gratuit.
 
-C'est cette lecture qui a servi à écrire la carte provisoire et à découper les pages.
-Si elle est fausse, c'est toute l'architecture des deux pages de carte qui bouge —
-dites-le avant le reste.
+Le découpage des deux pages de carte suit cette division : `carte.html` porte le
+club-house et la brasserie, `pizzeria.html` porte l'italien.
+
+### Les noms de code
+
+Chaque plat de la carte imprimée porte un second nom, emprunté au tennis — ACE,
+TIE-BREAK, LE VESTIAIRE, PREMIER SERVICE, SOUS LES PROJECTEURS. **C'est la
+particularité de cette maison, et c'est elle qui commande la mise en page du
+site** : le nom de code occupe une colonne à part, à gauche, séparée du plat par
+un filet vertical qui descend toute la page — la construction exacte de la carte
+imprimée.
+
+Seize plats y portent une étoile. Elle est reprise sur le site, et dix de ces
+seize sont affichés sur l'accueil.
+
+### Les provenances
+
+Écrites au bas de la carte imprimée, et reprises en bas de `carte.html` :
+
+| | |
+| --- | --- |
+| Bœuf | Suisse · Allemagne |
+| Perche | Estonie |
+| Dorade | Grèce |
+| Pain | Renens (1020 VD) |
+| Viandes | Boucherie Léman |
+
+> **La ligne du poulet était coupée** sur la photographie du bas de carte. Elle n'a
+> pas été devinée : elle manque.
 
 ## Le club
 
@@ -92,12 +125,14 @@ battue. Le club-house a été rénové ; le restaurant y a rouvert.
 
 | Quoi | Pour quoi faire |
 | --- | --- |
-| **La carte** | `carte.html` (46 plats, 8 familles) et `specialites.html` (18 plats, 4 familles) portent une **carte provisoire**. Aucun de ces plats ni de ces prix ne vient du restaurant : ils ont été écrits pour que le site soit montrable et pour fixer la mise en page. C'est signalé en gros dans le code, par un commentaire « ⚠ CARTE PROVISOIRE ⚠ » |
+| **La page des desserts** | La carte imprimée en a une ; elle n'a pas été photographiée. `carte.html` porte une famille « Les desserts » sans plat ni prix, avec une phrase d'attente. **Rien n'a été inventé.** Envoyez la photographie et elle se remplit |
+| **La page des boissons** | Idem — aucune n'a été fournie, et le site n'en parle pas |
+| **La provenance du poulet** | Coupée sur la photographie du bas de carte |
 | **Les horaires** | Voir plus haut. Aucun n'est confirmé |
-| **Les photographies** | Toutes les images sont celles du site modèle, prises à la bougie, sur fond noir. Sur une page crème, **elles font des trous**. Aucune n'est utilisable. Le brief est dans `PHOTOS-A-FOURNIR.md` |
-| **Les dessins de table** | Quatre des neuf dessins du premier écran sont ceux du client (la raquette, le joueur, le filet, les chaussures), repassés au vert sapin. Les **cinq autres** — le serveur, les couverts, le convive, les verres, le plateau — viennent encore du site modèle, repassés en terre battue |
-| **Un logo dessiné** | Facultatif. L'enseigne composée tient très bien toute seule ; si un logo arrive, il remplace `.enseigne` sans rien changer d'autre |
+| **Les photographies de jour** | Neuf photographies du restaurant sont en ligne. Quatre sont de jour et tiennent très bien ; **cinq sont prises le soir, en salle, sur fond sombre** — sur une page crème, elles font un trou. Le brief est dans `PHOTOS-A-FOURNIR.md` |
+| **L'unité de style des dessins** | Les huit dessins du premier écran sont ceux du client — plus aucun ne vient du site modèle. Cinq sont au **trait continu** (le service, le joueur, les balles, les verres, le couvert), trois au **crayon** (la raquette, le filet, les chaussures). Le mélange se voit. Si les trois derniers sont refaits au trait continu, la série sera d'un seul tenant |
 | **Le service de formulaire** | `contact.html` pointe vers `formspree.io/f/VOTRE-IDENTIFIANT`. Tant que ce n'est pas remplacé, l'envoi échoue proprement et affiche le téléphone |
+| **Le téléphone, l'e-mail, le domaine** | Toujours à confirmer — voir plus haut |
 
 Le plan d'accès, lui, **est bon** : `images/plan.jpg` a été refabriqué sur Écublens.
 Il se refait avec `python3 scripts/fabriquer-plan.py` si l'adresse change.
@@ -107,8 +142,8 @@ Il se refait avec `python3 scripts/fabriquer-plan.py` si l'adresse change.
 | Fichier | Ce qu'elle porte |
 | --- | --- |
 | `index.html` | L'accueil |
-| `carte.html` | La carte : entrées, salades repas, plat du jour, grillades, poissons, classiques, menu enfant, desserts |
-| `specialites.html` | Les tajines et les couscous. C'est la page qui, sur le site modèle, portait les pizzas |
+| `carte.html` | La carte du club-house : apéro à partager, entrées, assiettes froides, club-house rapide, classiques du coin, viandes & poissons, hamburgers, plats à partager, menu enfant, desserts (en attente) — 37 plats |
+| `pizzeria.html` | Pizza & Pasta : pizzas, foccacias, pâtes, risottos — 22 plats. C'est la page qui portait les tajines, et qui portait les pizzas sur le site modèle |
 | `contact.html` | Contact, horaires, plan et formulaire |
 | `404.html` | La page affichée quand une adresse n'existe pas |
 

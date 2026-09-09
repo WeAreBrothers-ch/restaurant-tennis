@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="30 36 160 150" role="img" aria-label="Deux raquettes de tennis croisées">
+  <!-- ==========================================================================
+       LES DEUX RAQUETTES CROISÉES
+
+       C'est le motif du logo fourni par le client, redessiné au trait pour le
+       site. Il n'est pas colorié ici : tout est en `currentColor`, donc il prend
+       l'encre de la surface sur laquelle il est posé — sapin sur la crème, crème
+       sur le pied de page. Un seul fichier pour les deux fonds.
+
+       Une raquette est dessinée une fois, dans un repère dont l'ORIGINE EST LE
+       POINT DE CROISEMENT des deux manches. C'est ce qui permet de la poser deux
+       fois par une simple rotation de ±30° autour de (0,0), sans calculer quoi
+       que ce soit.
+
+       Trente degrés, et pas vingt : en dessous, les deux tamis se touchent et le
+       motif se lit comme une seule masse. L'écart entre les deux têtes est ce
+       qui fait reconnaître DEUX raquettes d'un coup d'œil, y compris à 24 px de
+       haut dans la barre du menu.
+       ========================================================================== -->
+  <defs>
+    <!-- Le tamis, qui sert aussi à découper le cordage. -->
+    <ellipse id="tamis" cx="0" cy="-88" rx="29" ry="37" />
+    <clipPath id="dansLeTamis"><use href="#tamis" /></clipPath>
+
+    <g id="raquette" fill="none" stroke="currentColor" stroke-linecap="round">
+      <!-- Le cordage. Deux fois plus fin que le cadre, et volontairement lâche :
+           il doit se lire comme une texture, jamais comme une structure. Un
+           cordage serré vire au gris plein dès qu'on réduit la marque. -->
+      <g clip-path="url(#dansLeTamis)" stroke-width="1.5">
+        <path d="M-18-125v66 M-9-125v66 M0-125v66 M9-125v66 M18-125v66" />
+        <path d="M-29-120h58 M-29-109h58 M-29-98h58 M-29-87h58 M-29-76h58 M-29-65h58" />
+      </g>
+
+      <!-- Le cadre du tamis. -->
+      <use href="#tamis" stroke-width="3.6" />
+
+      <!-- Le cœur : deux bras tangents au tamis, qui laissent le triangle ouvert
+           sous lui. C'est ce vide qui fait qu'on reconnaît une raquette et pas
+           une poêle. -->
+      <path d="M-14.6-56 -5-30 M14.6-56 5-30" stroke-width="3.6" />
+
+      <!-- Le manche, et la collerette qui le termine. -->
+      <path d="M-5-30V14 M5-30V14" stroke-width="3.6" />
+      <path d="M-6.8 14h13.6 M-6.8 14 -5.8 23h11.6l1-9" stroke-width="3.6" stroke-linejoin="round" />
+    </g>
+  </defs>
+
+  <!-- Le croisement se fait à (110,158) : bas dans la composition, comme sur le
+       logo, où les deux manches ne dépassent que de la longueur d'une poignée. -->
+  <g transform="translate(110 158)">
+    <use href="#raquette" transform="rotate(-30)" />
+    <use href="#raquette" transform="rotate(30)" />
+  </g>
+</svg>

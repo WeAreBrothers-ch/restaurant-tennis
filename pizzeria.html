@@ -1,0 +1,685 @@
+<!doctype html>
+<html lang="fr-CH">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Les deux polices sont demandées avant tout le reste : le nom de la maison
+         est du texte, pas une image, et il ne doit pas s'afficher d'abord en
+         Georgia puis sauter en Newsreader sous les yeux du visiteur. -->
+    <link rel="preload" href="fonts/instrument-sans.woff2" as="font" crossorigin type="font/woff2" />
+    <link rel="preload" href="fonts/newsreader.woff2" as="font" crossorigin type="font/woff2" />
+    <meta name="theme-color" content="#F4F1E9" />
+    <title>Pizza &amp; Pasta — Restaurant Tennis Club Écublens</title>
+    <meta
+      name="description"
+      content="Les pizzas, foccacias, pâtes et risottos du Restaurant Tennis Club à Écublens : neuf pizzas de 15.— à 24.—, huit pâtes, deux risottos et trois foccacias. Pizzas aussi à l’emporter."
+    />
+    <meta name="application-name" content="Restaurant Tennis Club Écublens" />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <link rel="canonical" href="https://www.restaurant-tennis-club.ch/pizzeria/" />
+    <meta property="og:title" content="Pizza &amp; Pasta — Restaurant Tennis Club Écublens" />
+    <meta
+      property="og:description"
+      content="Les pizzas, foccacias, pâtes et risottos du Restaurant Tennis Club à Écublens : neuf pizzas de 15.— à 24.—, huit pâtes, deux risottos et trois foccacias. Pizzas aussi à l’emporter."
+    />
+    <meta property="og:url" content="https://www.restaurant-tennis-club.ch/pizzeria/" />
+    <meta property="og:site_name" content="Restaurant Tennis Club Écublens" />
+    <meta property="og:locale" content="fr_CH" />
+    <meta property="og:image" content="https://www.restaurant-tennis-club.ch/images/og-2026-09b.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="Rigatoni pistacchio et burrata au Restaurant Tennis Club d’Écublens"
+    />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Pizza &amp; Pasta — Restaurant Tennis Club Écublens" />
+    <meta
+      name="twitter:description"
+      content="Les pizzas, foccacias, pâtes et risottos du Restaurant Tennis Club à Écublens : neuf pizzas de 15.— à 24.—, huit pâtes, deux risottos et trois foccacias. Pizzas aussi à l’emporter."
+    />
+    <meta name="twitter:image" content="https://www.restaurant-tennis-club.ch/images/og-2026-09b.jpg" />
+    <link
+      rel="icon"
+      href="/favicon.ico?favicon.3zxueus_twa87.ico"
+      sizes="32x32"
+      type="image/x-icon"
+    />
+    <link rel="icon" href="images/logo-mono.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+    <meta name="next-size-adjust" content="" />
+    <link rel="stylesheet" href="css/tokens.css" />
+    <link rel="stylesheet" href="css/base.css" />
+    <link rel="stylesheet" href="css/composants.css" />
+    <link rel="stylesheet" href="css/accueil.css" />
+    <link rel="stylesheet" href="css/pages.css" />
+    <script src="js/apparitions.js"></script>
+    <script src="js/entete.js" defer></script>
+    <script src="js/barre-action.js" defer></script>
+    <script src="js/menu-mobile.js" defer></script>
+    <script src="js/horaires.js" defer></script>
+    <script src="js/galerie.js" defer></script>
+    <script src="js/plan.js" defer></script>
+    <script src="js/formulaire.js" defer></script>
+  </head>
+  <body data-page="pizzeria">
+    <a class="lienEvitement" href="#contenu">Aller au contenu</a>
+    <header class="header-entete" data-compact="false">
+      <div class="header-barre">
+        <div class="wrap header-barreContenu">
+          <a class="header-logoLien" aria-label="Restaurant Tennis Club, accueil" href="index.html"
+            ><span class="enseigne enseigne--barre"><span class="enseigne-sur">Restaurant</span><span class="enseigne-nom">Tennis Club</span><span class="enseigne-lieu">Écublens</span></span></a>
+          <nav class="header-nav" aria-label="Navigation principale">
+            <a class="header-lienNav" href="carte.html">La carte</a
+            ><a class="header-lienNav" aria-current="page" href="pizzeria.html">Pizza &amp; Pasta</a
+            ><a class="header-lienNav" href="contact.html">Contact</a>
+          </nav>
+          <div class="header-actions">
+            <span class="header-etat etatouverturelive-etat"
+              ><span class="etatouverturelive-pastille"></span
+              ><span class="etatouverturelive-detail">Midi et soir, du mardi au dimanche</span></span
+            >
+            <a
+              href="tel:+41215554114"
+              class="bouton-base bouton-primaire header-reserverLong"
+              aria-label="Réserver par téléphone au +41 21 555 41 14"
+              data-analytics="call"
+              ><svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="square"
+                stroke-linejoin="miter"
+                aria-hidden="true"
+                focusable="false"
+              >
+                <path
+                  d="M6.5 3h-3v3a14.5 14.5 0 0 0 14.5 14.5h3v-3l-4-1.5-2.5 2.5a11.5 11.5 0 0 1-9-9L8 7z"
+                ></path></svg
+              >Réserver ·
+              <!-- -->021 555 41 14</a
+            >
+          </div>
+          <button
+            type="button"
+            class="header-iconeSeule header-boutonMenu"
+            aria-label="Ouvrir le menu de navigation"
+            aria-expanded="false"
+            aria-controls="menu-mobile"
+          >
+            <svg
+              width="22"
+              height="22"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.5"
+              stroke-linecap="square"
+              stroke-linejoin="miter"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <path d="M3 6h18 M3 12h18 M3 18h18"></path>
+            </svg></button
+          >
+        </div>
+      </div>
+    </header>
+    <dialog id="menu-mobile" class="menumobile-panneau surface-sapin" aria-label="Navigation du site">
+      <div class="wrap">
+        <div class="menumobile-entete">
+          <span class="enseigne enseigne--menu"><span class="enseigne-sur">Restaurant</span><span class="enseigne-nom">Tennis Club</span><span class="enseigne-lieu">Écublens</span></span><button type="button" class="menumobile-fermer" aria-label="Fermer le menu">
+            <svg
+              width="22"
+              height="22"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.5"
+              stroke-linecap="square"
+              stroke-linejoin="miter"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <path d="M5 5l14 14 M19 5L5 19"></path>
+            </svg>
+          </button>
+        </div>
+        <nav class="menumobile-liens" aria-label="Navigation principale">
+          <a class="menumobile-lien" href="carte.html" style="--delai: 0ms"
+            >La carte<svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.5"
+              stroke-linecap="square"
+              stroke-linejoin="miter"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <path d="M4 12h15 M13 6l6 6-6 6"></path></svg></a
+          ><a class="menumobile-lien" aria-current="page" href="pizzeria.html" style="--delai: 40ms"
+            >Pizza &amp; Pasta<svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.5"
+              stroke-linecap="square"
+              stroke-linejoin="miter"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <path d="M4 12h15 M13 6l6 6-6 6"></path></svg></a
+          ><a class="menumobile-lien" href="contact.html" style="--delai: 80ms"
+            >Contact<svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.5"
+              stroke-linecap="square"
+              stroke-linejoin="miter"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <path d="M4 12h15 M13 6l6 6-6 6"></path></svg
+          ></a>
+        </nav>
+        <div class="menumobile-pied">
+          <a
+            href="tel:+41215554114"
+            class="bouton-base bouton-primaire bouton-grand bouton-pleineLargeur"
+            data-analytics="call"
+            ><svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.5"
+              stroke-linecap="square"
+              stroke-linejoin="miter"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <path
+                d="M6.5 3h-3v3a14.5 14.5 0 0 0 14.5 14.5h3v-3l-4-1.5-2.5 2.5a11.5 11.5 0 0 1-9-9L8 7z"
+              ></path></svg
+            >Réserver · 021 555 41 14</a
+          >
+          <address>Chemin des Esserts 6, 1024 Écublens<br />Fermé le lundi</address>
+        </div>
+      </div>
+    </dialog>
+    <main id="contenu">
+      <section class="surface-creme section">
+        <div class="wrapLarge duo-duo duo-droite">
+          <div class="duo-visuel">
+            <div class="photo-cadre photo-derive" style="--ratio: 832 / 1040">
+              <img
+                alt="Rigatoni pistacchio et burrata, crème de pistache et tomates séchées"
+                fetchpriority="high"
+                width="832"
+                height="1040"
+                decoding="async"
+                data-nimg="1"
+                class="photo-image"
+                style="color: transparent"
+                src="images/plat-rigatoni-serre-2026-09b.jpg"
+              />
+            </div>
+          </div>
+          <div class="duo-texte" style="--reveal-delai: 90ms">
+            <img
+                class="marque marque--verres"
+                src="images/trait-verres-2026-09b.png"
+                alt=""
+                width="620"
+                height="187"
+                loading="lazy"
+                decoding="async"
+              />
+            <h1 class="duo-titre">
+              Les pizzas et les pâtes,
+              <em class="italique">l’autre moitié</em>
+            </h1>
+            <p class="chapo">
+              Neuf pizzas de 15.— à 24.—, huit pâtes, deux risottos et trois foccacias. C’est la
+              moitié de la maison, et elle a sa page.
+            </p>
+            <div data-actions="true">
+              <a class="bouton-base bouton-tertiaire" href="carte.html">Voir la carte complète</a>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="surface-creme section page-pizzeria" aria-labelledby="titre-pizzeria">
+        <div class="wrap">
+          <div class="page-colonnePizzeria">
+            <div class="page-entete" data-reveal="true">
+              <img
+                class="marque marque--balles"
+                src="images/trait-balles-2026-09b.png"
+                alt=""
+                width="172"
+                height="470"
+                loading="lazy"
+                decoding="async"
+              />
+              <h2 class="titreSection" id="titre-pizzeria">
+                Vingt-deux façons de <em class="italique">passer la balle</em>
+              </h2>
+              <p class="page-supplements">
+                Les pizzas se font aussi à l’emporter. Une modification, un ingrédient en moins :
+                dites-le en commandant.
+              </p>
+            </div>
+            <!-- ================================================================
+             LA MOITIÉ ITALIENNE DE LA CARTE, relevée sur le menu imprimé.
+             Vingt-deux plats : neuf pizzas, trois foccacias, huit pâtes et deux
+             risottos. Même construction que `carte.html` — nom de code à
+             gauche, plat à droite — et le même avertissement : l'étoile est un
+             attribut `data-signature`, pas un caractère.
+             ================================================================ -->
+        <nav class="sommaire-sommaire" aria-label="Les familles de la carte">
+          <ul class="sommaire-liste">
+            <li><a class="sommaire-lien" href="#pizzas">Les pizzas</a></li>
+            <li><a class="sommaire-lien" href="#foccacia">Les foccacias</a></li>
+            <li><a class="sommaire-lien" href="#pates">Les pâtes</a></li>
+            <li><a class="sommaire-lien" href="#risotto">Les risottos</a></li>
+          </ul>
+        </nav>
+            <section class="categoriecarte-categorie" id="pizzas" aria-labelledby="titre-pizzas">
+              <h2 class="categoriecarte-titre" id="titre-pizzas">Les pizzas</h2>
+              <ul class="categoriecarte-liste">
+                <li class="lignedeplat-plat">
+                  <p class="lignedeplat-code">Premier service</p>
+                  <div class="lignedeplat-corps">
+                    <p class="lignedeplat-ligne">
+                      <span class="lignedeplat-nom">Margherita</span
+                      ><span class="lignedeplat-rappel" aria-hidden="true"></span
+                      ><span class="lignedeplat-prix">15.—</span>
+                    </p>
+                    <p class="lignedeplat-description">Sauce tomate et mozzarella</p>
+                  </div>
+                </li>
+                <li class="lignedeplat-plat">
+                  <p class="lignedeplat-code">Ligne de fond</p>
+                  <div class="lignedeplat-corps">
+                    <p class="lignedeplat-ligne">
+                      <span class="lignedeplat-nom">Napolitaine</span
+                      ><span class="lignedeplat-rappel" aria-hidden="true"></span
+                      ><span class="lignedeplat-prix">16.—</span>
+                    </p>
+                    <p class="lignedeplat-description">Câpres et anchois</p>
+                  </div>
+                </li>
+                <li class="lignedeplat-plat">
+                  <p class="lignedeplat-code">Double mixte</p>
+                  <div class="lignedeplat-corps">
+                    <p class="lignedeplat-ligne">
+                      <span class="lignedeplat-nom">Romana</span
+                      ><span class="lignedeplat-rappel" aria-hidden="true"></span
+                      ><span class="lignedeplat-prix">18.—</span>
+                    </p>
+                    <p class="lignedeplat-description">Jambon et champignons</p>
+                  </div>
+                </li>
+                <li class="lignedeplat-plat">
+                  <p class="lignedeplat-code">Ace</p>
+                  <div class="lignedeplat-corps">
+                    <p class="lignedeplat-ligne">
+                      <span class="lignedeplat-nom">Capricciosa</span
+                      ><span class="lignedeplat-rappel" aria-hidden="true"></span
+                      ><span class="lignedeplat-prix">21.—</span>
+                    </p>
+                    <p class="lignedeplat-description">Olives noires, salami piquant et œuf</p>
+                  </div>
+                </li>
+                <li class="lignedeplat-plat">
+                  <p class="lignedeplat-code">Le vestiaire</p>
+                  <div class="lignedeplat-corps">
+                    <p class="lignedeplat-ligne">
+                      <span class="lignedeplat-nom">4 fromages</span
+                      ><span class="lignedeplat-rappel" aria-hidden="true"></span
+                      ><span class="lignedeplat-prix">22.—</span>
+                    </p>
+                    <p class="lignedeplat-description">Mozzarella, gorgonzola, taleggio et grana</p>
+                  </div>
+                </li>
+                <li class="lignedeplat-plat">
+                  <p class="lignedeplat-code">Rallye vert</p>
+                  <div class="lignedeplat-corps">
+                    <p class="lignedeplat-ligne">
+                      <span class="lignedeplat-nom">Végétarienne</span
+                      ><span class="lignedeplat-rappel" aria-hidden="true"></span
+                      ><span class="lignedeplat-prix">20.—</span>
+                    </p>
+                    <p class="lignedeplat-description">Tomates cherry, légumes grillés, oignon et burrata</p>
+                  </div>
+                </li>
+                <li class="lignedeplat-plat">
+                  <p class="lignedeplat-code">Championnat</p>
+                  <div class="lignedeplat-corps">
+                    <p class="lignedeplat-ligne">
+                      <span class="lignedeplat-nom">Grand Chelem</span
+                      ><span class="lignedeplat-rappel" aria-hidden="true"></span
+                      ><span class="lignedeplat-prix">23.—</span>
+                    </p>
+                    <p class="lignedeplat-description">Fromage à raclette et lardons</p>
+                  </div>
+                </li>
+                <li class="lignedeplat-plat">
+                  <p class="lignedeplat-code">Balle neuve</p>
+                  <div class="lignedeplat-corps">
+                    <p class="lignedeplat-ligne">
+                      <span class="lignedeplat-nom">Tonno</span
+                      ><span class="lignedeplat-rappel" aria-hidden="true"></span
+                      ><span class="lignedeplat-prix">19.—</span>
+                    </p>
+                    <p class="lignedeplat-description">Thon et oignons</p>
+                  </div>
+                </li>
+                <li class="lignedeplat-plat" data-signature="true">
+                  <p class="lignedeplat-code">Écublens signature</p>
+                  <div class="lignedeplat-corps">
+                    <p class="lignedeplat-ligne">
+                      <span class="lignedeplat-nom">Tennis</span
+                      ><span class="lignedeplat-rappel" aria-hidden="true"></span
+                      ><span class="lignedeplat-prix">24.—</span>
+                    </p>
+                    <p class="lignedeplat-description">Cherry, roquette, jambon cru, base blanche</p>
+                  </div>
+                </li>
+              </ul>
+            </section>
+            <section class="categoriecarte-categorie" id="foccacia" aria-labelledby="titre-foccacia">
+              <h2 class="categoriecarte-titre" id="titre-foccacia">Les foccacias</h2>
+              <ul class="categoriecarte-liste">
+                <li class="lignedeplat-plat">
+                  <p class="lignedeplat-code">Premier set</p>
+                  <div class="lignedeplat-corps">
+                    <p class="lignedeplat-ligne">
+                      <span class="lignedeplat-nom">Foccacia quinze</span
+                      ><span class="lignedeplat-rappel" aria-hidden="true"></span
+                      ><span class="lignedeplat-prix">9.—</span>
+                    </p>
+                    <p class="lignedeplat-description">Huile d’olive, romarin et gros sel</p>
+                  </div>
+                </li>
+                <li class="lignedeplat-plat">
+                  <p class="lignedeplat-code">Court 2</p>
+                  <div class="lignedeplat-corps">
+                    <p class="lignedeplat-ligne">
+                      <span class="lignedeplat-nom">Foccacia trente</span
+                      ><span class="lignedeplat-rappel" aria-hidden="true"></span
+                      ><span class="lignedeplat-prix">15.—</span>
+                    </p>
+                    <p class="lignedeplat-description">Tomate cherry, mozzarella di bufala et huile d’olive</p>
+                  </div>
+                </li>
+                <li class="lignedeplat-plat">
+                  <p class="lignedeplat-code">Bord du court</p>
+                  <div class="lignedeplat-corps">
+                    <p class="lignedeplat-ligne">
+                      <span class="lignedeplat-nom">Foccacia quarante</span
+                      ><span class="lignedeplat-rappel" aria-hidden="true"></span
+                      ><span class="lignedeplat-prix">20.—</span>
+                    </p>
+                    <p class="lignedeplat-description">Roquette, cherry, parmesan et jambon cru</p>
+                  </div>
+                </li>
+              </ul>
+            </section>
+            <section class="categoriecarte-categorie" id="pates" aria-labelledby="titre-pates">
+              <h2 class="categoriecarte-titre" id="titre-pates">Les pâtes</h2>
+              <ul class="categoriecarte-liste">
+                <li class="lignedeplat-plat">
+                  <p class="lignedeplat-code">Retour croisé</p>
+                  <div class="lignedeplat-corps">
+                    <p class="lignedeplat-ligne">
+                      <span class="lignedeplat-nom">Linguine napolitaine</span
+                      ><span class="lignedeplat-rappel" aria-hidden="true"></span
+                      ><span class="lignedeplat-prix">17.—</span>
+                    </p>
+                    <p class="lignedeplat-description">Sauce tomate maison, boulettes de bœuf mijotées</p>
+                  </div>
+                </li>
+                <li class="lignedeplat-plat" data-signature="true">
+                  <p class="lignedeplat-code">Point décisif</p>
+                  <div class="lignedeplat-corps">
+                    <p class="lignedeplat-ligne">
+                      <span class="lignedeplat-nom">Linguine bolognaise</span
+                      ><span class="lignedeplat-rappel" aria-hidden="true"></span
+                      ><span class="lignedeplat-prix">20.—</span>
+                    </p>
+                    <p class="lignedeplat-description">Sauce bolognaise maison, de bœuf</p>
+                  </div>
+                </li>
+                <li class="lignedeplat-plat">
+                  <p class="lignedeplat-code">Service lifté</p>
+                  <div class="lignedeplat-corps">
+                    <p class="lignedeplat-ligne">
+                      <span class="lignedeplat-nom">Linguine au pesto</span
+                      ><span class="lignedeplat-rappel" aria-hidden="true"></span
+                      ><span class="lignedeplat-prix">19.—</span>
+                    </p>
+                    <p class="lignedeplat-description">Sauce crémeuse de pesto basilic</p>
+                  </div>
+                </li>
+                <li class="lignedeplat-plat">
+                  <p class="lignedeplat-code">Le central</p>
+                  <div class="lignedeplat-corps">
+                    <p class="lignedeplat-ligne">
+                      <span class="lignedeplat-nom">Linguine aux crevettes &amp; ail</span
+                      ><span class="lignedeplat-rappel" aria-hidden="true"></span
+                      ><span class="lignedeplat-prix">27.—</span>
+                    </p>
+                    <p class="lignedeplat-description">Crevettes sautées, ail, persil et huile d’olive</p>
+                  </div>
+                </li>
+                <li class="lignedeplat-plat">
+                  <p class="lignedeplat-code">Belle rapide</p>
+                  <div class="lignedeplat-corps">
+                    <p class="lignedeplat-ligne">
+                      <span class="lignedeplat-nom">Rigatoni arrabiata</span
+                      ><span class="lignedeplat-rappel" aria-hidden="true"></span
+                      ><span class="lignedeplat-prix">19.—</span>
+                    </p>
+                    <p class="lignedeplat-description">Sauce tomate pimentée et basilic</p>
+                  </div>
+                </li>
+                <li class="lignedeplat-plat">
+                  <p class="lignedeplat-code">Match du soir</p>
+                  <div class="lignedeplat-corps">
+                    <p class="lignedeplat-ligne">
+                      <span class="lignedeplat-nom">Rigatoni carbonara à la française</span
+                      ><span class="lignedeplat-rappel" aria-hidden="true"></span
+                      ><span class="lignedeplat-prix">22.—</span>
+                    </p>
+                    <p class="lignedeplat-description">Lardons, crème, fromage et jaune d’œuf</p>
+                  </div>
+                </li>
+                <li class="lignedeplat-plat">
+                  <p class="lignedeplat-code">Green court</p>
+                  <div class="lignedeplat-corps">
+                    <p class="lignedeplat-ligne">
+                      <span class="lignedeplat-nom">Rigatoni pistacchio &amp; burrata</span
+                      ><span class="lignedeplat-rappel" aria-hidden="true"></span
+                      ><span class="lignedeplat-prix">24.—</span>
+                    </p>
+                    <p class="lignedeplat-description">Crème de pistache, crème, tomates séchées et burrata</p>
+                  </div>
+                </li>
+                <li class="lignedeplat-plat">
+                  <p class="lignedeplat-code">VIP Écublens</p>
+                  <div class="lignedeplat-corps">
+                    <p class="lignedeplat-ligne">
+                      <span class="lignedeplat-nom">Fagottini à la truffe</span
+                      ><span class="lignedeplat-rappel" aria-hidden="true"></span
+                      ><span class="lignedeplat-prix">27.—</span>
+                    </p>
+                    <p class="lignedeplat-description">Crème à l’arôme de truffe et pâtes farcies</p>
+                  </div>
+                </li>
+              </ul>
+            </section>
+            <section class="categoriecarte-categorie" id="risotto" aria-labelledby="titre-risotto">
+              <h2 class="categoriecarte-titre" id="titre-risotto">Les risottos</h2>
+              <ul class="categoriecarte-liste">
+                <li class="lignedeplat-plat" data-signature="true">
+                  <p class="lignedeplat-code">Le smash</p>
+                  <div class="lignedeplat-corps">
+                    <p class="lignedeplat-ligne">
+                      <span class="lignedeplat-nom">Risotto aux crevettes &amp; safran</span
+                      ><span class="lignedeplat-rappel" aria-hidden="true"></span
+                      ><span class="lignedeplat-prix">28.—</span>
+                    </p>
+                    <p class="lignedeplat-description">Risotto crémeux safrané et crevettes sautées</p>
+                  </div>
+                </li>
+                <li class="lignedeplat-plat" data-signature="true">
+                  <p class="lignedeplat-code">Sous les projecteurs</p>
+                  <div class="lignedeplat-corps">
+                    <p class="lignedeplat-ligne">
+                      <span class="lignedeplat-nom">Risotto aux champignons</span
+                      ><span class="lignedeplat-rappel" aria-hidden="true"></span
+                      ><span class="lignedeplat-prix">22.—</span>
+                    </p>
+                    <p class="lignedeplat-description">Champignons de saison et parmesan</p>
+                  </div>
+                </li>
+              </ul>
+            </section>
+            <div class="appelreservation-bloc" data-reveal="true">
+              <h2 class="appelreservation-titre">Une table ce soir ?</h2>
+              <p class="appelreservation-detail">
+                La réservation se fait par téléphone, du mardi au dimanche.<br />Midi 11h30 –
+                14h00 · Soir 18h30 – 22h00.<br />Fermé le lundi.
+              </p>
+              <div class="appelreservation-action">
+                <a
+                  href="tel:+41215554114"
+                  class="bouton-base bouton-primaire bouton-grand"
+                  aria-label="Appeler le restaurant au +41 21 555 41 14"
+                  data-analytics="call"
+                  ><svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                    stroke-linecap="square"
+                    stroke-linejoin="miter"
+                    aria-hidden="true"
+                    focusable="false"
+                  >
+                    <path
+                      d="M6.5 3h-3v3a14.5 14.5 0 0 0 14.5 14.5h3v-3l-4-1.5-2.5 2.5a11.5 11.5 0 0 1-9-9L8 7z"
+                    ></path></svg
+                  >021 555 41 14</a
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      
+    </main>
+    <footer class="surface-sapin footer-pied">
+      <div class="wrap">
+        <div class="footer-colonnes">
+          <div class="footer-colonne">
+            <h2>Adresse</h2>
+            <address>
+              Restaurant Tennis Club<br />Chemin des Esserts 6<br />1024<!-- -->
+              <!-- -->Écublens<br /><a
+                href="https://www.google.com/maps/dir/?api=1&amp;destination=Chemin%20des%20Esserts%206%2C%201024%20Ecublens%2C%20Suisse"
+                target="_blank"
+                rel="noopener"
+                >Voir l’itinéraire</a
+              >
+            </address>
+          </div>
+          <div class="footer-colonne">
+            <h2>Horaires</h2>
+            <dl>
+              <div class="footer-horaire">
+                <dt>Mardi – vendredi</dt>
+                <dd>11h30 – 14h00 · 18h30 – 22h00</dd>
+              </div>
+              <div class="footer-horaire">
+                <dt>Samedi – dimanche</dt>
+                <dd>11h30 – 14h30 · 18h30 – 22h00</dd>
+              </div>
+              <div class="footer-horaire">
+                <dt>Lundi</dt>
+                <dd class="footer-fermeture">Fermé</dd>
+              </div>
+            </dl>
+          </div>
+          <div class="footer-colonne">
+            <h2>Réservation</h2>
+            <p>
+              <a class="footer-telephone" href="tel:+41215554114" data-analytics="call">+41 21 555 41 14</a><br /><a
+                href="mailto:contact@restaurant-tennis-club.ch"
+                >contact@restaurant-tennis-club.ch</a
+              ><br />Réservation par téléphone
+            </p>
+          </div>
+          <div class="footer-colonne">
+            <h2>Le site</h2>
+            <nav class="footer-navPied" aria-label="Navigation de pied de page">
+              <a href="index.html">Accueil</a><a href="carte.html">La carte</a
+              ><a href="pizzeria.html">Pizza &amp; Pasta</a><a href="contact.html">Contact</a>
+            </nav>
+          </div>
+        </div>
+        <p class="footer-mentions">
+          <span
+            >©
+            <!-- -->2026<!-- -->
+            <!-- -->Restaurant Tennis Club</span
+          ><span>Chemin des Esserts 6, 1024 Écublens</span
+          ><span>Brasserie de club-house, pizzas et pâtes</span>
+        </p>
+      </div>
+    </footer>
+    <div class="barreaction-barre" data-visible="false" aria-hidden="true">
+      <a class="barreaction-action barreaction-carte" tabindex="-1" href="carte.html">La carte</a
+      ><a
+        class="barreaction-action barreaction-appeler"
+        href="tel:+41215554114"
+        data-analytics="call"
+        tabindex="-1"
+        aria-label="Appeler le restaurant au +41 21 555 41 14"
+        ><svg
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.5"
+          stroke-linecap="square"
+          stroke-linejoin="miter"
+          aria-hidden="true"
+          focusable="false"
+        >
+          <path
+            d="M6.5 3h-3v3a14.5 14.5 0 0 0 14.5 14.5h3v-3l-4-1.5-2.5 2.5a11.5 11.5 0 0 1-9-9L8 7z"
+          ></path></svg
+        >Appeler</a
+      >
+    </div>
+  </body>
+</html>

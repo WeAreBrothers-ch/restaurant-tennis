@@ -203,39 +203,52 @@ address {
   transform-origin: 30% 80%;
 }
 
-/* Le couvert est presque trois fois plus haut que large : à hauteur égale il
-   ne serait qu'un trait. On le grandit d'un tiers. */
-.marque--couvert {
-  --marque-h: clamp(5.75rem, 8vw, 9.25rem);
-  --marque-r: 3deg;
-}
+/* Chaque dessin a ses proportions, et elles vont du tube de balles (près de
+   trois fois plus haut que large) aux verres (plus de trois fois plus larges
+   que hauts). À hauteur égale, ils ne pèseraient pas du tout le même poids :
+   chacun porte donc la sienne, réglée pour qu'ils fassent tous la même tache.
 
-/* L'assiette et le plateau sont les deux seuls dessins couchés : à hauteur
-   égale ils pèseraient deux fois plus que les autres. */
-.marque--assiette {
-  --marque-h: clamp(3.75rem, 5.2vw, 6rem);
-  --marque-r: -6deg;
-}
-
-.marque--plateau {
-  --marque-h: clamp(5rem, 7vw, 8.25rem);
+   Les deux dessins de table sont les plus couchés des huit, et ce n'est pas un
+   hasard : ce sont des dessins au trait continu, une seule ligne d'un bout à
+   l'autre, et une telle ligne s'étale. */
+.marque--verres {
+  --marque-h: clamp(2.75rem, 3.8vw, 4.25rem);
   --marque-r: 4deg;
 }
 
-.marque--serveur {
-  --marque-r: -4deg;
-}
-.marque--convive {
-  --marque-r: 5deg;
-}
-.marque--gueridon {
+.marque--couvert {
+  --marque-h: clamp(3.5rem, 4.8vw, 5.5rem);
   --marque-r: -5deg;
 }
-.marque--trinquer {
+
+.marque--balles {
+  --marque-h: clamp(6rem, 8.4vw, 9.75rem);
+  --marque-r: 5deg;
+}
+
+.marque--service {
+  --marque-h: clamp(6rem, 8.4vw, 9.75rem);
+  --marque-r: -4deg;
+}
+
+.marque--raquette {
+  --marque-h: clamp(5.5rem, 7.6vw, 8.75rem);
+  --marque-r: 6deg;
+}
+
+.marque--joueur {
+  --marque-h: clamp(3.75rem, 5.2vw, 6rem);
   --marque-r: -3deg;
 }
-.marque--cocktail {
-  --marque-r: 6deg;
+
+.marque--filet {
+  --marque-h: clamp(4rem, 5.6vw, 6.5rem);
+  --marque-r: 3deg;
+}
+
+.marque--baskets {
+  --marque-h: clamp(3.5rem, 4.9vw, 5.75rem);
+  --marque-r: -6deg;
 }
 
 /* ---------------------------------------------------------------------------

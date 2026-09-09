@@ -1,9 +1,9 @@
-# Site du Restaurant du Tennis
+# Site du Restaurant Tennis Club Écublens
 
-Le site du **Restaurant du Tennis**, le club-house du Tennis Club d’Écublens —
-chemin des Esserts 6, 1024 Écublens. Quatre pages : l’accueil, la carte, les
-spécialités et le contact. Plus une cinquième, `404.html`, que le visiteur ne voit
-que s’il se trompe d’adresse.
+Le site du **Restaurant Tennis Club Écublens**, le club-house du Tennis Club
+d’Écublens — chemin des Esserts 6, 1024 Écublens. Quatre pages : l’accueil, la
+carte, Pizza & Pasta et le contact. Plus une cinquième, `404.html`, que le visiteur
+ne voit que s’il se trompe d’adresse.
 
 C’est un site en **HTML, CSS et JavaScript ordinaires**. Rien à installer, rien à
 compiler, aucun outil. Vous ouvrez un fichier, vous le modifiez, vous l’envoyez.
@@ -25,34 +25,36 @@ fait foi. En cas de désaccord entre lui et le site, c’est le site qui a tort.
 
 ---
 
-## À lire avant tout : la carte affichée est provisoire
+## La carte affichée est la vôtre
 
-**Aucun des plats ni des prix écrits aujourd’hui dans le site ne vient du
-restaurant.** Ils ont été rédigés pour que le site soit montrable et pour fixer la
-mise en page : 46 lignes sur `carte.html`, 18 sur `specialites.html`. Les prix sont
-plausibles, ils ne sont pas les vôtres.
+**Les cinquante-neuf plats et les cinquante-neuf prix du site ont été relevés sur
+votre carte imprimée**, photographie par photographie, en septembre 2026. Ils ne
+sont plus provisoires. Ils se répartissent ainsi :
 
-C’est écrit en toutes lettres dans les deux fichiers, juste avant la première
-catégorie, dans un encadré `⚠ CARTE PROVISOIRE ⚠` que le visiteur ne voit pas.
-Ouvrez `carte.html` ou `specialites.html` dans un éditeur de texte, cherchez
-`CARTE PROVISOIRE` : vous tomberez dessus.
+| Page | Familles | Plats |
+| --- | --- | --- |
+| `carte.html` | Apéro & à partager, entrées, assiettes froides, club-house rapide, classiques du coin, viandes & poissons, hamburgers, plats à partager, menu enfant | 37 |
+| `pizzeria.html` | Pizzas, foccacias, pâtes, risottos | 22 |
 
-**Rien ne doit être mis en ligne avant que la vraie carte ait remplacé celle-là.**
+Chaque plat porte le **nom de code** que votre carte lui donne — ACE, TIE-BREAK,
+LE VESTIAIRE, PREMIER SERVICE — et c’est lui qui commande la mise en page du site :
+il occupe une colonne à part, à gauche, séparée du plat par un filet vertical qui
+descend toute la page. C’est la construction de votre carte imprimée, reprise
+telle quelle.
 
-La cuisine, elle, est arrêtée — sous réserve de votre validation : une brasserie de
-club-house (grillades, poissons du lac, croûtes au fromage, rösti, salades repas,
-plat du jour à midi) et des spécialités marocaines (six tajines, cinq couscous,
-harira, briouates, thé à la menthe). Les huit familles de `carte.html` et les
-quatre de `specialites.html` sont bâties là-dessus : remplacer les plats ne demande
-pas de toucher à la structure.
+Les seize plats que votre carte marque d’une étoile la portent aussi ici, et dix
+d’entre eux sont repris sur l’accueil, dans le bloc « Les plats qui portent
+l’étoile ».
 
 ### Ce qui manque encore
 
 | Ce qui n’est pas encore le vôtre | Ce qu’il faut |
 | --- | --- |
-| **La carte** | Les 46 + 18 lignes sont provisoires. À remplacer entièrement |
-| **Les photographies** | Les 21 images sont celles du site qui a servi de modèle : prises de nuit, à la bougie, sur fond noir. Sur une page crème, elles font un trou. Le brief du photographe est dans `PHOTOS-A-FOURNIR.md` |
-| **Cinq des neuf dessins** | Le premier écran fait tomber neuf dessins au trait. **Quatre sont les vôtres** — la raquette, le joueur au service, le filet, les chaussures — repassés au vert sapin. Les cinq autres, ceux de la table, viennent encore du modèle et sont en terre battue |
+| **Les desserts** | La page des desserts de la carte imprimée n’a pas été photographiée. Aucun dessert ni aucun prix n’a été inventé : `carte.html` porte une famille « Les desserts » vide, avec une phrase d’attente. Envoyez la photographie de cette page et elle se remplit comme les autres |
+| **Les boissons** | Idem. Aucune page de boissons n’a été fournie, et le site n’en parle pas |
+| **La provenance du poulet** | La ligne était coupée sur la photographie du bas de carte. Les cinq autres provenances — bœuf, perche, dorade, pain, boucherie — sont en ligne |
+| **Les photographies** | Neuf photographies sont les vôtres et sont en ligne. Cinq d’entre elles sont prises le soir, en salle : sur une page crème, elles font un trou. Le brief pour en obtenir de jour est dans `PHOTOS-A-FOURNIR.md` |
+| **Trois dessins d’un autre style** | Le premier écran fait tomber huit dessins au trait, **et les huit sont les vôtres** : plus aucun ne vient du modèle. Mais cinq sont au trait continu et trois au crayon (la raquette, le filet, les chaussures). Le mélange se voit un peu. Trois dessins au trait continu de plus, et la série sera d’un seul tenant |
 | **Les horaires** | Ceux qui s’affichent ne sont pas confirmés (voir plus bas) |
 | **Le service de formulaire** | `contact.html` pointe vers `formspree.io/f/VOTRE-IDENTIFIANT` (voir plus bas) |
 
@@ -60,8 +62,8 @@ Trois informations sont **à confirmer** avant toute mise en ligne. Elles vienne
 de sources publiques et n’ont pas été validées :
 
 - le téléphone **021 555 41 14** ;
-- l’e-mail **contact@restaurant-du-tennis.ch** ;
-- le nom de domaine **restaurant-du-tennis.ch**, qui n’est pas réservé à ce jour.
+- l’e-mail **contact@restaurant-tennis-club.ch** ;
+- le nom de domaine **restaurant-tennis-club.ch**, qui n’est pas réservé à ce jour.
 
 ---
 
@@ -80,14 +82,14 @@ dossier dans un petit serveur local, ou regardez-les directement en ligne.
 | Fichier ou dossier | Contenu |
 | --- | --- |
 | `index.html` | L’accueil |
-| `carte.html` | La carte complète — huit familles, 46 lignes |
-| `specialites.html` | Les tajines et les couscous — 18 lignes |
+| `carte.html` | La carte du club-house — neuf familles, 37 plats |
+| `pizzeria.html` | Pizza & Pasta — quatre familles, 22 plats |
 | `contact.html` | Contact, horaires, plan et formulaire |
 | `404.html` | La page affichée quand une adresse n’existe pas |
 | `css/` | Cinq feuilles de style, une par sujet (voir plus bas) |
 | `js/` | Neuf petits fichiers, un par comportement (voir plus bas) |
 | `scripts/` | Quatre outils d’entretien. Ne servent qu’à vous, jamais au visiteur |
-| `images/` | Les 21 photographies, les neuf dessins au trait, le plan et la marque |
+| `images/` | Les neuf photographies, les huit dessins au trait, le plan, les raquettes croisées et la marque du navigateur |
 | `dessins-source/` | Les dessins du premier écran tels qu’ils sont arrivés, avant détourage. **Ne sont pas publiés** |
 | `fonts/` | Les quatre fichiers de polices, hébergés ici plutôt que chez Google |
 | `favicon.ico`, `apple-touch-icon.png` | L’icône du site dans l’onglet et sur l’écran d’accueil des téléphones |
@@ -106,18 +108,30 @@ Ouvrez le fichier de la page concernée dans un éditeur de texte, cherchez le n
 plat, et modifiez ce qui l’entoure. Une ligne de carte ressemble à ceci :
 
 ```html
-<li class="lignedeplat-plat">
-  <p class="lignedeplat-ligne">
-    <span class="lignedeplat-nom">Filets de perche meunière</span>
-    <span class="lignedeplat-rappel" aria-hidden="true"></span>
-    <span class="lignedeplat-prix">32.—</span>
-  </p>
-  <p class="lignedeplat-description">Pommes vapeur, citron, beurre persillé</p>
+<li class="lignedeplat-plat" data-signature="true">
+  <p class="lignedeplat-code">Le capitaine</p>
+  <div class="lignedeplat-corps">
+    <p class="lignedeplat-ligne">
+      <span class="lignedeplat-nom">Tagliata de bœuf</span>
+      <span class="lignedeplat-rappel" aria-hidden="true"></span>
+      <span class="lignedeplat-prix">39.—</span>
+    </p>
+    <p class="lignedeplat-description">Entrecôte coupée sur roquette, cherry, parmesan</p>
+    <p class="lignedeplat-meta">Sur commande · minimum 2 personnes</p>
+  </div>
 </li>
 ```
 
-- **Changer un prix** → modifiez le contenu de `lignedeplat-prix`. On écrit `32.—`
-  pour 32 francs et `8.50` pour huit francs cinquante.
+- **Changer un prix** → modifiez le contenu de `lignedeplat-prix`. On écrit `39.—`
+  pour 39 francs et `8.50` pour huit francs cinquante.
+- **Changer le nom de code** → `lignedeplat-code`. Écrivez-le en minuscules :
+  c’est la feuille de style qui le passe en capitales, et un texte écrit en
+  capitales dans le HTML est épelé lettre par lettre par les lecteurs d’écran.
+- **Mettre ou retirer l’étoile** → ajoutez ou supprimez `data-signature="true"` sur
+  la balise `<li>`. **L’étoile n’est jamais un caractère écrit dans le texte** :
+  c’est une marque, pas un mot, et c’est le CSS qui la dessine.
+- **Ajouter une mention** — « sur commande », « minimum 2 personnes » → la ligne
+  `lignedeplat-meta`, facultative, toujours en dernier.
 - **Ajouter un plat** → recopiez un bloc `<li>…</li>` entier au bon endroit et
   modifiez-le.
 - **Retirer un plat** → supprimez son bloc `<li>…</li>` en entier, de la balise
@@ -125,6 +139,10 @@ plat, et modifiez ce qui l’entoure. Une ligne de carte ressemble à ceci :
 
 Le petit trait pointillé entre le nom et le prix — `lignedeplat-rappel` — se dessine
 tout seul, quelle que soit la longueur du nom. Laissez-le vide, ne le supprimez pas.
+
+**Si vous ajoutez ou retirez une famille entière**, pensez au sommaire en haut de la
+page : c’est la liste `sommaire-liste`, juste avant la première famille, et elle ne
+se met pas à jour toute seule.
 
 ### Attention : certaines informations existent à plusieurs endroits
 
@@ -180,7 +198,7 @@ Déposez votre fichier dans `images/` **avec exactement le même nom** que celui
 vous remplacez, et **aux mêmes dimensions**. Rien d’autre à faire.
 
 Les noms disent ce que l’image doit montrer et portent un **millésime** :
-`paire-terrasse-2026-09a.jpg`. Gardez-le : les navigateurs retiennent les images
+`plat-entrecote-2026-09b.jpg`. Gardez-le : les navigateurs retiennent les images
 d’après leur adresse, et une photo remplacée sous le même nom continuerait de
 s’afficher en ancienne version chez les visiteurs déjà venus. Pour forcer le
 changement, donnez un nouveau millésime au fichier **et** corrigez son nom dans les
@@ -216,7 +234,7 @@ d’utilisation de ces données.
 
 ## Changer un dessin du premier écran
 
-Les neuf dessins qui tombent en haut de l’accueil sont dans `images/`, sous le nom
+Les huit dessins qui tombent en haut de l’accueil sont dans `images/`, sous le nom
 `trait-…`. Pour en remplacer un, il ne suffit pas de déposer votre image : il faut
 d’abord la **détourer** et la **repasser à l’encre de la maison**, sinon elle
 arrivera avec son fond blanc et ses couleurs d’origine au milieu d’une page crème.
@@ -364,23 +382,39 @@ Rien n’est cassé, c’est simplement moins juste.
 ## L’enseigne et la marque du navigateur
 
 Le nom de la maison **n’est pas une image**. C’est du texte composé, sur trois
-lignes — « Restaurant du » / « Tennis » / « Écublens » — par le composant
+lignes — « Restaurant » / « Tennis Club » / « Écublens » — par le composant
 `.enseigne` de `css/composants.css`. Il est donc net à toutes les tailles,
 sélectionnable, et lu correctement par Google.
 
-Si un logo dessiné arrive un jour, il remplace ce composant sans rien changer
-d’autre dans le site.
+**Le logo que vous avez fourni est remonté, pas collé.** Ses deux filets à losange
+sont dessinés par la feuille de style (`.enseigne-regle`), et ses deux raquettes
+croisées sont un fichier au trait, `images/marque-raquettes.svg`. Ce fichier n’a
+pas de couleur : il est posé en masque, et prend l’encre de la surface — sapin sur
+la page, crème sur le pied de page. Un seul fichier suffit donc pour les deux
+fonds, et il reste net sur un écran de téléphone comme sur un écran 5K.
+
+L’enseigne ornée — les filets, les raquettes — ne sert qu’aux **deux grands
+emplacements** : le premier écran et le pied de page. Dans la barre du haut et dans
+le menu du téléphone, où elle ne fait que trente pixels, elle se réduit au nom : à
+cette taille, les filets se confondraient avec le texte et le cordage des raquettes
+deviendrait une tache grise.
+
+Si un logo en fichier arrive un jour, il remplace le composant `.enseigne` sans
+rien changer d’autre dans le site.
 
 La marque du navigateur — la petite icône de l’onglet et de l’écran d’accueil des
-iPhone — est une **balle de tennis en terre battue**. Elle vit dans trois
-fichiers : `images/logo-mono.svg`, `favicon.ico` et `apple-touch-icon.png`.
+iPhone — est une **balle de tennis en terre battue**, et non les raquettes. C’est
+une contrainte de taille, pas un choix : à seize pixels, la balle ne fait plus que
+douze pixels de large, et un cordage y devient un aplat gris. Elle vit dans trois
+fichiers qui portent le même dessin : `images/logo-mono.svg`, `favicon.ico` et
+`apple-touch-icon.png`.
 
 ---
 
 ## Le mouvement
 
-Le premier écran fait tomber **neuf dessins au trait** — cinq en terre battue,
-qui disent la table, quatre en vert sapin, qui disent le club — pendant qu’on
+Le premier écran fait tomber **huit dessins au trait** — deux en terre battue,
+qui disent la table, six en vert sapin, qui disent le club — pendant qu’on
 commence à descendre. Tout est piloté par un seul chiffre écrit par `js/premier-ecran.js` ;
 la feuille de style en tire la chute et la vrille de chaque dessin. Passé le
 premier écran, plus rien n’est calculé.
@@ -409,7 +443,7 @@ Un fichier par comportement, indépendants les uns des autres :
 | Fichier | Ce qu’il fait |
 | --- | --- |
 | `js/apparitions.js` | Fait apparaître les blocs en douceur au défilement |
-| `js/premier-ecran.js` | Fait tomber les neuf dessins du premier écran |
+| `js/premier-ecran.js` | Fait tomber les huit dessins du premier écran |
 | `js/entete.js` | Rend l’en-tête opaque dès qu’on a commencé à lire |
 | `js/barre-action.js` | Fait monter la barre d’appel en bas de l’écran, sur téléphone |
 | `js/menu-mobile.js` | Ouvre et ferme le menu du téléphone |

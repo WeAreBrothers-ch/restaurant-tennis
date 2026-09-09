@@ -132,6 +132,25 @@
 }
 
 /* ---------------------------------------------------------------------------
+   OÙ LE CADRE COUPE
+
+   Une photographie recadrée est coupée par son milieu, ce qui est le bon
+   réglage neuf fois sur dix. Ces deux classes disent qu'ici, c'est la dixième :
+   le sujet n'est pas au centre du fichier.
+
+   Elles servent aux photographies du restaurant qui ont été prises debout, en
+   portrait, et qu'un cadre en paysage viderait de leur sujet — l'assiette est
+   en bas, la lampe du passe en haut.
+   --------------------------------------------------------------------------- */
+.photo-bas .photo-image {
+  object-position: 50% 82%;
+}
+
+.photo-haut .photo-image {
+  object-position: 50% 18%;
+}
+
+/* ---------------------------------------------------------------------------
    LES FORMATS
 
    Cinq rapports, à poser au cas par cas. Deux photographies voisines n'en
@@ -206,7 +225,7 @@ a:focus-visible > .photo-zoom .photo-image {
 /* ---------------------------------------------------------------------------
    LA PHOTOGRAPHIE MONTRÉE EN ENTIER
 
-   Une assiette, un tajine, un plateau : un objet rond ou ovale qu'on ne coupe
+   Une assiette, une planchette, un plateau : un objet rond ou ovale qu'on ne coupe
    pas. Ces photographies sont fabriquées avec la crème du site tout autour de
    l'objet — le cadre disparaît donc, et l'objet flotte sur la page.
 
@@ -336,6 +355,100 @@ a:focus-visible > .photo-zoom .photo-image {
   /* Centrées, les lettres espacées se rattrapent des deux côtés. */
   margin-right: 0;
   text-indent: 0.28em;
+}
+
+/* ============================================================================
+   L'ENSEIGNE ORNÉE
+
+   Le client a fourni un logo : « Restaurant / TennisClub / Ecublens », encadré
+   de deux filets à losange, avec deux raquettes croisées en dessous. Il n'est
+   pas posé ici en fichier — il est REMONTÉ dans les polices et les couleurs du
+   site, de sorte qu'il reste net à toutes les tailles, prenne l'encre de la
+   surface sur laquelle il tombe, et se lise par Google comme par un lecteur
+   d'écran.
+
+   Seuls les deux GRANDS emplacements le portent : le premier écran et le pied
+   de page. Dans la barre du haut, à trente pixels, les filets se confondraient
+   avec le texte et les raquettes deviendraient une tache.
+   ============================================================================ */
+.enseigne--orne .enseigne-sur {
+  display: flex;
+  align-items: center;
+  gap: 0.9em;
+  width: 100%;
+  /* Le mot est centré entre ses deux filets par la boîte flexible elle-même :
+     ni la marge négative ni le retrait de la version courante n'ont plus lieu
+     d'être, et les deux le décentreraient. */
+  margin-right: 0;
+  text-indent: 0;
+}
+
+/* Un filet, et le losange qui le termine côté extérieur. Le trait est porté par
+   `::before`, le losange par `::after` : c'est la seule construction qui tienne
+   les deux dans un élément vide, sans image et sans balise de plus. */
+.enseigne-regle {
+  position: relative;
+  flex: 1 1 1.6em;
+  min-width: 0.9em;
+  height: 0.5em;
+  color: var(--encre-3);
+}
+
+.enseigne-regle::before {
+  content: "";
+  position: absolute;
+  inset-block: calc(50% - 0.5px);
+  inset-inline: 0.45em 0;
+  background-color: currentColor;
+  opacity: 0.5;
+}
+
+.enseigne-regle::after {
+  content: "";
+  position: absolute;
+  top: calc(50% - 0.16em);
+  left: 0;
+  width: 0.32em;
+  height: 0.32em;
+  background-color: currentColor;
+  opacity: 0.65;
+  transform: rotate(45deg);
+}
+
+/* Le second filet est le miroir du premier : le losange passe à droite. */
+.enseigne-regle:last-child {
+  transform: scaleX(-1);
+}
+
+/* Les deux raquettes croisées, sous le lieu.
+
+   Elles sont posées en MASQUE, pas en `<img>` : une image SVG chargée par
+   `<img>` est un document isolé, où `currentColor` ne vaut plus rien et
+   retombe au noir. En masque, c'est la couleur de fond de l'élément qui passe
+   au travers du dessin — donc l'encre de la surface, crème sur le pied de page
+   et sapin sur la page. Un seul fichier pour les deux fonds. */
+.enseigne-marque {
+  width: 0.66em;
+  height: 0.62em;
+  margin-top: 0.16em;
+  background-color: var(--encre);
+  -webkit-mask: url(../images/marque-raquettes.svg) center / contain no-repeat;
+  mask: url(../images/marque-raquettes.svg) center / contain no-repeat;
+}
+
+/* Sur le pied de page, l'enseigne reste calée à gauche : c'est le début d'une
+   colonne, pas une couverture. Les filets prennent alors la largeur du nom, qui
+   est l'élément le plus large de la grille — donc exactement la largeur du
+   bloc, sans qu'on ait à la calculer.
+
+   Les raquettes, elles, y sont grossies. Le pied de page compose l'enseigne à
+   cinquante pixels contre cent cinquante sur le premier écran : à la même
+   proportion, le cordage tomberait sous les vingt pixels et virerait au gris
+   plein. La marque ne suit donc pas l'échelle du nom — elle a la sienne. */
+.enseigne--pied .enseigne-marque {
+  width: 1.05em;
+  height: 0.98em;
+  margin-top: 0.28em;
 }
 
 /* ============================================================================

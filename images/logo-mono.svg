@@ -1,8 +1,26 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Restaurant du Tennis">
-  <title>Restaurant du Tennis</title>
-  <circle cx="32" cy="32" r="28" fill="#c0603a"/>
-  <g fill="none" stroke="#f4f1e9" stroke-width="2.95" stroke-linecap="round">
-    <path d="M4.61 26.18 C 14.08 9.28, 49.92 9.28, 59.39 26.18"/>
-    <path d="M4.61 37.82 C 14.08 54.72, 49.92 54.72, 59.39 37.82"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="Restaurant Tennis Club Écublens">
+  <!-- ==========================================================================
+       LA MARQUE DU NAVIGATEUR
+
+       Une balle en terre battue, coutures crème. Ce n'est PAS le logo du
+       restaurant — celui-là, ce sont les deux raquettes croisées, dans
+       `marque-raquettes.svg`, et il ne tient pas à seize pixels : à cette
+       taille, un cordage devient un aplat gris.
+
+       Ce fichier doit donc dire la même chose en une seule forme pleine. Il est
+       accordé au `favicon.ico` et à l'`apple-touch-icon.png`, qui portent le
+       même dessin : les trois marques du navigateur ne se contredisent jamais.
+
+       Les couleurs sont écrites en dur, et c'est voulu : un favicon est lu hors
+       de la page, sans la feuille de style du site.
+       ========================================================================== -->
+  <rect width="100" height="100" fill="#F4F1E9" />
+  <circle cx="50" cy="50" r="44" fill="#C0603A" />
+  <!-- Les coutures sont épaisses pour une raison de taille, pas de dessin : à
+       seize pixels dans un onglet, la balle ne fait plus que douze pixels de
+       large, et un trait fin y disparaît complètement. -->
+  <g fill="none" stroke="#F4F1E9" stroke-width="8" stroke-linecap="round">
+    <path d="M13 20a48 48 0 0 1 0 60" />
+    <path d="M87 20a48 48 0 0 0 0 60" />
   </g>
 </svg>

@@ -34,6 +34,7 @@ import os
 import sys
 
 SAPIN = (0x27, 0x52, 0x3D)   # le vert du club, pour les dessins de tennis
+TERRE = (0xC0, 0x60, 0x3A)   # la terre battue, pour les dessins de table
 CREME_SOURCE = (249, 234, 225)   # le papier des dessins d'origine, mesuré
 SEUIL = 0.90                 # au-dessus de cette clarté, c'est du papier
 GAMMA = 0.72                 # densifie les demi-tons : sans lui, un dessin peint
@@ -49,8 +50,27 @@ DOSSIER = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "images
 # et il est chargé AVANT le premier affichage — c'est-à-dire au pire moment.
 SOURCES = [
     ("trait-filet-2026-09a.png",    "filet.png",    SAPIN, (0, 0, 0, 0), 440, []),
+    # LES QUATRE DESSINS ARRIVÉS EN SEPTEMBRE. Ils remplacent ceux du site
+    # modèle, qui ont été retirés : plus une seule image de la table ne vient
+    # d'ailleurs que d'ici.
+    #
+    # Les deux premiers sont des dessins au trait continu, sur fond blanc franc :
+    # ils se détourent tout seuls et n'ont besoin d'aucune retouche. Le canister
+    # de balles arrive DÉJÀ en vert sombre, ce qui ne change rien — le script ne
+    # lit que la clarté de chaque pixel, jamais sa teinte, et repeint tout à
+    # l'encre demandée.
+    ("trait-balles-2026-09b.png",   "balles.png",   SAPIN, (0, 0, 0, 0), 300, []),
+    ("trait-service-2026-09b.png",  "service.png",  SAPIN, (0, 0, 0, 0), 420, []),
+    ("trait-joueur-2026-09b.png",   "joueur-trait.png", SAPIN, (0, 0, 0, 0), 470, []),
+    ("trait-verres-2026-09b.png",   "verres.png",   TERRE, (0, 0, 0, 0), 620, []),
+    ("trait-couvert-2026-09b.png",  "couvert.png",  TERRE, (0, 0, 0, 0), 520, []),
     ("trait-baskets-2026-09a.png",  "baskets.png",  SAPIN, (0, 0, 26, 0), 400, []),
     ("trait-raquette-2026-09a.png", "raquette.png", SAPIN, (0, 0, 0, 0), 240, []),
+    # ⚠ CE JOUEUR-CI N'EST PLUS PUBLIÉ : il a été remplacé en septembre par un
+    # dessin au trait continu, `joueur-trait.png`, accordé aux verres et au
+    # couvert. La recette reste ici parce qu'elle est longue à retrouver et que
+    # rien ne dit qu'on n'y reviendra pas.
+    #
     # LE JOUEUR PORTE DEUX INCRUSTATIONS DE PINTEREST, et elles sont posées SUR
     # ses pieds. On ne peut donc pas les couper : il faut les effacer.
     #
