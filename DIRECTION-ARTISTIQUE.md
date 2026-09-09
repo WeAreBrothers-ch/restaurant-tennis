@@ -336,7 +336,7 @@ qu'elles ont donné.
 | --- | --- |
 | « Je ne veux pas de gros espace comme ça » | Le rapport des intervalles passe de 1 · 2 · 3 à 1 · 1,5 · 2, et le demi-joint de 6,25 à 3,75 rem. Le premier écran est plafonné. La respiration, 596 px pour un dessin, est supprimée : **le silence est fait par un changement de fond, pas par du vide.** L'accueil perd 1 162 px |
 | « La carte j'aime pas le positionnement » | Voir le chapitre 5 bis, refait en entier |
-| « Le carrousel, j'en veux pas à part si il bouge tout seul » | Il avance seul, sans fin, à 30 px/s. Il ne s'arrête ni au survol ni au clic, et on peut le pousser à la main quand on veut : ce n'est plus une animation, c'est du DÉFILEMENT. Voir le chapitre 8 |
+| « Le carrousel, j'en veux pas à part si il bouge tout seul » | Il avance seul, sans fin, à 55 px/s. Il ne s'arrête ni au survol ni au clic, et on peut le pousser à la main quand on veut : ce n'est plus une animation, c'est du DÉFILEMENT. Voir le chapitre 8 |
 | « La héro ne doit pas être coupée par le carrousel, jamais » | Le premier écran reprend la hauteur entière de la fenêtre. Ce n'est pas un retour en arrière : c'est le CHAMP DE DESSINS qui est maintenant borné à 820 px et centré dedans, alors qu'avant il suivait la fenêtre et se défaisait. La section est pleine, la composition est dense |
 | « Les images avec un petit texte comme ça je ne veux pas » | Le bandeau a perdu sa légende. La photographie prend toute la bande, d'un bord à l'autre de l'écran — seul endroit du site où cela arrive |
 | « Je trouve le site très terne » | Voir le chapitre 2, refait en entier |

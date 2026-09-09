@@ -37,9 +37,13 @@
   var defile = piste.querySelector(".ruban-defile");
   if (!defile) return;
 
-  /* Trente pixels par seconde. À cette vitesse on a le temps de reconnaître une
-     assiette sans avoir l'impression que quelque chose se sauve. */
-  var VITESSE = 30;
+  /* Cinquante-cinq pixels par seconde.
+
+     Elle a valu trente, et c'était trop lent : à cette allure une vignette
+     mettait seize secondes à parcourir sa propre largeur, et le ruban avait
+     l'air arrêté plutôt que calme. À cinquante-cinq elle en met neuf — on voit
+     qu'il avance sans jamais avoir à courir après une assiette. */
+  var VITESSE = 55;
 
   var reduit = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)");
   if (reduit && reduit.matches) return;
