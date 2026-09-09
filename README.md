@@ -97,9 +97,24 @@ dessins se retirent et les cinq autres se rangent en deux files. Sans cela,
 quatre d’entre eux venaient se poser sur le nom de la maison.
 
 **Le ruban se laisse pousser au doigt.** Il avance tout seul, mais il se tait
-pendant qu’un doigt le fait glisser et reprend un tiers de seconde après :
-écrire dans un défilement en cours annule l’inertie, et le ruban se figerait
-sous le doigt qui vient de le lancer.
+pendant qu’un doigt le fait glisser et reprend une demi-seconde après : écrire
+dans un défilement en cours annule l’inertie, et le ruban se figerait sous le
+doigt qui vient de le lancer.
+
+> **Il a un essai à lui, et il faut le lancer après toute retouche de
+> `js/galerie.js` :**
+>
+> ```
+> node scripts/essai-ruban.mjs
+> ```
+>
+> Il fait tourner le vrai fichier sur un faux navigateur — le pire possible :
+> un qui arrondit les positions à l’entier et qui émet ses événements en
+> retard — et vérifie neuf comportements, vitesse comprise. Il existe parce que
+> le ruban s’est cassé une fois **sans que rien ne le signale** : il avançait de
+> trois pixels par seconde au lieu de cinquante-cinq, ce qui, à l’œil, ressemble
+> à un ruban arrêté. Ce genre de défaut ne se voit pas en ouvrant la page : il
+> faut compter les pixels.
 
 Les pages déclarent `viewport-fit=cover`, sans quoi les marges de sécurité de
 l’iPhone valent toutes zéro. La marge horizontale du site ne descend donc jamais

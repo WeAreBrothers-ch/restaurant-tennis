@@ -7,26 +7,43 @@
 
    CE FICHIER LUI AJOUTE TROIS CHOSES, ET RIEN D'AUTRE :
 
-     1. IL AVANCE TOUT SEUL. Quelques dixièmes de pixel ajoutés à `scrollLeft` à
-        chaque image de rendu. Ce n'est pas une animation : c'est du défilement,
-        exactement celui que ferait un doigt, en beaucoup plus lent. C'est ce
-        qui permet aux deux gestes de s'additionner au lieu de se disputer — on
-        pousse le ruban où l'on veut, il repart de là, et il ne s'arrête jamais.
-        Notamment pas au survol : le client l'a demandé en toutes lettres.
+     1. IL AVANCE TOUT SEUL, en écrivant son `scrollLeft` à chaque image de
+        rendu. Ce n'est pas une animation : c'est du défilement, exactement
+        celui que ferait un doigt, en beaucoup plus lent. Il ne s'arrête jamais
+        — ni au survol, ni au clic.
 
      2. LA BOUCLE SE REFERME. La piste porte deux fois la même série ; dès que
-        le défilement atteint sa moitié, on retranche cette moitié. On se
-        retrouve au même pixel de la première série, et rien ne se voit. Cela
+        la position atteint la moitié de la piste, on retranche cette moitié. On
+        se retrouve au même pixel de la première série, et rien ne se voit. Cela
         vaut aussi en marche arrière, quand on tire le ruban vers la droite.
 
      3. LA SOURIS PEUT L'ATTRAPER. Le doigt et le trackpad font défiler une
         boîte nativement ; la souris, non. Quelques lignes de `pointer` lui
         rendent le geste.
 
-   IL S'ARRÊTE DANS DEUX CAS, ET SEULEMENT DEUX : quand le système demande un
-   mouvement réduit, et quand le ruban n'est pas à l'écran — une animation qui
-   tourne hors champ ne se voit pas mais se paie, sur la batterie comme sur la
-   fluidité du reste de la page.
+   ────────────────────────────────────────────────────────────────────────────
+   DEUX PIÈGES, ET C'EST TOUT CE QUI REND CE FICHIER MOINS COURT QU'IL N'Y PARAÎT
+
+   ⚠ PREMIER PIÈGE : NE JAMAIS SE FIER À L'ÉVÉNEMENT `scroll` POUR SAVOIR QUI A
+   POUSSÉ. Une version précédente levait un drapeau juste avant d'écrire
+   `scrollLeft` et le rabaissait juste après, en croyant que l'écouteur le
+   verrait levé. Il ne le voit jamais : `scroll` n'est PAS émis pendant
+   l'écriture, il est émis plus tard, quand le navigateur met à jour l'affichage
+   — le drapeau est déjà retombé. Le ruban prenait donc son propre mouvement
+   pour celui d'un doigt, se taisait trois cents millisecondes, avançait d'une
+   image, se taisait encore. À l'œil, il tressautait sur place. C'était le bug.
+
+   On ne se fie donc à AUCUN événement. À chaque image, on compare la position
+   réelle de la boîte à celle qu'on y a laissée la fois d'avant. Si elle a bougé
+   sans nous, c'est quelqu'un d'autre — un doigt, une molette, une inertie en
+   cours — et on se retire un instant. C'est une comparaison synchrone : elle ne
+   peut pas se tromper d'ordre.
+
+   ⚠ SECOND PIÈGE : NE PAS ACCUMULER DANS `scrollLeft`. À cinquante-cinq pixels
+   par seconde, une image ne vaut que neuf dixièmes de pixel. Un navigateur qui
+   arrondit `scrollLeft` à l'entier rendrait donc zéro à chaque lecture, et un
+   `+=` n'avancerait jamais d'un pouce. La position est tenue à part, en nombre
+   à virgule ; `scrollLeft` n'en est que le reflet.
    ============================================================================ */
 (function () {
   "use strict";
@@ -37,60 +54,81 @@
   var defile = piste.querySelector(".ruban-defile");
   if (!defile) return;
 
-  /* Cinquante-cinq pixels par seconde.
-
-     Elle a valu trente, et c'était trop lent : à cette allure une vignette
-     mettait seize secondes à parcourir sa propre largeur, et le ruban avait
-     l'air arrêté plutôt que calme. À cinquante-cinq elle en met neuf — on voit
-     qu'il avance sans jamais avoir à courir après une assiette. */
+  /* Cinquante-cinq pixels par seconde. Elle a valu trente, et c'était trop
+     lent : à cette allure une vignette mettait seize secondes à parcourir sa
+     propre largeur, et le ruban avait l'air arrêté plutôt que calme. */
   var VITESSE = 55;
+
+  /* De combien la position doit s'écarter de ce qu'on attendait pour qu'on
+     conclue que quelqu'un d'autre a poussé. Notre pas vaut neuf dixièmes de
+     pixel : deux pixels laissent passer les arrondis du navigateur sans laisser
+     passer un geste — le plus lent des gestes déplace déjà la boîte de
+     plusieurs pixels par image. */
+  var SEUIL = 2;
+
+  /* Le temps qu'on se retire après un geste. Une glissade au doigt ralentit
+     pendant près d'une seconde : reprendre trop tôt, c'est l'interrompre. */
+  var RETRAIT = 500;
 
   var reduit = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)");
   if (reduit && reduit.matches) return;
 
-  /* --------------------------------------------------------------------------
-     LA BOUCLE
-
-     `scrollWidth / 2` tombe juste parce que la feuille de style ajoute un joint
-     de fin à la piste : sans lui, la moitié vaudrait cinq vignettes et QUATRE
-     JOINTS ET DEMI, et le ruban dériverait d'un demi-joint à chaque tour.
-     -------------------------------------------------------------------------- */
-  var recadrer = function () {
-    var demi = defile.scrollWidth / 2;
-    if (demi <= 0) return;
-    if (defile.scrollLeft >= demi) defile.scrollLeft -= demi;
-    else if (defile.scrollLeft < 0) defile.scrollLeft += demi;
-  };
+  /* La position que NOUS tenons, en nombre à virgule. Voir le second piège. */
+  var position = 0;
+  /* La dernière position lue dans la boîte : notre point de comparaison. */
+  var dernierVu = 0;
+  /* Tant que l'horloge n'a pas dépassé cette date, on laisse la main. */
+  var silenceJusqu = 0;
 
   var precedent = 0;
   var image = 0;
-  /* Levé le temps de nos propres écritures, pour que l'écouteur de défilement
-     ne les prenne pas pour un geste de l'usager. */
-  var nousEcrivons = false;
-  /* Vrai tant qu'un doigt ou un trackpad fait glisser la boîte — voir plus bas. */
-  var pousseParLUsager = false;
+
+  /* La moitié de la piste, c'est-à-dire UNE série complète — et donc le pas de
+     la boucle. Elle tombe juste parce que la feuille de style ajoute un joint
+     de fin : sans lui, la moitié vaudrait cinq vignettes et QUATRE JOINTS ET
+     DEMI, et le ruban dériverait d'un demi-joint à chaque tour. */
+  var pas = function () {
+    return defile.scrollWidth / 2;
+  };
+
+  var boucler = function (x) {
+    var demi = pas();
+    if (demi <= 0) return x;
+    while (x >= demi) x -= demi;
+    while (x < 0) x += demi;
+    return x;
+  };
 
   var avancer = function (temps) {
-    if (precedent) {
+    var reel = defile.scrollLeft;
+
+    /* Quelqu'un d'autre a-t-il écrit depuis notre dernière image ? */
+    if (Math.abs(reel - dernierVu) > SEUIL) {
+      position = reel;
+      silenceJusqu = temps + RETRAIT;
+    }
+
+    if (precedent && temps >= silenceJusqu && !defile.dataset.saisi) {
       /* Le temps écoulé, borné : au retour d'un onglet resté en arrière-plan,
          l'écart peut valoir plusieurs secondes, et le ruban ferait un bond. */
       var ecoule = Math.min((temps - precedent) / 1000, 0.1);
-      /* On n'avance ni pendant qu'on est tiré à la souris, ni pendant qu'un
-         doigt fait glisser la boîte : dans les deux cas, les deux écritures se
-         marcheraient dessus. */
-      if (!defile.dataset.saisi && !pousseParLUsager) {
-        nousEcrivons = true;
-        defile.scrollLeft += VITESSE * ecoule;
-        recadrer();
-        nousEcrivons = false;
-      }
+      position = boucler(position + VITESSE * ecoule);
+      defile.scrollLeft = position;
     }
+
+    /* Relu, et non recopié : le navigateur a pu arrondir ou borner ce qu'on
+       vient d'écrire, et c'est SA valeur qui doit servir de comparaison. */
+    dernierVu = defile.scrollLeft;
     precedent = temps;
     image = requestAnimationFrame(avancer);
   };
 
   var lancer = function () {
     if (image) return;
+    /* On se resynchronise : la boîte a pu bouger pendant qu'on ne regardait
+       pas, et une reprise décalée passerait pour un geste. */
+    position = defile.scrollLeft;
+    dernierVu = position;
     precedent = 0;
     image = requestAnimationFrame(avancer);
   };
@@ -102,43 +140,16 @@
   };
 
   /* --------------------------------------------------------------------------
-     ON NE POUSSE PAS PENDANT QU'UN DOIGT POUSSE
-
-     Au doigt, la boîte défile toute seule, avec son inertie : le doigt lance le
-     ruban, le lâche, et il continue de glisser en ralentissant. Or écrire
-     `scrollLeft` pendant cette glissade l'ANNULE — sur iOS notamment, la moindre
-     écriture arrête net l'inertie, et le ruban se fige sous le doigt qui vient
-     de le lancer.
-
-     On se tait donc pendant qu'il défile de lui-même, et on reprend un tiers de
-     seconde après le dernier événement de défilement. `scrollend` ferait ça
-     proprement, mais il n'existe pas partout : le compte à rebours, si.
-     -------------------------------------------------------------------------- */
-  var reprise = 0;
-
-  defile.addEventListener(
-    "scroll",
-    function () {
-      /* Nos propres écritures déclenchent aussi cet événement : sans ce garde,
-         le ruban se tairait à cause de son propre mouvement et ne repartirait
-         jamais. */
-      if (nousEcrivons) return;
-      pousseParLUsager = true;
-      clearTimeout(reprise);
-      reprise = setTimeout(function () {
-        pousseParLUsager = false;
-      }, 320);
-    },
-    { passive: true }
-  );
-
-  /* --------------------------------------------------------------------------
      LA SAISIE À LA SOURIS
 
      Le doigt et le trackpad font défiler une boîte tout seuls ; la souris, non.
      On ne capture le pointeur que pour elle, et seulement après quatre pixels
      de déplacement : en deçà, c'est un clic, et un clic ne doit pas empêcher de
-     sélectionner une légende ni d'ouvrir un lien.
+     sélectionner un texte ni d'ouvrir un lien.
+
+     Ces écritures-là n'ont aucun garde à poser : la comparaison de l'image
+     suivante les verra, conclura qu'on a été poussé, et se retirera — ce qui
+     est exactement ce qu'on veut.
      -------------------------------------------------------------------------- */
   var depart = 0;
   var departDefilement = 0;
@@ -160,10 +171,13 @@
       defile.dataset.saisi = "true";
       defile.setPointerCapture(evt.pointerId);
     }
-    nousEcrivons = true;
-    defile.scrollLeft = departDefilement - course;
-    recadrer();
-    nousEcrivons = false;
+    /* On boucle aussi à la main : sans cela, tirer vers la droite butterait sur
+       zéro et le ruban paraîtrait avoir un début. Le point de départ suit le
+       recadrage, pour que la photographie reste collée au curseur. */
+    var vise = departDefilement - course;
+    var recadre = boucler(vise);
+    departDefilement += recadre - vise;
+    defile.scrollLeft = recadre;
   });
 
   var relacher = function () {
@@ -177,6 +191,9 @@
 
   /* --------------------------------------------------------------------------
      HORS DE L'ÉCRAN, ON S'ARRÊTE
+
+     Une animation qui tourne hors champ ne se voit pas, mais elle se paie — sur
+     la batterie comme sur la fluidité du reste de la page.
      -------------------------------------------------------------------------- */
   if (typeof IntersectionObserver === "function") {
     new IntersectionObserver(
