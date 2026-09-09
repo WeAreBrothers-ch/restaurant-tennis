@@ -706,7 +706,26 @@ a:focus-visible > .photo-zoom .photo-image {
    Il s'appuie sur <dialog> : le piégeage du focus, la touche Échap et le rôle
    de dialogue sont assurés par le navigateur, pas par nous.
    ============================================================================ */
+/* ⚠ `position: fixed` EST OBLIGATOIRE ICI, ET C'EST CE QUI MANQUAIT.
+
+   Le panneau porte la classe `.surface-sapin`, et cette classe pose
+   `position: relative` — dont le grain a besoin pour se caler. Or une règle
+   d'auteur l'emporte toujours sur la feuille du navigateur, qui, elle, donne
+   `position: fixed` à un dialogue modal. Le panneau se retrouvait donc
+   positionné dans le FLUX DU DOCUMENT au lieu de l'écran.
+
+   Tant qu'on ouvrait le menu en haut de page, cela ne se voyait pas : les deux
+   origines coïncident. Dès qu'on avait descendu la page, le panneau restait
+   accroché au haut du document, hors de l'écran — pendant que le voile, lui,
+   couvrait bien la fenêtre. On obtenait un écran vert et rien dedans. C'est le
+   défaut que le client a signalé.
+
+   `fixed` + `inset: 0` règle les deux cas d'un coup : le dialogue modal, et le
+   repli en panneau ordinaire quand `showModal` n'existe pas. */
 .menumobile-panneau {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
   width: 100%;
   max-width: 100%;
   height: 100%;
@@ -719,6 +738,17 @@ a:focus-visible > .photo-zoom .photo-image {
   padding-bottom: env(safe-area-inset-bottom);
   background-color: var(--sapin);
   color: var(--texte-1-sombre);
+}
+
+/* Le repli : sans `showModal`, le dialogue n'entre pas dans la couche
+   supérieure et n'a pas de voile. Il lui en faut un, sans quoi on lirait la
+   page au travers. */
+.menumobile-panneau[data-repli="true"]::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background-color: rgb(47 62 35 / 0.94);
 }
 
 .menumobile-panneau::backdrop {
@@ -775,11 +805,25 @@ a:focus-visible > .photo-zoom .photo-image {
   font-size: clamp(1.75rem, 1.2rem + 2.5vw, 2.25rem);
   font-weight: 400;
   line-height: 1.2;
-  opacity: 0;
-  transform: translateY(8px);
-  animation: menumobile-entree var(--dur) var(--sortie) forwards;
-  animation-delay: var(--delai, 0s);
 }
+
+/* ⚠ LES LIENS DU MENU N'ONT PLUS D'ANIMATION D'ENTRÉE, ET C'EST DÉLIBÉRÉ.
+
+   Ils arrivaient un par un, en fondu, depuis `opacity: 0`. C'est joli, et c'est
+   la construction qui a produit le défaut le plus embarrassant du site : tout
+   ce qui empêche l'animation d'aboutir — un moteur qui ne redémarre pas les
+   animations en entrant dans la couche supérieure, un onglet revenu de
+   l'arrière-plan, une extension, un rendu suspendu — laisse un panneau vert
+   avec RIEN dedans. Le client l'a vu avant nous.
+
+   On a d'abord retourné l'animation pour que l'état visible soit celui par
+   défaut. C'était mieux, mais il restait un cas : une animation créée puis
+   figée maintient l'état `from`, donc l'invisibilité.
+
+   Alors on l'a retirée. UN MENU EST DE LA NAVIGATION : c'est la seule chose de
+   la page dont on a besoin quand tout le reste échoue, et rien ne doit se
+   mettre entre elle et l'œil. Le panneau glisse déjà tout entier ; les liens,
+   eux, sont là. */
 
 .menumobile-lien[aria-current="page"] {
   color: var(--terre-400);
@@ -789,21 +833,6 @@ a:focus-visible > .photo-zoom .photo-image {
   flex: none;
   color: var(--texte-3-sombre);
   transform: translateY(-0.15em);
-}
-
-@keyframes menumobile-entree {
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .menumobile-lien {
-    opacity: 1;
-    transform: none;
-    animation: none;
-  }
 }
 
 .menumobile-pied {
