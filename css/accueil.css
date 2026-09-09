@@ -356,10 +356,17 @@
   }
 }
 
-/* UN TÉLÉPHONE COUCHÉ, ou une très petite fenêtre : il ne reste plus de bande.
+/* UN PETIT TÉLÉPHONE, ou un téléphone couché : il ne reste plus de bande.
+
+   Le seuil était à 560 px de haut, ce qui laissait DEHORS l'iPhone SE et ses
+   568 px — mesuré sur cet écran-là, quatre des huit dessins venaient se poser
+   sur l'enseigne, qui n'était plus lisible. Il passe à 620, ce qui prend tous
+   les téléphones de moins de six pouces, et l'écart avec la règle du dessus
+   (699 px de LARGE) est voulu : les deux ne parlent pas de la même chose.
+
    Les trois plus grands dessins sortent, les cinq autres se rangent en deux
    files, au-dessus et au-dessous de l'enseigne. */
-@media (max-height: 560px) {
+@media (max-height: 620px) {
   .enseigne--premier {
     font-size: clamp(40px, 9vw, 84px);
   }
@@ -824,8 +831,18 @@ h1.duo-titre {
 
 /* Chaque ligne mène à sa famille dans la carte. Le lien ne se souligne pas au
    repos — dix soulignements de suite feraient un peigne — mais il se souligne au
-   survol, et l'ancre saute sous la barre du haut grâce à `--ancre-haut`. */
+   survol, et l'ancre saute sous la barre du haut grâce à `--ancre-haut`.
+
+   LA CIBLE EST PLUS HAUTE QUE LE TEXTE. Le nom du plat ne fait que dix-sept
+   pixels de haut, et il y en a dix à la file : au doigt, on tape entre deux
+   lignes. Le remplissage l'agrandit, la marge négative le remet exactement où
+   il était — la cible grandit, le dessin ne bouge pas. Onze pixels de chaque
+   côté, contre seize de vide entre deux lignes : deux cibles voisines ne se
+   recouvrent jamais. */
 .tableau-nom a {
+  display: block;
+  padding-block: 0.35rem;
+  margin-block: -0.35rem;
   color: var(--encre);
   text-decoration: none;
   transition: color var(--dur-vif) var(--sortie);
@@ -1074,7 +1091,11 @@ h1.duo-titre {
   text-underline-offset: 3px;
 }
 
+/* Le numéro est l'action principale de la page : sa cible fait quarante-quatre
+   pixels, la mesure du doigt, et non celle de ses lettres. */
 .infospratiques-telephone {
+  display: inline-block;
+  padding-block: 0.3rem;
   display: inline-block;
   margin-bottom: var(--sp-2);
   font-family: var(--serif);

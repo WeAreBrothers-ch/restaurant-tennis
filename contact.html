@@ -2,7 +2,7 @@
 <html lang="fr-CH">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <!-- Les deux polices sont demandées avant tout le reste : le nom de la maison
          est du texte, pas une image, et il ne doit pas s'afficher d'abord en
          Georgia puis sauter en Newsreader sous les yeux du visiteur. -->
@@ -235,6 +235,8 @@
                 class="photo-image"
                 style="color: transparent"
                 src="images/salle-bar-2026-09b.jpg"
+                srcset="images/salle-bar-800-2026-09b.jpg 800w, images/salle-bar-2026-09b.jpg 1600w"
+                sizes="(min-width: 900px) 40vw, 100vw"
               />
             </div>
           </div>
@@ -378,6 +380,8 @@
               class="plan-fond"
               style="color: transparent"
               src="images/plan.jpg"
+              srcset="images/plan-800.jpg 800w, images/plan.jpg 1440w"
+              sizes="(min-width: 900px) 1120px, 100vw"
             /><span class="plan-marqueur" aria-hidden="true"
               ><svg
                 width="22"

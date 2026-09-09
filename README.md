@@ -67,6 +67,46 @@ de sources publiques et n’ont pas été validées :
 
 ---
 
+## Le site sur téléphone
+
+Tout est réglé pour le téléphone d’abord, et quatre choses le sont explicitement.
+
+**Les photographies existent en deux largeurs.** Une de 1 600 px et une de 800,
+et c’est le navigateur qui choisit d’après l’attribut `sizes`, emplacement par
+emplacement. Sur un iPhone, l’accueil télécharge 924 Ko de photographies au lieu
+de 2 558 — soixante-quatre pour cent de moins, à l’œil identique.
+
+> **Si vous remplacez une photographie**, remplacez AUSSI sa petite version. Les
+> deux fichiers portent le même nom, à `-800-` près :
+> `plat-salade-2026-09b.jpg` et `plat-salade-800-2026-09b.jpg`. La petite se
+> fabrique en une commande, depuis le dossier du site :
+>
+> ```
+> sips -Z 800 -s format jpeg -s formatOptions 68 images/VOTRE-PHOTO.jpg --out images/VOTRE-PHOTO-800.jpg
+> ```
+
+**Rien ne se tape à moins de vingt-quatre pixels.** C’est la norme WCAG 2.5.8, et
+elle n’était pas tenue : les dix liens du sommaire de la carte faisaient seize
+pixels de haut, ceux du tableau d’affichage dix-sept. Ils font maintenant au
+moins trente-deux, et les numéros de téléphone quarante-quatre — la mesure du
+doigt.
+
+**Le premier écran reste lisible sur un petit téléphone.** En dessous de 620 px
+de haut — un iPhone SE, ou n’importe quel téléphone couché — trois des huit
+dessins se retirent et les cinq autres se rangent en deux files. Sans cela,
+quatre d’entre eux venaient se poser sur le nom de la maison.
+
+**Le ruban se laisse pousser au doigt.** Il avance tout seul, mais il se tait
+pendant qu’un doigt le fait glisser et reprend un tiers de seconde après :
+écrire dans un défilement en cours annule l’inertie, et le ruban se figerait
+sous le doigt qui vient de le lancer.
+
+Les pages déclarent `viewport-fit=cover`, sans quoi les marges de sécurité de
+l’iPhone valent toutes zéro. La marge horizontale du site ne descend donc jamais
+en dessous de l’encoche.
+
+---
+
 ## Voir le site sur votre ordinateur
 
 Double-cliquez sur **`index.html`**. Il s’ouvre dans votre navigateur. C’est tout.

@@ -279,7 +279,20 @@
   --colonne: 1280px; /* bande de contenu de 1216 px à 1600 : la mesure exacte */
   --colonne-large: 1520px; /* le ruban de photographies, lui seul */
   --colonne-lecture: 620px; /* un paragraphe qui se lit d'une traite */
-  --marge: clamp(0.875rem, 3vw, 2rem); /* 14 px au doigt, 32 px sur grand écran */
+  /* 14 px au doigt, 32 px sur grand écran — MAIS JAMAIS MOINS QUE L'ENCOCHE.
+
+     Les pages déclarent `viewport-fit=cover`, sans quoi les marges de sécurité
+     de l'iPhone valent toutes zéro et le remplissage posé sous la barre d'appel
+     ne fait rien. La contrepartie est que la page passe alors SOUS l'encoche :
+     un téléphone couché, encoche à gauche, mangerait le premier caractère de
+     chaque ligne. Le `max` reprend la plus grande des deux marges de sécurité
+     dès qu'elle dépasse la nôtre, et ne change rien partout ailleurs — en
+     portrait, sur un ordinateur, ces variables valent zéro. */
+  --marge: max(
+    clamp(0.875rem, 3vw, 2rem),
+    env(safe-area-inset-left),
+    env(safe-area-inset-right)
+  );
 
   /* -------------------------------------------------------------------------
      L'ANGLE EST VIF

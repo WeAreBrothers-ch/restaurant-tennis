@@ -162,6 +162,13 @@
 }
 
 .sommaire-lien {
+  /* AU DOIGT, LE LIEN FAIT SA HAUTEUR DE CIBLE. Il ne mesurait que seize pixels
+     de haut — la hauteur de ses lettres — et il y en a dix à la file : c'est le
+     genre de liste où l'on tape à côté une fois sur trois. Le remplissage
+     vertical est posé ici, sans requête de média, parce qu'il ne gêne pas la
+     version en rail, qui pose le sien par-dessus. */
+  display: inline-block;
+  padding-block: 0.5rem;
   color: var(--encre-2);
   font-family: var(--mono);
   font-size: var(--fs-exergue);
@@ -575,6 +582,8 @@
 }
 
 .page-coordonnees a {
+  display: inline-block;
+  padding-block: 0.35rem;
   padding-block: var(--sp-2);
   text-decoration: underline;
   text-decoration-thickness: 1px;

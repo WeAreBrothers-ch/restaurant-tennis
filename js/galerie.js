@@ -60,16 +60,26 @@
 
   var precedent = 0;
   var image = 0;
+  /* Levé le temps de nos propres écritures, pour que l'écouteur de défilement
+     ne les prenne pas pour un geste de l'usager. */
+  var nousEcrivons = false;
+  /* Vrai tant qu'un doigt ou un trackpad fait glisser la boîte — voir plus bas. */
+  var pousseParLUsager = false;
 
   var avancer = function (temps) {
     if (precedent) {
       /* Le temps écoulé, borné : au retour d'un onglet resté en arrière-plan,
          l'écart peut valoir plusieurs secondes, et le ruban ferait un bond. */
       var ecoule = Math.min((temps - precedent) / 1000, 0.1);
-      /* On n'avance pas pendant qu'on est tiré : les deux écritures se
-         marcheraient dessus et le geste paraîtrait mou. */
-      if (!defile.dataset.saisi) defile.scrollLeft += VITESSE * ecoule;
-      recadrer();
+      /* On n'avance ni pendant qu'on est tiré à la souris, ni pendant qu'un
+         doigt fait glisser la boîte : dans les deux cas, les deux écritures se
+         marcheraient dessus. */
+      if (!defile.dataset.saisi && !pousseParLUsager) {
+        nousEcrivons = true;
+        defile.scrollLeft += VITESSE * ecoule;
+        recadrer();
+        nousEcrivons = false;
+      }
     }
     precedent = temps;
     image = requestAnimationFrame(avancer);
@@ -86,6 +96,37 @@
     cancelAnimationFrame(image);
     image = 0;
   };
+
+  /* --------------------------------------------------------------------------
+     ON NE POUSSE PAS PENDANT QU'UN DOIGT POUSSE
+
+     Au doigt, la boîte défile toute seule, avec son inertie : le doigt lance le
+     ruban, le lâche, et il continue de glisser en ralentissant. Or écrire
+     `scrollLeft` pendant cette glissade l'ANNULE — sur iOS notamment, la moindre
+     écriture arrête net l'inertie, et le ruban se fige sous le doigt qui vient
+     de le lancer.
+
+     On se tait donc pendant qu'il défile de lui-même, et on reprend un tiers de
+     seconde après le dernier événement de défilement. `scrollend` ferait ça
+     proprement, mais il n'existe pas partout : le compte à rebours, si.
+     -------------------------------------------------------------------------- */
+  var reprise = 0;
+
+  defile.addEventListener(
+    "scroll",
+    function () {
+      /* Nos propres écritures déclenchent aussi cet événement : sans ce garde,
+         le ruban se tairait à cause de son propre mouvement et ne repartirait
+         jamais. */
+      if (nousEcrivons) return;
+      pousseParLUsager = true;
+      clearTimeout(reprise);
+      reprise = setTimeout(function () {
+        pousseParLUsager = false;
+      }, 320);
+    },
+    { passive: true }
+  );
 
   /* --------------------------------------------------------------------------
      LA SAISIE À LA SOURIS
@@ -115,8 +156,10 @@
       defile.dataset.saisi = "true";
       defile.setPointerCapture(evt.pointerId);
     }
+    nousEcrivons = true;
     defile.scrollLeft = departDefilement - course;
     recadrer();
+    nousEcrivons = false;
   });
 
   var relacher = function () {
