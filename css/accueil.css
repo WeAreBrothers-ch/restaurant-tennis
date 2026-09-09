@@ -56,24 +56,33 @@
   initial-value: 0;
 }
 
-/* LA HAUTEUR DU PREMIER ÉCRAN EST PLAFONNÉE, et c'est le correctif le plus
-   visible de septembre.
+/* LE PREMIER ÉCRAN PREND L'ÉCRAN ENTIER, ET RIEN D'AUTRE N'Y ENTRE.
 
-   Elle valait un écran entier, sans limite. Sur un moniteur de 1300 px de haut,
-   cela faisait 1 200 px de crème pour une enseigne de 150 et huit dessins de
-   200 : le client a envoyé une capture de cet écran-là en disant « je ne veux
-   pas de gros espace comme ça ». Il avait raison — une affiche qui grandit avec
-   la fenêtre finit par n'être plus qu'un fond d'écran.
+   Il y a eu deux erreurs successives, et la seconde vient de la correction de
+   la première.
 
-   Le plafond de 780 px est la hauteur au-delà de laquelle la composition cesse
-   de se tenir : l'enseigne et sa couronne de dessins occupent environ 600 px,
-   et 180 de marge suffisent à les poser. Au-dessous du plafond, rien ne change
-   — sur un portable, l'écran est toujours plein. */
+   Il valait d'abord un écran entier SANS QUE SA COMPOSITION SUIVE : sur un
+   moniteur de 1300 px de haut, cela faisait 1 200 px de crème pour une enseigne
+   de 150 et huit dessins de 200. Le client a envoyé la capture en disant « je
+   ne veux pas de gros espace comme ça ».
+
+   On l'a alors plafonné à 820 px — ce qui a réglé le vide et créé le défaut
+   suivant : sur une grande fenêtre, la première rangée de photographies
+   remontait DANS le premier écran et le coupait par le bas. Deuxième capture,
+   deuxième reproche : « la héro ne doit pas être coupée par le carrousel,
+   jamais ».
+
+   La vraie correction n'est pas dans la hauteur de la section : c'est que LA
+   SECTION ET SA COMPOSITION SONT DEUX CHOSES. La section reprend l'écran
+   entier, de sorte que rien ne peut s'y glisser ; et c'est le champ de dessins,
+   plus bas, qui garde sa hauteur propre et se centre dedans. On a donc à la
+   fois l'écran plein et la composition dense — les deux reproches tombent
+   ensemble. */
 .premier {
   position: relative;
   display: grid;
   place-items: center;
-  min-height: min(calc(100svh - var(--entete-h)), 780px);
+  min-height: calc(100svh - var(--entete-h));
   padding-block: var(--joint-serre);
   /* Trois dessins débordent volontairement : on les coupe ici, jamais avec une
      barre de défilement horizontale. */
@@ -82,7 +91,7 @@
 
 @media (min-width: 1024px) {
   .premier {
-    min-height: min(calc(100svh - var(--entete-h-lg)), 820px);
+    min-height: calc(100svh - var(--entete-h-lg));
   }
 }
 
@@ -108,9 +117,18 @@
 /* ---------------------------------------------------------------------------
    LE CHAMP DE DESSINS
    --------------------------------------------------------------------------- */
+/* LE CHAMP GARDE SA HAUTEUR, LA SECTION PREND L'ÉCRAN.
+
+   Les huit dessins sont posés en pourcentages de ce champ : si le champ suit la
+   fenêtre, ils s'écartent jusqu'aux quatre coins et la couronne se défait —
+   c'est exactement le « gros espace » de la première capture. Le champ est donc
+   borné à la hauteur pour laquelle la composition a été réglée, et centré dans
+   la section, qui, elle, peut être aussi haute qu'on veut. */
 .premier-champ {
   position: absolute;
   inset: 0;
+  max-height: 820px;
+  margin-block: auto;
   /* Un dessin ne prend jamais le clic : tout ce qui est cliquable est ailleurs. */
   pointer-events: none;
   /* Ils s'effacent en partant, sans disparaître tout à fait : il en reste une
@@ -834,166 +852,131 @@ h1.duo-titre {
 }
 
 /* ============================================================================
-   LE BANDEAU
+   5. LE BANDEAU
 
-   Une seule photographie, large, tenue par une légende posée dans sa marge.
+   UNE PHOTOGRAPHIE, EN GRAND, ET PAS UN MOT.
 
-   Elle prend la place que le site modèle donnait à sa PREMIÈRE paire d'images
-   — la seconde ayant laissé la sienne à la respiration, plus haut.
+   Il a d'abord porté une légende dans sa marge — une étiquette en machine à
+   écrire et quatre lignes de texte. Le client a répondu : « les images avec un
+   petit texte comme ça je ne veux pas ». Il a raison, et pour une raison qui se
+   dit : sur une bande verte, un paragraphe posé à côté d'une photographie ne se
+   lit pas comme une légende mais comme un reste de mise en page — on ne sait
+   pas s'il faut lire ou regarder, et on ne fait ni l'un ni l'autre.
 
-   Ce site-ci n'a qu'une photographie qui dise le lieu : la vue sur les courts
-   depuis la salle. Une photographie qui porte tout le propos ne se met pas à
-   côté d'une autre. Elle se met seule, et on écrit à côté d'elle ce qu'elle
-   montre.
-
-   La règle de la maison tient quand même : elle ne touche aucun bord de
-   l'écran, et son format n'est celui d'aucune autre photographie de la page.
+   La photographie prend donc toute la bande. C'EST LE SEUL ENDROIT DU SITE OÙ
+   UNE IMAGE TOUCHE LES DEUX BORDS DE L'ÉCRAN, et c'est ce qui en fait un
+   événement plutôt qu'une illustration. La règle « aucune photographie ne
+   touche le bord » vaut toujours pour les huit autres : une exception qui
+   n'arrive qu'une fois n'affaiblit pas la règle, elle la souligne.
    ============================================================================ */
 .bandeau-section {
   padding-block: var(--joint-souffle);
 }
 
+/* Ni `.wrap` ni marge : la bande verte lui sert de cadre. */
 .bandeau-bandeau {
-  display: grid;
-  gap: var(--sp-5);
-}
-
-@media (min-width: 900px) {
-  .bandeau-bandeau {
-    grid-template-columns: minmax(0, 1fr) minmax(0, 19rem);
-    align-items: end;
-    gap: clamp(2rem, 4vw, 3.5rem);
-  }
+  display: block;
 }
 
 .bandeau-cadre {
   --ratio: 16 / 9;
 }
 
-.bandeau-legende {
-  max-width: 40ch;
-  color: var(--encre);
-  font-size: var(--fs-chapo);
-  line-height: 1.45;
-}
-
-/* Le premier mot de la légende est une étiquette, pas une phrase : il annonce
-   ce qu'on regarde, dans la machine à écrire, comme au dos d'un tirage. */
-.bandeau-etiquette {
-  display: block;
-  margin-bottom: var(--sp-3);
-  padding-bottom: var(--sp-3);
-  border-bottom: 1px solid var(--trait);
-  color: var(--accent);
-  font-family: var(--mono);
-  font-size: var(--fs-exergue);
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
+/* Sur un très grand écran, un 16/9 pleine largeur deviendrait une frise : on
+   l'aplatit à mesure qu'on s'élargit, pour que la salle reste une salle. */
+@media (min-width: 1400px) {
+  .bandeau-cadre {
+    --ratio: 21 / 8;
+  }
 }
 
 /* ============================================================================
    7. À TABLE — LE RUBAN DE PHOTOGRAPHIES
 
-   IL GLISSE TOUT SEUL, ET C'EST UNE DEMANDE EXPRESSE : « le carrousel d'image
-   j'en veux pas à part si il bouge tout seul ». Le client a raison sur le fond.
-   Un ruban qui ne bouge que si on le pousse est un ruban que personne ne
-   pousse : à la souris, rien n'indique qu'il continue, et les deux flèches
-   qu'on posait dans la marge pour le dire étaient l'aveu du problème.
+   IL AVANCE TOUT SEUL, SANS FIN, ET ON PEUT LE POUSSER À LA MAIN À TOUT MOMENT.
+   Les trois à la fois, et c'est ce qui a demandé de tout reprendre.
 
-   La mécanique est celle d'un panneau d'affichage de gare, pas celle d'un
-   carrousel : LES PHOTOGRAPHIES DÉFILENT SANS FIN, à vitesse constante, sans
-   arrêt sur image, sans point de départ ni d'arrivée. Il n'y a donc ni
-   pagination, ni flèches, ni pastilles — rien à cliquer, rien à rater.
+   La première version était une animation CSS : une piste en `translateX`,
+   arrêtée au survol. Elle bougeait bien, mais elle avait deux défauts que le
+   client a vus tout de suite — elle s'arrêtait dès qu'on passait la souris
+   dessus, et on ne pouvait pas la pousser, une piste en `transform` n'étant
+   pas une zone défilante.
 
-   TROIS CHOSES LA RENDENT HONNÊTE :
+   LA VERSION ACTUELLE NE DÉPLACE PLUS LA PISTE : ELLE FAIT DÉFILER LA BOÎTE.
+   Le ruban est une zone `overflow-x: auto` ordinaire — donc glissable au doigt,
+   au trackpad et à la souris, comme n'importe quelle bande — et un petit script
+   ajoute quelques dixièmes de pixel à son `scrollLeft` à chaque image de rendu.
+   Les deux gestes s'additionnent au lieu de se disputer : on pousse le ruban où
+   l'on veut, et il repart de là où on l'a laissé, sans qu'on ait eu à
+   l'arrêter ni à le relancer.
 
-     — la piste porte DEUX FOIS la même série. La seconde est marquée
-       `aria-hidden` : elle n'existe que pour que la boucle se referme sans
-       saut. C'est pour ça que la translation vaut « la moitié, plus un demi
-       joint » — c'est exactement ce qui amène la septième vignette là où était
-       la première.
-     — elle S'ARRÊTE quand on la survole ou qu'on tabule dedans. Un texte qui
-       fuit pendant qu'on le lit est le défaut classique du bandeau défilant.
-     — elle ne démarre pas du tout si le système demande un mouvement réduit :
-       le ruban redevient alors une bande qu'on fait glisser à la main, et la
-       série en double disparaît.
+   LA BOUCLE EST SANS FIN, et l'arithmétique doit être exacte. La piste porte
+   DEUX FOIS la même série, la seconde marquée `aria-hidden`. Quand le
+   défilement atteint la moitié de la piste, le script lui retranche cette
+   moitié : on se retrouve au même pixel de la première série, et rien ne se
+   voit.
 
-   Quatre-vingt-huit secondes pour un tour complet, soit une trentaine de
-   pixels par seconde : à cette vitesse on a le temps de reconnaître une
-   assiette sans avoir l'impression que quelque chose se sauve. Mesurée à
-   soixante secondes, la première version filait à 45 px/s — on suivait le
-   mouvement au lieu de regarder les photographies.
+   Pour que cette moitié tombe juste, il faut que la piste mesure un nombre
+   ENTIER de motifs. Dix vignettes et neuf joints font 10i + 9j, dont la moitié
+   vaut 5i + 4,5j — un demi-joint de trop à chaque tour, qui se verrait au bout
+   de quelques boucles. D'où la marge intérieure de fin, et elle seule : elle
+   ajoute le dixième joint, la piste vaut 10i + 10j, et la moitié vaut
+   exactement une série.
    ============================================================================ */
 .ruban-section {
   padding-block: 0;
-  overflow: hidden;
 }
 
 .ruban-piste {
   position: relative;
   /* Le joint est déclaré ici parce que DEUX règles en ont besoin : l'écart
-     entre les vignettes, et la translation de la boucle. Écrit deux fois, il
-     finirait par diverger, et la boucle sauterait d'un demi-joint. */
+     entre les vignettes, et la marge de fin qui ferme la boucle. Écrit deux
+     fois, il finirait par diverger. */
   --ruban-joint: clamp(14px, 2.75vw, 44px);
 }
 
-/* PAS DE MARGE INTÉRIEURE ICI, et c'est arithmétique, pas esthétique.
-
-   La boucle repose sur une égalité exacte : la piste porte deux séries
-   identiques, et la translation doit amener la première vignette de la seconde
-   série là où était celle de la première. Avec dix vignettes et neuf joints, la
-   largeur totale vaut 10i + 9j ; le pas cherché vaut 5i + 5j, soit la moitié
-   plus un demi-joint — d'où la valeur des images-clés.
-
-   Une marge intérieure entrerait dans cette largeur sans faire partie du motif
-   qui se répète, et la boucle sauterait d'autant à chaque tour. Le ruban touche
-   donc les deux bords, ce qui est de toute façon ce qu'on attend d'un ruban. */
 .ruban-defile {
   display: flex;
   gap: var(--ruban-joint);
-  width: max-content;
+  /* Le dixième joint. Voir le commentaire du haut : sans lui, la boucle
+     dérive d'un demi-joint par tour. */
+  padding-inline-end: var(--ruban-joint);
+  overflow-x: auto;
+  /* `auto` et non `smooth` : le script écrit `scrollLeft` soixante fois par
+     seconde, et un défilement animé transformerait chaque écriture en une
+     petite course qui n'aurait pas fini quand la suivante arrive. */
+  scroll-behavior: auto;
+  /* Le geste horizontal reste au ruban, le vertical à la page. */
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+  /* La souris peut l'attraper : c'est le seul endroit du site où le curseur
+     annonce qu'on peut saisir quelque chose. */
+  cursor: grab;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .ruban-defile {
-    animation: ruban-glisse 88s linear infinite;
-  }
-
-  /* On lit, donc on arrête. Le survol vaut pour la souris, le focus pour le
-     clavier — et `focus-within` attrape aussi bien la vignette que ce qu'elle
-     contient. */
-  .ruban-piste:hover .ruban-defile,
-  .ruban-piste:focus-within .ruban-defile {
-    animation-play-state: paused;
-  }
+.ruban-defile[data-saisi="true"] {
+  cursor: grabbing;
+  /* Pendant qu'on tire, le pointeur ne doit pas sélectionner les images ni
+     déclencher le défilement natif : c'est le script qui mène. */
+  user-select: none;
 }
 
-@keyframes ruban-glisse {
-  to {
-    transform: translateX(calc(-50% - var(--ruban-joint) / 2));
-  }
+.ruban-defile::-webkit-scrollbar {
+  display: none;
 }
 
-/* MOUVEMENT RÉDUIT : plus d'animation, et la série en double s'efface — elle
-   n'avait de raison d'être que pour la boucle. Le ruban redevient ce qu'il
-   était : une bande qu'on pousse au doigt ou au trackpad. */
+/* MOUVEMENT RÉDUIT : le script ne démarre pas — il lit lui-même la préférence —
+   et la série en double s'efface, n'ayant de raison d'être que pour la boucle.
+   Le ruban reste ce qu'il est : une bande qu'on pousse. */
 @media (prefers-reduced-motion: reduce) {
-  .ruban-defile {
-    width: auto;
-    padding-inline: var(--marge);
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    scroll-padding-inline-start: var(--marge);
-    overscroll-behavior-x: contain;
-    scrollbar-width: none;
-  }
-
-  .ruban-defile::-webkit-scrollbar {
-    display: none;
-  }
-
   .ruban-vignette[aria-hidden="true"] {
     display: none;
+  }
+
+  .ruban-defile {
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline-start: var(--marge);
+    padding-inline-start: var(--marge);
   }
 
   .ruban-vignette {
@@ -1009,7 +992,7 @@ h1.duo-titre {
    gros plan d'assiette y occupait presque toute la largeur et se lisait comme
    une texture, plus comme un plat. Elle prend maintenant un peu plus du tiers,
    sans jamais dépasser 520 px. Trois photographies tiennent ainsi de front et
-   une quatrième déborde : un ruban qui défile doit montrer qu'il est un ruban,
+   une quatrième déborde : un ruban qui avance doit montrer qu'il est un ruban,
    ce que deux vignettes ne font pas. */
 @media (min-width: 900px) {
   .ruban-vignette {
@@ -1018,10 +1001,17 @@ h1.duo-titre {
 }
 
 /* Ici, et seulement ici, toutes les vignettes ont le même format. Le décalage
-   est la règle de la page — mais dans un ruban qui glisse, des hauteurs
+   est la règle de la page — mais dans un ruban qui avance, des hauteurs
    inégales se lisent comme un défaut d'alignement, pas comme un parti pris. */
 .ruban-vignette .photo-cadre {
   --ratio: 1264 / 800;
+}
+
+/* Une image qu'on tire ne doit pas partir toute seule : le navigateur propose
+   de la déplacer dès qu'on la saisit, ce qui annule le geste. */
+.ruban-vignette img {
+  -webkit-user-drag: none;
+  user-select: none;
 }
 
 /* ============================================================================
