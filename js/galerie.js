@@ -1,106 +1,45 @@
 /* ============================================================================
    LE RUBAN DE PHOTOGRAPHIES
 
-   Le ruban glisse déjà tout seul : au doigt, au glissement horizontal du
-   trackpad et au clavier — la feuille de style en fait une zone défilante, et
-   le balisage lui donne un `tabindex`.
+   Tout le ruban est en CSS : la boucle, la vitesse, l'arrêt au survol et au
+   focus, et le repli quand le système demande un mouvement réduit. Voir
+   `.ruban-defile` dans `css/accueil.css`.
 
-   Ce fichier ajoute deux choses. D'abord les flèches, pour ceux qui sont à la
-   souris et à qui rien n'indiquerait sinon que le ruban continue ; elles
-   s'éteignent quand on est arrivé au bout, un bouton qui ne fait rien mais qui
-   reste allumé étant un bouton cassé. Ensuite, et surtout, la garde qui empêche
-   le ruban de confisquer le défilement de la page.
+   Il reste UNE chose que le CSS ne sait pas faire, et c'est tout ce que fait ce
+   fichier : ARRÊTER LE RUBAN QUAND IL N'EST PAS À L'ÉCRAN.
+
+   Une animation qui tourne hors champ ne se voit pas, mais elle se paie — le
+   navigateur continue de composer une couche à chaque image, et sur un
+   téléphone cela se lit sur la batterie et sur la fluidité du reste de la page.
+   Le ruban est en haut de l'accueil ; dès qu'on a descendu deux écrans, il
+   tourne pour personne.
+
+   Si l'IntersectionObserver n'existe pas, on ne fait rien : le ruban tourne
+   tout le temps, comme avant, et personne ne s'en aperçoit.
    ============================================================================ */
 (function () {
   "use strict";
 
-  var ruban = document.querySelector(".ruban-defile");
-  if (!ruban) return;
+  var piste = document.querySelector(".ruban-piste");
+  if (!piste || typeof IntersectionObserver !== "function") return;
 
-  /* --------------------------------------------------------------------------
-     LE DÉFILEMENT VERTICAL RESTE À LA PAGE
+  var defile = piste.querySelector(".ruban-defile");
+  if (!defile) return;
 
-     Un bloc qui ne défile qu'en largeur, les navigateurs de bureau le font
-     glisser de côté dès qu'on pousse la molette vers le bas. Résultat : en
-     descendant la page, dès que le pointeur passe sur le ruban, la page se fige
-     et les photographies partent latéralement sans qu'on l'ait demandé.
-
-     On rend donc tout geste vertical à la page, et on ne laisse au ruban que ce
-     qui est franchement horizontal — le glissement à deux doigts continue de le
-     faire avancer.
-     -------------------------------------------------------------------------- */
-
-  /** Le déplacement demandé, en pixels, quelle que soit l'unité de l'événement. */
-  var enPixels = function (evt) {
-    if (evt.deltaMode === 1) return evt.deltaY * 16; // exprimé en lignes
-    if (evt.deltaMode === 2) return evt.deltaY * window.innerHeight; // en pages
-    return evt.deltaY;
-  };
-
-  ruban.addEventListener(
-    "wheel",
-    function (evt) {
-      // Le zoom du navigateur (Ctrl + molette) ne nous regarde pas.
-      if (evt.ctrlKey) return;
-      // Geste franchement horizontal : c'est bien le ruban qu'on vise.
-      if (Math.abs(evt.deltaX) >= Math.abs(evt.deltaY)) return;
-
-      evt.preventDefault();
-      var hauteur = enPixels(evt);
-      try {
-        window.scrollBy({ top: hauteur, left: 0, behavior: "instant" });
-      } catch (e) {
-        // Là où « instant » n'est pas connu, on déplace sans passer par la
-        // forme qui animerait chaque cran de molette.
-        window.scrollTo(window.pageXOffset, window.pageYOffset + hauteur);
+  new IntersectionObserver(
+    function (entrees) {
+      for (var i = 0; i < entrees.length; i++) {
+        /* Le style en ligne l'emporte sur la feuille, y compris sur l'arrêt au
+           survol — mais cela ne gêne personne : quand on pose « paused », le
+           ruban est hors de l'écran et ne peut pas être survolé. Et quand il
+           revient, on ne pose pas « running » : ON EFFACE la règle en ligne,
+           et le CSS reprend la main, arrêt au survol compris. C'est la seule
+           écriture qui laisse les deux mécaniques cohabiter. */
+        defile.style.animationPlayState = entrees[i].isIntersecting ? "" : "paused";
       }
     },
-    { passive: false },
-  );
-
-  /* --------------------------------------------------------------------------
-     LES DEUX FLÈCHES
-     -------------------------------------------------------------------------- */
-  var precedent = document.querySelector("[data-ruban-precedent]");
-  var suivant = document.querySelector("[data-ruban-suivant]");
-  if (!precedent || !suivant) return;
-
-  /** De combien on avance : la largeur d'une vignette, gouttière comprise. */
-  var pas = function () {
-    var vignettes = ruban.querySelectorAll(".ruban-vignette");
-    if (vignettes.length > 1) {
-      var ecart = vignettes[1].offsetLeft - vignettes[0].offsetLeft;
-      if (ecart > 0) return ecart;
-    }
-    if (vignettes.length === 1) return vignettes[0].offsetWidth;
-    return Math.round(ruban.clientWidth * 0.8);
-  };
-
-  /* La marge d'un pixel absorbe les arrondis de calcul du navigateur : sans
-     elle, une flèche peut rester allumée alors qu'on est déjà au bout. */
-  var MARGE = 1;
-
-  var rafraichir = function () {
-    var debut = ruban.scrollLeft <= MARGE;
-    var fin = ruban.scrollLeft >= ruban.scrollWidth - ruban.clientWidth - MARGE;
-    precedent.disabled = debut;
-    suivant.disabled = fin;
-  };
-
-  var glisser = function (sens) {
-    ruban.scrollBy({ left: sens * pas(), behavior: "smooth" });
-  };
-
-  precedent.addEventListener("click", function () {
-    glisser(-1);
-  });
-
-  suivant.addEventListener("click", function () {
-    glisser(1);
-  });
-
-  ruban.addEventListener("scroll", rafraichir, { passive: true });
-  window.addEventListener("resize", rafraichir, { passive: true });
-
-  rafraichir();
+    /* Une marge généreuse : le ruban repart avant d'entrer dans l'écran, pour
+       qu'on ne le surprenne jamais à l'arrêt. */
+    { rootMargin: "200px 0px" }
+  ).observe(piste);
 })();

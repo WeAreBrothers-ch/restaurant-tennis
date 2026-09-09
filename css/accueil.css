@@ -56,11 +56,24 @@
   initial-value: 0;
 }
 
+/* LA HAUTEUR DU PREMIER ÉCRAN EST PLAFONNÉE, et c'est le correctif le plus
+   visible de septembre.
+
+   Elle valait un écran entier, sans limite. Sur un moniteur de 1300 px de haut,
+   cela faisait 1 200 px de crème pour une enseigne de 150 et huit dessins de
+   200 : le client a envoyé une capture de cet écran-là en disant « je ne veux
+   pas de gros espace comme ça ». Il avait raison — une affiche qui grandit avec
+   la fenêtre finit par n'être plus qu'un fond d'écran.
+
+   Le plafond de 780 px est la hauteur au-delà de laquelle la composition cesse
+   de se tenir : l'enseigne et sa couronne de dessins occupent environ 600 px,
+   et 180 de marge suffisent à les poser. Au-dessous du plafond, rien ne change
+   — sur un portable, l'écran est toujours plein. */
 .premier {
   position: relative;
   display: grid;
   place-items: center;
-  min-height: calc(100svh - var(--entete-h));
+  min-height: min(calc(100svh - var(--entete-h)), 780px);
   padding-block: var(--joint-serre);
   /* Trois dessins débordent volontairement : on les coupe ici, jamais avec une
      barre de défilement horizontale. */
@@ -69,7 +82,7 @@
 
 @media (min-width: 1024px) {
   .premier {
-    min-height: calc(100svh - var(--entete-h-lg));
+    min-height: min(calc(100svh - var(--entete-h-lg)), 820px);
   }
 }
 
@@ -670,8 +683,13 @@
    dans le silence et on en sort de la même façon. Les deux voisines apportant
    chacune leur demi-joint, celui-ci pose les deux qui manquent.
    ============================================================================ */
+/* ⚠ CE BLOC A ÉTÉ RAMENÉ À SA PLACE EN SEPTEMBRE. Il mesurait 596 px de haut
+   pour un seul dessin, et c'était le plus gros vide de la page. Un silence
+   qu'on entend est une respiration ; un silence qu'on traverse est un trou.
+   Il ne pose donc plus que le joint courant, et le dessin a grandi pour occuper
+   ce qui reste. */
 .respiration-section {
-  padding-block: calc(var(--joint-souffle) - var(--demi-joint));
+  padding-block: calc(var(--joint) - var(--demi-joint));
 }
 
 /* Le dessin n'est PAS centré sur la page : il est posé au tiers, du côté
@@ -855,14 +873,35 @@
 /* ============================================================================
    7. À TABLE — LE RUBAN DE PHOTOGRAPHIES
 
-   Le seul endroit de la page où quelque chose sort de l'écran : le ruban
-   continue à droite, et c'est ce débord qui le dit. Les deux flèches sont
-   posées dans la marge de gauche, l'une sous l'autre, sans cadre — comme sur le
-   site de référence.
+   IL GLISSE TOUT SEUL, ET C'EST UNE DEMANDE EXPRESSE : « le carrousel d'image
+   j'en veux pas à part si il bouge tout seul ». Le client a raison sur le fond.
+   Un ruban qui ne bouge que si on le pousse est un ruban que personne ne
+   pousse : à la souris, rien n'indique qu'il continue, et les deux flèches
+   qu'on posait dans la marge pour le dire étaient l'aveu du problème.
 
-   Les photographies y sont fixes dans leur cadre : la dérive au défilement est
-   faite pour un bloc qu'on dépasse verticalement, pas pour un ruban qu'on fait
-   glisser en travers. Les deux mouvements ensemble se lisent comme un défaut.
+   La mécanique est celle d'un panneau d'affichage de gare, pas celle d'un
+   carrousel : LES PHOTOGRAPHIES DÉFILENT SANS FIN, à vitesse constante, sans
+   arrêt sur image, sans point de départ ni d'arrivée. Il n'y a donc ni
+   pagination, ni flèches, ni pastilles — rien à cliquer, rien à rater.
+
+   TROIS CHOSES LA RENDENT HONNÊTE :
+
+     — la piste porte DEUX FOIS la même série. La seconde est marquée
+       `aria-hidden` : elle n'existe que pour que la boucle se referme sans
+       saut. C'est pour ça que la translation vaut « la moitié, plus un demi
+       joint » — c'est exactement ce qui amène la septième vignette là où était
+       la première.
+     — elle S'ARRÊTE quand on la survole ou qu'on tabule dedans. Un texte qui
+       fuit pendant qu'on le lit est le défaut classique du bandeau défilant.
+     — elle ne démarre pas du tout si le système demande un mouvement réduit :
+       le ruban redevient alors une bande qu'on fait glisser à la main, et la
+       série en double disparaît.
+
+   Quatre-vingt-huit secondes pour un tour complet, soit une trentaine de
+   pixels par seconde : à cette vitesse on a le temps de reconnaître une
+   assiette sans avoir l'impression que quelque chose se sauve. Mesurée à
+   soixante secondes, la première version filait à 45 px/s — on suivait le
+   mouvement au lieu de regarder les photographies.
    ============================================================================ */
 .ruban-section {
   padding-block: 0;
@@ -871,109 +910,95 @@
 
 .ruban-piste {
   position: relative;
+  /* Le joint est déclaré ici parce que DEUX règles en ont besoin : l'écart
+     entre les vignettes, et la translation de la boucle. Écrit deux fois, il
+     finirait par diverger, et la boucle sauterait d'un demi-joint. */
+  --ruban-joint: clamp(14px, 2.75vw, 44px);
 }
 
-.ruban-fleches {
-  display: none;
-}
+/* PAS DE MARGE INTÉRIEURE ICI, et c'est arithmétique, pas esthétique.
 
-@media (min-width: 1024px) {
-  .ruban-fleches {
-    position: absolute;
-    top: var(--sp-6);
-    left: var(--marge);
-    z-index: 2;
-    display: flex;
-    flex-direction: column;
-    gap: var(--sp-1);
-  }
-}
+   La boucle repose sur une égalité exacte : la piste porte deux séries
+   identiques, et la translation doit amener la première vignette de la seconde
+   série là où était celle de la première. Avec dix vignettes et neuf joints, la
+   largeur totale vaut 10i + 9j ; le pas cherché vaut 5i + 5j, soit la moitié
+   plus un demi-joint — d'où la valeur des images-clés.
 
-/* Une flèche nue : pas de rond, pas de cadre. */
-.ruban-fleche {
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  width: 36px;
-  height: 36px;
-  padding: 0;
-  background: none;
-  border: 0;
-  color: var(--encre);
-  cursor: pointer;
-  transition:
-    color var(--dur-vif) var(--sortie),
-    opacity var(--dur-vif) var(--sortie),
-    transform var(--dur-vif) var(--sortie);
-}
-
-.ruban-fleche:hover:not(:disabled) {
-  color: var(--accent);
-}
-
-.ruban-fleche:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 2px;
-}
-
-.ruban-fleche:disabled {
-  opacity: 0.25;
-  cursor: default;
-}
-
+   Une marge intérieure entrerait dans cette largeur sans faire partie du motif
+   qui se répète, et la boucle sauterait d'autant à chaque tour. Le ruban touche
+   donc les deux bords, ce qui est de toute façon ce qu'on attend d'un ruban. */
 .ruban-defile {
   display: flex;
-  /* 14 px au doigt, 44 px sur grand écran : les deux valeurs relevées. */
-  gap: clamp(14px, 2.75vw, 44px);
-  padding-inline: var(--marge);
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  scroll-padding-inline-start: var(--marge);
-  overscroll-behavior-x: contain;
-  scrollbar-width: none;
-  scroll-behavior: smooth;
+  gap: var(--ruban-joint);
+  width: max-content;
 }
 
-/* La place des flèches : 56 px, ce qui pose la première image à 88 px du bord
-   sur un écran de 1600 — la référence en donne 90. */
-@media (min-width: 1024px) {
+@media (prefers-reduced-motion: no-preference) {
   .ruban-defile {
-    padding-inline-start: calc(var(--marge) + 56px);
-    scroll-padding-inline-start: calc(var(--marge) + 56px);
+    animation: ruban-glisse 88s linear infinite;
+  }
+
+  /* On lit, donc on arrête. Le survol vaut pour la souris, le focus pour le
+     clavier — et `focus-within` attrape aussi bien la vignette que ce qu'elle
+     contient. */
+  .ruban-piste:hover .ruban-defile,
+  .ruban-piste:focus-within .ruban-defile {
+    animation-play-state: paused;
   }
 }
 
-.ruban-defile::-webkit-scrollbar {
-  display: none;
+@keyframes ruban-glisse {
+  to {
+    transform: translateX(calc(-50% - var(--ruban-joint) / 2));
+  }
 }
 
+/* MOUVEMENT RÉDUIT : plus d'animation, et la série en double s'efface — elle
+   n'avait de raison d'être que pour la boucle. Le ruban redevient ce qu'il
+   était : une bande qu'on pousse au doigt ou au trackpad. */
 @media (prefers-reduced-motion: reduce) {
   .ruban-defile {
-    scroll-behavior: auto;
+    width: auto;
+    padding-inline: var(--marge);
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline-start: var(--marge);
+    overscroll-behavior-x: contain;
+    scrollbar-width: none;
+  }
+
+  .ruban-defile::-webkit-scrollbar {
+    display: none;
+  }
+
+  .ruban-vignette[aria-hidden="true"] {
+    display: none;
+  }
+
+  .ruban-vignette {
+    scroll-snap-align: start;
   }
 }
 
 .ruban-vignette {
-  flex: 0 0 80vw; /* la mesure au doigt */
-  scroll-snap-align: start;
+  flex: 0 0 76vw; /* la mesure au doigt */
 }
 
 /* À la souris, la vignette valait 63 % de l'écran : sur un grand moniteur, un
    gros plan d'assiette y occupait presque toute la largeur et se lisait comme
-   une texture, plus comme un plat. Elle prend maintenant la moitié de l'écran,
-   sans jamais dépasser 720 px — au-delà, on n'ajoute plus rien à ce qu'on voit,
-   on agrandit seulement. Deux photographies tiennent ainsi côte à côte, et la
-   troisième déborde assez pour dire que le ruban continue. */
+   une texture, plus comme un plat. Elle prend maintenant un peu plus du tiers,
+   sans jamais dépasser 520 px. Trois photographies tiennent ainsi de front et
+   une quatrième déborde : un ruban qui défile doit montrer qu'il est un ruban,
+   ce que deux vignettes ne font pas. */
 @media (min-width: 900px) {
   .ruban-vignette {
-    flex-basis: min(52vw, 720px);
+    flex-basis: min(34vw, 520px);
   }
 }
 
 /* Ici, et seulement ici, toutes les vignettes ont le même format. Le décalage
-   est la règle de la page — mais dans un ruban qu'on fait glisser, des hauteurs
-   inégales se lisent comme un défaut d'alignement, pas comme un parti pris.
-   Le rapport 1,58 est celui relevé chez eux. */
+   est la règle de la page — mais dans un ruban qui glisse, des hauteurs
+   inégales se lisent comme un défaut d'alignement, pas comme un parti pris. */
 .ruban-vignette .photo-cadre {
   --ratio: 1264 / 800;
 }

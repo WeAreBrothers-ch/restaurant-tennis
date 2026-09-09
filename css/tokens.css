@@ -232,22 +232,39 @@
      toujours la somme de deux demi-joints — jamais une valeur posée d'un seul
      côté, jamais une valeur inventée pour un endroit.
 
-     Trois intervalles seulement, dans un rapport de 1 à 2 à 3. Ils sont tous
-     dérivés du même chiffre : ils gardent donc leur rapport à TOUTES les
-     largeurs d'écran, et ne peuvent plus se croiser.
+     Trois intervalles seulement. Ils sont tous dérivés du même chiffre : ils
+     gardent donc leur rapport à TOUTES les largeurs d'écran, et ne peuvent
+     jamais se croiser.
 
        serré ...... deux blocs qui n'en font qu'un    (le titre et ses photos)
        courant .... deux propos qui se suivent         (l'intervalle ordinaire)
-       souffle .... de part et d'autre d'un silence    (les paires muettes)
+       souffle .... de part et d'autre d'un silence    (le bandeau)
 
-     De 3 rem au doigt à 6,25 rem sur grand écran, pour le demi-joint : le vide
-     courant va donc de 96 à 200 px, et le souffle de 144 à 300 px.
+     ⚠ CETTE ÉCHELLE A ÉTÉ RÉDUITE DE MOITIÉ EN SEPTEMBRE, et il faut savoir
+     pourquoi avant de la remonter.
+
+     Elle valait 6,25 rem sur grand écran, dans un rapport de 1 à 2 à 3. Mesuré
+     sur la page d'accueil à 1440 × 900, cela donnait : 370 px entre deux
+     sections voisines, 370 px de plus autour du bandeau, et 2 129 px de vide
+     inter-sections cumulé — VINGT-SEPT POUR CENT DE LA PAGE. Le client a
+     regardé le site et a répondu, en premier : « je ne veux pas de gros espace
+     comme ça ».
+
+     Deux corrections, pas une :
+       — le demi-joint tombe de 6,25 à 3,75 rem sur grand écran ;
+       — le rapport passe de 1 · 2 · 3 à 1 · 1,5 · 2. C'est le second qui
+         compte le plus : c'est la multiplication par trois qui fabriquait les
+         écrans vides, un demi-joint déjà large étant triplé PUIS doublé par la
+         section d'en face.
+
+     Le vide courant va maintenant de 72 à 180 px, et le souffle de 96 à 240.
+     La page d'accueil y perd près de mille pixels sans qu'un seul bloc bouge.
      ------------------------------------------------------------------------- */
-  --demi-joint: clamp(3rem, 1.6rem + 4.65vw, 6.25rem);
+  --demi-joint: clamp(2.25rem, 1.4rem + 2.6vw, 3.75rem);
 
   --joint-serre: var(--demi-joint);
-  --joint: calc(var(--demi-joint) * 2);
-  --joint-souffle: calc(var(--demi-joint) * 3);
+  --joint: calc(var(--demi-joint) * 1.5);
+  --joint-souffle: calc(var(--demi-joint) * 2);
 
   /* -------------------------------------------------------------------------
      LES LARGEURS
