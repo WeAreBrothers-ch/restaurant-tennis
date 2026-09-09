@@ -86,22 +86,8 @@ h1 em,
 h2 em,
 h3 em,
 .italique {
-  /* L'italique prend AUSSI la couleur, ce qui n'était pas le cas : il n'était
-     jusqu'ici qu'une inclinaison, donc le seul ornement du site ne se voyait
-     qu'à condition de le chercher. En olive sur la crème, il donne 6,38:1 —
-     c'est un titre lisible, pas une décoration. */
-  color: var(--olive-600);
   font-style: italic;
   font-variation-settings: "opsz" 72;
-}
-
-/* Sur les surfaces vertes, l'olive serait invisible : l'italique y prend la
-   balle, qui est l'accent de ces surfaces. */
-.surface-olive :is(h1, h2, h3) em,
-.surface-olive .italique,
-.surface-sapin :is(h1, h2, h3) em,
-.surface-sapin .italique {
-  color: var(--accent);
 }
 
 p {

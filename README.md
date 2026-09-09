@@ -8,17 +8,11 @@ ne voit que s’il se trompe d’adresse.
 C’est un site en **HTML, CSS et JavaScript ordinaires**. Rien à installer, rien à
 compiler, aucun outil. Vous ouvrez un fichier, vous le modifiez, vous l’envoyez.
 
-**Le site a cinq surfaces, et elles viennent toutes du logo.** La crème pour les
-pages de lecture, l’olive du logo pour les bandes qui doivent se voir — l’accès
-direct, le bandeau, le tableau des plats étoilés, les titres de famille de la
-carte — un olive plus sombre pour le pied de page, une terre battue claire pour
-les blocs pratiques, et le jaune de la balle en étincelle, qui ne se pose jamais
-que sur le vert.
-
-Une page d’accueil les traverse dans cet ordre : crème, olive, crème, crème,
-olive, crème, olive, terre, olive foncé. Quarante pour cent de la page cesse
-d’être de la crème — c’était un pour mille jusqu’en septembre, et c’est
-exactement ce que le client appelait « très terne ».
+**Le site est crème.** Un blanc cassé très peu jaune, comme une carte imprimée ou
+un maillot de club lavé cent fois. L’encre est un vert sapin si sombre qu’on le
+prend d’abord pour du noir. Une seule couleur vive, l’ocre de la terre battue :
+elle ne décore jamais, elle signale — les prix, le lien d’appel, la page où l’on
+se trouve.
 
 Le principe : **la carte d’abord**. Un visiteur doit pouvoir lire tous les plats
 et tous les prix en un clic, puis appeler. La réservation se fait au téléphone,

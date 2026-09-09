@@ -514,13 +514,9 @@
   }
 }
 
-/* Le survol s'assombrit d'un cran de vert, jamais vers le sable : la bande est
-   maintenant olive, et un rectangle sable y poserait un fond CLAIR sous du
-   texte crème — le survol de la rangée de raccourcis principale disparaîtrait
-   au moment précis où on la vise. */
 @media (hover: hover) and (pointer: fine) {
   .accesdirect-cellule:hover {
-    background-color: var(--olive-700);
+    background-color: var(--sable);
   }
 }
 

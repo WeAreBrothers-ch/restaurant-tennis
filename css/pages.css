@@ -97,7 +97,7 @@
     display: block;
     padding-block: 0.55rem;
     border-bottom: 1px solid var(--trait);
-    color: var(--olive-600);
+    color: var(--encre-2);
     font-size: 0.8125rem;
     letter-spacing: 0.1em;
   }
@@ -194,8 +194,7 @@
 .provenance-bloc {
   margin-top: var(--sp-8);
   padding: var(--sp-6) var(--sp-5);
-  border-top: 3px solid var(--olive-600);
-  background-color: var(--terre-050);
+  background-color: var(--sable);
 }
 
 .provenance-titre {
@@ -218,7 +217,7 @@
   align-items: baseline;
   gap: var(--sp-3);
   padding-block: var(--sp-3);
-  border-bottom: 1px solid var(--filet-tenu-terre);
+  border-bottom: 1px solid var(--filet-tenu-sable);
 }
 
 .provenance-ligne dt {
@@ -295,7 +294,7 @@
 .lignedeplat-code {
   order: 3;
   margin-top: 0.35rem;
-  color: var(--olive-600);
+  color: var(--encre-3);
   font-family: var(--mono);
   font-size: 0.6875rem;
   letter-spacing: 0.08em;
@@ -397,27 +396,32 @@
   margin-top: var(--sp-8);
 }
 
-/* DIX BANDES OLIVE DESCENDENT LA PAGE, et elles font trois choses à la fois.
+/* LE TITRE DE FAMILLE EST UN TITRE, PAS UNE BANDE.
 
-   Elles donnent la hiérarchie qui manquait — le titre de famille était à 26 px
-   contre 20 pour un nom de plat, même graisse, même couleur : un rapport de
-   1,30, c'est-à-dire rien. Elles donnent la couleur qui manquait. Et surtout
-   elles donnent LES SEULS REPÈRES DE POSITION sur près de trois mille pixels de
-   colonne : on sait toujours dans quelle famille on se trouve, ce qui est la
-   réponse littérale au grief du client.
+   Il a porté un aplat vert pleine largeur pendant une version. Le client a
+   répondu : « la carte c'est horrible, ce que tu as fait à surligner les
+   titres, je ne veux pas ça, fais comme l'Étoile je préfère ». Il a raison sur
+   le fond : dix bandes de couleur qui descendent une page de carte, c'est un
+   sommaire qui se répète, pas une lecture.
 
-   Une seule règle pour les trois. */
+   Il reprend donc la composition du site modèle — le serif en capitales
+   espacées, sur la crème — et c'est le FILET qui le tient, pas un fond. Le
+   repère de position que la bande apportait est rendu autrement, et mieux : par
+   le sommaire en rail, à gauche, qui suit le défilement.
+
+   Il gagne quand même le corps qui lui manquait : à `--fs-h2` il est deux fois
+   plus grand qu'un nom de plat, là où `--fs-h3` ne le mettait qu'à 1,3. */
 .categoriecarte-titre {
   margin: 0;
-  padding: 0.7rem 1.25rem 0.8rem;
-  background-color: var(--olive-600);
-  color: var(--creme);
+  padding-bottom: var(--sp-4);
+  border-bottom: 1px solid var(--encre);
+  color: var(--encre);
   font-family: var(--serif);
-  font-size: var(--fs-h3);
-  font-weight: 500;
-  letter-spacing: -0.01em;
+  font-size: var(--fs-h2);
+  font-weight: 400;
+  letter-spacing: 0.06em;
   line-height: 1.15;
-  text-transform: none;
+  text-transform: uppercase;
 }
 
 .categoriecarte-note {
@@ -461,18 +465,16 @@
 .categoriecarte-annonce {
   margin-top: var(--sp-8);
   padding: var(--sp-5) var(--sp-6);
-  border-left: 3px solid var(--olive-600);
-  background-color: var(--terre-050);
+  border-left: 2px solid var(--accent);
+  background-color: var(--sable);
 }
 
+/* Deux lignes de texte n'ont pas besoin du filet pleine largeur des familles
+   qui en portent huit. */
 .categoriecarte-annonce .categoriecarte-titre {
-  padding: 0;
-  background-color: transparent;
-  color: var(--encre);
-}
-
-.categoriecarte-annonce .categoriecarte-note {
-  color: var(--encre);
+  padding-bottom: 0;
+  border-bottom: 0;
+  font-size: var(--fs-h3);
 }
 
 /* ============================================================================

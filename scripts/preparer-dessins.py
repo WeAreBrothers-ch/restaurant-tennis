@@ -61,13 +61,14 @@ SOURCES = [
     # lit que la clarté de chaque pixel, jamais sa teinte, et repeint tout à
     # l'encre demandée.
     ("trait-balles-2026-09b.png",   "balles.png",   SAPIN, (0, 0, 0, 0), 300, []),
-    # LE MÊME DESSIN, CUIT EN CRÈME. Il n'y a pas de doublon inutile ici : le
-    # tube de balles est posé dans le tableau d'affichage, qui est une bande
-    # olive. Son encre sapin y donne 1,24:1 — il y serait invisible. Un dessin
-    # dont la couleur est cuite dans le fichier doit exister une fois par fond
-    # sur lequel il se pose ; c'est le prix du procédé, et il se paie en octets,
-    # pas en risque.
-    ("trait-balles-creme-2026-09b.png", "balles.png", CREME, (0, 0, 0, 0), 300, []),
+    # ⚠ LA CUISSON EN CRÈME N'EST PLUS PUBLIÉE. Elle a servi le temps d'une
+    # version, quand le tableau d'affichage était posé sur une bande verte : un
+    # dessin dont l'encre est cuite dans le fichier doit exister une fois par
+    # fond sur lequel il se pose. Le site étant revenu à la crème partout, elle
+    # n'a plus d'emploi. La ligne reste ici, en commentaire, parce que la règle,
+    # elle, vaut toujours.
+    #
+    # ("trait-balles-creme-2026-09b.png", "balles.png", CREME, (0, 0, 0, 0), 300, []),
     ("trait-service-2026-09b.png",  "service.png",  SAPIN, (0, 0, 0, 0), 420, []),
     ("trait-joueur-2026-09b.png",   "joueur-trait.png", SAPIN, (0, 0, 0, 0), 470, []),
     ("trait-verres-2026-09b.png",   "verres.png",   TERRE, (0, 0, 0, 0), 620, []),

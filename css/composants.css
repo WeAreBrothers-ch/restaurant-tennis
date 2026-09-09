@@ -587,8 +587,20 @@ a:focus-visible > .photo-zoom .photo-image {
   }
 }
 
+/* LA RÉSERVATION DE LA BARRE DU HAUT N'EST PLUS UN BLOC PLEIN.
+
+   C'était un rectangle de terre battue, et le client a répondu : « le bouton
+   téléphone je ne le veux pas en carré comme ça ». Il porte maintenant le
+   composant souligné du site — le même que « Voir toute la carte » ou « Toute
+   la carte » — c'est-à-dire un numéro qu'on lit, et non un pavé qui insiste.
+
+   Elle reste la seule chose colorée de la barre : sur une crème et deux
+   encres, un mot en terre battue se voit très bien sans avoir besoin d'un fond.
+   Et sa cible reste haute de quarante-huit pixels, comme tous les boutons du
+   site, parce que c'est la main qui décide de cette mesure-là, pas le dessin. */
 .header-reserverLong {
   display: none !important;
+  padding-inline: 0;
 }
 
 @media (min-width: 1024px) {

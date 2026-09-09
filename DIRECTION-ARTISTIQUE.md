@@ -1,6 +1,6 @@
 # Direction artistique — Restaurant Tennis Club Écublens
 
-> Version 3.0 — 9 septembre 2026 · **le site a cinq surfaces**
+> Version 3.1 — 9 septembre 2026 · **le site est crème**
 > Périmètre : le site du restaurant du club-house du Tennis Club d'Écublens.
 > Ce document dit ce qui a été décidé et pourquoi. Il ne décrit pas ce qu'il faudrait
 > faire un jour : il décrit ce qui est dans le code.
@@ -65,72 +65,44 @@ quartier, très bien mise en page.
 
 ## 2. Les couleurs
 
-> **Version 3 — ce chapitre a été refait.** Le client a vu le site en ligne et a
-> répondu : « je trouve le site très terne […] vraiment améliore les couleurs ».
-> Le relevé lui a donné raison, et pas sur une question de goût.
+> **Une version 3 a existé, et elle a été annulée.** Elle faisait de l'olive du
+> logo une surface : la bande d'accès direct, le bandeau, le tableau
+> d'affichage et les titres de famille de la carte passaient sur du vert plein,
+> et le jaune de la balle devenait l'accent de ces bandes. Le client a regardé
+> et a répondu : « remets les couleurs d'avant, c'est très moche actuellement ».
+>
+> **La palette de la version 2 est donc rétablie à l'octet près.** Ce chapitre
+> est celui de la version 2, et il fait foi. La leçon à en tirer n'est pas
+> qu'un système à cinq surfaces était mauvais en soi — c'est que ce
+> restaurant-ci veut une carte imprimée, pas une identité de club, et que la
+> réponse au « terne » était ailleurs : dans le rythme, l'échelle typographique
+> et la mise en page de la carte, qui, elles, ont été gardées.
 
-### Ce qui n'allait pas, en chiffres
-
-La palette décrite dans la version 2 de ce document n'avait jamais été peinte :
-
-| Ce qui était déclaré | Ce qui était employé |
-| --- | --- |
-| `--fougere-400 / -500 / -600` | **zéro règle** |
-| `--terre-500`, l'ocre exact du court | **zéro règle** |
-| `--terre-600` | huit règles — les prix, les boutons, l'état actif |
-| `.surface-sable` | **une page sur cinq, une fois** |
-| `--texte-2` et `--texte-3` | deux jetons distants de 1,12:1, c'est-à-dire un seul |
-
-Sur les 6 700 px de l'accueil, **un seul changement de fond se produisait**, et
-c'était le pied de page. Le site n'était pas terne par parti pris : il l'était
-par défaut d'emploi.
-
-### La correction ne touche presque pas aux teintes
-
-On ne ravive pas un ocre en le décalant d'un cran — cela ne se voit sur aucun
-écran, et cela invalide le vérificateur, ce document et les huit dessins dont
-l'encre est cuite dans le fichier. **On le ravive en s'en servant.**
-
-Ce qui change, c'est l'AIRE : environ 2 700 px de l'accueil sur 6 700 cessent
-d'être de la crème. Quarante pour cent, contre un pour mille.
-
-### Les quatre matières viennent du logo
-
-Le logo fourni par le client montre quatre couleurs, et le site n'en employait
-que deux et demie.
+Elles ne viennent pas d'un nuancier : elles viennent du lieu. Le club a **quatre
+courts en terre battue**, des sapins au fond, et un club-house rénové.
 
 | Nom | Valeur | Rôle | Part de l'écran |
 | --- | --- | --- | --- |
-| **La crème** | `#F4F1E9` | Le fond des pages de lecture | ≈ 45 % |
-| **L'olive** | `#4A5D3A` | **Le vert du logo, à l'octet près.** Une surface : la bande d'accès direct, le bandeau, le tableau d'affichage, les titres de famille de la carte | ≈ 25 % |
-| **L'olive foncé** | `#2F3E23` | La fermeture : pied de page, menu du téléphone, barre d'appel | ≈ 12 % |
-| **La terre battue claire** | `#EBD3BB` | La bande pratique : « Venir chez nous », la provenance, les horaires | ≈ 10 % |
-| **La terre battue** | `#A44E2C` | L'accent sur la crème. Inchangée : les prix, les liens, le bouton d'appel | ≈ 2 % |
-| **La balle** | `#D8E04A` | L'étincelle. Le bouton et l'accent, **sur l'olive uniquement** | < 1 % |
+| **La crème** | `#F4F1E9` | Le fond de presque tout | ≈ 75 % |
+| **Le sable** | `#ECE8DE` | La bande qui doit se détacher | ≈ 5 % |
+| **Le sapin** | `#12291F` | L'encre. Et le pied de page, en aplat | ≈ 18 % |
+| **La terre battue** | `#A44E2C` | Les prix, le bouton d'appel, l'état actif | ≈ 2 % |
+| **La fougère** | `#4A6A38` | L'état « ouvert », rien d'autre | < 1 % |
 
-### Les quatre règles
+### Les trois règles
 
-1. **L'olive du logo ne porte que DEUX encres.** La crème y donne 6,37:1 et la
-   balle 5,03:1 ; un troisième palier tomberait sous le seuil. Là où il en faut
-   trois — le pied de page, le menu — c'est `--olive-800` qui sert. **On ne
-   retouche jamais la couleur de la marque pour arranger une feuille de style :
-   on change de jeton.**
+1. **La crème est peu jaune.** Un beige franc daterait le site de dix ans. Ce
+   qu'on cherche est le blanc légèrement chaud du papier, pas la couleur du
+   sable.
 
-2. **La balle ne se pose jamais sur du clair.** `#D8E04A` sur la crème vaut
-   1,27:1. Sur les surfaces claires elle n'est rien — ni texte, ni prix, ni
-   filet, ni bordure. Cette règle est vérifiée par la machine : voir les
-   « interdits » de `scripts/verifier-contraste.mjs`, qui échouent exprès.
+2. **Sur du clair, on détache en assombrissant.** La bande secondaire est un ton
+   plus BAS que le fond, jamais plus haut. C'est l'inverse exact de ce que
+   faisait le site noir, et c'est la seule adaptation structurelle qu'a demandée
+   le passage au clair.
 
-3. **Le grain assombrit toujours, sur les quatre surfaces.** Le pied de page
-   l'avait en `screen`, ce qui l'éclaircissait : sur un fond sombre, `screen`
-   dégrade tous les rapports calculés pour du texte clair. Avec quatre surfaces
-   et des couples à 4,72:1, cela ferait passer des contrastes sous le seuil sans
-   que rien ne le signale.
-
-4. **Une bande colorée vide est pire qu'une bande crème vide.** Le vert rend le
-   vide plus visible, pas moins. Aucune des surfaces posées n'est décorative :
-   la bande d'accès direct porte quatre liens, le bandeau une photographie et sa
-   légende, le tableau dix plats et dix prix.
+3. **La terre battue ne décore jamais.** Elle est réservée aux prix, au bouton
+   d'appel, à l'état actif et aux dessins de table. Une couleur qui est partout
+   ne signale plus rien.
 
 ### Les deux encres des dessins
 
@@ -142,19 +114,18 @@ C'est la seule chose que le site dit **par la couleur seule**, sans un mot :
 | Le vert sapin | `#27523D` | **Le club** — le service, la raquette, le joueur, le filet, les chaussures, les balles |
 
 L'encre n'est pas posée par le CSS : elle est **cuite dans les fichiers**, par
-`scripts/preparer-dessins.py`. C'est la raison pour laquelle **le premier écran
-reste crème et le restera** : sur olive, ces dessins tombent à 1,24:1. Un dessin
+`scripts/preparer-dessins.py`. C'est la raison pour laquelle le premier écran
+est et restera crème : sur un fond vert, ces dessins tombent à 1,24:1. Un dessin
 dont la couleur est cuite doit exister une fois par fond sur lequel il se pose —
-c'est pourquoi le tube de balles existe en deux exemplaires, vert et crème.
+la règle vaut toujours, même si le site n'a plus qu'un seul fond clair.
 
 ### Les contrastes
 
-Trente-deux couples texte/fond passent WCAG 2.1 AA, et **trois interdits sont
-vérifiés comme devant échouer**. Le vérificateur est dans le dépôt :
-`node scripts/verifier-contraste.mjs`, à relancer après toute retouche de
-`css/tokens.css` — sa palette est une COPIE, et c'est son défaut : une valeur
-changée d'un côté et pas de l'autre, et il dit « tout passe » sur une palette
-qui n'est plus celle du site. C'est exactement ce qui s'était produit.
+Les couples texte/fond du site passent la norme WCAG 2.1 niveau AA. Le
+vérificateur est dans le dépôt : `node scripts/verifier-contraste.mjs`, à
+relancer après toute retouche de `css/tokens.css`. Sa palette est une COPIE, et
+c'est son défaut : une valeur changée d'un côté et pas de l'autre, et il dit
+« tout passe » sur une palette qui n'est plus celle du site.
 
 ---
 
@@ -371,7 +342,9 @@ qu'elles ont donné.
 | « Je trouve le site très terne » | Voir le chapitre 2, refait en entier |
 | « Améliore les dispositions des textes et images » | L'échelle typographique est écartée : le chapô et le corps valaient le même chiffre, ils sont maintenant à 1,37. L'italique prend une couleur. Le chapô cesse d'être plus pâle que le détail qui le suit |
 | « Analyse chaque page, la disposition est-elle cohérente » | La carte alignait trois bords gauches ; elle en a deux. Les cinq pages emploient les mêmes surfaces dans le même ordre |
-| « Vraiment améliore les couleurs » | Voir le chapitre 2 |
+| « Vraiment améliore les couleurs » | **Annulé.** Une palette à cinq surfaces a été essayée puis retirée à la demande du client — voir l'encadré du chapitre 2. Ce qui reste de la réponse au « terne » : le rythme, l'échelle typographique et la carte |
+| « La carte, ce que tu as fait à surligner les titres, je ne veux pas ça » | Les titres de famille ont porté un aplat vert pendant une version. Ils reprennent la composition du site modèle : serif en capitales espacées, tenu par un filet, sur la crème. Le repère de position que la bande apportait est rendu par le sommaire en rail |
+| « Le bouton téléphone, je ne le veux pas en carré comme ça » | Le bloc plein de la barre du haut devient un lien souligné, le même composant que « Voir toute la carte ». Sa cible reste haute de 48 px |
 
 **Une chose n'a PAS changé, et c'est délibéré : les teintes.** `--terre-600`
 vaut toujours `#A44E2C`, `--creme` toujours `#F4F1E9`. Décaler un ocre d'un cran
