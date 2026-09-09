@@ -35,6 +35,7 @@ import sys
 
 SAPIN = (0x27, 0x52, 0x3D)   # le vert du club, pour les dessins de tennis
 TERRE = (0xC0, 0x60, 0x3A)   # la terre battue, pour les dessins de table
+CREME = (0xF4, 0xF1, 0xE9)   # pour les dessins posés SUR une surface sombre
 CREME_SOURCE = (249, 234, 225)   # le papier des dessins d'origine, mesuré
 SEUIL = 0.90                 # au-dessus de cette clarté, c'est du papier
 GAMMA = 0.72                 # densifie les demi-tons : sans lui, un dessin peint
@@ -60,6 +61,13 @@ SOURCES = [
     # lit que la clarté de chaque pixel, jamais sa teinte, et repeint tout à
     # l'encre demandée.
     ("trait-balles-2026-09b.png",   "balles.png",   SAPIN, (0, 0, 0, 0), 300, []),
+    # LE MÊME DESSIN, CUIT EN CRÈME. Il n'y a pas de doublon inutile ici : le
+    # tube de balles est posé dans le tableau d'affichage, qui est une bande
+    # olive. Son encre sapin y donne 1,24:1 — il y serait invisible. Un dessin
+    # dont la couleur est cuite dans le fichier doit exister une fois par fond
+    # sur lequel il se pose ; c'est le prix du procédé, et il se paie en octets,
+    # pas en risque.
+    ("trait-balles-creme-2026-09b.png", "balles.png", CREME, (0, 0, 0, 0), 300, []),
     ("trait-service-2026-09b.png",  "service.png",  SAPIN, (0, 0, 0, 0), 420, []),
     ("trait-joueur-2026-09b.png",   "joueur-trait.png", SAPIN, (0, 0, 0, 0), 470, []),
     ("trait-verres-2026-09b.png",   "verres.png",   TERRE, (0, 0, 0, 0), 620, []),
@@ -85,13 +93,13 @@ SOURCES = [
     #   « copie »  la ligne de sol, effacée avec le texte, est reprise à droite
     #              où elle est intacte, et recollée en miroir. Le raccord tombe
     #              pile à la limite des deux zones.
-    ("trait-joueur-2026-09a.png",   "joueur.png",   SAPIN, (0, 0, 0, 0), 460, [
-        ("voile", 0, 1167, 280, 1246, 1.710, -0.708),
-        ("gomme", 20, 1203, 262, 1246),
-        ("encre", 20, 1186, 262, 1203, 125),
-        ("gomme", 872, 1142, 1010, 1246),
-        ("copie", 300, 1198, 560, 1240, 40),
-    ]),
+    # ("trait-joueur-2026-09a.png",   "joueur.png",   SAPIN, (0, 0, 0, 0), 460, [
+    # ("voile", 0, 1167, 280, 1246, 1.710, -0.708),
+    # ("gomme", 20, 1203, 262, 1246),
+    # ("encre", 20, 1186, 262, 1203, 125),
+    # ("gomme", 872, 1142, 1010, 1246),
+    # ("copie", 300, 1198, 560, 1240, 40),
+    # ]),
 ]
 
 # Les dessins d'origine, tels qu'ils sont arrivés : ils restent dans le projet

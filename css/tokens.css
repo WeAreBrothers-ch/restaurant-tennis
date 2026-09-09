@@ -104,86 +104,153 @@
   /* -------------------------------------------------------------------------
      LES COULEURS
 
-     Quatre matières, et pas une de plus. Elles ne viennent pas d'une palette
-     choisie sur un nuancier : elles viennent du lieu.
+     ⚠ CE BLOC A ÉTÉ REFAIT EN SEPTEMBRE, ET IL FAUT SAVOIR POURQUOI.
 
-       LA CRÈME ....... le papier. Un blanc cassé très peu jaune, celui d'une
-                        carte imprimée ou d'un maillot de club lavé cent fois.
-       LE SAPIN ....... l'encre. Le vert des arbres qui tiennent le fond du
-                        court. Il est si sombre qu'on le prend d'abord pour du
-                        noir, et c'est exactement ce qu'on lui demande.
-       LA FOUGÈRE ..... la végétation. Un vert plus clair et plus jaune, qui
-                        sert aux états et aux respirations.
-       LA TERRE BATTUE  la seule couleur vive du site. C'est l'ocre du court.
-                        Elle ne décore jamais : elle signale. Les prix, le
-                        bouton d'appel, l'état actif, et rien d'autre.
+     Le client a vu le site en ligne et a répondu : « je trouve le site très
+     terne […] vraiment améliore les couleurs ». Le relevé lui a donné raison,
+     et pas sur une question de goût : sur une question d'ARITHMÉTIQUE.
 
-     Le site est clair. Les photographies s'y détachent comme des tirages posés
-     sur une nappe de club-house, et le grain (voir « LE GRAIN ») empêche la
-     crème de ressembler à du blanc d'écran.
+       — les trois jetons `--fougere-*` n'étaient appelés par AUCUNE règle ;
+       — `--terre-500`, la couleur exacte de la terre battue, non plus ;
+       — `.surface-sable` servait sur UNE page sur cinq, une fois ;
+       — sur les 6 700 px de l'accueil, un seul changement de fond se produisait,
+         et c'était le pied de page.
+
+     Autrement dit : la palette écrite ici n'avait jamais été peinte. Le site
+     n'était pas terne par choix, il l'était par défaut d'emploi.
+
+     LA CORRECTION NE TOUCHE PRESQUE PAS AUX TEINTES : elle leur donne de
+     l'AIRE. On ne ravive pas un ocre en le décalant d'un cran — cela ne se voit
+     sur aucun écran et invalide le vérificateur, la documentation et les huit
+     dessins dont l'encre est cuite dans le fichier. On le ravive en s'en
+     servant.
+
+     LES QUATRE MATIÈRES VIENNENT DU LOGO, et il y en a quatre, pas deux :
+
+       LA CRÈME ....... le papier. Le fond des pages de lecture.
+       L'OLIVE ........ LE VERT DU LOGO, à l'octet près. C'était jusqu'ici une
+                        couleur qui n'existait nulle part dans le dépôt alors
+                        qu'elle occupe tout le fond de l'image de marque. Elle
+                        devient une SURFACE : la bande d'accès direct, le
+                        bandeau, le tableau d'affichage, les titres de famille
+                        de la carte.
+       LA TERRE BATTUE  l'ocre du court. Elle garde son rôle de signal sur la
+                        crème — les prix, les liens, le bouton d'appel — et
+                        gagne une bande claire, `--terre-050`, pour les blocs
+                        pratiques.
+       LA BALLE ....... le jaune-vert de la balle du logo. C'est une ÉTINCELLE,
+                        pas un aplat : elle ne se pose QUE sur l'olive, où elle
+                        donne 5,03:1. Sur la crème elle vaut 1,27:1 — elle n'y
+                        est rien, ni texte, ni filet, ni bordure.
      ------------------------------------------------------------------------- */
 
-  /* La terre battue, et ses variations. */
-  --terre-300: #e2a184; /* le survol, sur fond sapin uniquement */
-  --terre-400: #d98a66; /* les accents sur fond sapin */
+  /* La terre battue, et ses variations. AUCUNE VALEUR N'A CHANGÉ. */
+  --terre-050: #ebd3bb; /* LA BANDE CLAIRE. Le fond de `.surface-terre` : les
+                           blocs pratiques et la provenance. 1,28:1 sur la
+                           crème, là où l'ancien sable était à 1,08 — c'est-à-
+                           dire invisible */
+  --terre-300: #e2a184; /* l'accent sur le sapin du pied de page */
+  --terre-400: #d98a66;
   --terre-500: #c0603a; /* la couleur exacte de la terre battue */
   --terre-600: #a44e2c; /* les liens, les prix et les boutons sur la crème */
-  --terre-700: #8a3f22; /* le survol des boutons */
+  --terre-700: #8a3f22; /* le survol des boutons, et l'accent sur `--terre-050` :
+                           `--terre-600` n'y donne que 3,93:1 et échoue */
 
-  /* Le sapin : l'encre du site, et la surface sombre du pied de page. */
-  --sapin-900: #12291f; /* l'encre, et le fond du pied de page */
-  --sapin-700: #1c3b2c;
-  --sapin-500: #27523d; /* l'encre des DESSINS DE TENNIS du premier écran. Elle
-                           n'est pas posée par le CSS : elle est cuite dans les
-                           fichiers, par `scripts/preparer-dessins.py` */
+  /* L'OLIVE — le vert du logo, et la couleur qui manquait au site.
 
-  /* La fougère : le vert clair. Les états, les filets vivants. */
-  --fougere-400: #7ea05c; /* sur fond sapin uniquement */
-  --fougere-500: #5f8248;
-  --fougere-600: #4a6a38; /* sur la crème */
+     Deux valeurs de fond, et ce n'est pas un caprice : `--olive-600` est
+     l'olive du logo et ne peut porter que DEUX encres (la crème à 6,37:1, la
+     balle à 5,03:1). Là où il en faut trois — le pied de page, le menu du
+     téléphone — c'est `--olive-800` qui sert. On n'assombrit jamais l'olive du
+     logo pour satisfaire une règle : on change de jeton. */
+  --olive-200: #dde2ce; /* l'encre secondaire sur l'olive du logo (5,43:1) */
+  --olive-300: #ccd5b8; /* l'encre tertiaire sur l'olive (4,72:1), secondaire
+                           sur l'olive foncé (7,51:1) */
+  --olive-400: #a3af8c; /* l'encre tertiaire sur l'olive foncé (4,94:1) */
+  --olive-600: #4a5d3a; /* L'OLIVE DU LOGO. La surface de la marque */
+  --olive-700: #3c4c2e; /* le filet et le survol, sur l'olive */
+  --olive-800: #2f3e23; /* la fermeture : pied de page, menu, barre d'action */
+
+  /* LA BALLE. Elle ne se pose jamais sur du clair — voir le commentaire du haut. */
+  --balle-500: #d8e04a;
+  --balle-600: #c3ce3f; /* le survol du bouton balle */
+
+  /* Le sapin : l'encre des DESSINS du premier écran. Elle n'est pas posée par
+     le CSS, elle est cuite dans les fichiers par `scripts/preparer-dessins.py` :
+     c'est pour cela que le premier écran reste crème et ne passera jamais en
+     olive — sur olive, ces dessins tombent à 1,24:1. */
+  --sapin-500: #27523d;
 
   /*
-    LES SURFACES — LE SITE EST CRÈME.
+    LES CINQ SURFACES.
 
-    Il n'y a que trois surfaces, et c'est une règle : la crème pour presque
-    tout, un ton plus BAS pour la bande qui doit se détacher — sur du clair, on
-    détache en assombrissant, jamais en éclaircissant — et le sapin plein pour
-    le pied de page.
+    Il n'y en avait que trois, et le site n'en employait qu'une. Il y en a
+    maintenant cinq, et l'accueil les traverse dans cet ordre :
 
-    La crème est volontairement peu jaune. Un beige franc daterait le site de
-    dix ans ; ce qu'on cherche est le blanc légèrement chaud du papier, pas la
-    couleur du sable.
+        crème · OLIVE · crème · crème · OLIVE · crème · OLIVE · TERRE · OLIVE FONCÉ
+
+    Environ 2 700 px sur 6 700 cessent d'être de la crème — quarante pour cent
+    de la page, contre un pour mille auparavant. C'est là, et nulle part
+    ailleurs, que se règle le « très terne ».
   */
-  --creme: #f4f1e9; /* le fond du site */
-  --sable: #ece8de; /* la bande d'à côté, un ton plus bas */
-  --sapin: #12291f; /* le pied de page : le vert sapin plein */
+  --creme: #f4f1e9; /* le fond des pages de lecture */
+  --sable: #ece8de; /* ⚠ N'EST PLUS UNE SURFACE. Il ne lui reste qu'un emploi,
+                       et il est vital : le fond d'attente de `.photo-cadre`,
+                       derrière chaque photographie du site le temps qu'elle
+                       arrive. Le remplacer par `--terre-050` poserait un
+                       rectangle terracotta clignotant dans chaque emplacement
+                       d'image, y compris au milieu des bandes olive. */
+  --sapin: #2f3e23; /* le pied de page. LE NOM NE CHANGE PAS, la valeur si :
+                       neuf classes `.surface-sapin` et seize `var(--sapin*)`
+                       en dépendent, et les renommer pour une couleur eût été
+                       le meilleur moyen d'en oublier une */
   --champ: #fffdf8; /* le fond des champs de formulaire, plus clair que la page */
   /* La barre du haut laisse passer la page qui défile dessous : c'est la seule
      surface translucide du site, et donc la seule qui ne peut pas se contenter
      de `--creme`. Les deux valeurs doivent rester la même couleur. */
   --creme-voile: rgb(244 241 233 / 0.92);
 
-  /* Les encres, sur la crème. Toutes tirent vers le vert : il n'y a pas un gris
-     neutre dans le site, ce qui est la moitié de sa chaleur. */
-  --texte-1: #12291f;
-  --texte-2: #55655a;
-  --texte-3: #5e6b60;
+  /* LES ENCRES SUR LA CRÈME, EN TROIS PALIERS RÉELLEMENT SÉPARÉS.
 
-  /* Les encres sur le sapin, quand le fond devient sombre. */
+     Il y en avait trois déclarées et deux visibles : `--texte-2` (#55655a) et
+     `--texte-3` (#5e6b60) n'étaient distants que de 1,12:1, soit rien. Toute la
+     page tombait donc sur deux niveaux, ce qui est la définition d'une page
+     plate. L'échelle vaut maintenant 13,3 · 8,96 · 5,48.
+
+     `--texte-1` a été retendu du vert-cyan vers le jaune-vert pour cesser de
+     jurer avec l'olive posé à côté. À l'œil, c'est le même quasi-noir. */
+  --texte-1: #1e2a16;
+  --texte-2: #33463a;
+  --texte-3: #526156; /* les mentions et les légendes, rien d'autre. Assombri
+                         d'un cran par rapport au #55655a d'origine : sur la
+                         bande de terre battue claire il ne donnait que 4,29 et
+                         échouait. Il y tient maintenant à 4,55, et à 5,81 sur
+                         la crème */
+
+  /* Les encres sur les surfaces sombres. */
   --texte-1-sombre: #f4f1e9;
-  --texte-2-sombre: #bdc7bd;
-  --texte-3-sombre: #9aa79c;
+  --texte-2-sombre: var(--olive-300);
+  --texte-3-sombre: var(--olive-400);
 
   /* Les filets. Sur du clair, ils sont sombres — mais à peine. */
-  --filet-tenu: #ddd7c8;
-  --filet-tenu-sable: #d3cbb7;
-  --filet-tenu-sombre: #2c473a;
-  --filet-champ: #83877a; /* les bords de champ : lisibles, donc plus soutenus */
-  --filet-champ-sombre: #6e8378;
+  --filet-tenu: #d8d1bf; /* assombri : à 1,27:1 l'ancien passait sous le seuil
+                            dès que le grain s'appliquait */
+  --filet-tenu-terre: #d9b99b; /* sur `--terre-050` */
+  --filet-tenu-olive: #3c4c2e; /* sur l'olive */
+  --filet-tenu-sombre: #3f5030; /* sur l'olive foncé. Un cran plus clair que
+                                   `--filet-tenu-olive`, qui est fait pour
+                                   l'olive du logo : le même trait sur les deux
+                                   fonds disparaîtrait sur l'un des deux */
+  --filet-champ: #767e68; /* les bords de champ : lisibles, donc plus soutenus.
+                             Corollaire : aucun champ de formulaire ne se pose
+                             sur `--terre-050`, où il tomberait à 2,94:1 */
+  --filet-champ-sombre: #748a7e; /* éclairci : le fond du pied de page ayant
+                                    lui-même éclairci, l'ancien tombait à
+                                    2,82 et n'était plus une bordure lisible */
 
-  /* Ouvert / fermé. Le vert de la fougère dit ouvert, l'ocre dit fermé — ce
-     sont les deux verts et l'ocre du site, pas un feu tricolore importé. */
-  --etat-ouvert-clair: #4a6a38;
+  /* Ouvert / fermé. L'olive dit ouvert, l'ocre dit fermé — ce sont les couleurs
+     du logo, pas un feu tricolore importé. */
+  --etat-ouvert-clair: var(--olive-600);
   --etat-ferme-clair: #8a5910;
   --etat-ouvert-sombre: #7fb069;
   --etat-ferme-sombre: #dda94e;
@@ -195,15 +262,27 @@
   --sans: "Instrument Sans", "Instrument secours", -apple-system, "Helvetica Neue", Arial, sans-serif;
   --mono: "DM Mono", "Courier New", Courier, ui-monospace, monospace;
 
-  --fs-h1: clamp(2rem, 1.4rem + 2.6vw, 3rem);
-  --fs-h2: clamp(1.75rem, 1.35rem + 1.9vw, 2.75rem);
-  --fs-h3: clamp(1.25rem, 1.11rem + 0.7vw, 1.625rem);
+  /* L'ÉCHELLE A ÉTÉ ÉCARTÉE EN SEPTEMBRE, et c'est l'autre moitié du « très
+     terne » — celle qui n'est pas une affaire de couleur.
+
+     Les tailles se suivaient de trop près : le chapô et le corps de texte
+     valaient le MÊME chiffre sur grand écran (20 px tous les deux), et le titre
+     de famille de la carte n'était qu'à 1,30 du nom de plat. Une page dont tous
+     les textes font la même taille est plate, quelle que soit sa palette : il
+     n'y a rien à parcourir des yeux, donc rien qui accroche.
+
+     Les rapports valent maintenant 1,43 du h1 au h2, 1,62 du h2 au h3, et 1,37
+     du chapô au corps — à TOUTES les largeurs, puisque les deux bornes de
+     chaque `clamp` gardent le même écart. */
+  --fs-h1: clamp(2.25rem, 1.5rem + 3.4vw, 3.75rem); /* 36 → 60 px */
+  --fs-h2: clamp(1.75rem, 1.3rem + 2.1vw, 2.625rem); /* 28 → 42 px */
+  --fs-h3: clamp(1.25rem, 1.11rem + 0.7vw, 1.625rem); /* 20 → 26 px */
   --fs-plat: clamp(1.0625rem, 1.02rem + 0.22vw, 1.25rem);
-  --fs-chapo: clamp(1.0625rem, 1rem + 0.4vw, 1.25rem);
-  --fs-corps: clamp(1rem, 0.95rem + 0.25vw, 1.25rem); /* 20 px sur grand écran */
-  --fs-corps-sm: 0.9375rem;
-  --fs-legende: 0.8125rem;
-  --fs-exergue: 0.75rem;
+  --fs-chapo: clamp(1.1875rem, 1.05rem + 0.75vw, 1.625rem); /* 19 → 26 px */
+  --fs-corps: clamp(1rem, 0.95rem + 0.25vw, 1.1875rem); /* 16 → 19 px */
+  --fs-corps-sm: 1rem;
+  --fs-legende: 0.875rem;
+  --fs-exergue: 0.75rem; /* les seuls libellés en machine à écrire */
 
   /* -------------------------------------------------------------------------
      LES ESPACEMENTS
@@ -354,42 +433,91 @@
   --focus: 0 0 0 2px var(--creme), 0 0 0 4px var(--terre-600);
   --btn-fond: var(--terre-600);
   --btn-fond-survol: var(--terre-700);
-  --btn-texte: #fff;
+  --btn-texte: var(--creme);
   --btn2-trait: var(--filet-champ);
   --btn2-texte: var(--texte-1);
   /* Sur de la crème, un survol « un peu plus clair » ne se verrait pas : le
      bouton s'assombrit d'un voile d'encre. */
-  --btn2-fond-survol: #12291f14;
+  --btn2-fond-survol: #1e2a1614;
   --btn2-texte-survol: var(--texte-1);
   --etat-ouvert: var(--etat-ouvert-clair);
   --etat-ferme: var(--etat-ferme-clair);
 }
 
-/* Un ton plus BAS que le fond, pas plus haut : sur du clair, on détache une
-   bande en l'assombrissant. Elle sert à séparer deux sections voisines sans
-   avoir à tirer un trait. */
-.surface-sable {
-  --fond: var(--sable);
+/* ----------------------------------------------------------------------------
+   L'OLIVE — LA SURFACE DE LA MARQUE
+
+   C'est le vert du logo, et c'est la surface qui manquait. Elle porte la bande
+   d'accès direct, le bandeau photographique, le tableau d'affichage et les
+   titres de famille de la carte.
+
+   ELLE NE PORTE QUE DEUX ENCRES, et c'est une règle, pas une négligence : la
+   crème y donne 6,37:1 et la balle 5,03:1, mais un troisième palier tomberait
+   sous le seuil. Là où il faut trois encres — le pied de page, le menu du
+   téléphone — c'est `--olive-800` qui sert, et pas cet olive-ci assombri : on
+   ne retouche pas la couleur de la marque pour arranger une feuille de style.
+
+   `--encre-3` y est donc volontairement à peine distinct de `--encre-2` : les
+   deux tiennent, et rien de plus pâle ne tiendrait.
+   ---------------------------------------------------------------------------- */
+.surface-olive {
+  --fond: var(--olive-600);
+  --encre: var(--texte-1-sombre);
+  --encre-2: var(--olive-200);
+  --encre-3: var(--olive-300);
+  --trait: var(--filet-tenu-olive);
+  --trait-champ: var(--olive-400);
+  --accent: var(--balle-500);
+  --focus: 0 0 0 2px var(--olive-600), 0 0 0 4px var(--balle-500);
+  /* Le bouton devient littéralement la balle sur le court. */
+  --btn-fond: var(--balle-500);
+  --btn-fond-survol: var(--balle-600);
+  --btn-texte: var(--texte-1);
+  --btn2-trait: var(--olive-400);
+  --btn2-texte: var(--texte-1-sombre);
+  --btn2-fond-survol: #f4f1e91f;
+  --btn2-texte-survol: var(--texte-1-sombre);
+  --etat-ouvert: var(--balle-500);
+  --etat-ferme: var(--etat-ferme-sombre);
+}
+
+/* ----------------------------------------------------------------------------
+   LA TERRE BATTUE CLAIRE — LA BANDE PRATIQUE
+
+   Elle remplace le sable, qui était un ton en dessous de la crème et donc
+   invisible : 1,08:1, c'est-à-dire rien. Celle-ci est à 1,28 et se voit.
+
+   Elle sert aux blocs où l'on cherche un renseignement plutôt qu'un plaisir —
+   « Venir chez nous », la provenance, l'emporter — et jamais sous une
+   photographie de plat, qu'elle réchaufferait.
+
+   Deux corollaires : l'accent y est `--terre-700`, `--terre-600` n'y donnant
+   que 3,93:1 ; et aucun champ de formulaire ne s'y pose, sa bordure tombant
+   à 2,94:1.
+   ---------------------------------------------------------------------------- */
+.surface-terre {
+  --fond: var(--terre-050);
   --encre: var(--texte-1);
   --encre-2: var(--texte-2);
   --encre-3: var(--texte-3);
-  --trait: var(--filet-tenu-sable);
+  --trait: var(--filet-tenu-terre);
   --trait-champ: var(--filet-champ);
-  --accent: var(--terre-600);
-  --focus: 0 0 0 2px var(--sable), 0 0 0 4px var(--terre-600);
-  --btn-fond: var(--terre-600);
-  --btn-fond-survol: var(--terre-700);
-  --btn-texte: #fff;
+  --accent: var(--terre-700);
+  --focus: 0 0 0 2px var(--terre-050), 0 0 0 4px var(--terre-700);
+  --btn-fond: var(--terre-700);
+  --btn-fond-survol: var(--texte-1);
+  --btn-texte: var(--creme);
   --btn2-trait: var(--filet-champ);
   --btn2-texte: var(--texte-1);
-  --btn2-fond-survol: #12291f14;
+  --btn2-fond-survol: #1e2a1614;
   --btn2-texte-survol: var(--texte-1);
   --etat-ouvert: var(--etat-ouvert-clair);
   --etat-ferme: var(--etat-ferme-clair);
 }
 
-/* Le pied de page. C'est la seule surface sombre du site : le sapin plein, avec
-   la crème pour encre. Il ferme la page comme une bande de couverture. */
+/* Le pied de page, le menu du téléphone et la barre d'appel. C'est la surface
+   de fermeture : l'olive poussé au plus sombre, seul fond du site à porter
+   trois paliers d'encre. */
 .surface-sapin {
   --fond: var(--sapin);
   --encre: var(--texte-1-sombre);
@@ -397,11 +525,13 @@
   --encre-3: var(--texte-3-sombre);
   --trait: var(--filet-tenu-sombre);
   --trait-champ: var(--filet-champ-sombre);
-  --accent: var(--terre-400);
-  --focus: 0 0 0 2px var(--sapin), 0 0 0 4px var(--terre-400);
-  --btn-fond: var(--terre-400);
-  --btn-fond-survol: var(--terre-300);
-  --btn-texte: #12291f;
+  /* `--terre-400` n'y donne plus que 4,24:1 depuis que le fond s'est éclairci
+     de #12291f à #2f3e23 : c'est `--terre-300` qui tient, à 5,27. */
+  --accent: var(--terre-300);
+  --focus: 0 0 0 2px var(--sapin), 0 0 0 4px var(--terre-300);
+  --btn-fond: var(--balle-500);
+  --btn-fond-survol: var(--balle-600);
+  --btn-texte: var(--texte-1);
   --btn2-trait: var(--filet-champ-sombre);
   --btn2-texte: var(--texte-1-sombre);
   --btn2-fond-survol: #f4f1e91f;
@@ -411,7 +541,8 @@
 }
 
 .surface-creme,
-.surface-sable,
+.surface-olive,
+.surface-terre,
 .surface-sapin {
   background-color: var(--fond);
   color: var(--encre);
@@ -426,15 +557,20 @@
    sépare une surface d'un aplat d'écran, et c'est le remède le plus court à une
    page qui paraît morte.
 
-   Sur du clair, le grain doit ASSOMBRIR — d'où le `multiply`. Un bruit posé en
-   `screen` sur de la crème serait strictement invisible. Sur le sapin du pied
-   de page, c'est l'inverse : il éclaircit, donc `screen`.
+   IL ASSOMBRIT TOUJOURS, SUR LES QUATRE SURFACES. Le pied de page l'avait en
+   `screen`, ce qui l'éclaircissait — et c'est un piège : sur un fond sombre,
+   `screen` dégrade TOUS les rapports calculés pour du texte clair, d'un à deux
+   centièmes. Tant qu'il n'y avait qu'une surface sombre et de la marge, cela ne
+   se voyait pas. Avec quatre surfaces dont deux vertes et des couples à 4,72:1,
+   cela ferait passer des contrastes sous le seuil sans que rien ne le signale.
+   En `multiply`, aucun rapport ne peut que s'améliorer.
 
    Il est posé en couche non cliquable, jamais en fond, pour ne pas empêcher les
    surfaces de garder leur couleur propre.
    --------------------------------------------------------------------------- */
 .surface-creme::after,
-.surface-sable::after,
+.surface-olive::after,
+.surface-terre::after,
 .surface-sapin::after {
   content: "";
   position: absolute;
@@ -446,7 +582,9 @@
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23g)' opacity='0.5'/%3E%3C/svg%3E");
 }
 
+/* Sur les deux surfaces sombres, un grain de même force se verrait davantage :
+   on le retient d'un demi-centième. */
+.surface-olive::after,
 .surface-sapin::after {
-  opacity: 0.05;
-  mix-blend-mode: screen;
+  opacity: 0.04;
 }

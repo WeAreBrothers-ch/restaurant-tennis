@@ -25,14 +25,88 @@
   padding-block: var(--demi-joint);
 }
 
-/* Une seule colonne, et une mesure choisie sur la ligne de plat la plus longue :
-   assez large pour que « Grande planchette d'Écublens » et son prix tiennent sur
-   une ligne à côté de la gouttière des noms de code, assez étroite pour qu'une
-   description ne dépasse jamais soixante caractères. */
+/* LA CARTE TIENT SUR UN RAIL ET UN CORPS.
+
+   Elle était une colonne de 900 px centrée, ce qui produisait trois bords
+   gauches différents sur la même page : le titre à 272, la photographie de
+   respiration à 240, la liste des plats à 550. Rien ne s'alignait sur rien.
+
+   Elle est maintenant une grille à deux colonnes : à gauche un RAIL de quinze
+   rem où le sommaire se pose et suit le défilement, à droite le CORPS où tout
+   le reste vient — familles, respiration, provenance, appel. Un seul bord
+   gauche pour le rail, un seul pour le corps, et le vide qui reste à droite
+   égale le rail : la page est symétrique.
+
+   Tout cela est enfermé au-dessus de 1100 px. En dessous, le sommaire reprend
+   exactement l'apparence qu'il avait — une barrette horizontale à losanges — et
+   la carte redevient une colonne. */
 .page-colonneCarte,
 .page-colonnePizzeria {
-  max-width: 900px;
-  margin-inline: auto;
+  max-width: none;
+  margin-inline: 0;
+}
+
+@media (min-width: 1100px) {
+  .page-colonneCarte,
+  .page-colonnePizzeria {
+    display: grid;
+    grid-template-columns: 15rem minmax(0, 1fr);
+    column-gap: var(--sp-8);
+    align-items: start;
+  }
+
+  .page-colonneCarte > *,
+  .page-colonnePizzeria > * {
+    grid-column: 2;
+  }
+
+  /* Le rail. `span 99` plutôt qu'un nombre juste : la carte gagne et perd des
+     familles au fil des saisons, et une valeur exacte serait un piège à la
+     première qu'on ajoute. */
+  .page-colonneCarte > .sommaire-sommaire,
+  .page-colonnePizzeria > .sommaire-sommaire {
+    grid-column: 1;
+    grid-row: 1 / span 99;
+    position: sticky;
+    top: calc(var(--entete-h-lg) + var(--sp-6));
+    margin-top: 0;
+    padding-block: 0;
+    border-block: 0;
+  }
+
+  .page-colonneCarte .sommaire-liste,
+  .page-colonnePizzeria .sommaire-liste {
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .page-colonneCarte .sommaire-liste li,
+  .page-colonnePizzeria .sommaire-liste li {
+    display: block;
+  }
+
+  /* Les losanges séparaient une liste horizontale : en colonne, c'est le filet
+     de chaque ligne qui sépare. */
+  .page-colonneCarte .sommaire-liste li:not(:last-child)::after,
+  .page-colonnePizzeria .sommaire-liste li:not(:last-child)::after {
+    content: none;
+  }
+
+  .page-colonneCarte .sommaire-lien,
+  .page-colonnePizzeria .sommaire-lien {
+    display: block;
+    padding-block: 0.55rem;
+    border-bottom: 1px solid var(--trait);
+    color: var(--olive-600);
+    font-size: 0.8125rem;
+    letter-spacing: 0.1em;
+  }
+
+  /* La respiration s'aligne sur le corps, pas sur le rail. */
+  .respirationcarte-respiration {
+    max-width: none;
+    padding-inline: 0;
+  }
 }
 
 .page-supplements {
@@ -118,9 +192,10 @@
    en tableau.
    ============================================================================ */
 .provenance-bloc {
-  margin-top: var(--sp-9);
+  margin-top: var(--sp-8);
   padding: var(--sp-6) var(--sp-5);
-  background-color: var(--sable);
+  border-top: 3px solid var(--olive-600);
+  background-color: var(--terre-050);
 }
 
 .provenance-titre {
@@ -143,7 +218,7 @@
   align-items: baseline;
   gap: var(--sp-3);
   padding-block: var(--sp-3);
-  border-bottom: 1px solid var(--filet-tenu-sable);
+  border-bottom: 1px solid var(--filet-tenu-terre);
 }
 
 .provenance-ligne dt {
@@ -172,45 +247,58 @@
 /* ============================================================================
    UNE LIGNE DE PLAT
 
-   ELLE NE VIENT PAS DU SITE MODÈLE : elle vient de la carte imprimée du
-   restaurant, qui a une particularité qu'aucun autre site de brasserie n'a.
+   ⚠ ELLE A ÉTÉ REFAITE EN SEPTEMBRE. Le client a regardé la page et a dit :
+   « la carte j'aime pas le positionnement ». Il ne s'est pas expliqué, mais le
+   relevé, lui, est sans appel.
 
-   Chaque plat y porte DEUX noms. Celui du plat — « Capricciosa » — et un nom de
-   code emprunté au tennis — « ACE ». Le second est composé en petites capitales
-   dans une colonne à part, à gauche, séparée du plat par un filet vertical.
-   C'est ce filet qui fait toute la carte : sans lui on lit une liste, avec lui
-   on lit une feuille de match.
+   La version précédente reprenait la carte imprimée au pied de la lettre : le
+   nom de code du plat — ACE, TIE-BREAK, LE VESTIAIRE — dans une gouttière de
+   douze rem à gauche, aligné à droite, séparé du plat par un filet vertical.
+   Sur du papier, cette construction est juste. Sur une page web, elle donnait
+   ceci, mesuré à 1440 px :
 
-   La mise en page reprend donc exactement cette construction :
+     — la gouttière prenait 192 px sur une mesure de 900, soit vingt et un pour
+       cent d'une colonne dont la plus grande partie était vide, le texte étant
+       calé sur le bord opposé ;
+     — l'écart médian du nom au prix valait 452 px, franchis par des pointillés ;
+     — la page alignait TROIS bords gauches différents — le titre à 272, la
+       photographie à 240, la liste à 550 ;
+     — et il fallait descendre 2 764 px de colonne sans un seul repère.
 
-       ACE   │  CAPRICCIOSA ................................. 21.—
-             │  Olives noires, salami piquant & œuf
+   Autrement dit : trois quarts de chaque ligne étaient du vide et des points de
+   conduite. C'est littéralement ce qu'on appelle un mauvais positionnement.
 
-   Une conséquence, et elle est voulue : la carte tient sur UNE colonne, pas
-   deux. Le site modèle en mettait deux côte à côte au-delà de 1100 px ; avec la
-   gouttière des noms de code, deux colonnes ne laisseraient plus au plat que
-   trois cents pixels, et la description se casserait en escalier.
+   LA GOUTTIÈRE EST SUPPRIMÉE. Le nom de code devient ce qu'il était déjà au
+   doigt : une étiquette posée SOUS le plat, à sa gauche, dans l'ordre du DOM —
+   et non ramenée là par un `order`, qui aurait décalé la lecture à l'écran de
+   la lecture au clavier.
+
+   Ce qu'on y gagne : la ligne tient dans 26 rem, donc la carte tient sur DEUX
+   colonnes, donc l'écart du nom au prix tombe à 229 px — et le rappel pointillé
+   devient inutile. Les deux gestes vont ensemble : supprimer les pointillés en
+   gardant une colonne de 900 px décrocherait le prix de son plat.
    ============================================================================ */
 .lignedeplat-plat {
-  padding-block: var(--sp-4);
-  border-bottom: 1px solid var(--trait);
+  display: flex;
+  flex-direction: column;
+  padding-block: 0 var(--sp-6);
   break-inside: avoid;
 }
 
-.lignedeplat-plat:last-child {
-  border-bottom: 0;
+.lignedeplat-corps {
+  display: contents;
 }
 
-/* Le nom de code. Au doigt, il n'y a pas la place d'une gouttière : il passe
-   AU-DESSUS du plat, en terre battue, comme une étiquette. C'est la seule
-   version où il prend la couleur d'accent — dans la gouttière, il est en encre
-   pâle et c'est le filet qui le tient. */
+/* Le nom de code. Il ne crie pas — c'est un second nom, pas le nom du plat —
+   mais il prend l'olive de la marque et non le gris de tout à l'heure : c'est
+   la particularité de cette maison, elle a le droit de se voir. */
 .lignedeplat-code {
-  margin-bottom: var(--sp-2);
-  color: var(--accent);
+  order: 3;
+  margin-top: 0.35rem;
+  color: var(--olive-600);
   font-family: var(--mono);
-  font-size: var(--fs-exergue);
-  letter-spacing: 0.18em;
+  font-size: 0.6875rem;
+  letter-spacing: 0.08em;
   line-height: 1.3;
   text-transform: uppercase;
 }
@@ -221,62 +309,14 @@
    `data-signature`, et c'est tout ce que le HTML en dit. */
 .lignedeplat-plat[data-signature="true"] .lignedeplat-code::before {
   content: "★";
-  margin-right: 0.5em;
-  font-size: 0.9em;
+  margin-right: 0.45em;
+  color: var(--accent);
+  font-size: 0.95em;
   letter-spacing: 0;
 }
 
-@media (min-width: 700px) {
-  .lignedeplat-plat {
-    /* La largeur de la gouttière est écrite UNE fois : la colonne de la grille
-       et le filet vertical la lisent tous les deux ici. */
-    --gouttiere: 12rem;
-
-    position: relative;
-    display: grid;
-    grid-template-columns: var(--gouttiere) minmax(0, 1fr);
-    column-gap: clamp(1.25rem, 2.5vw, 2rem);
-  }
-
-  /* LE FILET VERTICAL EST PORTÉ PAR LA LIGNE, PAS PAR LE NOM DE CODE.
-
-     Posé en bordure du nom de code, il s'arrêtait au texte : soixante segments
-     de deux centimètres séparés par des trous, là où la carte imprimée a UN
-     trait qui descend toute la page. Posé en couche absolue, il prend la
-     hauteur entière de la ligne, marges comprises, et déborde d'un pixel pour
-     rejoindre le filet de la ligne suivante. Les deux se croisent, comme sur
-     du papier. */
-  .lignedeplat-plat::before {
-    content: "";
-    position: absolute;
-    inset-block: 0 -1px;
-    left: var(--gouttiere);
-    width: 1px;
-    background-color: var(--trait);
-  }
-
-  .lignedeplat-plat:last-child::before {
-    inset-block: 0;
-  }
-
-  .lignedeplat-code {
-    margin-bottom: 0;
-    padding-right: clamp(1.25rem, 2.5vw, 2rem);
-    color: var(--encre-3);
-    text-align: right;
-    /* Le nom de code s'aligne sur la PREMIÈRE LIGNE du plat, pas sur le haut de
-       la cellule : les deux textes n'ont ni la même taille ni la même police,
-       et un alignement par le haut les décalerait d'un demi-millimètre visible
-       sur soixante lignes. */
-    padding-top: 0.28em;
-  }
-
-  .lignedeplat-plat[data-signature="true"] .lignedeplat-code {
-    color: var(--accent);
-  }
-}
-
 .lignedeplat-ligne {
+  order: 1;
   display: flex;
   align-items: baseline;
   gap: var(--sp-3);
@@ -285,21 +325,28 @@
 .lignedeplat-nom {
   color: var(--encre);
   font-family: var(--serif);
-  font-size: var(--fs-plat);
+  font-size: 1.0625rem;
   font-weight: 500;
   line-height: 1.25;
 }
 
+/* LE RAPPEL POINTILLÉ A DISPARU. Il servait à rattraper 452 px entre le nom et
+   le prix ; sur une piste de 26 rem l'écart médian tombe à 229, et un prix à
+   deux cent trente pixels de son plat se lit sans qu'on ait à lui tenir la
+   main. La règle reste ici, vide de tout dessin, parce que le balisage la
+   porte encore sur cinquante-neuf lignes : elle sert de ressort, et rien de
+   plus. */
 .lignedeplat-rappel {
   flex: auto;
-  min-width: 2rem;
-  border-bottom: 1px dotted var(--trait-champ);
-  transform: translateY(0.1em);
+  min-width: var(--sp-4);
 }
 
+/* Les prix prennent enfin la terre battue — c'est le seul endroit de la carte
+   où elle serve — et la taille du nom : un prix plus petit que son plat se
+   cherche. */
 .lignedeplat-prix {
-  color: var(--encre);
-  font-size: var(--fs-corps-sm);
+  color: var(--accent);
+  font-size: 1.0625rem;
   font-weight: 600;
   letter-spacing: 0.01em;
   white-space: nowrap;
@@ -307,26 +354,28 @@
 }
 
 .lignedeplat-parPersonne {
-  color: var(--encre-3);
+  color: var(--encre-2);
   font-size: var(--fs-legende);
   font-weight: 400;
   letter-spacing: 0.02em;
 }
 
 .lignedeplat-description {
-  max-width: 60ch;
-  margin-top: var(--sp-2);
+  order: 2;
+  max-width: 52ch;
+  margin-top: 0.3rem;
   color: var(--encre-2);
   font-size: var(--fs-corps-sm);
   line-height: 1.5;
 }
 
 .lignedeplat-meta {
+  order: 4;
   display: flex;
   flex-wrap: wrap;
   gap: var(--sp-1) var(--sp-4);
   margin-top: var(--sp-2);
-  color: var(--encre-3);
+  color: var(--encre-2);
   font-family: var(--mono);
   font-size: var(--fs-legende);
   font-weight: 400;
@@ -345,38 +394,85 @@
    UNE CATÉGORIE DE LA CARTE
    ============================================================================ */
 .categoriecarte-categorie + .categoriecarte-categorie {
-  margin-top: var(--sp-9);
+  margin-top: var(--sp-8);
 }
 
+/* DIX BANDES OLIVE DESCENDENT LA PAGE, et elles font trois choses à la fois.
+
+   Elles donnent la hiérarchie qui manquait — le titre de famille était à 26 px
+   contre 20 pour un nom de plat, même graisse, même couleur : un rapport de
+   1,30, c'est-à-dire rien. Elles donnent la couleur qui manquait. Et surtout
+   elles donnent LES SEULS REPÈRES DE POSITION sur près de trois mille pixels de
+   colonne : on sait toujours dans quelle famille on se trouve, ce qui est la
+   réponse littérale au grief du client.
+
+   Une seule règle pour les trois. */
 .categoriecarte-titre {
-  color: var(--encre);
+  margin: 0;
+  padding: 0.7rem 1.25rem 0.8rem;
+  background-color: var(--olive-600);
+  color: var(--creme);
   font-family: var(--serif);
   font-size: var(--fs-h3);
   font-weight: 500;
-  letter-spacing: 0.1em;
+  letter-spacing: -0.01em;
   line-height: 1.15;
-  text-transform: uppercase;
+  text-transform: none;
 }
 
 .categoriecarte-note {
   max-width: 60ch;
-  margin-top: var(--sp-3);
-  color: var(--encre-3);
-  font-size: var(--fs-legende);
+  margin-top: var(--sp-4);
+  color: var(--encre-2);
+  font-size: var(--fs-corps-sm);
   line-height: 1.5;
 }
 
+/* DEUX COLONNES, ET PLUS UN SEUL FILET.
+
+   `auto-fill` avec une piste bornée en haut ET en bas : au-dessus de 900 px on
+   obtient deux pistes calées sur les deux bords du corps ; en dessous, le
+   `min(100%, 20rem)` garantit le repli sur une colonne sans qu'on ait à écrire
+   une seconde requête de média.
+
+   Les filets horizontaux entre les plats ont disparu avec les pointillés : sur
+   deux colonnes ils dessinaient un damier, et une carte n'est pas un tableau. */
 .categoriecarte-liste {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 20rem), 26rem));
+  column-gap: var(--sp-8);
+  justify-content: space-between;
   margin-top: var(--sp-5);
-  border-top: 1px solid var(--trait);
 }
 
-/* Il n'y a plus de mise en colonnes ici : voir le commentaire de
-   `.lignedeplat-plat`. La gouttière des noms de code occupe déjà la moitié
-   gauche de la mesure, et c'est elle qui donne le rythme de la page. */
-
 .page-liste {
-  border-top: 1px solid var(--trait);
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 20rem), 26rem));
+  column-gap: var(--sp-8);
+  justify-content: space-between;
+}
+
+/* LA FAMILLE QUI N'A PAS ENCORE DE PLATS.
+
+   La page des desserts de la carte imprimée n'a pas été photographiée : cette
+   famille ne porte donc qu'une phrase d'attente. Une bande pleine largeur
+   au-dessus de deux lignes de texte serait criarde ; elle prend un simple filet
+   d'appel et le fond de la bande pratique. */
+.categoriecarte-annonce {
+  margin-top: var(--sp-8);
+  padding: var(--sp-5) var(--sp-6);
+  border-left: 3px solid var(--olive-600);
+  background-color: var(--terre-050);
+}
+
+.categoriecarte-annonce .categoriecarte-titre {
+  padding: 0;
+  background-color: transparent;
+  color: var(--encre);
+}
+
+.categoriecarte-annonce .categoriecarte-note {
+  color: var(--encre);
 }
 
 /* ============================================================================

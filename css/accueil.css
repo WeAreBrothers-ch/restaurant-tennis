@@ -496,9 +496,13 @@
   }
 }
 
+/* Le survol s'assombrit d'un cran de vert, jamais vers le sable : la bande est
+   maintenant olive, et un rectangle sable y poserait un fond CLAIR sous du
+   texte crème — le survol de la rangée de raccourcis principale disparaîtrait
+   au moment précis où on la vise. */
 @media (hover: hover) and (pointer: fine) {
   .accesdirect-cellule:hover {
-    background-color: var(--sable);
+    background-color: var(--olive-700);
   }
 }
 
@@ -512,7 +516,11 @@
   justify-content: space-between;
   align-items: center;
   gap: var(--sp-3);
-  color: var(--encre-3);
+  /* L'accent, pas l'encre pâle : ces quatre libellés sont les seuls repères de
+     la bande, et ils reculaient au lieu d'appeler. Sur la crème ils passent en
+     terre battue, sur l'olive ils héritent de la balle — sans qu'on ait à
+     l'écrire deux fois. */
+  color: var(--accent);
   font-family: var(--mono);
   font-size: var(--fs-exergue);
   letter-spacing: 0.18em;
@@ -616,14 +624,27 @@
   max-width: 32rem;
 }
 
+/* `--fs-h1` est réservé au h1 unique de chaque page. Les `.duo-titre` de
+   l'accueil sont des h2 : les composer au même corps que le titre de la page
+   annulait la différence entre le nom de la maison et un intertitre. */
 .duo-titre {
-  font-size: var(--fs-h1);
+  font-size: var(--fs-h2);
   letter-spacing: -0.025em;
   line-height: 1.06;
 }
 
+/* Sauf sur les pages intérieures, où `.duo-titre` EST le h1 de la page. */
+h1.duo-titre {
+  font-size: var(--fs-h1);
+}
+
 .duo-texte > * + * {
   margin-top: var(--sp-5);
+}
+
+/* Le détail recule derrière l'accroche, et non l'inverse. */
+.duo-texte > p + p {
+  color: var(--encre-2);
 }
 
 .duo-texte > [data-actions] {
@@ -851,9 +872,9 @@
 
 .bandeau-legende {
   max-width: 40ch;
-  color: var(--encre-2);
-  font-size: var(--fs-corps-sm);
-  line-height: 1.6;
+  color: var(--encre);
+  font-size: var(--fs-chapo);
+  line-height: 1.45;
 }
 
 /* Le premier mot de la légende est une étiquette, pas une phrase : il annonce
@@ -863,7 +884,7 @@
   margin-bottom: var(--sp-3);
   padding-bottom: var(--sp-3);
   border-bottom: 1px solid var(--trait);
-  color: var(--encre-3);
+  color: var(--accent);
   font-family: var(--mono);
   font-size: var(--fs-exergue);
   letter-spacing: 0.2em;

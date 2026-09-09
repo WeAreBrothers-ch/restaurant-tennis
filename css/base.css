@@ -51,9 +51,27 @@ h3,
 h4 {
   margin: 0;
   font-family: var(--serif);
-  font-weight: 400;
   font-variation-settings: "opsz" 72;
   text-wrap: balance;
+}
+
+/* ON SE SERT ENFIN DE L'AXE QU'ON TÉLÉCHARGE. Newsreader est chargée en 200–800
+   et le site n'employait que le 400 et le 500 : on paie une police variable
+   pour l'utiliser comme une police statique.
+
+   Un serif se porte d'autant plus léger qu'il est grand — à soixante pixels, le
+   400 est déjà lourd. La graisse descend donc quand la taille monte, ce qui est
+   exactement l'inverse de ce qu'on fait d'instinct. */
+h1 {
+  font-weight: 350;
+}
+
+h2 {
+  font-weight: 400;
+}
+
+h3 {
+  font-weight: 500;
 }
 
 /*
@@ -68,8 +86,22 @@ h1 em,
 h2 em,
 h3 em,
 .italique {
+  /* L'italique prend AUSSI la couleur, ce qui n'était pas le cas : il n'était
+     jusqu'ici qu'une inclinaison, donc le seul ornement du site ne se voyait
+     qu'à condition de le chercher. En olive sur la crème, il donne 6,38:1 —
+     c'est un titre lisible, pas une décoration. */
+  color: var(--olive-600);
   font-style: italic;
   font-variation-settings: "opsz" 72;
+}
+
+/* Sur les surfaces vertes, l'olive serait invisible : l'italique y prend la
+   balle, qui est l'accent de ces surfaces. */
+.surface-olive :is(h1, h2, h3) em,
+.surface-olive .italique,
+.surface-sapin :is(h1, h2, h3) em,
+.surface-sapin .italique {
+  color: var(--accent);
 }
 
 p {
@@ -131,9 +163,13 @@ address {
   outline-offset: 3px;
 }
 
+/* Le fond de la sélection est écrit en dur, et il doit l'être : `--accent`
+   change de valeur sur chaque surface, et sur l'olive il vaudrait la balle —
+   du jaune sous du texte crème, à 1,3:1. C'est donc `--creme` pour l'encre, et
+   surtout pas `--btn-texte`, qui tomberait à 2,5:1 sur le pied de page. */
 ::selection {
   background-color: var(--terre-600);
-  color: #fff;
+  color: var(--creme);
 }
 
 /* ---------------------------------------------------------------------------
@@ -315,11 +351,19 @@ address {
   line-height: 1.55;
 }
 
+/* LA HIÉRARCHIE ÉTAIT INVERSÉE. Le chapô était peint en encre secondaire et le
+   paragraphe de détail qui le SUIT héritait de l'encre principale : la phrase
+   d'accroche était donc plus pâle que le détail. Deux fois sur l'accueil, et
+   repris sur les trois autres pages. Le chapô reprend l'encre pleine, et c'est
+   au paragraphe suivant de reculer — voir `.duo-texte > p + p`. */
 .chapo {
   max-width: 56ch;
   margin-top: var(--sp-5);
-  color: var(--encre-2);
+  color: var(--encre);
   font-size: var(--fs-chapo);
+  /* À vingt-six pixels, un interlignage de 1,55 dessine une grille : on le
+     resserre à mesure que le corps grandit. */
+  line-height: 1.4;
 }
 
 .mention {

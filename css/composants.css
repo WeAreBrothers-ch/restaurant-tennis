@@ -710,7 +710,7 @@ a:focus-visible > .photo-zoom .photo-image {
 }
 
 .menumobile-panneau::backdrop {
-  background-color: rgb(18 41 31 / 0.94);
+  background-color: rgb(47 62 35 / 0.94); /* --sapin, translucide */
 }
 
 @media (min-width: 1024px) {
@@ -876,7 +876,7 @@ a:focus-visible > .photo-zoom .photo-image {
 
 .barreaction-appeler {
   background-color: var(--terre-600);
-  color: #fff;
+  color: var(--creme);
 }
 
 /* ============================================================================
