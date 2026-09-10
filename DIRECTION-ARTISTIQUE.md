@@ -221,10 +221,16 @@ texte par-dessus, donc à assombrir la photo, donc à choisir entre lire et voir
 ne choisit pas.
 
 Les dessins ne sont pas jetés au hasard. Ils laissent libre la bande centrale où vit
-l'enseigne, trois d'entre eux sont coupés par le bord de l'écran — c'est ce qui
-empêche la composition d'avoir l'air rangée — et chacun porte cinq réglages écrits
-dans la feuille de style : **où il est, quelle taille il fait, de combien il penche, de
+l'enseigne, et chacun porte six réglages écrits dans la feuille de style : **où il
+est, quelle taille il fait, les proportions de son image, de combien il penche, de
 combien il tombe au premier défilement, et de combien il vrille en tombant.**
+
+Aucun n'est coupé par le bord de l'écran. Trois l'étaient, par parti pris — c'était
+censé empêcher la composition d'avoir l'air rangée — et le client a tranché : « il ne
+doit jamais y avoir de choses coupées ». Chaque dessin calcule donc la boîte de son
+image penchée et se tient à l'intérieur du cadre, quelle que soit la fenêtre ; celui
+qui sortait est ramené juste au bord, les autres ne bougent pas. Le désordre vient
+des inclinaisons et des tailles inégales, pas d'un dessin à moitié sorti.
 
 Tout le mouvement tient dans un seul chiffre, `--p`, l'avancée du premier défilement.
 Le script ne fait qu'écrire ce chiffre ; c'est le CSS qui en tire la chute de chacun.
@@ -353,7 +359,8 @@ qu'elles ont donné.
 | « Vraiment améliore les couleurs » | **Annulé.** Une palette à cinq surfaces a été essayée puis retirée à la demande du client — voir l'encadré du chapitre 2. Ce qui reste de la réponse au « terne » : le rythme, l'échelle typographique et la carte |
 | « La carte, ce que tu as fait à surligner les titres, je ne veux pas ça » | Les titres de famille ont porté un aplat vert pendant une version. Ils reprennent la composition du site modèle : serif en capitales espacées, tenu par un filet, sur la crème. Le repère de position que la bande apportait est rendu par le sommaire en rail |
 | « Le bouton téléphone, je ne le veux pas en carré comme ça » | Le bloc plein de la barre du haut devient un lien souligné, le même composant que « Voir toute la carte ». Sa cible reste haute de 48 px |
-| « Il y a des genres de bullet point dans la page carte, ça va pas du tout » | Les losanges du sommaire — des séparateurs — se retrouvaient seuls en bout de ligne dès que la liste passait à la ligne, huit fois sur un téléphone. Le sommaire tient maintenant sur une ligne qu'on fait glisser ; de 700 à 1 100 px, une grille à filets, sans losange. Les points médians des mentions « minimum 2 personnes · prix par personne » avaient le même défaut : ils sont supprimés, c'est le vide qui sépare |
+| « Il y a des genres de bullet point dans la page carte, ça va pas du tout » ; « je ne veux pas du tout de ces bullet points, tu les supprimes » | Les losanges du sommaire sont supprimés, à toutes les largeurs. Sur un téléphone, le sommaire tient sur une ligne qu'on fait glisser, et c'est l'écart qui sépare deux familles ; de 700 à 1 100 px, une grille à filets. Les points médians des mentions « minimum 2 personnes · prix par personne » avaient le même défaut : supprimés aussi, c'est le vide qui sépare |
+| « Il ne doit jamais y avoir de choses coupées ou mal positionnées, chaque espace doit être réfléchi » | Les cinq pages ont été mesurées à onze tailles d'écran, de 320 à 1 920 px. Les dessins du premier écran, dont trois sortaient du cadre, se tiennent maintenant à l'intérieur — voir le chapitre 4. La carte prend ses deux colonnes dès 768 px au lieu de 990. Le haut de la page carte porte une photographie sur grand écran, où il laissait la moitié droite vide. Les boutons « Itinéraire » et « Appeler » de l'accueil sont sur la même ligne. Sur téléphone, les vides avant les desserts, la provenance, l'appel à réserver et le plan perdent un cran chacun, et les quatre liens du pied tiennent sur deux lignes alignées. La barre du bas de la page carte ne renvoie plus vers la page où l'on est |
 
 **Une chose n'a PAS changé, et c'est délibéré : les teintes.** `--terre-600`
 vaut toujours `#A44E2C`, `--creme` toujours `#F4F1E9`. Décaler un ocre d'un cran

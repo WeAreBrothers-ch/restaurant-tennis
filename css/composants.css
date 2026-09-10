@@ -1081,10 +1081,14 @@ a:focus-visible > .photo-zoom .photo-image {
 
 /* Les quatre liens du site tiennent sur une ligne au doigt : empilés, ils
    ajoutaient à eux seuls un tiers d'écran de haut pour quatre mots. */
+/* Quatre liens, deux par ligne. À la file, « Contact » restait seul sur une
+   deuxième ligne ; en colonne, ils auraient pris quatre fois quarante-quatre
+   pixels. Deux colonnes calées sur le plus long libellé : deux lignes, quatre
+   liens alignés. */
 .footer-navPied {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0 var(--sp-6);
+  display: grid;
+  grid-template-columns: repeat(2, max-content);
+  column-gap: var(--sp-6);
 }
 
 .footer-navPied a {
@@ -1096,7 +1100,7 @@ a:focus-visible > .photo-zoom .photo-image {
 
 @media (min-width: 600px) {
   .footer-navPied {
-    display: grid;
+    grid-template-columns: 1fr;
     gap: var(--sp-2);
   }
 

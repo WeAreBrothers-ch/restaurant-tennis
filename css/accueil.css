@@ -84,8 +84,10 @@
   place-items: center;
   min-height: calc(100svh - var(--entete-h));
   padding-block: var(--joint-serre);
-  /* Trois dessins débordent volontairement : on les coupe ici, jamais avec une
-     barre de défilement horizontale. */
+  /* Au repos, aucun dessin ne sort du cadre — voir `.premier-piece`, qui tient
+     chacun à l'intérieur. Le débordement n'est coupé que pour la chute : en
+     quittant l'écran, les dessins tombent sous le bord, et c'est ici qu'ils
+     disparaissent, jamais dans une barre de défilement horizontale. */
   overflow: hidden;
 }
 
@@ -168,10 +170,12 @@
 }
 
 /*
-  Chaque dessin porte cinq réglages, et rien d'autre :
+  Chaque dessin porte six réglages, et rien d'autre :
 
     --x --y ... où il est, en pourcentage de l'écran
     --l ....... sa largeur de référence, ramenée par --echelle
+    --ratio ... largeur sur hauteur de son image, pour connaître sa hauteur
+                avant qu'elle ne soit chargée
     --r ....... de combien il penche au repos
     --chute ... de combien il descend quand on quitte l'écran
     --vrille .. de combien il tourne en descendant
@@ -183,9 +187,36 @@
 */
 .premier-piece {
   position: absolute;
+  /* LA POSITION DEMANDÉE, PUIS LA POSITION TENUE.
+
+     `--x` et `--y` disent où le dessin devrait être. Mais un dessin posé à 92 %
+     de la hauteur avec 300 px de haut sort du cadre, et la section le coupe :
+     relevé sur cinq largeurs d'écran, le service perdait jusqu'à 26 px de
+     tête et le filet jusqu'à 56 px de pied. Le client : « il ne doit jamais
+     y avoir de choses coupées ».
+
+     Chaque dessin calcule donc sa propre demi-boîte — celle de son image
+     PENCHÉE de `--r`, qui est plus large et plus haute que l'image droite — et
+     la position est bornée entre cette demi-boîte et le bord opposé. Un dessin
+     qui tiendrait déjà ne bouge pas d'un pixel ; celui qui sortait est ramené
+     juste au bord. Les deux premières lignes sont la position demandée : un
+     navigateur qui ne connaît pas `sin()` s'y arrête, et retrouve l'ancien
+     comportement. */
   left: var(--x);
   top: var(--y);
-  width: calc(var(--l) * var(--echelle));
+  --largeur: calc(var(--l) * var(--echelle));
+  --hauteur: calc(var(--largeur) / var(--ratio));
+  /* Le sinus d'un angle négatif est négatif, et une boîte n'a pas de largeur
+     négative : `max` en prend la valeur absolue. */
+  --sinus: max(sin(var(--r)), -1 * sin(var(--r)));
+  --demi-x: calc((var(--largeur) * cos(var(--r)) + var(--hauteur) * var(--sinus)) / 2 + 4px);
+  /* En haut et en bas, un peu plus de marge : l'arrivée pose chaque dessin
+     un dixième de chute au-dessus de sa place, et cette réserve est exactement
+     ce dixième — le dessin entre entier, dès sa première image. */
+  --demi-y: calc((var(--hauteur) * cos(var(--r)) + var(--largeur) * var(--sinus)) / 2 + var(--chute) * 0.1 + 4px);
+  left: clamp(var(--demi-x), var(--x), calc(100% - var(--demi-x)));
+  top: clamp(var(--demi-y), var(--y), calc(100% - var(--demi-y)));
+  width: var(--largeur);
   height: auto;
   transform: translate(-50%, -50%) translateY(calc(var(--p) * var(--chute)))
     rotate(calc(var(--r) + var(--p) * var(--vrille)));
@@ -217,6 +248,7 @@
    dessins couchés — trois fois plus larges que hauts pour les premiers — et il
    leur faut deux fois la largeur d'un dessin debout pour ne pas disparaître. */
 .premier-piece--service {
+  --ratio: calc(389 / 776);
   --x: 11%;
   --y: 27%;
   --l: 185px;
@@ -226,6 +258,7 @@
 }
 
 .premier-piece--couvert {
+  --ratio: calc(520 / 300);
   --x: 84%;
   --y: 16%;
   --l: 250px;
@@ -235,6 +268,7 @@
 }
 
 .premier-piece--verres {
+  --ratio: calc(620 / 187);
   --x: 22%;
   --y: 84%;
   --l: 330px;
@@ -244,6 +278,7 @@
 }
 
 .premier-piece--raquette {
+  --ratio: calc(240 / 373);
   --x: 8%;
   --y: 70%;
   --l: 135px;
@@ -255,6 +290,7 @@
 /* Le tube de balles est le plus étroit de tous : à largeur égale il serait
    deux fois plus haut que le joueur. */
 .premier-piece--balles {
+  --ratio: calc(172 / 470);
   --x: 94%;
   --y: 50%;
   --l: 95px;
@@ -268,6 +304,7 @@
    et il lui faut donc plus de largeur pour peser autant, et un peu moins de
    bord à droite pour ne pas toucher le tube de balles. */
 .premier-piece--joueur {
+  --ratio: calc(470 / 358);
   --x: 78%;
   --y: 76%;
   --l: 265px;
@@ -277,6 +314,7 @@
 }
 
 .premier-piece--filet {
+  --ratio: calc(440 / 314);
   --x: 47%;
   --y: 92%;
   --l: 215px;
@@ -286,6 +324,7 @@
 }
 
 .premier-piece--baskets {
+  --ratio: calc(400 / 222);
   --x: 33%;
   --y: 10%;
   --l: 200px;
@@ -450,10 +489,14 @@
   --retard: 530ms;
 }
 
+/* Un dixième de chute, pas trois : le dessin part d'à peine plus haut que sa
+   place. À trois dixièmes, ceux du haut arrivaient de 80 px au-dessus du cadre
+   et entraient coupés ; à un dixième, la réserve de `--demi-y` absorbe la part
+   du trajet qui se voit, et le geste reste lisible. */
 @keyframes premier-arrivee {
   from {
     opacity: 0;
-    --p: -0.3;
+    --p: -0.1;
   }
 }
 
@@ -1064,6 +1107,15 @@ h1.duo-titre {
   .infospratiques-colonne:last-child {
     padding-right: 0;
   }
+
+  /* Les deux colonnes n'ont pas le même nombre de lignes — l'adresse en fait
+     trois, la réservation cinq — et leurs boutons se posaient chacun à sa
+     hauteur, à 50 px l'un de l'autre. La colonne devient une pile, pour que
+     son bouton puisse descendre au pied : voir `.infospratiques-action`. */
+  .infospratiques-colonne {
+    display: flex;
+    flex-direction: column;
+  }
 }
 
 .infospratiques-colonne h3 {
@@ -1114,10 +1166,27 @@ h1.duo-titre {
   margin-top: var(--sp-6);
 }
 
+/* Côte à côte, le bouton descend au pied de sa colonne : « Itinéraire » et
+   « Appeler » se posent sur la même ligne, quel que soit le nombre de lignes
+   au-dessus. Le remplissage garde l'écart d'avec le texte. */
+@media (min-width: 768px) {
+  .infospratiques-action {
+    margin-top: auto;
+    padding-top: var(--sp-6);
+  }
+}
+
 /* Le plan reste dans la colonne, comme tout le reste : il ne va pas d'un bord
-   de l'écran à l'autre. */
+   de l'écran à l'autre. Au doigt, il suit le bouton « Appeler » de plus près :
+   96 px de marge, ajoutés au vide de la colonne, faisaient 120 px de crème. */
 .plan-bloc {
-  margin-top: var(--sp-9);
+  margin-top: var(--sp-7);
+}
+
+@media (min-width: 768px) {
+  .plan-bloc {
+    margin-top: var(--sp-9);
+  }
 }
 
 /* ============================================================================

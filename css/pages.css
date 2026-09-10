@@ -37,9 +37,9 @@
    gauche pour le rail, un seul pour le corps, et le vide qui reste à droite
    égale le rail : la page est symétrique.
 
-   Tout cela est enfermé au-dessus de 1100 px. En dessous, le sommaire reprend
-   exactement l'apparence qu'il avait — une barrette horizontale à losanges — et
-   la carte redevient une colonne. */
+   Tout cela est enfermé au-dessus de 1100 px. En dessous, le sommaire devient
+   une grille de liens à filet, puis une seule ligne au téléphone — voir « LE
+   SOMMAIRE DE LA CARTE » plus bas — et la carte redevient une colonne. */
 .page-colonneCarte,
 .page-colonnePizzeria {
   max-width: none;
@@ -114,14 +114,14 @@
    terminait par le losange qui devait séparer deux familles. Seul au bout
    d'une ligne, un losange ne sépare plus rien : il se lit comme une puce. Le
    client l'a dit ainsi : « il y a des genres de bullet point dans la page
-   carte, ça va pas du tout ». Sur une ligne, le losange retrouve son rôle,
-   parce qu'il n'y a plus de bout de ligne où pendre. Et le sommaire rend à la
-   carte l'écran entier qu'il lui prenait : cinquante-six pixels au lieu de
-   trois cent trente.
+   carte, ça va pas du tout ». Les losanges sont SUPPRIMÉS, à toutes les
+   largeurs : sur la ligne, c'est l'écart qui sépare deux familles. Et le
+   sommaire rend à la carte l'écran entier qu'il lui prenait : cinquante-six
+   pixels au lieu de trois cent trente.
 
    De 700 à 1100 px, une GRILLE de liens à filet, sur deux ou trois colonnes :
-   pas de losange non plus, c'est le filet de chaque ligne qui sépare, comme
-   dans le rail. Au-dessus de 1100 px, le RAIL — voir plus haut.
+   c'est le filet de chaque ligne qui sépare, comme dans le rail. Au-dessus de
+   1100 px, le RAIL — voir plus haut.
    ============================================================================ */
 .sommaire-sommaire {
   border-block: 1px solid var(--trait);
@@ -131,6 +131,11 @@
   display: flex;
   flex-wrap: nowrap;
   align-items: center;
+  /* PAS DE SÉPARATEUR. La liste a porté des losanges entre deux familles ; le
+     client n'en veut pas — « je ne veux pas du tout de ces bullet points ». Un
+     écart deux fois plus large que l'espace d'un mot suffit à dire où un
+     libellé finit et où le suivant commence. */
+  column-gap: var(--sp-6);
   /* La ligne déborde des marges jusqu'aux bords de l'écran. Un libellé coupé
      net au bord droit dit qu'il y a une suite, mieux qu'une flèche ; et le
      premier libellé, lui, reste calé sur la marge du site. */
@@ -143,8 +148,8 @@
   overflow-x: auto;
   /* Le geste horizontal reste au sommaire, le vertical à la page. */
   overscroll-behavior-x: contain;
-  /* Quand le doigt lâche, la ligne se pose sur un libellé, pas sur la moitié
-     d'un losange. `proximity` et non `mandatory` : dix familles, et un aimant
+  /* Quand le doigt lâche, la ligne se pose sur le début d'un libellé, pas sur
+     un mot coupé. `proximity` et non `mandatory` : dix familles, et un aimant
      trop fort sur chacune rendrait le geste collant. */
   scroll-snap-type: x proximity;
   scroll-padding-inline: var(--marge);
@@ -160,18 +165,6 @@
   flex: none;
   align-items: center;
   scroll-snap-align: start;
-}
-
-/* Le séparateur est un losange, comme ceux du logo, et il est posé par le CSS
-   entre deux liens — jamais après le dernier. Sur une ligne qui ne casse pas,
-   il est toujours ENTRE deux libellés : c'est la seule position où il tient
-   son rôle. */
-.sommaire-liste li:not(:last-child)::after {
-  content: "◆";
-  margin-inline: var(--sp-4);
-  color: var(--trait-champ);
-  font-size: 0.4em;
-  opacity: 0.7;
 }
 
 .sommaire-lien {
@@ -198,8 +191,7 @@
 }
 
 /* La grille, de 700 à 1100 px. Chaque lien prend une ligne et un filet ; les
-   losanges n'ont plus lieu d'être, et les filets de la liste non plus, chaque
-   lien portant le sien. */
+   filets de la liste n'ont plus lieu d'être, chaque lien portant le sien. */
 @media (min-width: 700px) {
   .sommaire-sommaire {
     margin-top: var(--sp-6);
@@ -217,10 +209,6 @@
 
   .sommaire-liste li {
     display: block;
-  }
-
-  .sommaire-liste li:not(:last-child)::after {
-    content: none;
   }
 
   .sommaire-lien {
@@ -247,9 +235,16 @@
    en tableau.
    ============================================================================ */
 .provenance-bloc {
-  margin-top: var(--sp-8);
+  /* Même règle que la bande des desserts : un cran de moins au doigt. */
+  margin-top: var(--sp-7);
   padding: var(--sp-6) var(--sp-5);
   background-color: var(--sable);
+}
+
+@media (min-width: 700px) {
+  .provenance-bloc {
+    margin-top: var(--sp-8);
+  }
 }
 
 .provenance-titre {
@@ -493,28 +488,30 @@
   line-height: 1.5;
 }
 
-/* DEUX COLONNES, ET PLUS UN SEUL FILET.
+/* DEUX COLONNES DÈS LA TABLETTE, UNE SEULE EN DESSOUS.
 
-   `auto-fill` avec une piste bornée en haut ET en bas : au-dessus de 900 px on
-   obtient deux pistes calées sur les deux bords du corps ; en dessous, le
-   `min(100%, 20rem)` garantit le repli sur une colonne sans qu'on ait à écrire
-   une seconde requête de média.
+   Elles étaient tirées par `auto-fill` avec une piste bornée à 26 rem. Or le
+   navigateur compte les pistes d'un `auto-fill` sur leur largeur MAXIMALE : de
+   700 à 990 px de large, il n'en plaçait qu'une, de 26 rem, et laissait la
+   moitié droite de la page vide. Le nombre de colonnes est donc écrit en
+   clair : deux à partir de 768 px, une en dessous, qui prend toute la largeur.
+   Chaque piste reste bornée à 26 rem — au-delà, le prix s'éloigne trop de son
+   plat — et le vide qui reste se met entre les deux.
 
    Les filets horizontaux entre les plats ont disparu avec les pointillés : sur
    deux colonnes ils dessinaient un damier, et une carte n'est pas un tableau. */
 .categoriecarte-liste {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(min(100%, 20rem), 26rem));
+  grid-template-columns: minmax(0, 1fr);
   column-gap: var(--sp-8);
   justify-content: space-between;
   margin-top: var(--sp-5);
 }
 
-.page-liste {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(min(100%, 20rem), 26rem));
-  column-gap: var(--sp-8);
-  justify-content: space-between;
+@media (min-width: 768px) {
+  .categoriecarte-liste {
+    grid-template-columns: repeat(2, minmax(0, 26rem));
+  }
 }
 
 /* LA FAMILLE QUI N'A PAS ENCORE DE PLATS.
@@ -524,10 +521,23 @@
    au-dessus de deux lignes de texte serait criarde ; elle prend un simple filet
    d'appel et le fond de la bande pratique. */
 .categoriecarte-annonce {
-  margin-top: var(--sp-8);
   padding: var(--sp-5) var(--sp-6);
   border-left: 2px solid var(--accent);
   background-color: var(--sable);
+}
+
+/* Au doigt, un cran de moins qu'entre deux familles : la bande porte déjà son
+   propre vide intérieur, et 64 px de crème avant 24 px de sable faisaient un
+   trou d'un quart d'écran. Le sélecteur redit la famille qui précède, sans
+   quoi la règle générale « famille après famille », plus précise, l'emporte. */
+.categoriecarte-categorie + .categoriecarte-annonce {
+  margin-top: var(--sp-7);
+}
+
+@media (min-width: 700px) {
+  .categoriecarte-categorie + .categoriecarte-annonce {
+    margin-top: var(--sp-8);
+  }
 }
 
 /* Deux lignes de texte n'ont pas besoin du filet pleine largeur des familles
@@ -946,9 +956,19 @@
   flex-direction: column;
   align-items: flex-start;
   gap: var(--sp-4);
-  margin-top: var(--sp-9);
-  padding-top: var(--sp-8);
+  /* Au doigt, 48 px avant le filet et 32 après : le bloc gardait les mesures
+     du grand écran — 96 et 64 — et le dernier plat était suivi de plus d'un
+     tiers d'écran de crème avant « Une table ce soir ? ». */
+  margin-top: var(--sp-7);
+  padding-top: var(--sp-6);
   border-top: 1px solid var(--trait);
+}
+
+@media (min-width: 700px) {
+  .appelreservation-bloc {
+    margin-top: var(--sp-9);
+    padding-top: var(--sp-8);
+  }
 }
 
 .appelreservation-titre {

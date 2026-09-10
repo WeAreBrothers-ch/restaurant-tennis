@@ -225,7 +225,7 @@
            balise ouvrait un bloc qu'elle refermait aussitôt, et la page
            arrivait sur « Les entrées » sans jamais dire où l'on était. -->
       <section class="surface-creme section">
-        <div class="wrapLarge duo-duo duo-seul">
+        <div class="wrapLarge duo-duo duo-droite">
           <div class="duo-texte">
             <img
                 class="marque marque--couvert"
@@ -246,6 +246,25 @@
             </p>
             <div data-actions="true">
               <a class="bouton-base bouton-tertiaire" href="pizzeria.html">Voir les pizzas et les pâtes</a>
+            </div>
+          </div>
+          <!-- La photographie ne s'affiche qu'à partir de 900 px : en dessous,
+               elle repousserait la carte d'un écran, et c'est la carte qu'on
+               vient chercher. Au-dessus, sans elle, le titre laissait la moitié
+               droite de l'écran vide — la seule page du site à le faire. -->
+          <div class="duo-visuel duo-visuel--horsMobile">
+            <div class="photo-cadre photo-derive" style="--ratio: 1200 / 1600">
+              <img
+                alt="Entrecôte au Café de Paris et frites maison, servie sur la nappe du club"
+                fetchpriority="high"
+                width="1200"
+                height="1600"
+                decoding="async"
+                class="photo-image"
+                src="images/plat-entrecote-2026-09b.jpg"
+                srcset="images/plat-entrecote-800-2026-09b.jpg 800w, images/plat-entrecote-2026-09b.jpg 1200w"
+                sizes="(min-width: 900px) 40vw, 100vw"
+              />
             </div>
           </div>
         </div>
@@ -888,7 +907,7 @@
       </div>
     </footer>
     <div class="barreaction-barre" data-visible="false" aria-hidden="true">
-      <a class="barreaction-action barreaction-carte" tabindex="-1" href="carte.html">La carte</a
+      <a class="barreaction-action barreaction-carte" tabindex="-1" href="pizzeria.html">Pizza &amp; Pasta</a
       ><a
         class="barreaction-action barreaction-appeler"
         href="tel:+41215554114"
