@@ -506,6 +506,17 @@
   --ratio: 5 / 3;
 }
 
+/* LA TERRASSE NE SE RECADRE PAS, À AUCUNE TAILLE.
+
+   Les autres bandes prennent une tranche de leur photographie : les nôtres sont
+   des portraits, et une bande large y coupe forcément. Celle-ci a été DÉCOUPÉE
+   AU FICHIER, en seize neuvièmes, sur les quatre verres et les courts derrière ;
+   le cadre garde donc le même rapport partout, du téléphone au grand écran, et
+   la photographie s'affiche entière. « Elle est coupée, et ça je ne veux pas. » */
+.respirationcarte-cadre--terrasse {
+  --ratio: 16 / 9;
+}
+
 @media (min-width: 700px) {
   .respirationcarte-cadre {
     --ratio: 2 / 1;

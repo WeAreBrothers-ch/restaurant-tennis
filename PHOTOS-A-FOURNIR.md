@@ -71,7 +71,7 @@ site ne peut pas fabriquer par recadrage.
 
 ---
 
-## Où en est-on : neuf photographies en ligne
+## Où en est-on : huit photographies en ligne
 
 **Neuf photographies du restaurant sont déjà publiées**, fournies par la maison en
 septembre 2026. Ce document ne demande donc plus une série complète : il dit ce qui
@@ -80,6 +80,7 @@ tient, ce qui tient mal, et ce qui manque.
 | Fichier | Ce qu’il montre | Verdict |
 | --- | --- | --- |
 | `courts-baies-2026-09b.jpg` | Les courts et la terrasse, vus d’une table de la salle | **La meilleure.** Elle porte l’accueil, la page Contact et la vignette de partage |
+| `terrasse-cocktails-2026-09b.jpg` | Quatre cocktails sur la terrasse, les courts derrière, en fin de journée | **La deuxième meilleure.** Elle dormait dans le dossier, non recadrée et non redimensionnée, sous le nom `06b-cocktails-terrasse-recadre.jpg`. Elle est maintenant découpée en 16:9 sur les verres et les courts, et porte la bande de la page Pizza & Pasta |
 | `plat-entrecote-2026-09b.jpg` | Entrecôte Café de Paris et frites, de jour | Tient très bien |
 | `plat-salade-2026-09b.jpg` | Salade mêlée, de jour | Tient très bien |
 | `plat-burger-2026-09b.jpg` | Burger et panier de frites, de jour | Tient très bien |
@@ -88,7 +89,7 @@ tient, ce qui tient mal, et ce qui manque.
 | `plat-desserts-2026-09b.jpg` | Deux desserts portés en salle | Sombre |
 | `apero-olives-2026-09b.jpg` | Olives marinées sur une table | Sombre |
 
-Cinq sur neuf sont prises le soir, en salle, sur fond sombre. **C’est le point
+Quatre sur huit sont prises le soir, en salle, sur fond sombre. **C’est le point
 faible de la série** : le site est crème, et une photographie sombre y fait un trou
 au lieu d’un tirage posé sur une nappe. Elles restent en ligne — mieux vaut le vrai
 lieu sombre qu’un faux lieu clair — mais elles sont les premières à remplacer.
@@ -101,7 +102,7 @@ Par ordre d’utilité. Toutes de jour, en lumière naturelle, sur fond clair.
 
 | Ce qu’on veut | Où elle irait | Format | Dimensions |
 | --- | --- | --- | --- |
-| **La terrasse dressée**, avant le service, au bord des courts | Le ruban de l’accueil, en tête | 4:5 | 1200 × 1500 |
+| **La terrasse dressée**, avant le service, au bord des courts | Le ruban de l’accueil, en tête. *(La photographie des cocktails montre déjà la terrasse et les courts, mais en fin de journée et sans couvert dressé)* | 4:5 | 1200 × 1500 |
 | **Une pizza**, sortie du four, plan serré | L’ouverture de la page Pizza & Pasta, et le bloc « Neuf pizzas » de l’accueil. **Les deux emplacements sont vides aujourd’hui** : les rigatoni qui les occupaient ont été retirés | 4:5 | 1100 × 1375 |
 | **La salle de jour**, baies ouvertes sur les courts | Le bloc « Le club-house » de l’accueil, à la place de la salle du soir | 4:3 | 1280 × 960 |
 | **Une assiette de pâtes de jour**, sur une table de la salle | Le ruban | 4:5 | 1200 × 1500 |
@@ -143,7 +144,7 @@ doubler les chiffres `width` et `height` dans les pages qui les appellent.
 
 ### Une chose à savoir sur le cadrage
 
-Quatre des neuf photographies actuelles ont été prises **debout**, et leur sujet
+Quatre des huit photographies actuelles ont été prises **debout**, et leur sujet
 n’est pas au centre du fichier : l’assiette est en bas, les courts sont en haut. Un
 cadre en paysage les viderait de leur sujet. Deux classes de la feuille de style le
 rattrapent — `photo-bas` et `photo-haut` — et elles ne servent qu’à ça.
