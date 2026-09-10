@@ -70,36 +70,13 @@
     position: sticky;
     top: calc(var(--entete-h-lg) + var(--sp-6));
     margin-top: 0;
-    padding-block: 0;
-    border-block: 0;
   }
 
+  /* Une seule colonne : la grille des largeurs moyennes se referme, et chaque
+     lien garde le filet qu'il a déjà. */
   .page-colonneCarte .sommaire-liste,
   .page-colonnePizzeria .sommaire-liste {
-    flex-direction: column;
-    gap: 0;
-  }
-
-  .page-colonneCarte .sommaire-liste li,
-  .page-colonnePizzeria .sommaire-liste li {
     display: block;
-  }
-
-  /* Les losanges séparaient une liste horizontale : en colonne, c'est le filet
-     de chaque ligne qui sépare. */
-  .page-colonneCarte .sommaire-liste li:not(:last-child)::after,
-  .page-colonnePizzeria .sommaire-liste li:not(:last-child)::after {
-    content: none;
-  }
-
-  .page-colonneCarte .sommaire-lien,
-  .page-colonnePizzeria .sommaire-lien {
-    display: block;
-    padding-block: 0.55rem;
-    border-bottom: 1px solid var(--trait);
-    color: var(--encre-2);
-    font-size: 0.8125rem;
-    letter-spacing: 0.1em;
   }
 
   /* La respiration s'aligne sur le corps, pas sur le rail. */
@@ -125,34 +102,70 @@
    sur deux pages. Sans index, il faut faire défiler quatre écrans pour savoir
    s'il y a des pizzas.
 
-   C'est une liste de liens, pas une barre d'onglets : elle ne suit pas le
-   défilement, elle ne surligne pas la famille courante, elle ne fait rien de ce
-   qu'on attend d'un composant. Elle dit ce que la carte contient, et se laisse
-   dépasser. Un sommaire de livre.
+   C'est une liste de liens, pas une barre d'onglets : elle ne surligne pas la
+   famille courante, elle ne fait rien de ce qu'on attend d'un composant. Elle
+   dit ce que la carte contient, et se laisse dépasser. Un sommaire de livre.
+
+   IL A TROIS ÉTATS, ET LE TÉLÉPHONE EST LE PREMIER.
+
+   Au doigt, c'est UNE SEULE LIGNE, qu'on fait glisser d'un bord de l'écran à
+   l'autre. La version précédente laissait la liste passer à la ligne, ce qui
+   donnait, sur 390 px, huit lignes d'un ou deux libellés — et chaque ligne se
+   terminait par le losange qui devait séparer deux familles. Seul au bout
+   d'une ligne, un losange ne sépare plus rien : il se lit comme une puce. Le
+   client l'a dit ainsi : « il y a des genres de bullet point dans la page
+   carte, ça va pas du tout ». Sur une ligne, le losange retrouve son rôle,
+   parce qu'il n'y a plus de bout de ligne où pendre. Et le sommaire rend à la
+   carte l'écran entier qu'il lui prenait : cinquante-six pixels au lieu de
+   trois cent trente.
+
+   De 700 à 1100 px, une GRILLE de liens à filet, sur deux ou trois colonnes :
+   pas de losange non plus, c'est le filet de chaque ligne qui sépare, comme
+   dans le rail. Au-dessus de 1100 px, le RAIL — voir plus haut.
    ============================================================================ */
 .sommaire-sommaire {
-  margin-top: var(--sp-6);
-  padding-block: var(--sp-5);
   border-block: 1px solid var(--trait);
 }
 
 .sommaire-liste {
   display: flex;
-  flex-wrap: wrap;
-  gap: var(--sp-2) 0;
+  flex-wrap: nowrap;
+  align-items: center;
+  /* La ligne déborde des marges jusqu'aux bords de l'écran. Un libellé coupé
+     net au bord droit dit qu'il y a une suite, mieux qu'une flèche ; et le
+     premier libellé, lui, reste calé sur la marge du site. */
+  margin-inline: calc(-1 * var(--marge));
+  padding-inline: var(--marge);
+  /* Le remplissage vertical n'est pas du vide : c'est la place de l'anneau de
+     focus, qui déborde le lien de cinq pixels. Une zone qui défile coupe ce
+     qui dépasse, et un anneau coupé aux trois quarts est pire que pas d'anneau. */
+  padding-block: var(--sp-3);
+  overflow-x: auto;
+  /* Le geste horizontal reste au sommaire, le vertical à la page. */
+  overscroll-behavior-x: contain;
+  /* Quand le doigt lâche, la ligne se pose sur un libellé, pas sur la moitié
+     d'un losange. `proximity` et non `mandatory` : dix familles, et un aimant
+     trop fort sur chacune rendrait le geste collant. */
+  scroll-snap-type: x proximity;
+  scroll-padding-inline: var(--marge);
+  scrollbar-width: none;
+}
+
+.sommaire-liste::-webkit-scrollbar {
+  display: none;
 }
 
 .sommaire-liste li {
   display: flex;
+  flex: none;
   align-items: center;
+  scroll-snap-align: start;
 }
 
 /* Le séparateur est un losange, comme ceux du logo, et il est posé par le CSS
-   entre deux liens — jamais après le dernier.
-
-   Il est accroché à la FIN de chaque libellé, pas au début du suivant : quand la
-   liste passe à la ligne, un losange termine la ligne au lieu de l'ouvrir. Un
-   séparateur en début de ligne se lit comme une puce, ce qu'il n'est pas. */
+   entre deux liens — jamais après le dernier. Sur une ligne qui ne casse pas,
+   il est toujours ENTRE deux libellés : c'est la seule position où il tient
+   son rôle. */
 .sommaire-liste li:not(:last-child)::after {
   content: "◆";
   margin-inline: var(--sp-4);
@@ -164,9 +177,7 @@
 .sommaire-lien {
   /* AU DOIGT, LE LIEN FAIT SA HAUTEUR DE CIBLE. Il ne mesurait que seize pixels
      de haut — la hauteur de ses lettres — et il y en a dix à la file : c'est le
-     genre de liste où l'on tape à côté une fois sur trois. Le remplissage
-     vertical est posé ici, sans requête de média, parce qu'il ne gêne pas la
-     version en rail, qui pose le sien par-dessus. */
+     genre de liste où l'on tape à côté une fois sur trois. */
   display: inline-block;
   padding-block: 0.5rem;
   color: var(--encre-2);
@@ -176,12 +187,49 @@
   line-height: 1.3;
   text-transform: uppercase;
   text-decoration: none;
+  /* Un libellé ne casse jamais : c'est la ligne entière qui glisse. */
+  white-space: nowrap;
   transition: color var(--dur-vif) var(--sortie);
 }
 
 .sommaire-lien:hover,
 .sommaire-lien:focus-visible {
   color: var(--accent);
+}
+
+/* La grille, de 700 à 1100 px. Chaque lien prend une ligne et un filet ; les
+   losanges n'ont plus lieu d'être, et les filets de la liste non plus, chaque
+   lien portant le sien. */
+@media (min-width: 700px) {
+  .sommaire-sommaire {
+    margin-top: var(--sp-6);
+    border-block: 0;
+  }
+
+  .sommaire-liste {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+    column-gap: var(--sp-6);
+    margin-inline: 0;
+    padding: 0;
+    overflow: visible;
+  }
+
+  .sommaire-liste li {
+    display: block;
+  }
+
+  .sommaire-liste li:not(:last-child)::after {
+    content: none;
+  }
+
+  .sommaire-lien {
+    display: block;
+    padding-block: 0.55rem;
+    border-bottom: 1px solid var(--trait);
+    font-size: 0.8125rem;
+    letter-spacing: 0.1em;
+  }
 }
 
 /* Le sommaire se ferme par un filet ; la première famille ne doit pas s'y
@@ -375,11 +423,17 @@
   line-height: 1.5;
 }
 
+/* Les mentions — « sur commande », « minimum 2 personnes », « prix par
+   personne » — sont des <span> séparés, et c'est le VIDE qui les sépare, pas
+   un point médian. Elles étaient écrites d'un trait, avec des « · » dans le
+   texte : dès que la ligne cassait — sur un téléphone, toujours — le point
+   restait seul au bout de la ligne, et se lisait comme une puce. Un séparateur
+   qui peut se retrouver seul au bord n'en est pas un. */
 .lignedeplat-meta {
   order: 4;
   display: flex;
   flex-wrap: wrap;
-  gap: var(--sp-1) var(--sp-4);
+  gap: var(--sp-1) var(--sp-5);
   margin-top: var(--sp-2);
   color: var(--encre-2);
   font-family: var(--mono);

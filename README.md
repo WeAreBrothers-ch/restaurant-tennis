@@ -69,7 +69,7 @@ de sources publiques et n’ont pas été validées :
 
 ## Le site sur téléphone
 
-Tout est réglé pour le téléphone d’abord, et quatre choses le sont explicitement.
+Tout est réglé pour le téléphone d’abord, et cinq choses le sont explicitement.
 
 **Les photographies existent en deux largeurs.** Une de 1 600 px et une de 800,
 et c’est le navigateur qui choisit d’après l’attribut `sizes`, emplacement par
@@ -90,6 +90,12 @@ elle n’était pas tenue : les dix liens du sommaire de la carte faisaient seiz
 pixels de haut, ceux du tableau d’affichage dix-sept. Ils font maintenant au
 moins trente-deux, et les numéros de téléphone quarante-quatre — la mesure du
 doigt.
+
+**Le sommaire de la carte tient sur une ligne.** Les dix familles se lisent à la
+file, et la ligne se pousse au doigt, d’un bord de l’écran à l’autre. Elle passait
+à la ligne — huit lignes sur un iPhone — et chaque ligne se terminait par un
+losange orphelin qui ressemblait à une puce. Entre 700 et 1 100 px, le sommaire
+est une grille de liens à filet ; au-delà, le rail qui suit le défilement.
 
 **Le premier écran reste lisible sur un petit téléphone.** En dessous de 620 px
 de haut — un iPhone SE, ou n’importe quel téléphone couché — trois des huit
@@ -194,6 +200,11 @@ plat, et modifiez ce qui l’entoure. Une ligne de carte ressemble à ceci :
 
 Le petit trait pointillé entre le nom et le prix — `lignedeplat-rappel` — se dessine
 tout seul, quelle que soit la longueur du nom. Laissez-le vide, ne le supprimez pas.
+
+Les mentions sous un plat — « sur commande », « minimum 2 personnes », « prix par
+personne » — sont chacune dans leur propre `<span>`, à l’intérieur du
+`lignedeplat-meta`. N’écrivez pas de « · » entre elles : c’est l’espace qui sépare,
+et un point écrit dans le texte finirait seul au bout d’une ligne sur téléphone.
 
 **Si vous ajoutez ou retirez une famille entière**, pensez au sommaire en haut de la
 page : c’est la liste `sommaire-liste`, juste avant la première famille, et elle ne

@@ -289,6 +289,14 @@ faut faire défiler quatre écrans pour savoir s'il y a des pizzas. C'est une li
 de liens, pas une barre d'onglets : elle ne suit pas le défilement, elle ne
 surligne pas la famille courante. Un sommaire de livre.
 
+Sur un téléphone, ce sommaire tient sur **une seule ligne**, qu'on fait glisser
+d'un bord de l'écran à l'autre. Il passait à la ligne — huit lignes d'un ou deux
+libellés sur 390 px — et chaque ligne se terminait par le losange qui devait
+séparer deux familles : seul au bout d'une ligne, un losange ne sépare plus rien,
+il se lit comme une puce. Sur une ligne, il est toujours entre deux libellés, et
+le sommaire rend à la carte l'écran entier qu'il lui prenait. Entre 700 et
+1 100 px, c'est une grille de liens à filet, sans losange ; au-dessus, le rail.
+
 ---
 
 ## 5 ter. Le tableau d'affichage
@@ -345,6 +353,7 @@ qu'elles ont donné.
 | « Vraiment améliore les couleurs » | **Annulé.** Une palette à cinq surfaces a été essayée puis retirée à la demande du client — voir l'encadré du chapitre 2. Ce qui reste de la réponse au « terne » : le rythme, l'échelle typographique et la carte |
 | « La carte, ce que tu as fait à surligner les titres, je ne veux pas ça » | Les titres de famille ont porté un aplat vert pendant une version. Ils reprennent la composition du site modèle : serif en capitales espacées, tenu par un filet, sur la crème. Le repère de position que la bande apportait est rendu par le sommaire en rail |
 | « Le bouton téléphone, je ne le veux pas en carré comme ça » | Le bloc plein de la barre du haut devient un lien souligné, le même composant que « Voir toute la carte ». Sa cible reste haute de 48 px |
+| « Il y a des genres de bullet point dans la page carte, ça va pas du tout » | Les losanges du sommaire — des séparateurs — se retrouvaient seuls en bout de ligne dès que la liste passait à la ligne, huit fois sur un téléphone. Le sommaire tient maintenant sur une ligne qu'on fait glisser ; de 700 à 1 100 px, une grille à filets, sans losange. Les points médians des mentions « minimum 2 personnes · prix par personne » avaient le même défaut : ils sont supprimés, c'est le vide qui sépare |
 
 **Une chose n'a PAS changé, et c'est délibéré : les teintes.** `--terre-600`
 vaut toujours `#A44E2C`, `--creme` toujours `#F4F1E9`. Décaler un ocre d'un cran
