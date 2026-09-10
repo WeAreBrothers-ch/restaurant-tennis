@@ -830,6 +830,15 @@ h1.duo-titre {
   margin-top: var(--sp-7);
 }
 
+/* Quarante-huit pixels séparent le bouton de ce qui le précède, et c'est la
+   bonne mesure quand un paragraphe s'intercale entre le titre et lui. Les deux
+   cartes n'en ont plus depuis que leurs chapôs sont supprimés : le bouton suit
+   le titre directement, et l'écart tombe à vingt-quatre. « Il y a trop d'espace
+   entre le début et la fin. » */
+.duo-titre + [data-actions] {
+  margin-top: var(--sp-5);
+}
+
 @media (max-width: 899px) {
   .duo-texte {
     order: 1;

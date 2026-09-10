@@ -126,8 +126,7 @@ Ce n’est jamais deux fois sur la même page.
 | Carte — bande 1, après les assiettes froides | `plat-salade-2026-09b.jpg` | 3:2 au doigt, 12:5 au-delà de 700 px |
 | Carte — bande 2, après les classiques | `salle-bar-2026-09b.jpg` | 4:3 au doigt, 2:1 au-delà de 700 px |
 | Carte — bande 3, après les hamburgers | `plat-burger-2026-09b.jpg` | 5:3 au doigt, 5:2 au-delà de 700 px |
-| Pizza & Pasta — bande, entre les foccacias et les pâtes | `apero-olives-2026-09b.jpg` | 4:3 au doigt, 2:1 au-delà de 700 px |
-| Pizza & Pasta — ouverture | *(vide — en attente de la photographie de pizza)* | 4:5 |
+| Pizza & Pasta — ouverture et bande | *(vide — en attente de la photographie de pizza. Une bande d'olives marinées y a été essayée : hors sujet sur une page de pâtes, et le format la coupait en ne montrant que des verres)* | 5:2 |
 | Contact — ouverture | `courts-baies-2026-09b.jpg` | 4:5 |
 | Partage (WhatsApp, Facebook) | `og-2026-09b.jpg` | 1,9:1 — 1200 × 630 |
 
