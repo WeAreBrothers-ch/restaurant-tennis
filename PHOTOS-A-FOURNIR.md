@@ -123,13 +123,15 @@ Ce n’est jamais deux fois sur la même page.
 | Accueil — bloc « Le club-house » | `salle-bar-2026-09b.jpg` | 4:3 |
 | Accueil — bandeau « Depuis la salle » | `courts-baies-2026-09b.jpg` | 16:9 |
 | Accueil — bloc « Neuf pizzas » | *(vide — en attente de la photographie de pizza)* | 4:3 |
-| Carte — ouverture | `plat-entrecote-2026-09b.jpg` | 3:4 |
-| Carte — bandeau de respiration | `salle-bar-2026-09b.jpg` | 4:3 au doigt, 2:1 au-delà de 700 px |
+| Carte — bande 1, après les assiettes froides | `plat-salade-2026-09b.jpg` | 3:2 au doigt, 12:5 au-delà de 700 px |
+| Carte — bande 2, après les classiques | `salle-bar-2026-09b.jpg` | 4:3 au doigt, 2:1 au-delà de 700 px |
+| Carte — bande 3, après les hamburgers | `plat-burger-2026-09b.jpg` | 5:3 au doigt, 5:2 au-delà de 700 px |
+| Pizza & Pasta — bande, entre les foccacias et les pâtes | `apero-olives-2026-09b.jpg` | 4:3 au doigt, 2:1 au-delà de 700 px |
 | Pizza & Pasta — ouverture | *(vide — en attente de la photographie de pizza)* | 4:5 |
 | Contact — ouverture | `courts-baies-2026-09b.jpg` | 4:5 |
 | Partage (WhatsApp, Facebook) | `og-2026-09b.jpg` | 1,9:1 — 1200 × 630 |
 
-**Le bandeau de la page Carte est l’emplacement le plus large du site.** Cadré en
+**Les bandes des cartes sont les emplacements les plus larges du site.** Cadré en
 bande, il ne montre pas une scène entière mais une tranche : le bord d’un court,
 une rangée de tables, une ligne d’arbres. C’est exactement ce qu’on demande à une
 respiration entre deux listes de prix.

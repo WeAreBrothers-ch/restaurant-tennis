@@ -453,10 +453,19 @@
    bord gauche, et la photographie ne le franchit pas. Elle allait jusqu'aux
    bords du `wrapLarge`, soit trois cents pixels plus large que la carte
    qu'elle sépare en deux. */
-/* La respiration prend la mesure de la colonne de plats : la page n'a qu'un
-   bord gauche, et la photographie ne le franchit pas. Au doigt, elle va au
-   contraire d'un bord à l'autre de l'écran — voir `.photo-bordABord` dans
-   `base.css` : seule sur sa ligne, elle n'a aucun texte à qui s'aligner. */
+/* LES BANDES SONT DANS LA CARTE, PAS AVANT ELLE.
+
+   La page a porté une photographie dans son haut de page, à côté du titre. Le
+   client : « mets des images dans la carte, mais de la même disposition que
+   dans l'Étoile, c'est-à-dire intégrées dans la carte, pas avant ». Le site
+   modèle fait exactement cela : sa carte n'a aucune image en ouverture, et une
+   bande vient respirer entre deux groupes de familles, à la mesure de la
+   colonne de plats. Nous en avons trois, la carte étant deux fois plus longue.
+
+   Elles prennent donc la mesure de la colonne : la page n'a qu'un bord gauche,
+   et la photographie ne le franchit pas. Au doigt, elle va au contraire d'un
+   bord à l'autre de l'écran — voir `.photo-bordABord` dans `base.css` : seule
+   sur sa ligne, elle n'a aucun texte à qui s'aligner. */
 .respirationcarte-respiration {
   max-width: var(--colonne-lecture);
   margin-block: var(--joint);
@@ -481,13 +490,36 @@
   }
 }
 
+/* TROIS BANDES, TROIS RAPPORTS. La règle du site est que deux photographies ne
+   sont jamais d'accord — ni la même largeur, ni le même format. Trois bandes du
+   même rapport à la file feraient un gabarit ; trois rapports différents font
+   une carte illustrée. */
 .respirationcarte-cadre {
   --ratio: 4 / 3;
+}
+
+.respirationcarte-cadre--haute {
+  --ratio: 3 / 2;
+}
+
+.respirationcarte-cadre--bande {
+  --ratio: 5 / 3;
 }
 
 @media (min-width: 700px) {
   .respirationcarte-cadre {
     --ratio: 2 / 1;
+  }
+
+  /* 12/5 et non 16/9 : sur une colonne de 1 120 px, seize neuvièmes font
+     630 px de haut, soit les deux tiers d'un écran de portable pour une bande
+     qui doit faire respirer, pas interrompre. */
+  .respirationcarte-cadre--haute {
+    --ratio: 12 / 5;
+  }
+
+  .respirationcarte-cadre--bande {
+    --ratio: 5 / 2;
   }
 }
 

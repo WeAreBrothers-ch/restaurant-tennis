@@ -225,7 +225,7 @@
            balise ouvrait un bloc qu'elle refermait aussitôt, et la page
            arrivait sur « Les entrées » sans jamais dire où l'on était. -->
       <section class="surface-creme section">
-        <div class="wrapLarge duo-duo duo-droite">
+        <div class="wrapLarge duo-duo duo-seul">
           <div class="duo-texte">
             <img
                 class="marque marque--couvert"
@@ -239,32 +239,8 @@
             <h1 class="duo-titre">
               La carte du club-house, <em class="italique">et ses noms de code</em>
             </h1>
-            <p class="chapo">
-              Neuf familles, trente-sept plats. Chacun porte le nom que la maison lui donne sur
-              sa carte imprimée — ACE, TIE-BREAK, LE VESTIAIRE — et une étoile quand c’est un
-              plat de la maison. Les prix sont affichés en entier.
-            </p>
             <div data-actions="true">
               <a class="bouton-base bouton-tertiaire" href="pizzeria.html">Voir les pizzas et les pâtes</a>
-            </div>
-          </div>
-          <!-- La photographie ne s'affiche qu'à partir de 900 px : en dessous,
-               elle repousserait la carte d'un écran, et c'est la carte qu'on
-               vient chercher. Au-dessus, sans elle, le titre laissait la moitié
-               droite de l'écran vide — la seule page du site à le faire. -->
-          <div class="duo-visuel duo-visuel--horsMobile">
-            <div class="photo-cadre photo-derive" style="--ratio: 1200 / 1600">
-              <img
-                alt="Entrecôte au Café de Paris et frites maison, servie sur la nappe du club"
-                fetchpriority="high"
-                width="1200"
-                height="1600"
-                decoding="async"
-                class="photo-image"
-                src="images/plat-entrecote-2026-09b.jpg"
-                srcset="images/plat-entrecote-800-2026-09b.jpg 800w, images/plat-entrecote-2026-09b.jpg 1200w"
-                sizes="(min-width: 900px) 40vw, 100vw"
-              />
             </div>
           </div>
         </div>
@@ -449,6 +425,25 @@
                   </li>
                 </ul>
               </section>
+          </div>
+          <div class="wrapLarge respirationcarte-respiration">
+            <div class="photo-cadre respirationcarte-cadre--haute photo-derive">
+              <img
+                class="photo-image"
+                src="images/plat-salade-2026-09b.jpg"
+                srcset="images/plat-salade-800-2026-09b.jpg 800w, images/plat-salade-2026-09b.jpg 1200w"
+                sizes="(min-width: 1100px) 1120px, 100vw"
+                alt="Salade mêlée du Restaurant Tennis Club, crudités du moment et sauce maison"
+                width="1200"
+                height="1600"
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="wrapLarge">
+          <div class="page-colonneCarte">
               <section class="categoriecarte-categorie" id="rapide" aria-labelledby="titre-rapide">
                 <h2 class="categoriecarte-titre" id="titre-rapide">Club-house — rapide</h2>
                 <p class="categoriecarte-note">Servi sans façon, à la table ou au bar, entre deux sets.</p>
@@ -676,6 +671,25 @@
                   </li>
                 </ul>
               </section>
+          </div>
+          <div class="wrapLarge respirationcarte-respiration">
+            <div class="photo-cadre respirationcarte-cadre--bande photo-derive">
+              <img
+                class="photo-image"
+                src="images/plat-burger-2026-09b.jpg"
+                srcset="images/plat-burger-800-2026-09b.jpg 800w, images/plat-burger-2026-09b.jpg 1600w"
+                sizes="(min-width: 1100px) 1120px, 100vw"
+                alt="Le hamburger du club et son panier de frites, servis en salle"
+                width="1600"
+                height="1200"
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="wrapLarge">
+          <div class="page-colonneCarte">
               <section class="categoriecarte-categorie" id="partager" aria-labelledby="titre-partager">
                 <h2 class="categoriecarte-titre" id="titre-partager">Les plats à partager</h2>
                 <p class="categoriecarte-note">Trois pièces qui se commandent pour la table. Les deux dernières se réservent à l’avance.</p>
