@@ -196,7 +196,6 @@ address {
    photographie touche donc le bord de l'écran, encoche comprise, sans jamais le
    dépasser. Au-delà de 900 px, elle rentre dans sa colonne. */
 @media (max-width: 899px) {
-  .photo-bordABord,
   .duo-visuel--bordABord {
     margin-inline: calc(-1 * var(--marge));
   }

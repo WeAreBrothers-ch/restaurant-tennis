@@ -10,10 +10,6 @@
    Un titre, une phrase, et la photographie ensuite. Jamais l'inverse : on doit
    savoir sur quelle page on est avant de voir une texture.
    ============================================================================ */
-.page-entete {
-  margin-bottom: var(--sp-6);
-}
-
 /* La carte n'est pas une section ordinaire — elle est coupée en deux par une
    photographie de respiration — mais elle porte le même demi-joint que toutes les
    autres, en haut comme en bas. Auparavant le vide du haut était emprunté à la
@@ -57,14 +53,6 @@
   .page-colonnePizzeria {
     max-width: 1120px;
   }
-}
-
-.page-supplements {
-  max-width: 60ch;
-  margin-top: var(--sp-3);
-  color: var(--encre-3);
-  font-size: var(--fs-legende);
-  line-height: 1.5;
 }
 
 /* ============================================================================
@@ -860,10 +848,16 @@
   font-size: var(--fs-legende);
 }
 
+/* Le crédit tient sur deux lignes au doigt, et il faut que ce soit LES DEUX
+   BONNES : « Fond de plan » d'un côté, la mention d'OpenStreetMap de l'autre.
+   Sans cette ligne, la coupure tombait au milieu de la mention — « © les » sur
+   la première ligne, « contributeurs OpenStreetMap » sur la seconde. */
 .plan-credit a {
+  display: inline-block;
   padding-block: var(--sp-2);
   text-decoration: underline;
   text-underline-offset: 3px;
+  white-space: nowrap;
 }
 
 /* ============================================================================

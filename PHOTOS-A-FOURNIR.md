@@ -80,7 +80,7 @@ tient, ce qui tient mal, et ce qui manque.
 | Fichier | Ce qu’il montre | Verdict |
 | --- | --- | --- |
 | `courts-baies-2026-09b.jpg` | Les courts et la terrasse, vus d’une table de la salle | **La meilleure.** Elle porte l’accueil, la page Contact et la vignette de partage |
-| `terrasse-cocktails-2026-09b.jpg` | Quatre cocktails sur la terrasse, les courts derrière, en fin de journée | **La deuxième meilleure.** Elle dormait dans le dossier, non recadrée et non redimensionnée, sous le nom `06b-cocktails-terrasse-recadre.jpg`. Elle est maintenant découpée en 16:9 sur les verres et les courts, et porte la bande de la page Pizza & Pasta |
+| `terrasse-cocktails-2026-09b.jpg` | Quatre cocktails sur la terrasse, les courts derrière, en fin de journée | **La deuxième meilleure.** Elle dormait dans le dossier, non recadrée et non redimensionnée. L’originale est conservée hors du site, dans `photos-source/cocktails-terrasse-original.jpg`. Elle est maintenant découpée en 16:9 sur les verres et les courts, et porte la bande de la page Pizza & Pasta |
 | `plat-entrecote-2026-09b.jpg` | Entrecôte Café de Paris et frites, de jour | Tient très bien |
 | `plat-salade-2026-09b.jpg` | Salade mêlée, de jour | Tient très bien |
 | `plat-burger-2026-09b.jpg` | Burger et panier de frites, de jour | Tient très bien |

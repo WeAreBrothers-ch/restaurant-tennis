@@ -848,14 +848,6 @@ h1.duo-titre {
     order: 2;
   }
 
-  /* Au doigt, la photographie de ce bloc s'intercale entre son texte et le bloc
-     suivant, qui en porte déjà une : deux, parfois trois photographies
-     d'affilée. Celle de la salle du soir montre en outre la même pièce que le
-     bandeau qui la suit. On la retire : sur petit écran, elle n'ajoutait que de
-     la longueur. */
-  .duo-visuel--horsMobile {
-    display: none;
-  }
 }
 
 /* Un duo sans image : le titre prend la colonne de lecture et rien d'autre. */

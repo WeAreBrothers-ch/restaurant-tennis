@@ -169,7 +169,8 @@ dossier dans un petit serveur local, ou regardez-les directement en ligne.
 | `css/` | Cinq feuilles de style, une par sujet (voir plus bas) |
 | `js/` | Neuf petits fichiers, un par comportement (voir plus bas) |
 | `scripts/` | Six outils d’entretien : deux essais qui vérifient le site, quatre qui fabriquent des images ou des polices. Ne servent qu’à vous, jamais au visiteur |
-| `images/` | Les neuf photographies, les huit dessins au trait, le plan, les raquettes croisées et la marque du navigateur |
+| `images/` | Les huit photographies du restaurant, les huit dessins au trait, le plan, les raquettes croisées et la marque du navigateur |
+| `photos-source/` | Les photographies d’origine, avant recadrage et redimensionnement. **Elles ne sont pas employées par le site** : elles sont là pour qu’on puisse refaire une découpe sans redemander le fichier au client |
 | `dessins-source/` | Les dessins du premier écran tels qu’ils sont arrivés, avant détourage. **Ne sont pas publiés** |
 | `fonts/` | Les quatre fichiers de polices, hébergés ici plutôt que chez Google |
 | `favicon.ico`, `apple-touch-icon.png` | L’icône du site dans l’onglet et sur l’écran d’accueil des téléphones |
