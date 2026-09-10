@@ -229,30 +229,30 @@ bord bas. Ce qui a disparu, c'est le hasard, pas la vie.
 
 **Aucun n'est coupé, et aucun n'en touche un autre.** Trois étaient coupés par parti
 pris, et onze recouvrements ont été relevés à 1 100 px de large. Le client a tranché
-deux fois : « il ne doit jamais y avoir de choses coupées », puis « il ne faut pas que
-les dessins se chevauchent ».
+trois fois : « il ne doit jamais y avoir de choses coupées », « il ne faut pas que les
+dessins se chevauchent », et enfin, sur une grille de neuf cases qui réglait le
+problème en resserrant tout : « t'as décalé le titre, la hero ».
 
-Le défaut était dans la construction, pas dans les valeurs. Chaque dessin était posé
-en absolu, à un pourcentage de largeur et de hauteur, avec sa taille en pixels : deux
-réglages qui ne suivent pas la même chose. On corrigeait un recouvrement à une taille
-d'écran et on en créait un autre ailleurs.
+Le champ reste donc libre, comme sur le site modèle, et le chevauchement est réglé là
+où il naît : dans les positions, les tailles, et la taille de l'enseigne. Trois choses
+s'y ajoutent.
 
-Le champ est donc devenu une **grille de neuf cases** : trois colonnes, trois rangées,
-l'enseigne au centre et un dessin dans chacune des huit cases qui l'entourent. Deux
-cases ne se recouvrent jamais — le chevauchement n'est plus une valeur à surveiller,
-il est devenu impossible. L'enseigne est dans la grille et non posée par-dessus :
-c'est elle qui mesure la colonne et la rangée du milieu, et aucun dessin ne peut donc
-venir sur le nom de la maison. Au doigt la grille passe à deux colonnes et cinq
-rangées, l'enseigne en travers ; sur un écran court, à trois cases en haut et deux en
-bas.
+**LA COMPOSITION CHANGE AVEC LA FORME DE LA FENÊTRE**, parce que la place libre autour
+de l'enseigne change de forme avec elle. Sur un grand écran il reste une COURONNE, et
+les huit dessins en font le tour. Sous 900 px de large l'enseigne barre l'écran : il
+ne reste que DEUX BANDES, et cinq dessins s'y rangent. Sur une fenêtre plus large que
+haute et basse de plafond — un téléphone couché — ce sont deux MARGES LATÉRALES, et
+quatre dessins s'y tiennent.
 
-Deux détails achèvent la garantie. Chaque dessin **paie son inclinaison** : penché de
-quinze degrés, il est plus haut que son image de soixante pixels, et il rend cette
-différence en marge — sa boîte penchée s'arrête donc exactement au bord de sa case.
-Et la chute du premier défilement suit la rangée : le haut monte, le bas descend, le
-champ s'ouvre autour de l'enseigne au lieu de se refermer, si bien que deux dessins ne
-peuvent pas se rejoindre en chemin. Relevé à quinze tailles d'écran, du 320 × 568 au
-1 920 × 1 080 : zéro recouvrement, au repos, à l'arrivée et sur toute la chute.
+**L'ENSEIGNE SE RÈGLE SUR LA HAUTEUR AUTANT QUE SUR LA LARGEUR.** Son corps ne suivait
+que la largeur : sur un portable de 1 280 × 800, elle prenait 412 px de haut sur 704 et
+les dessins venaient à un pixel du nom de la maison. Deux crans de hauteur et un cran
+de largeur entre 900 et 1 200 px ouvrent la couronne.
+
+**ET RIEN N'EST LAISSÉ AU JUGÉ.** Les positions ont été cherchées par la mesure, et
+elles sont vérifiées à chaque retouche : `node scripts/essai-premier-ecran.mjs` ouvre
+l'accueil à cent soixante-neuf tailles d'écran, du petit téléphone au 4K, portrait et
+paysage, et relève chaque recouvrement et chaque dessin coupé. Il doit rendre zéro.
 
 Tout le mouvement tient dans un seul chiffre, `--p`, l'avancée du premier défilement.
 Le script ne fait qu'écrire ce chiffre ; c'est le CSS qui en tire la chute de chacun.
@@ -311,18 +311,25 @@ la carte imprimée. Dans le HTML, le plat porte `data-signature="true"` et rien
 d'autre ; c'est le CSS qui dessine l'étoile. Un « ★ » écrit au milieu d'un nom est
 épelé par les lecteurs d'écran, et ce n'est pas un mot : c'est une marque.
 
-Enfin, la carte **n'a pas de sommaire**, et c'est un retour en arrière assumé.
-Elle en a porté un : une liste des dix familles, en rail à gauche sur grand écran,
-en ligne glissante au doigt. Le client l'a fait retirer en deux temps — d'abord
-ses losanges séparateurs (« il y a des genres de bullet point dans la page carte,
-ça va pas du tout »), puis le bloc entier (« je ne veux pas du tout de navigation
-en fait pour la carte, tu enlèves ça »). Le site modèle n'en a jamais eu : sa page
-carte enchaîne les familles, sans index, et on descend.
+Enfin, la carte **n'a pas de sommaire**, et sa composition est celle du site modèle.
 
-Ce qui reste tient tout seul : les titres de famille sont deux fois plus grands
-qu'un nom de plat et tenus par un filet, la carte se lit sur deux colonnes dès
-768 px, et l'en-tête garde ses trois liens. La page a un seul bord gauche, celui
-d'une colonne centrée de 56 rem — deux pistes de plats et leur gouttière.
+Elle a porté un sommaire — une liste des dix familles, en rail à gauche sur grand
+écran, en ligne glissante au doigt. Le client l'a fait retirer en deux temps : d'abord
+ses losanges séparateurs (« il y a des genres de bullet point dans la page carte »),
+puis le bloc entier (« je ne veux pas du tout de navigation en fait pour la carte »).
+L'Étoile n'en a jamais eu : sa page carte enchaîne les familles, et on descend.
+
+Elle a ensuite porté une colonne de 56 rem tenant deux pistes de plats à toutes les
+tailles, des titres de famille au corps d'un titre de page, et ni filet ni pointillé.
+Verdict : « des trucs hyper chelou, inspire-toi de l'Étoile ». La composition est donc
+reprise de là, telle quelle : **une colonne de lecture de 620 px centrée**, **deux
+colonnes seulement au-delà de 1 100 px** et par multi-colonnage — les plats coulent de
+la première dans la seconde, comme le texte d'un journal —, **un filet sous chaque
+plat**, **un filet sous le titre de famille**, et **le rappel pointillé** entre le plat
+et son prix.
+
+Ce qui reste de cette maison : le nom de code sous chaque plat, l'étoile des seize
+plats signature, et les prix en terre battue.
 
 ---
 
@@ -383,7 +390,8 @@ qu'elles ont donné.
 | « Il y a des genres de bullet point dans la page carte, ça va pas du tout » ; « je ne veux pas du tout de navigation en fait pour la carte, tu enlèves ça » | Le sommaire est supprimé, losanges compris, sur la carte comme sur la page Pizza & Pasta. La carte devient une colonne centrée de 56 rem. Les points médians des mentions « minimum 2 personnes · prix par personne » avaient le même défaut de puce orpheline : supprimés aussi, c'est le vide qui sépare |
 | « Les balles de tennis sont un peu trop collées à gauche » | Les dessins de section étaient calés au pixel près sur le bord gauche du texte. Un dessin n'a pas de bord franc : il prend un retrait de seize à trente-deux pixels selon l'écran |
 | « Le venir chez nous, c'est trop moche, c'est séparé, ça n'a aucun sens » | Le titre flottait au-dessus d'un filet qui n'était pas le sien, à soixante-quatre pixels de son contenu. Le filet devient celui du titre — la composition des titres de famille de la carte — et l'écart tombe à vingt-quatre pixels |
-| « Il ne faut pas que les dessins se chevauchent, vraiment fais attention » | Le premier écran est refait : les huit dessins étaient posés en absolu, à un pourcentage de la fenêtre, avec une taille en pixels — deux mesures qui ne suivent pas la même chose, et onze recouvrements relevés à 1 100 px. C'est maintenant une grille de neuf cases, l'enseigne au milieu et un dessin par case. Voir le chapitre 4 |
+| « Il ne faut pas que les dessins se chevauchent, vraiment fais attention » ; « t'as décalé le titre, la hero » | Le premier écran a été refait deux fois. Une grille de neuf cases rendait le chevauchement impossible, mais réservait à l'enseigne une rangée entière et resserrait tout : retirée. Le champ libre du site modèle est conservé, et le chevauchement est réglé par les positions, les tailles, et la taille de l'enseigne — qui se borne maintenant sur la hauteur de la fenêtre. Trois dispositions selon la forme de l'écran. Vérifié à 169 tailles par `scripts/essai-premier-ecran.mjs` |
+| « La carte, tu as fait des trucs hyper chelou, inspire-toi de l'Étoile » | La carte reprend la composition du site modèle, telle quelle : une colonne de lecture de 620 px centrée, deux colonnes seulement au-delà de 1 100 px et par multi-colonnage, un filet sous chaque plat, un filet sous le titre de famille, et le rappel pointillé entre le plat et son prix. Ce qui reste de nous : le nom de code, l'étoile des plats de la maison, et les prix en terre battue |
 | « Il ne doit jamais y avoir de choses coupées ou mal positionnées, chaque espace doit être réfléchi » | Les cinq pages ont été mesurées à onze tailles d'écran, de 320 à 1 920 px. Les dessins du premier écran, dont trois sortaient du cadre, se tiennent maintenant à l'intérieur — voir le chapitre 4. La carte prend ses deux colonnes dès 768 px au lieu de 990. Le haut de la page carte porte une photographie sur grand écran, où il laissait la moitié droite vide. Les boutons « Itinéraire » et « Appeler » de l'accueil sont sur la même ligne. Sur téléphone, les vides avant les desserts, la provenance, l'appel à réserver et le plan perdent un cran chacun, et les quatre liens du pied tiennent sur deux lignes alignées. La barre du bas de la page carte ne renvoie plus vers la page où l'on est |
 
 **Une chose n'a PAS changé, et c'est délibéré : les teintes.** `--terre-600`

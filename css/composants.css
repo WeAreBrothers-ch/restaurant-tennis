@@ -350,6 +350,39 @@ a:focus-visible > .photo-zoom .photo-image {
   text-align: center;
 }
 
+/* ENTRE 900 ET 1200 PX, ELLE EST PROPORTIONNELLEMENT LA PLUS LARGE.
+
+   Le corps suit la largeur à treize pour cent, mais le nom de la maison compte
+   onze lettres : à 1 024 px, l'enseigne prend sept cents pixels et il n'en
+   reste que cent soixante de chaque côté — moins que le dessin du service, qui
+   venait alors à trois pixels d'elle. Un cran de corps rend quarante pixels à
+   chaque marge, et la couronne repasse. */
+@media (min-width: 900px) and (max-width: 1200px) {
+  .enseigne--premier {
+    font-size: clamp(54px, 11.2vw, 128px);
+  }
+}
+
+/* ELLE SE RÈGLE AUSSI SUR LA HAUTEUR, ET PAS SEULEMENT SUR LA LARGEUR.
+
+   Le corps ne suivait que la largeur. Sur une fenêtre large mais peu haute —
+   un portable de 1 280 × 800, le cas le plus courant — l'enseigne prenait
+   412 px de haut sur 704 : il ne restait qu'une bande de 146 px au-dessus et
+   autant en dessous pour les dessins, qui venaient à un pixel du nom de la
+   maison. Deux crans de hauteur ouvrent la couronne sans que l'enseigne cesse
+   d'être le sujet de l'écran. */
+@media (max-height: 900px) {
+  .enseigne--premier {
+    font-size: clamp(54px, 10.5vw, 118px);
+  }
+}
+
+@media (max-height: 780px) {
+  .enseigne--premier {
+    font-size: clamp(48px, 9vw, 100px);
+  }
+}
+
 .enseigne--premier .enseigne-sur,
 .enseigne--premier .enseigne-lieu {
   /* Centrées, les lettres espacées se rattrapent des deux côtés. */

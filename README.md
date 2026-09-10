@@ -90,18 +90,31 @@ elle n’était pas tenue : les liens du tableau d’affichage faisaient dix-sep
 pixels de haut. Ils font maintenant au moins trente-deux, et les numéros de
 téléphone quarante-quatre — la mesure du doigt.
 
-**La carte n’a plus de sommaire.** Elle a porté une liste des familles, en rail à
-gauche sur grand écran et en ligne glissante au doigt ; le client l’a fait retirer.
-La page carte et la page Pizza & Pasta enchaînent maintenant leurs familles, comme
-le site modèle, dans une colonne centrée.
+**La carte n’a plus de sommaire, et sa composition est celle du site modèle.** Une
+colonne de lecture de 620 px centrée, un filet sous chaque plat, un rappel pointillé
+entre le plat et son prix, et deux colonnes seulement au-delà de 1 100 px — où les
+plats coulent de la première dans la seconde, comme le texte d’un journal.
 
-**Rien n’est coupé, et rien ne se chevauche.** Les huit dessins du premier écran
-sont posés dans une grille de neuf cases, l’enseigne au milieu : deux cases ne se
-recouvrent jamais, et chaque dessin rend en marge ce que son inclinaison lui fait
-gagner, de sorte que sa boîte penchée s’arrête au bord de sa case. Vérifié à quinze
-tailles d’écran, au repos, à l’arrivée et sur toute la chute. Les cinq pages, elles,
-sont mesurées à onze tailles — débordement, texte coupé, chevauchement, cible de
-moins de vingt-quatre pixels — et rien ne dépasse.
+**Rien n’est coupé, et rien ne se chevauche.** Les dessins du premier écran changent
+de disposition avec la forme de la fenêtre — une couronne autour de l’enseigne sur
+grand écran, deux bandes sur un téléphone, deux marges latérales sur un écran couché —
+et l’enseigne elle-même se borne sur la hauteur pour leur laisser la place.
+
+> **Il a un essai à lui, et il faut le lancer après toute retouche du premier écran :**
+>
+> ```
+> node scripts/essai-premier-ecran.mjs
+> ```
+>
+> Il ouvre l’accueil à **cent soixante-neuf tailles d’écran**, du petit téléphone au
+> 4K, portrait et paysage, et relève chaque dessin qui en recouvre un autre, chaque
+> dessin coupé par un bord, et tout débordement horizontal. Il doit rendre zéro. Le
+> défaut ne se voit pas en ouvrant la page à une seule taille : il apparaît à une
+> largeur précise, entre deux seuils, là où l’enseigne est proportionnellement la plus
+> grande.
+
+Les cinq pages, elles, sont mesurées à onze tailles — débordement, texte coupé,
+chevauchement, cible de moins de vingt-quatre pixels — et rien ne dépasse.
 
 **Le premier écran reste lisible sur un petit téléphone.** En dessous de 620 px
 de haut — un iPhone SE, ou n’importe quel téléphone couché — trois des huit
@@ -155,7 +168,7 @@ dossier dans un petit serveur local, ou regardez-les directement en ligne.
 | `404.html` | La page affichée quand une adresse n’existe pas |
 | `css/` | Cinq feuilles de style, une par sujet (voir plus bas) |
 | `js/` | Neuf petits fichiers, un par comportement (voir plus bas) |
-| `scripts/` | Quatre outils d’entretien. Ne servent qu’à vous, jamais au visiteur |
+| `scripts/` | Six outils d’entretien : deux essais qui vérifient le site, quatre qui fabriquent des images ou des polices. Ne servent qu’à vous, jamais au visiteur |
 | `images/` | Les neuf photographies, les huit dessins au trait, le plan, les raquettes croisées et la marque du navigateur |
 | `dessins-source/` | Les dessins du premier écran tels qu’ils sont arrivés, avant détourage. **Ne sont pas publiés** |
 | `fonts/` | Les quatre fichiers de polices, hébergés ici plutôt que chez Google |

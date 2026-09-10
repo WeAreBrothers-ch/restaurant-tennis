@@ -42,10 +42,9 @@
    et la vrille de chaque dessin. Une seule écriture par image de rendu, pas
    huit.
 
-   Le même chiffre sert à l'arrivée : les dessins entrent en partant de
-   `--p: -0.3`, c'est-à-dire un peu plus haut et penchés dans l'autre sens, et
-   se posent. Le geste d'arrivée et le geste de départ sont donc le même
-   mouvement, joué dans un sens puis dans l'autre.
+   L'arrivée, elle, ne passe pas par ce chiffre : elle a le sien, `--arrivee`,
+   parce que la chute a un signe et que tous les dessins doivent entrer par le
+   haut, ceux qui montent en partant comme ceux qui descendent.
    ============================================================================ */
 
 /* Déclarer `--p` lui donne un type : il devient un vrai nombre, interpolable,
@@ -66,30 +65,37 @@
 
 /* LE PREMIER ÉCRAN PREND L'ÉCRAN ENTIER, ET RIEN D'AUTRE N'Y ENTRE.
 
-   Il y a eu deux erreurs successives, et la seconde vient de la correction de
-   la première.
-
    Il valait d'abord un écran entier SANS QUE SA COMPOSITION SUIVE : sur un
    moniteur de 1300 px de haut, cela faisait 1 200 px de crème pour une enseigne
    de 150 et huit dessins de 200. Le client a envoyé la capture en disant « je
-   ne veux pas de gros espace comme ça ».
+   ne veux pas de gros espace comme ça ». On l'a alors plafonné à 820 px, et la
+   première rangée de photographies est remontée DANS le premier écran : « la
+   héro ne doit pas être coupée par le carrousel, jamais ».
 
-   On l'a alors plafonné à 820 px — ce qui a réglé le vide et créé le défaut
-   suivant : sur une grande fenêtre, la première rangée de photographies
-   remontait DANS le premier écran et le coupait par le bas. Deuxième capture,
-   deuxième reproche : « la héro ne doit pas être coupée par le carrousel,
-   jamais ».
+   La correction n'est pas dans la hauteur de la section : c'est que LA SECTION
+   ET SA COMPOSITION SONT DEUX CHOSES. La section reprend l'écran entier, de
+   sorte que rien ne peut s'y glisser ; et le champ de dessins, posé par-dessus,
+   garde sa hauteur propre et se centre dedans.
 
-   La vraie correction n'est pas dans la hauteur de la section : c'est que LA
-   SECTION ET SA COMPOSITION SONT DEUX CHOSES. La section reprend l'écran
-   entier, de sorte que rien ne peut s'y glisser ; et c'est le champ de dessins,
-   plus bas, qui garde sa hauteur propre et se centre dedans. */
+   ⚠ UNE GRILLE A ÉTÉ ESSAYÉE ICI, PUIS RETIRÉE. Neuf cases, l'enseigne au
+   milieu : deux cases ne se recouvrant jamais, le chevauchement devenait
+   impossible. Mais réserver une rangée entière à l'enseigne coûte sa hauteur —
+   380 px sur un grand écran — et les dessins tombaient à 77 px de bande là où
+   ils en avaient 220. La composition se resserrait, et le client l'a vu tout de
+   suite : « t'as décalé le titre, la hero ». Le site modèle ne fait pas cela
+   non plus : ses dessins sont posés en absolu, et l'enseigne flotte au milieu.
+
+   On garde donc le champ libre, et les recouvrements sont réglés là où ils
+   naissent : dans les POSITIONS, les TAILLES et la TAILLE DE L'ENSEIGNE. */
 .premier {
   position: relative;
+  display: grid;
+  place-items: center;
   min-height: calc(100svh - var(--entete-h));
-  /* Au repos, aucun dessin ne sort du champ ni n'en touche un autre : la
-     grille du champ s'en charge. Le débordement n'est coupé que pour la
-     chute — en quittant l'écran, les dessins tombent sous le bord, et c'est
+  padding-block: var(--joint-serre);
+  /* Au repos, aucun dessin ne sort du cadre — voir `.premier-piece`, qui tient
+     chacun à l'intérieur. Le débordement n'est coupé que pour la chute : en
+     quittant l'écran, les dessins sortent par le haut ou par le bas, et c'est
      ici qu'ils disparaissent, jamais dans une barre de défilement. */
   overflow: hidden;
 }
@@ -101,191 +107,140 @@
 }
 
 /* ---------------------------------------------------------------------------
-   LE CHAMP : NEUF CASES, HUIT DESSINS ET L'ENSEIGNE AU MILIEU
+   L'ENSEIGNE
 
-   ⚠ REFAIT EN SEPTEMBRE. Le client, capture à l'appui : « il ne faut pas que
-   les dessins se chevauchent, vraiment fais attention ».
+   Elle occupe une bande centrale que les dessins ne franchissent jamais. Elle
+   est composée, pas dessinée : tout son dispositif est dans le composant
+   `.enseigne` de `composants.css`, y compris sa taille — qui se règle sur la
+   hauteur de la fenêtre autant que sur sa largeur, précisément pour laisser
+   cette bande libre. Ici, on ne règle que sa place et son mouvement.
+   --------------------------------------------------------------------------- */
+.premier-titre {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  transform: translateY(calc(var(--p) * -3rem)) scale(calc(1 - var(--p) * 0.06));
+  opacity: calc(1 - var(--p) * 0.85);
+}
 
-   Il avait raison, et le défaut était dans la construction, pas dans les
-   valeurs. Chaque dessin était posé en ABSOLU, à un pourcentage de largeur et
-   de hauteur, avec sa taille en pixels. Deux réglages qui ne parlent pas la
-   même langue : le pourcentage suit la fenêtre, les pixels non. À 1 100 px de
-   large, le relevé donnait onze recouvrements, dont le service qui mordait de
-   166 px sur la raquette. Aucune retouche des pourcentages ne pouvait tenir à
-   toutes les tailles — on en corrigeait une et on en créait une autre ailleurs.
+/* ---------------------------------------------------------------------------
+   LE CHAMP DE DESSINS
 
-   Le champ est donc une GRILLE. Trois colonnes, trois rangées, l'enseigne au
-   centre et les huit dessins dans les huit cases qui l'entourent. Deux cases
-   ne se recouvrent jamais : le chevauchement n'est plus une valeur à surveiller,
-   il est devenu impossible. L'enseigne est DANS la grille, et non posée
-   par-dessus : c'est elle qui donne sa hauteur à la rangée du milieu, et aucun
-   dessin ne peut donc venir sur le nom de la maison.
-
-   Le désordre, lui, reste entier : il vient des tailles inégales, des
-   inclinaisons, et de la place que chaque dessin prend DANS sa case — celui-ci
-   contre le bord haut, celui-là contre le bord bas. Ce qui a disparu, c'est le
-   hasard, pas la vie.
-
-   La couronne garde l'ordre qu'elle avait :
-
-       service    baskets    couvert
-       raquette   ENSEIGNE   balles
-       verres     filet      joueur
-
-   Les deux dessins de table — les verres et le couvert — restent
-   DIAGONALEMENT OPPOSÉS : l'ocre traverse l'écran, et l'œil fait le trajet.
+   Les dessins sont posés en pourcentages de ce champ : si le champ suit la
+   fenêtre, ils s'écartent jusqu'aux quatre coins et la couronne se défait —
+   c'est exactement le « gros espace » de la première capture. Le champ est donc
+   borné à la hauteur pour laquelle la composition a été réglée, et centré dans
+   la section, qui, elle, peut être aussi haute qu'on veut.
    --------------------------------------------------------------------------- */
 .premier-champ {
-  /* HORS FLUX, ET C'EST CE QUI BORNE LA SECTION.
-
-     Le champ a été un instant un enfant ordinaire de la section : elle prenait
-     alors la hauteur qu'il demandait, huit cent vingt pixels plus les joints,
-     et sur un écran de 800 la rangée du bas passait sous la ligne de
-     flottaison. Posé sur les quatre bords de la section, il ne peut plus la
-     faire grandir : c'est elle qui lui donne sa hauteur, et non l'inverse.
-     Cette hauteur est FERME, ce qui compte pour la grille — une rangée en
-     `1fr` a besoin d'un total connu pour se calculer, et les dessins d'une
-     case mesurée pour s'y borner. */
   position: absolute;
   inset: 0;
-  display: grid;
-  /* La colonne du milieu est mesurée par l'ENSEIGNE, pas par un tiers de
-     l'écran. À trois colonnes égales, le nom de la maison — quatre cents pixels
-     à 768 px de large — débordait d'une case de deux cent trente et venait sur
-     la raquette d'à côté. Les deux colonnes latérales se partagent ce qui
-     reste, à parts égales : la couronne est symétrique. */
-  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
-  /* La rangée du milieu se règle sur l'enseigne, les deux autres se partagent
-     ce qui reste. */
-  grid-template-rows: minmax(0, 1fr) auto minmax(0, 1fr);
-  /* L'écart entre deux cases. Il n'est pas décoratif : c'est la marge où les
-     coins d'un dessin PENCHÉ peuvent aller sans entrer chez le voisin. Un
-     dessin incliné de dix-huit degrés est plus haut que son image de six pour
-     cent ; quatorze pixels couvrent ce dépassement au plus petit écran. */
-  --joint-champ: clamp(14px, 2.4vw, 32px);
-  gap: var(--joint-champ);
-  width: 100%;
-  /* Les huit dessins sont réglés pour cette hauteur-là. Au-delà, ils
-     s'écarteraient jusqu'aux quatre coins et la couronne se déferait — c'est
-     exactement le « gros espace » de la première capture. Les marges
-     automatiques, entre un haut et un bas tous deux à zéro, le centrent. */
   max-height: 820px;
   margin-block: auto;
-  padding-block: var(--joint-serre);
-  /* La marge du site, et jamais moins de vingt-six pixels : un dessin posé
-     contre le bord de sa case est PENCHÉ, et sa boîte inclinée déborde de la
-     moitié de ce qu'il gagne en tournant. Le service, à treize degrés sur un
-     téléphone, gagne quarante-deux pixels de large : vingt et un de chaque
-     côté, soit plus que les quatorze de la marge — il sortait de l'écran par
-     la gauche. */
-  padding-inline: max(var(--marge), 26px);
+  /* Un dessin ne prend jamais le clic : tout ce qui est cliquable est ailleurs. */
+  pointer-events: none;
+  /* Ils s'effacent en partant, sans disparaître tout à fait : il en reste une
+     trace quand la bande d'accès direct arrive. */
+  opacity: calc(1 - var(--p) * 0.7);
   --echelle: 0.54;
 }
 
-/* Sous 380 px de large, les dessins gardaient leur taille pendant que l'écran
-   rétrécissait. Un cran d'échelle en dessous suffit à tout dégager. */
-@media (max-width: 379px) {
-  .premier-champ {
-    --echelle: 0.46;
-  }
-}
+/* L'ÉCHELLE SUIT LA HAUTEUR AUTANT QUE LA LARGEUR.
 
+   Elle ne suivait que la largeur, et c'est de là que venait la moitié des
+   recouvrements : sur une fenêtre large mais basse — un portable de 1 280 × 800,
+   le cas le plus courant — les dessins gardaient leur taille de grand écran
+   pendant que la bande où les poser perdait un tiers de sa hauteur. Deux
+   réglages qui ne parlent pas de la même chose. Chaque palier de hauteur rend
+   donc un cran.
+
+   Le cran de pleine taille attend 1 200 px, la largeur à partir de laquelle
+   l'enseigne cesse d'être bornée : à 1 100 px les dessins passaient à la taille
+   du grand écran pendant que la marge, elle, ne bougeait pas encore, et le
+   service venait sur le nom de la maison. Les deux seuils sont le même. */
 @media (min-width: 700px) {
   .premier-champ {
     --echelle: 0.72;
   }
 }
 
-@media (min-width: 1100px) {
+@media (min-width: 1200px) {
   .premier-champ {
     --echelle: 1;
   }
 }
 
-/* Au-delà, la page continue de s'élargir mais les dessins, eux, sont réglés en
-   pixels : ils rapetissent à vue d'œil pendant que l'enseigne, elle, va jusqu'à
-   150 px de corps. Un dernier cran les remet à l'échelle du grand écran. */
 @media (min-width: 1600px) {
   .premier-champ {
-    --echelle: 1.18;
+    --echelle: 1.06;
   }
 }
 
-/* ---------------------------------------------------------------------------
-   L'ENSEIGNE
+@media (min-width: 700px) and (max-height: 900px) {
+  .premier-champ {
+    --echelle: 0.78;
+  }
+}
 
-   Elle occupe la case centrale, que les dessins ne franchissent jamais. Sa
-   taille est bornée par l'écran ET par une valeur en pixels : au-delà, une
-   enseigne qui grandit avec la fenêtre finit par avoir l'air d'un fond d'écran.
-
-   Elle est composée, pas dessinée : tout son dispositif est dans le composant
-   `.enseigne` de `composants.css`. Ici, on ne règle que sa place, sa taille et
-   son mouvement.
-   --------------------------------------------------------------------------- */
-.premier-titre {
-  grid-column: 2;
-  grid-row: 2;
-  justify-self: center;
-  margin: 0;
-  transform: translateY(calc(var(--p) * -3rem)) scale(calc(1 - var(--p) * 0.06));
-  opacity: calc(1 - var(--p) * 0.85);
+@media (min-width: 700px) and (max-height: 780px) {
+  .premier-champ {
+    --echelle: 0.66;
+  }
 }
 
 /*
-  Chaque dessin porte cinq réglages, et rien d'autre :
+  Chaque dessin porte six réglages, et rien d'autre :
 
-    --case ..... la case qu'il occupe : colonne et rangée
-    --l ........ sa largeur de référence, ramenée par --echelle
-    --r ........ de combien il penche au repos
-    --chute .... de combien il descend quand on quitte l'écran
-    --vrille ... de combien il tourne en descendant
+    --x --y ... où il est, en pourcentage du champ
+    --l ....... sa largeur de référence, ramenée par --echelle
+    --ratio ... les proportions de son image, pour connaître sa hauteur avant
+                qu'elle ne soit chargée
+    --r ....... de combien il penche au repos
+    --chute ... de combien il descend — ou monte — quand on quitte l'écran
+    --vrille .. de combien il tourne en chemin
 
-  LA CHUTE SUIT LA RANGÉE, ET C'EST UNE RÈGLE, PAS UN GOÛT. La rangée du haut
-  MONTE, celle du milieu bouge à peine, celle du bas DESCEND : en quittant
-  l'écran, le champ s'ouvre autour de l'enseigne au lieu de se refermer. Deux
-  dessins ne peuvent donc pas se rejoindre en chemin — ils s'écartent, toujours,
-  et le chevauchement est impossible pendant la chute comme il l'est au repos.
-  Une chute au hasard, elle, faisait tomber la rangée du haut PLUS VITE que
-  celle du milieu : à mi-parcours, le service passait sur le couvert.
+  LES POSITIONS NE SONT PAS DE L'INSPIRATION. Elles ont été cherchées par la
+  mesure : un programme place les dessins à cent soixante-neuf tailles d'écran,
+  relève chaque recouvrement — entre deux dessins, et avec l'enseigne — et l'on
+  ne garde que ce qui n'en produit aucun. Après toute retouche, relancer
+  `node scripts/essai-premier-ecran.mjs`.
+
+  LA CHUTE SUIT LA HAUTEUR : les dessins du haut MONTENT en partant, ceux du bas
+  DESCENDENT. Le champ s'ouvre autour de l'enseigne au lieu de se refermer, et
+  deux dessins ne peuvent donc pas se rejoindre en chemin. Une chute au hasard
+  faisait passer le service sur le couvert à mi-parcours.
 
   La vrille, elle, reste libre : elle change de valeur et de signe d'un dessin à
   l'autre, et c'est elle qui porte le désordre. Tourner ne rapproche personne.
 */
 .premier-piece {
+  position: absolute;
+  /* LA POSITION DEMANDÉE, PUIS LA POSITION TENUE.
+
+     `--x` et `--y` disent où le dessin devrait être. Mais un dessin posé à 92 %
+     de la hauteur avec 300 px de haut sort du cadre, et la section le coupe :
+     « il ne doit jamais y avoir de choses coupées ». Chaque dessin calcule donc
+     sa propre demi-boîte — celle de son image PENCHÉE, plus large et plus haute
+     que l'image droite — et sa position est bornée entre cette demi-boîte et le
+     bord opposé. Un dessin qui tiendrait déjà ne bouge pas d'un pixel ; celui
+     qui sortait est ramené juste au bord. Les deux premières lignes sont la
+     position demandée : un navigateur qui ne connaît pas `sin()` s'y arrête. */
+  left: var(--x);
+  top: var(--y);
   --largeur: calc(var(--l) * var(--echelle));
-  --hauteur: calc(var(--largeur) / var(--proportion));
+  --hauteur: calc(var(--largeur) / var(--ratio));
+  /* Le sinus d'un angle négatif est négatif, et une boîte n'a pas de largeur
+     négative : `max` en prend la valeur absolue. */
+  --sinus: max(sin(var(--r)), -1 * sin(var(--r)));
+  --demi-x: calc((var(--largeur) * cos(var(--r)) + var(--hauteur) * var(--sinus)) / 2 + 4px);
+  --demi-y: calc((var(--hauteur) * cos(var(--r)) + var(--largeur) * var(--sinus)) / 2 + 4px);
+  left: clamp(var(--demi-x), var(--x), calc(100% - var(--demi-x)));
+  top: clamp(var(--demi-y), var(--y), calc(100% - var(--demi-y)));
   width: var(--largeur);
   height: auto;
-  /* CHAQUE DESSIN PAIE SON INCLINAISON.
-
-     Un dessin penché occupe plus de place que son image : à quinze degrés, le
-     filet gagne soixante pixels de haut. Le navigateur, lui, ne compte que
-     l'image droite — la rotation ne change rien à la mise en page. Résultat
-     relevé sur un écran de 1 600 px : le filet passait à DEUX pixels du nom de
-     la maison, ce qui se lit comme un contact.
-
-     Chacun calcule donc ce qu'il gagne en tournant — la moitié de chaque côté —
-     et le rend en marge. Sa boîte penchée s'arrête alors exactement au bord de
-     sa case, où qu'il se tienne dedans, et l'écart entre deux dessins vaut
-     toujours au moins le joint de la grille. Un navigateur sans `sin()` ignore
-     la ligne et retrouve la marge nulle du dessus. */
-  margin: 0;
-  --sinus: max(sin(var(--r)), -1 * sin(var(--r)));
-  --debord-x: calc((var(--largeur) * cos(var(--r)) + var(--hauteur) * var(--sinus) - var(--largeur)) / 2);
-  --debord-y: calc((var(--hauteur) * cos(var(--r)) + var(--largeur) * var(--sinus) - var(--hauteur)) / 2);
-  margin: var(--debord-y) var(--debord-x);
-  /* La case borne le dessin dans les deux sens, marges comprises. Sans cela, un
-     dessin réglé en pixels déborderait chez son voisin dès que la fenêtre se
-     resserre — et c'est par là que les recouvrements revenaient. */
-  max-width: max(0px, calc(100% - 2 * var(--debord-x)));
-  max-height: max(0px, calc(100% - 2 * var(--debord-y)));
-  /* Un dessin ne prend jamais le clic : tout ce qui est cliquable est ailleurs. */
-  pointer-events: none;
-  transform: translateY(calc(var(--p) * var(--chute) + var(--arrivee)))
+  transform: translate(-50%, -50%)
+    translateY(calc(var(--p) * var(--chute) + var(--arrivee)))
     rotate(calc(var(--r) + var(--p) * var(--vrille)));
-  /* Ils s'effacent en partant, sans disparaître tout à fait : il en reste une
-     trace quand la bande d'accès direct arrive. */
-  opacity: calc(1 - var(--p) * 0.7);
 }
 
 /* Le navigateur n'est prévenu que sur les écrans qui ont de quoi tenir neuf
@@ -296,89 +251,92 @@
   }
 }
 
-/* LES HUIT DESSINS, LEURS CASES ET LEURS DEUX ENCRES.
+/* LES HUIT DESSINS, ET LEURS DEUX ENCRES.
 
    Six sont en VERT SAPIN — le service, la raquette, le joueur, le filet, les
    chaussures, les balles : c'est le club. Deux sont en TERRE BATTUE — les
    verres et le couvert : c'est la table.
 
+   La règle d'alternance du site modèle — jamais deux dessins de la même encre
+   côte à côte — ne tient plus : avec six dessins d'une couleur et deux de
+   l'autre, elle est arithmétiquement impossible. Elle est remplacée par une
+   règle qui, elle, tient : LES DEUX DESSINS DE TABLE SONT DIAGONALEMENT
+   OPPOSÉS — le couvert en haut à droite, les verres en bas à gauche. L'ocre
+   traverse l'écran, et l'œil fait le trajet.
+
    Les largeurs ne sont pas égales : elles sont choisies pour que chaque dessin
    pèse OPTIQUEMENT autant que ses voisins. Les verres et le couvert sont des
    dessins couchés — trois fois plus larges que hauts pour les premiers — et il
-   leur faut deux fois la largeur d'un dessin debout pour ne pas disparaître.
-
-   Le `place-self` de chaque dessin dit où il se tient DANS sa case. Deux voisins
-   ne se serrent jamais contre leur bord commun : c'est la seule règle à tenir
-   quand on en déplace un. */
+   leur faut deux fois la largeur d'un dessin debout pour ne pas disparaître. */
 .premier-piece--service {
-  --proportion: calc(389 / 776);
-  grid-area: 1 / 1;
-  place-self: end center;
-  --l: 185px;
+  --ratio: calc(389 / 776);
+  --x: 8%;
+  --y: 23%;
+  --l: 150px;
   --r: -13deg;
   --chute: -150px;
   --vrille: 15deg;
 }
 
 .premier-piece--baskets {
-  --proportion: calc(400 / 222);
-  grid-area: 1 / 2;
-  place-self: start center;
-  --l: 200px;
+  --ratio: calc(400 / 222);
+  --x: 33%;
+  --y: 9%;
+  --l: 190px;
   --r: 18deg;
-  --chute: -135px;
+  --chute: -175px;
   --vrille: -20deg;
 }
 
 .premier-piece--couvert {
-  --proportion: calc(520 / 300);
-  grid-area: 1 / 3;
-  place-self: center end;
-  --l: 250px;
+  --ratio: calc(520 / 300);
+  --x: 86%;
+  --y: 11%;
+  --l: 230px;
   --r: 8deg;
-  --chute: -160px;
+  --chute: -165px;
   --vrille: -14deg;
 }
 
 .premier-piece--raquette {
-  --proportion: calc(240 / 373);
-  grid-area: 2 / 1;
-  place-self: center start;
-  --l: 135px;
+  --ratio: calc(240 / 373);
+  --x: 7.5%;
+  --y: 64%;
+  --l: 130px;
   --r: 9deg;
-  --chute: 45px;
+  --chute: 150px;
   --vrille: 16deg;
 }
 
 /* Le tube de balles est le plus étroit de tous : à largeur égale il serait
    deux fois plus haut que le joueur. */
 .premier-piece--balles {
-  --proportion: calc(172 / 470);
-  grid-area: 2 / 3;
-  place-self: center end;
+  --ratio: calc(172 / 470);
+  --x: 93%;
+  --y: 47%;
   --l: 95px;
   --r: -8deg;
-  --chute: 35px;
+  --chute: 60px;
   --vrille: 21deg;
 }
 
 .premier-piece--verres {
-  --proportion: calc(620 / 187);
-  grid-area: 3 / 1;
-  place-self: start center;
-  --l: 330px;
+  --ratio: calc(620 / 187);
+  --x: 21%;
+  --y: 88%;
+  --l: 310px;
   --r: -6deg;
-  --chute: 230px;
+  --chute: 240px;
   --vrille: -11deg;
 }
 
 .premier-piece--filet {
-  --proportion: calc(440 / 314);
-  grid-area: 3 / 2;
-  place-self: end center;
-  --l: 215px;
+  --ratio: calc(440 / 314);
+  --x: 50%;
+  --y: 92%;
+  --l: 180px;
   --r: -15deg;
-  --chute: 245px;
+  --chute: 255px;
   --vrille: -19deg;
 }
 
@@ -386,153 +344,205 @@
    précédent. Il est passé de debout à couché — 470 × 358 au lieu de 460 × 566 —
    et il lui faut donc plus de largeur pour peser autant. */
 .premier-piece--joueur {
-  --proportion: calc(470 / 358);
-  grid-area: 3 / 3;
-  place-self: start end;
-  --l: 265px;
+  --ratio: calc(470 / 358);
+  --x: 81%;
+  --y: 89%;
+  --l: 200px;
   --r: -6deg;
-  --chute: 260px;
+  --chute: 250px;
   --vrille: -17deg;
 }
 
-/* AU DOIGT, LA COMPOSITION CHANGE DE NATURE.
+/* ---------------------------------------------------------------------------
+   TROIS DISPOSITIONS, ET C'EST LA PLACE LIBRE AUTOUR DE L'ENSEIGNE QUI LES
+   DÉCIDE.
 
-   Sur grand écran, l'enseigne est une île au milieu et les dessins font le
-   tour. Sur un téléphone elle barre l'écran d'un bord à l'autre : il ne reste
-   plus une couronne, mais DEUX BANDES — l'une au-dessus, l'autre en dessous —
-   et les colonnes latérales sont trop étroites pour tenir quoi que ce soit.
+   L'enseigne est un bloc de texte : sa largeur suit celle de l'écran, sa
+   hauteur non. Ce qu'il reste autour d'elle change donc de FORME selon la
+   fenêtre, et une seule composition ne peut pas convenir aux trois cas.
 
-   La grille passe donc à DEUX colonnes et CINQ rangées : quatre dessins en
-   haut, l'enseigne en travers, quatre dessins en bas. Chaque bande est remplie
-   en quinconce, et deux cases ne se recouvrent toujours pas. */
-@media (max-width: 699px) {
+     — Sur un grand écran, elle occupe six dixièmes de la largeur et six de la
+       hauteur : il reste une COURONNE, et les huit dessins en font le tour.
+     — Sur un écran étroit — un téléphone, une tablette debout, une fenêtre à
+       moitié refermée — elle barre l'écran d'un bord à l'autre. Il ne reste que
+       DEUX BANDES, l'une au-dessus, l'autre en dessous, et cinq dessins s'y
+       rangent.
+     — Sur un écran plus large que haut mais bas — un téléphone couché, un
+       portable de 620 px — c'est l'inverse : plus de bandes, mais deux MARGES
+       LATÉRALES, et quatre dessins s'y tiennent.
+
+   Les seuils ne sont pas ronds par hasard : 900 px de large est la largeur à
+   partir de laquelle les marges tiennent un dessin à côté de l'enseigne, et
+   700 px de haut celle à partir de laquelle les bandes en tiennent un. En
+   dessous, la composition CHANGE plutôt que de se serrer.
+   --------------------------------------------------------------------------- */
+
+/* DEUX BANDES : tout ce qui est plus étroit que 900 px.
+
+   Cinq dessins, pas huit. Le relevé est sans appel : la bande au-dessus de
+   l'enseigne fait 219 px sur un iPhone, et deux dessins l'un sous l'autre en
+   demandent 280. On en a essayé sept, puis six ; à chaque fois deux d'entre eux
+   se touchaient à l'une ou l'autre des tailles. Trois en haut, deux en bas. */
+@media (max-width: 899px) {
   .premier-champ {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    grid-template-rows: repeat(2, minmax(0, 1fr)) auto repeat(2, minmax(0, 1fr));
-  }
-
-  .premier-titre {
-    grid-column: 1 / -1;
-    grid-row: 3;
-  }
-
-  .premier-piece--service {
-    grid-area: 1 / 1;
-    place-self: center start;
-    --chute: -225px;
-  }
-
-  .premier-piece--balles {
-    grid-area: 1 / 2;
-    place-self: center end;
-    --chute: -210px;
-  }
-
-  .premier-piece--couvert {
-    grid-area: 2 / 1;
-    place-self: center center;
-    --chute: -145px;
-  }
-
-  .premier-piece--baskets {
-    grid-area: 2 / 2;
-    place-self: center end;
-    --chute: -135px;
-  }
-
-  .premier-piece--raquette {
-    grid-area: 4 / 1;
-    place-self: center start;
-    --chute: 135px;
-  }
-
-  .premier-piece--verres {
-    grid-area: 4 / 2;
-    place-self: center end;
-    --chute: 150px;
-  }
-
-  .premier-piece--filet {
-    grid-area: 5 / 1;
-    place-self: start center;
-    --chute: 235px;
-  }
-
-  .premier-piece--joueur {
-    grid-area: 5 / 2;
-    place-self: start end;
-    --chute: 250px;
-  }
-}
-
-/* UN PETIT TÉLÉPHONE, ou un téléphone couché : il ne reste plus de bande.
-
-   Le seuil était à 560 px de haut, ce qui laissait DEHORS l'iPhone SE et ses
-   568 px — mesuré sur cet écran-là, quatre des huit dessins venaient se poser
-   sur l'enseigne, qui n'était plus lisible. Il passe à 620, ce qui prend tous
-   les téléphones de moins de six pouces, et l'écart avec la règle du dessus
-   (699 px de LARGE) est voulu : les deux ne parlent pas de la même chose.
-
-   Les trois plus grands dessins sortent, les cinq autres se rangent en deux
-   files, au-dessus et au-dessous de l'enseigne. */
-@media (max-height: 620px) {
-  .enseigne--premier {
-    font-size: clamp(40px, 9vw, 84px);
-  }
-
-  .premier-champ {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    grid-template-rows: minmax(0, 1fr) auto minmax(0, 1fr);
-    /* Un téléphone couché ne fait que 330 px de haut sous la barre. Le joint
-       de la page — quarante-quatre pixels en haut et autant en bas — et celui
-       de la grille y prenaient plus de place que les dessins eux-mêmes : les
-       rangées tombaient à vingt-six pixels et le filet sortait par le bas.
-       Les deux se resserrent, et la couronne retrouve de quoi tenir. */
-    padding-block: var(--sp-4);
-    --joint-champ: clamp(10px, 1.6vw, 18px);
-    --echelle: 0.5;
-  }
-
-
-  .premier-titre {
-    grid-column: 1 / -1;
-    grid-row: 2;
+    --echelle: 0.54;
   }
 
   .premier-piece--service,
-  .premier-piece--joueur,
-  .premier-piece--couvert {
+  .premier-piece--couvert,
+  .premier-piece--joueur {
     display: none;
   }
 
   .premier-piece--balles {
-    grid-area: 1 / 1;
-    place-self: end center;
-    --chute: -150px;
+    --x: 14%;
+    --y: 14%;
+    --chute: -190px;
   }
 
   .premier-piece--raquette {
-    grid-area: 1 / 2;
-    place-self: end center;
-    --chute: -140px;
+    --x: 48%;
+    --y: 12%;
+    --chute: -180px;
   }
 
   .premier-piece--baskets {
-    grid-area: 1 / 3;
-    place-self: end center;
-    --chute: -160px;
+    --x: 84%;
+    --y: 15%;
+    --chute: -170px;
   }
 
   .premier-piece--verres {
-    grid-area: 3 / 1;
-    place-self: start center;
-    --chute: 200px;
+    --x: 25%;
+    --y: 85%;
+    --chute: 230px;
   }
 
   .premier-piece--filet {
-    grid-area: 3 / 3;
-    place-self: start center;
-    --chute: 215px;
+    --x: 76%;
+    --y: 86%;
+    --chute: 250px;
+  }
+}
+
+/* SUR UN TÉLÉPHONE, LES DESSINS SE RAPPROCHENT DE L'ENSEIGNE ET GROSSISSENT.
+
+   Collés aux quatre coins et réglés à l'échelle d'une tablette, ils laissaient
+   cent cinquante pixels de crème vide entre eux et le nom de la maison — un
+   tiers de l'écran pour rien. Sous 600 px de large, l'enseigne est étroite et
+   les bandes sont hautes : c'est la seule taille où l'on peut à la fois les
+   grossir d'un dixième et les descendre de neuf points vers le centre. Ces deux
+   chiffres sont le maximum relevé : un cran de plus, et le tube de balles
+   touchait l'enseigne sur une tablette de 540 px. */
+@media (max-width: 599px) {
+  .premier-champ {
+    --echelle: 0.6;
+  }
+
+  .premier-piece--balles {
+    --y: 23%;
+  }
+
+  .premier-piece--raquette {
+    --y: 21%;
+  }
+
+  .premier-piece--baskets {
+    --y: 24%;
+  }
+
+  .premier-piece--verres {
+    --y: 76%;
+  }
+
+  .premier-piece--filet {
+    --y: 77%;
+  }
+}
+
+/* Une fenêtre étroite ET basse : les deux bandes se resserrent, et les dessins
+   reculent vers les bords plutôt que de venir sur l'enseigne. */
+@media (max-width: 899px) and (max-height: 720px) {
+  .premier-champ {
+    --echelle: 0.54;
+  }
+
+  .premier-piece--balles {
+    --y: 17%;
+  }
+
+  .premier-piece--raquette {
+    --y: 15%;
+  }
+
+  .premier-piece--baskets {
+    --y: 18%;
+  }
+
+  .premier-piece--verres {
+    --y: 83%;
+  }
+
+  .premier-piece--filet {
+    --y: 84%;
+  }
+}
+
+/* Le plus petit téléphone passe en dernier : il est étroit avant d'être bas, et
+   c'est sa largeur qui commande la taille des dessins. */
+@media (max-width: 379px) {
+  .premier-champ {
+    --echelle: 0.48;
+  }
+}
+
+/* DEUX MARGES : plus large que haut. L'enseigne y prend toute la hauteur, et
+   c'est sur les côtés qu'il reste de la place. La règle se lit sur la FORME de
+   la fenêtre et non sur sa largeur : un téléphone couché fait 844 px de large,
+   un portable bas 1 280, et les deux demandent la même chose. */
+@media (max-height: 699px) and (min-aspect-ratio: 13 / 10) {
+  .premier-champ {
+    --echelle: 0.62;
+  }
+
+  .premier-piece--service,
+  .premier-piece--couvert,
+  .premier-piece--joueur,
+  .premier-piece--baskets {
+    display: none;
+  }
+
+  .premier-piece--raquette {
+    --x: 9%;
+    --y: 26%;
+    --chute: -150px;
+  }
+
+  .premier-piece--balles {
+    --x: 92%;
+    --y: 28%;
+    --chute: -140px;
+  }
+
+  .premier-piece--verres {
+    --x: 9%;
+    --y: 78%;
+    --chute: 220px;
+  }
+
+  .premier-piece--filet {
+    --x: 92%;
+    --y: 78%;
+    --chute: 230px;
+  }
+}
+
+/* Un petit téléphone couché tombe dans les deux cas à la fois : il est étroit
+   ET bas. C'est la disposition en marges qui l'emporte, et l'enseigne y perd un
+   cran de corps pour laisser passer les dessins. */
+@media (max-width: 899px) and (max-height: 620px) {
+  .premier-champ {
+    --echelle: 0.42;
   }
 }
 
@@ -583,23 +593,23 @@
    place. À trois dixièmes, ceux du haut arrivaient de 80 px au-dessus du cadre
    et entraient coupés ; à un dixième, la réserve de `--demi-y` absorbe la part
    du trajet qui se voit, et le geste reste lisible. */
-/* L'ARRIVÉE NE SE MESURE PLUS EN CHUTE, MAIS EN JOINT.
+/* L'ARRIVÉE NE SE MESURE PLUS EN CHUTE, MAIS EN PIXELS.
 
    Elle empruntait `--chute`, et cela ne pouvait plus tenir : la chute a
-   maintenant un SIGNE — la rangée du haut monte, celle du bas descend — et les
-   dessins du haut seraient donc entrés par le bas.
+   maintenant un SIGNE — les dessins du haut montent en partant, ceux du bas
+   descendent — et ceux du haut seraient donc entrés par le bas.
 
-   Chacun monte désormais de la même chose, un peu plus d'un demi-joint. Deux
-   dessins gardent donc exactement leur écart pendant toute l'arrivée ; et comme
+   Chacun monte désormais de la même chose, quatorze pixels. Deux dessins
+   gardent ainsi exactement leur écart pendant toute l'arrivée ; et comme
    l'enseigne, elle, ne bouge pas — la règle ne pose `--arrivee` que sur les
    pièces — il suffit que cette montée reste sous la marge la plus étroite du
-   champ, dix-sept pixels au relevé, pour que rien ne se touche jamais.
+   champ pour que rien ne se touche jamais.
 
    C'est le fondu qui porte l'arrivée ; la montée ne fait que la poser. */
 @keyframes premier-arrivee {
   from {
     opacity: 0;
-    --arrivee: calc(var(--joint-champ) * -0.6);
+    --arrivee: -14px;
   }
 }
 

@@ -25,21 +25,38 @@
   padding-block: var(--demi-joint);
 }
 
-/* LA CARTE EST UNE COLONNE CENTRÉE, ET RIEN D'AUTRE.
+/* LA CARTE EST UNE COLONNE, ET C'EST CELLE DU SITE MODÈLE.
 
    Elle a porté un RAIL à gauche — un sommaire de quinze rem qui suivait le
-   défilement — et le client l'a retiré : « je ne veux pas du tout de
-   navigation en fait pour la carte, tu enlèves ça ». Le site modèle n'en a
-   jamais eu : sa page carte enchaîne les familles, sans index.
+   défilement — puis une colonne de 56 rem tenant deux pistes de plats à toutes
+   les tailles. Le client a retiré le premier (« je ne veux pas du tout de
+   navigation en fait pour la carte ») et refusé la seconde (« la carte, tu as
+   fait des trucs hyper chelou, inspire-toi de l'Étoile »).
 
-   Ce qui reste est une colonne unique, centrée, large de deux pistes de plats
-   et de leur écart — 26 + 26 rem, plus 4 rem de gouttière, soit 56. Elle donne
-   à la page UN seul bord gauche, celui des titres de famille comme celui des
-   plats, et le vide se répartit également des deux côtés. */
+   La composition est donc reprise de là, telle quelle :
+
+     — UNE colonne de lecture, 620 px, centrée. C'est la mesure d'un paragraphe
+       qu'on lit d'une traite, et c'est celle d'une carte imprimée ;
+     — DEUX colonnes seulement au-delà de 1 100 px, et par le multi-colonnage,
+       pas par une grille : les plats coulent de la première dans la seconde
+       comme le texte d'un journal, au lieu d'être répartis case par case ;
+     — un FILET sous chaque plat, un autre sous le titre de famille. C'est ce
+       qui tient la page, pas des fonds ni des blocs.
+
+   Ce qui reste de nous : le nom de code sous chaque plat, l'étoile des plats de
+   la maison, et les prix en terre battue. C'est la particularité de cette
+   maison, et le client y tient. */
 .page-colonneCarte,
 .page-colonnePizzeria {
-  max-width: 56rem;
+  max-width: var(--colonne-lecture);
   margin-inline: auto;
+}
+
+@media (min-width: 1100px) {
+  .page-colonneCarte,
+  .page-colonnePizzeria {
+    max-width: 1120px;
+  }
 }
 
 .page-supplements {
@@ -120,42 +137,42 @@
 /* ============================================================================
    UNE LIGNE DE PLAT
 
-   ⚠ ELLE A ÉTÉ REFAITE EN SEPTEMBRE. Le client a regardé la page et a dit :
-   « la carte j'aime pas le positionnement ». Il ne s'est pas expliqué, mais le
-   relevé, lui, est sans appel.
+   Le nom, un rappel pointillé, le prix ; la description dessous, et le nom de
+   code en dernier. C'est la mise en page d'une carte imprimée, et elle n'a pas
+   été améliorée depuis.
 
-   La version précédente reprenait la carte imprimée au pied de la lettre : le
-   nom de code du plat — ACE, TIE-BREAK, LE VESTIAIRE — dans une gouttière de
-   douze rem à gauche, aligné à droite, séparé du plat par un filet vertical.
-   Sur du papier, cette construction est juste. Sur une page web, elle donnait
-   ceci, mesuré à 1440 px :
+   ⚠ ELLE A ÉTÉ REFAITE DEUX FOIS. D'abord parce que le nom de code occupait une
+   gouttière de douze rem à gauche, aligné à droite : les trois quarts de chaque
+   ligne étaient du vide, et le client a dit « la carte j'aime pas le
+   positionnement ». Le nom de code est descendu SOUS le plat, dans l'ordre du
+   DOM — et non ramené là par un `order`, qui aurait décalé la lecture à l'écran
+   de la lecture au clavier.
 
-     — la gouttière prenait 192 px sur une mesure de 900, soit vingt et un pour
-       cent d'une colonne dont la plus grande partie était vide, le texte étant
-       calé sur le bord opposé ;
-     — l'écart médian du nom au prix valait 452 px, franchis par des pointillés ;
-     — la page alignait TROIS bords gauches différents — le titre à 272, la
-       photographie à 240, la liste à 550 ;
-     — et il fallait descendre 2 764 px de colonne sans un seul repère.
-
-   Autrement dit : trois quarts de chaque ligne étaient du vide et des points de
-   conduite. C'est littéralement ce qu'on appelle un mauvais positionnement.
-
-   LA GOUTTIÈRE EST SUPPRIMÉE. Le nom de code devient ce qu'il était déjà au
-   doigt : une étiquette posée SOUS le plat, à sa gauche, dans l'ordre du DOM —
-   et non ramenée là par un `order`, qui aurait décalé la lecture à l'écran de
-   la lecture au clavier.
-
-   Ce qu'on y gagne : la ligne tient dans 26 rem, donc la carte tient sur DEUX
-   colonnes, donc l'écart du nom au prix tombe à 229 px — et le rappel pointillé
-   devient inutile. Les deux gestes vont ensemble : supprimer les pointillés en
-   gardant une colonne de 900 px décrocherait le prix de son plat.
+   Ensuite parce que la ligne avait perdu son filet et son rappel pointillé, et
+   la carte s'était étalée sur deux colonnes dès 768 px : « des trucs hyper
+   chelou, inspire-toi de l'Étoile ». Les deux reviennent. Le filet sous chaque
+   plat est ce qui donne son rythme à une carte longue ; le rappel pointillé est
+   ce qui rattache un prix à son plat quand la colonne fait 620 px.
    ============================================================================ */
 .lignedeplat-plat {
   display: flex;
   flex-direction: column;
-  padding-block: 0 var(--sp-6);
+  padding-block: var(--sp-4);
+  border-bottom: 1px solid var(--trait);
   break-inside: avoid;
+}
+
+/* Le dernier plat d'une famille n'a rien à séparer : le vide de la famille
+   suivante s'en charge. Sur deux colonnes en revanche il le garde — sans lui,
+   la colonne de gauche et celle de droite ne finiraient pas au même endroit. */
+.lignedeplat-plat:last-child {
+  border-bottom: 0;
+}
+
+@media (min-width: 1100px) {
+  .lignedeplat-plat:last-child {
+    border-bottom: 1px solid var(--trait);
+  }
 }
 
 .lignedeplat-corps {
@@ -198,28 +215,27 @@
 .lignedeplat-nom {
   color: var(--encre);
   font-family: var(--serif);
-  font-size: 1.0625rem;
+  font-size: var(--fs-plat);
   font-weight: 500;
   line-height: 1.25;
 }
 
-/* LE RAPPEL POINTILLÉ A DISPARU. Il servait à rattraper 452 px entre le nom et
-   le prix ; sur une piste de 26 rem l'écart médian tombe à 229, et un prix à
-   deux cent trente pixels de son plat se lit sans qu'on ait à lui tenir la
-   main. La règle reste ici, vide de tout dessin, parce que le balisage la
-   porte encore sur cinquante-neuf lignes : elle sert de ressort, et rien de
-   plus. */
+/* Le rappel pointillé. Il pousse le prix contre le bord droit et le relie à son
+   plat : sans lui, un prix flottant au milieu d'une ligne courte a l'air de ne
+   se rapporter à rien. Le balisage le porte depuis toujours — une balise vide,
+   à laisser vide. */
 .lignedeplat-rappel {
   flex: auto;
-  min-width: var(--sp-4);
+  min-width: 2rem;
+  border-bottom: 1px dotted var(--trait-champ);
+  transform: translateY(0.1em);
 }
 
-/* Les prix prennent enfin la terre battue — c'est le seul endroit de la carte
-   où elle serve — et la taille du nom : un prix plus petit que son plat se
-   cherche. */
+/* Les prix prennent la terre battue — c'est le seul endroit de la carte où elle
+   serve — et la taille du nom : un prix plus petit que son plat se cherche. */
 .lignedeplat-prix {
   color: var(--accent);
-  font-size: 1.0625rem;
+  font-size: var(--fs-plat);
   font-weight: 600;
   letter-spacing: 0.01em;
   white-space: nowrap;
@@ -235,8 +251,8 @@
 
 .lignedeplat-description {
   order: 2;
-  max-width: 52ch;
-  margin-top: 0.3rem;
+  max-width: 60ch;
+  margin-top: var(--sp-2);
   color: var(--encre-2);
   font-size: var(--fs-corps-sm);
   line-height: 1.5;
@@ -246,8 +262,7 @@
    personne » — sont des <span> séparés, et c'est le VIDE qui les sépare, pas
    un point médian. Elles étaient écrites d'un trait, avec des « · » dans le
    texte : dès que la ligne cassait — sur un téléphone, toujours — le point
-   restait seul au bout de la ligne, et se lisait comme une puce. Un séparateur
-   qui peut se retrouver seul au bord n'en est pas un. */
+   restait seul au bout de la ligne, et se lisait comme une puce. */
 .lignedeplat-meta {
   order: 4;
   display: flex;
@@ -273,33 +288,27 @@
    UNE CATÉGORIE DE LA CARTE
    ============================================================================ */
 .categoriecarte-categorie + .categoriecarte-categorie {
-  margin-top: var(--sp-8);
+  margin-top: var(--sp-9);
 }
 
 /* LE TITRE DE FAMILLE EST UN TITRE, PAS UNE BANDE.
 
    Il a porté un aplat vert pleine largeur pendant une version. Le client a
    répondu : « la carte c'est horrible, ce que tu as fait à surligner les
-   titres, je ne veux pas ça, fais comme l'Étoile je préfère ». Il a raison sur
-   le fond : dix bandes de couleur qui descendent une page de carte, c'est un
-   index qui se répète, pas une lecture.
+   titres, je ne veux pas ça, fais comme l'Étoile je préfère ». Puis il a porté
+   un filet noir et le corps d'un titre de page — deux fois celui d'un nom de
+   plat — et c'était encore trop : « des trucs hyper chelou ».
 
-   Il reprend donc la composition du site modèle — le serif en capitales
-   espacées, sur la crème — et c'est le FILET qui le tient, pas un fond. Il
-   n'a besoin d'aucun repère de position à côté : à ce corps-là, deux fois
-   celui d'un nom de plat, on voit d'un coup d'œil où commence une famille.
-
-   Il gagne quand même le corps qui lui manquait : à `--fs-h2` il est deux fois
-   plus grand qu'un nom de plat, là où `--fs-h3` ne le mettait qu'à 1,3. */
+   Il reprend donc exactement la composition du site modèle : le serif en
+   capitales espacées, à peine plus gros qu'un nom de plat, sans fond ni filet
+   propre. C'est le filet de la LISTE, juste dessous, qui l'assoit. */
 .categoriecarte-titre {
   margin: 0;
-  padding-bottom: var(--sp-4);
-  border-bottom: 1px solid var(--encre);
   color: var(--encre);
   font-family: var(--serif);
-  font-size: var(--fs-h2);
-  font-weight: 400;
-  letter-spacing: 0.06em;
+  font-size: var(--fs-h3);
+  font-weight: 500;
+  letter-spacing: 0.1em;
   line-height: 1.15;
   text-transform: uppercase;
 }
@@ -312,29 +321,24 @@
   line-height: 1.5;
 }
 
-/* DEUX COLONNES DÈS LA TABLETTE, UNE SEULE EN DESSOUS.
+/* UNE COLONNE, ET DEUX AU-DELÀ DE 1 100 PX.
 
-   Elles étaient tirées par `auto-fill` avec une piste bornée à 26 rem. Or le
-   navigateur compte les pistes d'un `auto-fill` sur leur largeur MAXIMALE : de
-   700 à 990 px de large, il n'en plaçait qu'une, de 26 rem, et laissait la
-   moitié droite de la page vide. Le nombre de colonnes est donc écrit en
-   clair : deux à partir de 768 px, une en dessous, qui prend toute la largeur.
-   Chaque piste reste bornée à 26 rem — au-delà, le prix s'éloigne trop de son
-   plat — et le vide qui reste se met entre les deux.
-
-   Les filets horizontaux entre les plats ont disparu avec les pointillés : sur
-   deux colonnes ils dessinaient un damier, et une carte n'est pas un tableau. */
+   Elles ont été tirées par une grille à deux pistes dès 768 px : sur une
+   tablette, deux colonnes de trois cent trente pixels pour des plats dont le
+   nom en fait deux cents, c'est une carte qu'on lit en zigzag. Le site modèle
+   attend 1 100 px, et il emploie le MULTI-COLONNAGE : les plats coulent de la
+   première colonne dans la seconde, dans l'ordre de la carte, au lieu d'être
+   distribués une case sur deux. On lit la colonne de gauche en entier, puis
+   celle de droite. */
 .categoriecarte-liste {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  column-gap: var(--sp-8);
-  justify-content: space-between;
   margin-top: var(--sp-5);
+  border-top: 1px solid var(--trait);
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1100px) {
   .categoriecarte-liste {
-    grid-template-columns: repeat(2, minmax(0, 26rem));
+    columns: 2;
+    column-gap: clamp(2.5rem, 5vw, 4.5rem);
   }
 }
 
@@ -449,11 +453,19 @@
    bord gauche, et la photographie ne le franchit pas. Elle allait jusqu'aux
    bords du `wrapLarge`, soit trois cents pixels plus large que la carte
    qu'elle sépare en deux. */
+/* La respiration prend la mesure de la colonne de plats : la page n'a qu'un
+   bord gauche, et la photographie ne le franchit pas. */
 .respirationcarte-respiration {
-  max-width: 56rem;
+  max-width: var(--colonne-lecture);
   margin-block: var(--joint);
   margin-inline: auto;
   padding-inline: 0;
+}
+
+@media (min-width: 1100px) {
+  .respirationcarte-respiration {
+    max-width: 1120px;
+  }
 }
 
 .respirationcarte-cadre {
