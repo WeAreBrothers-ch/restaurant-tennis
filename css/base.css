@@ -218,6 +218,14 @@ address {
   display: block;
   width: auto;
   height: var(--marque-h, clamp(4.75rem, 6.6vw, 7.75rem));
+  /* IL EST EN RETRAIT DU TEXTE, ET C'EST VOULU. Il était calé sur le bord
+     gauche de la colonne, exactement comme le titre dessous : « les balles de
+     tennis sont un peu trop collées à gauche, il ne faut pas que ce soit
+     autant collé ». Un dessin n'est pas une ligne de texte — il n'a pas de
+     bord franc, et aligné au pixel près sur un titre il a l'air tombé là.
+     Le retrait vaut de seize pixels sur un téléphone à trente-deux sur un
+     grand écran : assez pour qu'on voie que c'est un choix. */
+  margin-left: clamp(1rem, 2.5vw, 2rem);
   margin-bottom: var(--sp-6);
   /* Aucun n'est parfaitement d'aplomb : c'est ce qui les empêche d'avoir l'air
      posés par une machine. */

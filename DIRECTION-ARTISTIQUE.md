@@ -220,17 +220,39 @@ C'est un parti pris, et il se défend : un grand visuel en ouverture oblige à p
 texte par-dessus, donc à assombrir la photo, donc à choisir entre lire et voir. Ici on
 ne choisit pas.
 
-Les dessins ne sont pas jetés au hasard. Ils laissent libre la bande centrale où vit
-l'enseigne, et chacun porte six réglages écrits dans la feuille de style : **où il
-est, quelle taille il fait, les proportions de son image, de combien il penche, de
-combien il tombe au premier défilement, et de combien il vrille en tombant.**
+Les dessins ne sont pas jetés au hasard. Chacun porte cinq réglages écrits dans la
+feuille de style : **la case qu'il occupe, quelle taille il fait, de combien il
+penche, de combien il tombe au premier défilement, et de combien il vrille en
+tombant.** Le désordre vient des tailles inégales, des inclinaisons et de la place que
+chaque dessin prend dans sa case — celui-ci contre le bord haut, celui-là contre le
+bord bas. Ce qui a disparu, c'est le hasard, pas la vie.
 
-Aucun n'est coupé par le bord de l'écran. Trois l'étaient, par parti pris — c'était
-censé empêcher la composition d'avoir l'air rangée — et le client a tranché : « il ne
-doit jamais y avoir de choses coupées ». Chaque dessin calcule donc la boîte de son
-image penchée et se tient à l'intérieur du cadre, quelle que soit la fenêtre ; celui
-qui sortait est ramené juste au bord, les autres ne bougent pas. Le désordre vient
-des inclinaisons et des tailles inégales, pas d'un dessin à moitié sorti.
+**Aucun n'est coupé, et aucun n'en touche un autre.** Trois étaient coupés par parti
+pris, et onze recouvrements ont été relevés à 1 100 px de large. Le client a tranché
+deux fois : « il ne doit jamais y avoir de choses coupées », puis « il ne faut pas que
+les dessins se chevauchent ».
+
+Le défaut était dans la construction, pas dans les valeurs. Chaque dessin était posé
+en absolu, à un pourcentage de largeur et de hauteur, avec sa taille en pixels : deux
+réglages qui ne suivent pas la même chose. On corrigeait un recouvrement à une taille
+d'écran et on en créait un autre ailleurs.
+
+Le champ est donc devenu une **grille de neuf cases** : trois colonnes, trois rangées,
+l'enseigne au centre et un dessin dans chacune des huit cases qui l'entourent. Deux
+cases ne se recouvrent jamais — le chevauchement n'est plus une valeur à surveiller,
+il est devenu impossible. L'enseigne est dans la grille et non posée par-dessus :
+c'est elle qui mesure la colonne et la rangée du milieu, et aucun dessin ne peut donc
+venir sur le nom de la maison. Au doigt la grille passe à deux colonnes et cinq
+rangées, l'enseigne en travers ; sur un écran court, à trois cases en haut et deux en
+bas.
+
+Deux détails achèvent la garantie. Chaque dessin **paie son inclinaison** : penché de
+quinze degrés, il est plus haut que son image de soixante pixels, et il rend cette
+différence en marge — sa boîte penchée s'arrête donc exactement au bord de sa case.
+Et la chute du premier défilement suit la rangée : le haut monte, le bas descend, le
+champ s'ouvre autour de l'enseigne au lieu de se refermer, si bien que deux dessins ne
+peuvent pas se rejoindre en chemin. Relevé à quinze tailles d'écran, du 320 × 568 au
+1 920 × 1 080 : zéro recouvrement, au repos, à l'arrivée et sur toute la chute.
 
 Tout le mouvement tient dans un seul chiffre, `--p`, l'avancée du premier défilement.
 Le script ne fait qu'écrire ce chiffre ; c'est le CSS qui en tire la chute de chacun.
@@ -289,19 +311,18 @@ la carte imprimée. Dans le HTML, le plat porte `data-signature="true"` et rien
 d'autre ; c'est le CSS qui dessine l'étoile. Un « ★ » écrit au milieu d'un nom est
 épelé par les lecteurs d'écran, et ce n'est pas un mot : c'est une marque.
 
-Enfin, la carte a **un sommaire**, ce que le site modèle n'avait pas. Il a une
-carte courte ; celle-ci compte cinquante-neuf plats sur deux pages. Sans index, il
-faut faire défiler quatre écrans pour savoir s'il y a des pizzas. C'est une liste
-de liens, pas une barre d'onglets : elle ne suit pas le défilement, elle ne
-surligne pas la famille courante. Un sommaire de livre.
+Enfin, la carte **n'a pas de sommaire**, et c'est un retour en arrière assumé.
+Elle en a porté un : une liste des dix familles, en rail à gauche sur grand écran,
+en ligne glissante au doigt. Le client l'a fait retirer en deux temps — d'abord
+ses losanges séparateurs (« il y a des genres de bullet point dans la page carte,
+ça va pas du tout »), puis le bloc entier (« je ne veux pas du tout de navigation
+en fait pour la carte, tu enlèves ça »). Le site modèle n'en a jamais eu : sa page
+carte enchaîne les familles, sans index, et on descend.
 
-Sur un téléphone, ce sommaire tient sur **une seule ligne**, qu'on fait glisser
-d'un bord de l'écran à l'autre. Il passait à la ligne — huit lignes d'un ou deux
-libellés sur 390 px — et chaque ligne se terminait par le losange qui devait
-séparer deux familles : seul au bout d'une ligne, un losange ne sépare plus rien,
-il se lit comme une puce. Sur une ligne, il est toujours entre deux libellés, et
-le sommaire rend à la carte l'écran entier qu'il lui prenait. Entre 700 et
-1 100 px, c'est une grille de liens à filet, sans losange ; au-dessus, le rail.
+Ce qui reste tient tout seul : les titres de famille sont deux fois plus grands
+qu'un nom de plat et tenus par un filet, la carte se lit sur deux colonnes dès
+768 px, et l'en-tête garde ses trois liens. La page a un seul bord gauche, celui
+d'une colonne centrée de 56 rem — deux pistes de plats et leur gouttière.
 
 ---
 
@@ -357,9 +378,12 @@ qu'elles ont donné.
 | « Améliore les dispositions des textes et images » | L'échelle typographique est écartée : le chapô et le corps valaient le même chiffre, ils sont maintenant à 1,37. L'italique prend une couleur. Le chapô cesse d'être plus pâle que le détail qui le suit |
 | « Analyse chaque page, la disposition est-elle cohérente » | La carte alignait trois bords gauches ; elle en a deux. Les cinq pages emploient les mêmes surfaces dans le même ordre |
 | « Vraiment améliore les couleurs » | **Annulé.** Une palette à cinq surfaces a été essayée puis retirée à la demande du client — voir l'encadré du chapitre 2. Ce qui reste de la réponse au « terne » : le rythme, l'échelle typographique et la carte |
-| « La carte, ce que tu as fait à surligner les titres, je ne veux pas ça » | Les titres de famille ont porté un aplat vert pendant une version. Ils reprennent la composition du site modèle : serif en capitales espacées, tenu par un filet, sur la crème. Le repère de position que la bande apportait est rendu par le sommaire en rail |
+| « La carte, ce que tu as fait à surligner les titres, je ne veux pas ça » | Les titres de famille ont porté un aplat vert pendant une version. Ils reprennent la composition du site modèle : serif en capitales espacées, tenu par un filet, sur la crème. Le repère de position que la bande apportait vient de leur corps : à `--fs-h2`, un titre de famille est deux fois plus grand qu'un nom de plat |
 | « Le bouton téléphone, je ne le veux pas en carré comme ça » | Le bloc plein de la barre du haut devient un lien souligné, le même composant que « Voir toute la carte ». Sa cible reste haute de 48 px |
-| « Il y a des genres de bullet point dans la page carte, ça va pas du tout » ; « je ne veux pas du tout de ces bullet points, tu les supprimes » | Les losanges du sommaire sont supprimés, à toutes les largeurs. Sur un téléphone, le sommaire tient sur une ligne qu'on fait glisser, et c'est l'écart qui sépare deux familles ; de 700 à 1 100 px, une grille à filets. Les points médians des mentions « minimum 2 personnes · prix par personne » avaient le même défaut : supprimés aussi, c'est le vide qui sépare |
+| « Il y a des genres de bullet point dans la page carte, ça va pas du tout » ; « je ne veux pas du tout de navigation en fait pour la carte, tu enlèves ça » | Le sommaire est supprimé, losanges compris, sur la carte comme sur la page Pizza & Pasta. La carte devient une colonne centrée de 56 rem. Les points médians des mentions « minimum 2 personnes · prix par personne » avaient le même défaut de puce orpheline : supprimés aussi, c'est le vide qui sépare |
+| « Les balles de tennis sont un peu trop collées à gauche » | Les dessins de section étaient calés au pixel près sur le bord gauche du texte. Un dessin n'a pas de bord franc : il prend un retrait de seize à trente-deux pixels selon l'écran |
+| « Le venir chez nous, c'est trop moche, c'est séparé, ça n'a aucun sens » | Le titre flottait au-dessus d'un filet qui n'était pas le sien, à soixante-quatre pixels de son contenu. Le filet devient celui du titre — la composition des titres de famille de la carte — et l'écart tombe à vingt-quatre pixels |
+| « Il ne faut pas que les dessins se chevauchent, vraiment fais attention » | Le premier écran est refait : les huit dessins étaient posés en absolu, à un pourcentage de la fenêtre, avec une taille en pixels — deux mesures qui ne suivent pas la même chose, et onze recouvrements relevés à 1 100 px. C'est maintenant une grille de neuf cases, l'enseigne au milieu et un dessin par case. Voir le chapitre 4 |
 | « Il ne doit jamais y avoir de choses coupées ou mal positionnées, chaque espace doit être réfléchi » | Les cinq pages ont été mesurées à onze tailles d'écran, de 320 à 1 920 px. Les dessins du premier écran, dont trois sortaient du cadre, se tiennent maintenant à l'intérieur — voir le chapitre 4. La carte prend ses deux colonnes dès 768 px au lieu de 990. Le haut de la page carte porte une photographie sur grand écran, où il laissait la moitié droite vide. Les boutons « Itinéraire » et « Appeler » de l'accueil sont sur la même ligne. Sur téléphone, les vides avant les desserts, la provenance, l'appel à réserver et le plan perdent un cran chacun, et les quatre liens du pied tiennent sur deux lignes alignées. La barre du bas de la page carte ne renvoie plus vers la page où l'on est |
 
 **Une chose n'a PAS changé, et c'est délibéré : les teintes.** `--terre-600`

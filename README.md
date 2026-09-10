@@ -86,23 +86,22 @@ de 2 558 — soixante-quatre pour cent de moins, à l’œil identique.
 > ```
 
 **Rien ne se tape à moins de vingt-quatre pixels.** C’est la norme WCAG 2.5.8, et
-elle n’était pas tenue : les dix liens du sommaire de la carte faisaient seize
-pixels de haut, ceux du tableau d’affichage dix-sept. Ils font maintenant au
-moins trente-deux, et les numéros de téléphone quarante-quatre — la mesure du
-doigt.
+elle n’était pas tenue : les liens du tableau d’affichage faisaient dix-sept
+pixels de haut. Ils font maintenant au moins trente-deux, et les numéros de
+téléphone quarante-quatre — la mesure du doigt.
 
-**Le sommaire de la carte tient sur une ligne.** Les dix familles se lisent à la
-file, sans séparateur, et la ligne se pousse au doigt, d’un bord de l’écran à
-l’autre. Elle passait à la ligne — huit lignes sur un iPhone — et chaque ligne se
-terminait par un losange orphelin qui ressemblait à une puce. Entre 700 et
-1 100 px, le sommaire est une grille de liens à filet ; au-delà, le rail qui suit
-le défilement.
+**La carte n’a plus de sommaire.** Elle a porté une liste des familles, en rail à
+gauche sur grand écran et en ligne glissante au doigt ; le client l’a fait retirer.
+La page carte et la page Pizza & Pasta enchaînent maintenant leurs familles, comme
+le site modèle, dans une colonne centrée.
 
-**Rien n’est coupé par le bord de l’écran.** Les huit dessins du premier écran se
-tiennent dans le cadre à toutes les tailles, de l’iPhone SE au 5K : chacun calcule
-la boîte de son image penchée et ne la laisse pas sortir. Les cinq pages sont
-mesurées à onze tailles d’écran — débordement, texte coupé, chevauchement, cible
-de moins de vingt-quatre pixels — et rien ne dépasse.
+**Rien n’est coupé, et rien ne se chevauche.** Les huit dessins du premier écran
+sont posés dans une grille de neuf cases, l’enseigne au milieu : deux cases ne se
+recouvrent jamais, et chaque dessin rend en marge ce que son inclinaison lui fait
+gagner, de sorte que sa boîte penchée s’arrête au bord de sa case. Vérifié à quinze
+tailles d’écran, au repos, à l’arrivée et sur toute la chute. Les cinq pages, elles,
+sont mesurées à onze tailles — débordement, texte coupé, chevauchement, cible de
+moins de vingt-quatre pixels — et rien ne dépasse.
 
 **Le premier écran reste lisible sur un petit téléphone.** En dessous de 620 px
 de haut — un iPhone SE, ou n’importe quel téléphone couché — trois des huit
@@ -213,9 +212,10 @@ personne » — sont chacune dans leur propre `<span>`, à l’intérieur du
 `lignedeplat-meta`. N’écrivez pas de « · » entre elles : c’est l’espace qui sépare,
 et un point écrit dans le texte finirait seul au bout d’une ligne sur téléphone.
 
-**Si vous ajoutez ou retirez une famille entière**, pensez au sommaire en haut de la
-page : c’est la liste `sommaire-liste`, juste avant la première famille, et elle ne
-se met pas à jour toute seule.
+**Si vous ajoutez ou retirez une famille entière**, il n’y a rien d’autre à tenir à
+jour : la page n’a pas de sommaire, et les familles se suivent simplement. Recopiez
+un bloc `<section class="categoriecarte-categorie">` entier, de la balise ouvrante à
+la fermante.
 
 ### Attention : certaines informations existent à plusieurs endroits
 

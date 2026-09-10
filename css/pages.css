@@ -1,8 +1,8 @@
 /* ============================================================================
    LES PAGES INTÉRIEURES
    La carte, Pizza & Pasta, le contact, et la page d'erreur. Plus les composants
-   qu'elles se partagent : les lignes de plats, le sommaire, le bloc des
-   provenances, le formulaire et le plan d'accès.
+   qu'elles se partagent : les lignes de plats, le bloc des provenances, le
+   formulaire et le plan d'accès.
    ============================================================================ */
 
 /* ============================================================================
@@ -25,65 +25,21 @@
   padding-block: var(--demi-joint);
 }
 
-/* LA CARTE TIENT SUR UN RAIL ET UN CORPS.
+/* LA CARTE EST UNE COLONNE CENTRÉE, ET RIEN D'AUTRE.
 
-   Elle était une colonne de 900 px centrée, ce qui produisait trois bords
-   gauches différents sur la même page : le titre à 272, la photographie de
-   respiration à 240, la liste des plats à 550. Rien ne s'alignait sur rien.
+   Elle a porté un RAIL à gauche — un sommaire de quinze rem qui suivait le
+   défilement — et le client l'a retiré : « je ne veux pas du tout de
+   navigation en fait pour la carte, tu enlèves ça ». Le site modèle n'en a
+   jamais eu : sa page carte enchaîne les familles, sans index.
 
-   Elle est maintenant une grille à deux colonnes : à gauche un RAIL de quinze
-   rem où le sommaire se pose et suit le défilement, à droite le CORPS où tout
-   le reste vient — familles, respiration, provenance, appel. Un seul bord
-   gauche pour le rail, un seul pour le corps, et le vide qui reste à droite
-   égale le rail : la page est symétrique.
-
-   Tout cela est enfermé au-dessus de 1100 px. En dessous, le sommaire devient
-   une grille de liens à filet, puis une seule ligne au téléphone — voir « LE
-   SOMMAIRE DE LA CARTE » plus bas — et la carte redevient une colonne. */
+   Ce qui reste est une colonne unique, centrée, large de deux pistes de plats
+   et de leur écart — 26 + 26 rem, plus 4 rem de gouttière, soit 56. Elle donne
+   à la page UN seul bord gauche, celui des titres de famille comme celui des
+   plats, et le vide se répartit également des deux côtés. */
 .page-colonneCarte,
 .page-colonnePizzeria {
-  max-width: none;
-  margin-inline: 0;
-}
-
-@media (min-width: 1100px) {
-  .page-colonneCarte,
-  .page-colonnePizzeria {
-    display: grid;
-    grid-template-columns: 15rem minmax(0, 1fr);
-    column-gap: var(--sp-8);
-    align-items: start;
-  }
-
-  .page-colonneCarte > *,
-  .page-colonnePizzeria > * {
-    grid-column: 2;
-  }
-
-  /* Le rail. `span 99` plutôt qu'un nombre juste : la carte gagne et perd des
-     familles au fil des saisons, et une valeur exacte serait un piège à la
-     première qu'on ajoute. */
-  .page-colonneCarte > .sommaire-sommaire,
-  .page-colonnePizzeria > .sommaire-sommaire {
-    grid-column: 1;
-    grid-row: 1 / span 99;
-    position: sticky;
-    top: calc(var(--entete-h-lg) + var(--sp-6));
-    margin-top: 0;
-  }
-
-  /* Une seule colonne : la grille des largeurs moyennes se referme, et chaque
-     lien garde le filet qu'il a déjà. */
-  .page-colonneCarte .sommaire-liste,
-  .page-colonnePizzeria .sommaire-liste {
-    display: block;
-  }
-
-  /* La respiration s'aligne sur le corps, pas sur le rail. */
-  .respirationcarte-respiration {
-    max-width: none;
-    padding-inline: 0;
-  }
+  max-width: 56rem;
+  margin-inline: auto;
 }
 
 .page-supplements {
@@ -92,138 +48,6 @@
   color: var(--encre-3);
   font-size: var(--fs-legende);
   line-height: 1.5;
-}
-
-/* ============================================================================
-   LE SOMMAIRE DE LA CARTE
-
-   Il n'existe pas sur le site modèle, et pour une bonne raison : celui-ci avait
-   une carte courte. Celle du Restaurant Tennis Club en compte cinquante-neuf,
-   sur deux pages. Sans index, il faut faire défiler quatre écrans pour savoir
-   s'il y a des pizzas.
-
-   C'est une liste de liens, pas une barre d'onglets : elle ne surligne pas la
-   famille courante, elle ne fait rien de ce qu'on attend d'un composant. Elle
-   dit ce que la carte contient, et se laisse dépasser. Un sommaire de livre.
-
-   IL A TROIS ÉTATS, ET LE TÉLÉPHONE EST LE PREMIER.
-
-   Au doigt, c'est UNE SEULE LIGNE, qu'on fait glisser d'un bord de l'écran à
-   l'autre. La version précédente laissait la liste passer à la ligne, ce qui
-   donnait, sur 390 px, huit lignes d'un ou deux libellés — et chaque ligne se
-   terminait par le losange qui devait séparer deux familles. Seul au bout
-   d'une ligne, un losange ne sépare plus rien : il se lit comme une puce. Le
-   client l'a dit ainsi : « il y a des genres de bullet point dans la page
-   carte, ça va pas du tout ». Les losanges sont SUPPRIMÉS, à toutes les
-   largeurs : sur la ligne, c'est l'écart qui sépare deux familles. Et le
-   sommaire rend à la carte l'écran entier qu'il lui prenait : cinquante-six
-   pixels au lieu de trois cent trente.
-
-   De 700 à 1100 px, une GRILLE de liens à filet, sur deux ou trois colonnes :
-   c'est le filet de chaque ligne qui sépare, comme dans le rail. Au-dessus de
-   1100 px, le RAIL — voir plus haut.
-   ============================================================================ */
-.sommaire-sommaire {
-  border-block: 1px solid var(--trait);
-}
-
-.sommaire-liste {
-  display: flex;
-  flex-wrap: nowrap;
-  align-items: center;
-  /* PAS DE SÉPARATEUR. La liste a porté des losanges entre deux familles ; le
-     client n'en veut pas — « je ne veux pas du tout de ces bullet points ». Un
-     écart deux fois plus large que l'espace d'un mot suffit à dire où un
-     libellé finit et où le suivant commence. */
-  column-gap: var(--sp-6);
-  /* La ligne déborde des marges jusqu'aux bords de l'écran. Un libellé coupé
-     net au bord droit dit qu'il y a une suite, mieux qu'une flèche ; et le
-     premier libellé, lui, reste calé sur la marge du site. */
-  margin-inline: calc(-1 * var(--marge));
-  padding-inline: var(--marge);
-  /* Le remplissage vertical n'est pas du vide : c'est la place de l'anneau de
-     focus, qui déborde le lien de cinq pixels. Une zone qui défile coupe ce
-     qui dépasse, et un anneau coupé aux trois quarts est pire que pas d'anneau. */
-  padding-block: var(--sp-3);
-  overflow-x: auto;
-  /* Le geste horizontal reste au sommaire, le vertical à la page. */
-  overscroll-behavior-x: contain;
-  /* Quand le doigt lâche, la ligne se pose sur le début d'un libellé, pas sur
-     un mot coupé. `proximity` et non `mandatory` : dix familles, et un aimant
-     trop fort sur chacune rendrait le geste collant. */
-  scroll-snap-type: x proximity;
-  scroll-padding-inline: var(--marge);
-  scrollbar-width: none;
-}
-
-.sommaire-liste::-webkit-scrollbar {
-  display: none;
-}
-
-.sommaire-liste li {
-  display: flex;
-  flex: none;
-  align-items: center;
-  scroll-snap-align: start;
-}
-
-.sommaire-lien {
-  /* AU DOIGT, LE LIEN FAIT SA HAUTEUR DE CIBLE. Il ne mesurait que seize pixels
-     de haut — la hauteur de ses lettres — et il y en a dix à la file : c'est le
-     genre de liste où l'on tape à côté une fois sur trois. */
-  display: inline-block;
-  padding-block: 0.5rem;
-  color: var(--encre-2);
-  font-family: var(--mono);
-  font-size: var(--fs-exergue);
-  letter-spacing: 0.16em;
-  line-height: 1.3;
-  text-transform: uppercase;
-  text-decoration: none;
-  /* Un libellé ne casse jamais : c'est la ligne entière qui glisse. */
-  white-space: nowrap;
-  transition: color var(--dur-vif) var(--sortie);
-}
-
-.sommaire-lien:hover,
-.sommaire-lien:focus-visible {
-  color: var(--accent);
-}
-
-/* La grille, de 700 à 1100 px. Chaque lien prend une ligne et un filet ; les
-   filets de la liste n'ont plus lieu d'être, chaque lien portant le sien. */
-@media (min-width: 700px) {
-  .sommaire-sommaire {
-    margin-top: var(--sp-6);
-    border-block: 0;
-  }
-
-  .sommaire-liste {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
-    column-gap: var(--sp-6);
-    margin-inline: 0;
-    padding: 0;
-    overflow: visible;
-  }
-
-  .sommaire-liste li {
-    display: block;
-  }
-
-  .sommaire-lien {
-    display: block;
-    padding-block: 0.55rem;
-    border-bottom: 1px solid var(--trait);
-    font-size: 0.8125rem;
-    letter-spacing: 0.1em;
-  }
-}
-
-/* Le sommaire se ferme par un filet ; la première famille ne doit pas s'y
-   coller. C'est le même vide qu'entre deux familles, en un peu plus court. */
-.sommaire-sommaire + .categoriecarte-categorie {
-  margin-top: var(--sp-7);
 }
 
 /* ============================================================================
@@ -458,12 +282,12 @@
    répondu : « la carte c'est horrible, ce que tu as fait à surligner les
    titres, je ne veux pas ça, fais comme l'Étoile je préfère ». Il a raison sur
    le fond : dix bandes de couleur qui descendent une page de carte, c'est un
-   sommaire qui se répète, pas une lecture.
+   index qui se répète, pas une lecture.
 
    Il reprend donc la composition du site modèle — le serif en capitales
-   espacées, sur la crème — et c'est le FILET qui le tient, pas un fond. Le
-   repère de position que la bande apportait est rendu autrement, et mieux : par
-   le sommaire en rail, à gauche, qui suit le défilement.
+   espacées, sur la crème — et c'est le FILET qui le tient, pas un fond. Il
+   n'a besoin d'aucun repère de position à côté : à ce corps-là, deux fois
+   celui d'un nom de plat, on voit d'un coup d'œil où commence une famille.
 
    Il gagne quand même le corps qui lui manquait : à `--fs-h2` il est deux fois
    plus grand qu'un nom de plat, là où `--fs-h3` ne le mettait qu'à 1,3. */
@@ -621,8 +445,15 @@
 /* Elle coupe la lecture : elle prend donc l'intervalle courant, le même que
    celui qui sépare deux sections — et le même au-dessus qu'en dessous. Elle
    avait 96 px au-dessus et 160 en dessous : posée de travers dans sa liste. */
+/* La respiration prend la mesure de la colonne de plats : la page n'a qu'un
+   bord gauche, et la photographie ne le franchit pas. Elle allait jusqu'aux
+   bords du `wrapLarge`, soit trois cents pixels plus large que la carte
+   qu'elle sépare en deux. */
 .respirationcarte-respiration {
+  max-width: 56rem;
   margin-block: var(--joint);
+  margin-inline: auto;
+  padding-inline: 0;
 }
 
 .respirationcarte-cadre {
