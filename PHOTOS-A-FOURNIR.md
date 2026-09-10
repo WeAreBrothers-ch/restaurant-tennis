@@ -84,7 +84,6 @@ tient, ce qui tient mal, et ce qui manque.
 | `plat-salade-2026-09b.jpg` | Salade mêlée, de jour | Tient très bien |
 | `plat-burger-2026-09b.jpg` | Burger et panier de frites, de jour | Tient très bien |
 | `salle-bar-2026-09b.jpg` | La salle et le bar, le soir | Sombre. Fait un trou sur la crème |
-| `plat-rigatoni-serre-2026-09b.jpg` | Rigatoni pistacchio & burrata, sous la lampe du passe | Sombre, et prise au passe plutôt qu’en salle |
 | `plat-poisson-2026-09b.jpg` | Poisson en feuilleté, sauce crémeuse | Sombre |
 | `plat-desserts-2026-09b.jpg` | Deux desserts portés en salle | Sombre |
 | `apero-olives-2026-09b.jpg` | Olives marinées sur une table | Sombre |
@@ -103,7 +102,7 @@ Par ordre d’utilité. Toutes de jour, en lumière naturelle, sur fond clair.
 | Ce qu’on veut | Où elle irait | Format | Dimensions |
 | --- | --- | --- | --- |
 | **La terrasse dressée**, avant le service, au bord des courts | Le ruban de l’accueil, en tête | 4:5 | 1200 × 1500 |
-| **Une pizza**, sortie du four, plan serré | L’ouverture de la page Pizza & Pasta, à la place des rigatoni | 4:5 | 1100 × 1375 |
+| **Une pizza**, sortie du four, plan serré | L’ouverture de la page Pizza & Pasta, et le bloc « Neuf pizzas » de l’accueil. **Les deux emplacements sont vides aujourd’hui** : les rigatoni qui les occupaient ont été retirés | 4:5 | 1100 × 1375 |
 | **La salle de jour**, baies ouvertes sur les courts | Le bloc « Le club-house » de l’accueil, à la place de la salle du soir | 4:3 | 1280 × 960 |
 | **Une assiette de pâtes de jour**, sur une table de la salle | Le ruban | 4:5 | 1200 × 1500 |
 | **Le bar de jour**, ou une table dressée en gros plan | Le bandeau de la page Carte | 5:2 | 1290 × 516 |
@@ -123,9 +122,10 @@ Ce n’est jamais deux fois sur la même page.
 | Accueil — ruban, 6 vignettes | entrecôte, salade, poisson, burger, olives, desserts | portrait ou paysage, indifférent |
 | Accueil — bloc « Le club-house » | `salle-bar-2026-09b.jpg` | 4:3 |
 | Accueil — bandeau « Depuis la salle » | `courts-baies-2026-09b.jpg` | 16:9 |
-| Accueil — bloc « Neuf pizzas » | `plat-rigatoni-serre-2026-09b.jpg` | 4:3 |
-| Carte — bandeau de respiration | `salle-bar-2026-09b.jpg` | 5:2 |
-| Pizza & Pasta — ouverture | `plat-rigatoni-serre-2026-09b.jpg` | 4:5 |
+| Accueil — bloc « Neuf pizzas » | *(vide — en attente de la photographie de pizza)* | 4:3 |
+| Carte — ouverture | `plat-entrecote-2026-09b.jpg` | 3:4 |
+| Carte — bandeau de respiration | `salle-bar-2026-09b.jpg` | 4:3 au doigt, 2:1 au-delà de 700 px |
+| Pizza & Pasta — ouverture | *(vide — en attente de la photographie de pizza)* | 4:5 |
 | Contact — ouverture | `courts-baies-2026-09b.jpg` | 4:5 |
 | Partage (WhatsApp, Facebook) | `og-2026-09b.jpg` | 1,9:1 — 1200 × 630 |
 

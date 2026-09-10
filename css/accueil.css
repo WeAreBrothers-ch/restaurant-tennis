@@ -4,8 +4,10 @@
    Le principe de mise en page, relevé sur le site de référence et appliqué ici :
 
    1. AUCUNE PHOTOGRAPHIE NE TOUCHE LE BORD DE L'ÉCRAN — sauf le ruban, qui
-      sort par la droite pour dire qu'il continue. C'est l'inverse de la
-      version précédente, où les images débordaient un peu partout.
+      sort par la droite pour dire qu'il continue, et sauf, au doigt, les deux
+      seules photographies qui ne partagent leur bord gauche avec aucun texte :
+      le bandeau de la carte et l'ouverture du contact. Voir `.photo-bordABord`
+      dans `base.css`.
 
    2. DEUX PHOTOGRAPHIES NE SONT JAMAIS D'ACCORD. Pas la même largeur, pas le
       même format, pas la même hauteur de départ. Une grille régulière se lit
@@ -837,12 +839,11 @@ h1.duo-titre {
     order: 2;
   }
 
-  /* Au doigt, la photographie de ces deux blocs s'intercale entre son texte et
-     le bloc suivant, qui en porte déjà une : deux, parfois trois photographies
-     d'affilée. Celle de la salle du soir montre la même pièce que le bandeau qui
-     la suit ; celle des rigatoni ouvre déjà la page Pizza & Pasta, à deux clics
-     de là. On les retire : sur petit écran, elles n'ajoutaient que de la
-     longueur. */
+  /* Au doigt, la photographie de ce bloc s'intercale entre son texte et le bloc
+     suivant, qui en porte déjà une : deux, parfois trois photographies
+     d'affilée. Celle de la salle du soir montre en outre la même pièce que le
+     bandeau qui la suit. On la retire : sur petit écran, elle n'ajoutait que de
+     la longueur. */
   .duo-visuel--horsMobile {
     display: none;
   }

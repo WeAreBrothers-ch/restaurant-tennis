@@ -227,6 +227,21 @@ tombant.** Le désordre vient des tailles inégales, des inclinaisons et de la p
 chaque dessin prend dans sa case — celui-ci contre le bord haut, celui-là contre le
 bord bas. Ce qui a disparu, c'est le hasard, pas la vie.
 
+**Deux photographies touchent le bord de l'écran au doigt**, et ce sont les seules :
+le bandeau de respiration de la carte et l'ouverture de la page contact. La règle du
+site est l'inverse — aucune image ne va d'un bord à l'autre, sauf le ruban de
+l'accueil — et le client l'a fait plier : « je n'aime pas qu'il y ait des bordures
+vides, tu les colles au côté ». Il a raison sur ces deux-là, et pour une raison qui
+n'est pas de goût : ce sont les seules photographies qui ne partagent pas leur bord
+gauche avec un texte. Celles des blocs à deux colonnes s'alignent sur leur
+paragraphe, et la marge s'y lit comme une colonne ; celles-ci sont seules sur leur
+ligne, et la marge n'y aligne plus rien. Au-delà de 900 px, elles rentrent dans leur
+colonne.
+
+Celle de la page contact a perdu son format portrait au doigt, qui lui donnait la
+moitié de l'écran pour ouvrir une page dont le sujet est une adresse : elle est
+recadrée en paysage, garde le haut de l'image, et passe de 480 à 260 px.
+
 **Aucun n'est coupé, et aucun n'en touche un autre.** Trois étaient coupés par parti
 pris, et onze recouvrements ont été relevés à 1 100 px de large. Le client a tranché
 trois fois : « il ne doit jamais y avoir de choses coupées », « il ne faut pas que les
@@ -391,6 +406,8 @@ qu'elles ont donné.
 | « Les balles de tennis sont un peu trop collées à gauche » | Les dessins de section étaient calés au pixel près sur le bord gauche du texte. Un dessin n'a pas de bord franc : il prend un retrait de seize à trente-deux pixels selon l'écran |
 | « Le venir chez nous, c'est trop moche, c'est séparé, ça n'a aucun sens » | Le titre flottait au-dessus d'un filet qui n'était pas le sien, à soixante-quatre pixels de son contenu. Le filet devient celui du titre — la composition des titres de famille de la carte — et l'écart tombe à vingt-quatre pixels |
 | « Il ne faut pas que les dessins se chevauchent, vraiment fais attention » ; « t'as décalé le titre, la hero » | Le premier écran a été refait deux fois. Une grille de neuf cases rendait le chevauchement impossible, mais réservait à l'enseigne une rangée entière et resserrait tout : retirée. Le champ libre du site modèle est conservé, et le chevauchement est réglé par les positions, les tailles, et la taille de l'enseigne — qui se borne maintenant sur la hauteur de la fenêtre. Trois dispositions selon la forme de l'écran. Vérifié à 169 tailles par `scripts/essai-premier-ecran.mjs` |
+| « L'image de la burrata, tu la supprimes, elle est trop moche » | Retirée de l'ouverture de Pizza & Pasta et du bloc « Neuf pizzas » de l'accueil, fichiers compris. Les deux blocs présentent leur texte en colonne de lecture jusqu'à ce que la photographie de pizza soit prise |
+| « Je n'aime pas qu'il y ait des bordures vides, tu les colles au côté » ; « celle de contact, tu peux la faire plus petite, elle est gigantesque » | Le bandeau de la carte et l'ouverture du contact vont d'un bord à l'autre de l'écran au doigt. Celle du contact passe en outre du portrait au paysage : 260 px de haut au lieu de 480 |
 | « La carte, tu as fait des trucs hyper chelou, inspire-toi de l'Étoile » | La carte reprend la composition du site modèle, telle quelle : une colonne de lecture de 620 px centrée, deux colonnes seulement au-delà de 1 100 px et par multi-colonnage, un filet sous chaque plat, un filet sous le titre de famille, et le rappel pointillé entre le plat et son prix. Ce qui reste de nous : le nom de code, l'étoile des plats de la maison, et les prix en terre battue |
 | « Il ne doit jamais y avoir de choses coupées ou mal positionnées, chaque espace doit être réfléchi » | Les cinq pages ont été mesurées à onze tailles d'écran, de 320 à 1 920 px. Les dessins du premier écran, dont trois sortaient du cadre, se tiennent maintenant à l'intérieur — voir le chapitre 4. La carte prend ses deux colonnes dès 768 px au lieu de 990. Le haut de la page carte porte une photographie sur grand écran, où il laissait la moitié droite vide. Les boutons « Itinéraire » et « Appeler » de l'accueil sont sur la même ligne. Sur téléphone, les vides avant les desserts, la provenance, l'appel à réserver et le plan perdent un cran chacun, et les quatre liens du pied tiennent sur deux lignes alignées. La barre du bas de la page carte ne renvoie plus vers la page où l'on est |
 
@@ -439,7 +456,7 @@ divisent nettement en deux :
 | | Ce qu'elles montrent | Sur la crème |
 | --- | --- | --- |
 | **Quatre de jour** | La vue sur les courts depuis la salle, l'entrecôte, la salade, le burger | Elles tiennent. Ce sont elles qui portent la page |
-| **Cinq du soir** | Le bar et la salle, les rigatoni, le poisson en feuilleté, les desserts, les olives | Fond sombre, lumière chaude, contraste fort. Elles font le trou annoncé |
+| **Quatre du soir** | Le bar et la salle, le poisson en feuilleté, les desserts, les olives | Fond sombre, lumière chaude, contraste fort. Elles font le trou annoncé |
 
 C'est acceptable en l'état — ce sont les vraies photographies du restaurant, et
 mieux vaut le vrai lieu sombre qu'un faux lieu clair. Mais la série reste à
@@ -451,8 +468,12 @@ compléter, et le brief ne change pas :
 - **franches** : une assiette, une table, un geste. Pas de mise en scène.
 
 Deux photographies manquent particulièrement : **la terrasse dressée** et **une
-pizza**. La page Pizza & Pasta porte aujourd'hui une assiette de rigatoni prise au
-passe, faute de mieux.
+pizza**. La page Pizza & Pasta portait une assiette de rigatoni à la burrata, prise
+au passe, faute de mieux ; le client l'a fait retirer — « elle est trop moche » — et
+les deux emplacements qu'elle occupait, l'ouverture de la page et le bloc « Neuf
+pizzas » de l'accueil, sont **vides en attendant la vraie photographie**. Ils
+présentent leur texte en colonne de lecture, ce qui est la composition du site
+modèle pour ce cas ; ils ne montrent pas un cadre vide.
 
 Une conséquence technique, écrite dans la feuille de style : quatre de ces neuf
 photographies ont été prises **debout**, et le sujet n'y est pas au centre du

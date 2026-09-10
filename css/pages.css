@@ -454,12 +454,25 @@
    bords du `wrapLarge`, soit trois cents pixels plus large que la carte
    qu'elle sépare en deux. */
 /* La respiration prend la mesure de la colonne de plats : la page n'a qu'un
-   bord gauche, et la photographie ne le franchit pas. */
+   bord gauche, et la photographie ne le franchit pas. Au doigt, elle va au
+   contraire d'un bord à l'autre de l'écran — voir `.photo-bordABord` dans
+   `base.css` : seule sur sa ligne, elle n'a aucun texte à qui s'aligner. */
 .respirationcarte-respiration {
   max-width: var(--colonne-lecture);
   margin-block: var(--joint);
   margin-inline: auto;
   padding-inline: 0;
+}
+
+@media (max-width: 899px) {
+  .respirationcarte-respiration {
+    /* `.wrapLarge` lui donne `width: 100%` : sans cette ligne, les marges
+       négatives la décalent vers la gauche au lieu de l'élargir, et elle
+       découvre le bord gauche pour couvrir le bord droit. */
+    width: auto;
+    max-width: none;
+    margin-inline: calc(-1 * var(--marge));
+  }
 }
 
 @media (min-width: 1100px) {
@@ -481,6 +494,25 @@
 /* ============================================================================
    LA PAGE CONTACT
    ============================================================================ */
+/* LA PHOTOGRAPHIE DE LA PAGE CONTACT.
+
+   Elle est portrait — 1 100 × 1 375 — et sur un téléphone cela lui faisait
+   quatre cent quatre-vingts pixels de haut, plus de la moitié de l'écran, pour
+   ouvrir une page dont le sujet est une adresse et un numéro. « Elle est
+   gigantesque. » Au doigt, elle est donc recadrée en paysage : elle garde le
+   haut de l'image — c'est `photo-haut` qui le dit — et prend deux cent soixante
+   pixels au lieu de quatre cent quatre-vingts. Elle retrouve son portrait quand
+   la page passe à deux colonnes, là où sa hauteur sert la composition. */
+.page-photoContact {
+  --ratio: 3 / 2;
+}
+
+@media (min-width: 900px) {
+  .page-photoContact {
+    --ratio: 1100 / 1375;
+  }
+}
+
 .page-adresse,
 .page-coordonnees {
   color: var(--encre-2);

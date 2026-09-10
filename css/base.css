@@ -179,6 +179,29 @@ address {
    sections est donc toujours le même — un joint courant — sans que ni l'une ni
    l'autre ait à savoir ce qu'elle a pour voisine. Les exceptions se déclarent
    une par une, plus bas, et se lisent comme des exceptions. */
+/* AU DOIGT, CERTAINES PHOTOGRAPHIES TOUCHENT LE BORD DE L'ÉCRAN.
+
+   La règle du site était l'inverse : aucune photographie ne va d'un bord à
+   l'autre, sauf le ruban de l'accueil. Le client a regardé la carte et la page
+   contact sur son téléphone : « je n'aime pas qu'il y ait des bordures vides,
+   tu les colles au côté ».
+
+   Il a raison sur ces deux-là, et pour une raison qui n'est pas une question de
+   goût : ce sont les seules photographies du site qui ne partagent PAS leur
+   bord gauche avec un texte. Celles des blocs à deux colonnes s'alignent sur
+   leur paragraphe, et la marge se lit comme une colonne. Celles-ci sont seules
+   sur leur ligne : la marge n'y aligne plus rien, elle ne fait qu'un liseré.
+
+   Le débordement vaut exactement la marge du site, prise à la source : la
+   photographie touche donc le bord de l'écran, encoche comprise, sans jamais le
+   dépasser. Au-delà de 900 px, elle rentre dans sa colonne. */
+@media (max-width: 899px) {
+  .photo-bordABord,
+  .duo-visuel--bordABord {
+    margin-inline: calc(-1 * var(--marge));
+  }
+}
+
 .section {
   position: relative;
   padding-block: var(--demi-joint);
