@@ -251,13 +251,13 @@ recherches locales.
 
 ## Les horaires servent quatre fois
 
-Les horaires écrits aujourd’hui dans le site sont ceux-ci. **Ils ne sont pas
-confirmés** : ils viennent de sources publiques et attendent votre validation.
+Le restaurant est **ouvert 7 jours sur 7**. Les heures écrites aujourd’hui dans le
+site sont celles-ci ; **elles ne sont pas confirmées** : elles viennent de sources
+publiques et attendent votre validation.
 
 | Jour | Service |
 | --- | --- |
-| Lundi | Fermé |
-| Mardi – vendredi | 11h30 – 14h00 · 18h30 – 22h00 |
+| Lundi – vendredi | 11h30 – 14h00 · 18h30 – 22h00 |
 | Samedi – dimanche | 11h30 – 14h30 · 18h30 – 22h00 |
 
 Ils sont écrits à **quatre endroits**, et les quatre doivent dire exactement la

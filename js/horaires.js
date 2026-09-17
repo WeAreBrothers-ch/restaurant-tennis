@@ -9,9 +9,10 @@
    pages, dans le pied de page et sur la fiche Google. Une heure qui diffère
    d'un endroit à l'autre se voit.
 
-   ⚠⚠ CEUX-CI NE SONT PAS CONFIRMÉS PAR LE RESTAURANT. Ils ont été posés pour
-   que le bandeau « Ouvert / Fermé » fonctionne et pour fixer la mise en page.
-   Voir `CONTENU-SITE.md`, chapitre « Les horaires ».
+   ⚠⚠ L'OUVERTURE 7 JOURS SUR 7 EST CONFIRMÉE PAR LE RESTAURANT ; LES HEURES,
+   NON. Elles ont été posées pour que le bandeau « Ouvert / Fermé » fonctionne
+   et pour fixer la mise en page. Voir `CONTENU-SITE.md`, chapitre
+   « Les horaires ».
    ============================================================================ */
 (function () {
   "use strict";
@@ -23,7 +24,7 @@
   var JOURS = { Sun: 0, Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6 };
 
   var HORAIRES = [
-    { indice: 1, nom: "Lundi", midi: null, soir: null },
+    { indice: 1, nom: "Lundi", midi: ["11:30", "14:00"], soir: ["18:30", "22:00"] },
     { indice: 2, nom: "Mardi", midi: ["11:30", "14:00"], soir: ["18:30", "22:00"] },
     { indice: 3, nom: "Mercredi", midi: ["11:30", "14:00"], soir: ["18:30", "22:00"] },
     { indice: 4, nom: "Jeudi", midi: ["11:30", "14:00"], soir: ["18:30", "22:00"] },
