@@ -9,7 +9,7 @@
    pages, dans le pied de page et sur la fiche Google. Une heure qui diffère
    d'un endroit à l'autre se voit.
 
-   ⚠⚠ L'OUVERTURE 7 JOURS SUR 7 EST CONFIRMÉE PAR LE RESTAURANT ; LES HEURES,
+   ⚠⚠ L'OUVERTURE 7/7 EST CONFIRMÉE PAR LE RESTAURANT ; LES HEURES,
    NON. Elles ont été posées pour que le bandeau « Ouvert / Fermé » fonctionne
    et pour fixer la mise en page. Voir `CONTENU-SITE.md`, chapitre
    « Les horaires ».

@@ -43,7 +43,7 @@ informations existent à plusieurs endroits ».
 
 ## Les horaires
 
-**Le restaurant est ouvert 7 jours sur 7** — confirmé par le restaurant en
+**Le restaurant est ouvert 7/7** — confirmé par le restaurant en
 septembre 2026. **Les heures, elles, restent À CONFIRMER :** elles ont été posées
 pour que le bandeau « Ouvert / Fermé » fonctionne et pour fixer la mise en page.
 Elles sont plausibles pour un club-house, et c'est tout ce qu'on peut en dire.
@@ -127,7 +127,7 @@ battue. Le club-house a été rénové ; le restaurant y a rouvert.
 | **La page des desserts** | La carte imprimée en a une ; elle n'a pas été photographiée. `carte.html` porte une famille « Les desserts » sans plat ni prix, avec une phrase d'attente. **Rien n'a été inventé.** Envoyez la photographie et elle se remplit |
 | **La page des boissons** | Idem — aucune n'a été fournie, et le site n'en parle pas |
 | **La provenance du poulet** | Coupée sur la photographie du bas de carte |
-| **Les horaires** | Voir plus haut. L'ouverture 7 jours sur 7 est confirmée ; aucune heure ne l'est |
+| **Les horaires** | Voir plus haut. L'ouverture 7/7 est confirmée ; aucune heure ne l'est |
 | **Les photographies de jour** | Neuf photographies du restaurant sont en ligne. Quatre sont de jour et tiennent très bien ; **cinq sont prises le soir, en salle, sur fond sombre** — sur une page crème, elles font un trou. Le brief est dans `PHOTOS-A-FOURNIR.md` |
 | **L'unité de style des dessins** | Les huit dessins du premier écran sont ceux du client — plus aucun ne vient du site modèle. Cinq sont au **trait continu** (le service, le joueur, les balles, les verres, le couvert), trois au **crayon** (la raquette, le filet, les chaussures). Le mélange se voit. Si les trois derniers sont refaits au trait continu, la série sera d'un seul tenant |
 | **Le service de formulaire** | `contact.html` pointe vers `formspree.io/f/VOTRE-IDENTIFIANT`. Tant que ce n'est pas remplacé, l'envoi échoue proprement et affiche le téléphone |

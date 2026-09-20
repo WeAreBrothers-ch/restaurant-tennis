@@ -251,7 +251,7 @@ recherches locales.
 
 ## Les horaires servent quatre fois
 
-Le restaurant est **ouvert 7 jours sur 7**. Les heures écrites aujourd’hui dans le
+Le restaurant est **ouvert 7/7**. Les heures écrites aujourd’hui dans le
 site sont celles-ci ; **elles ne sont pas confirmées** : elles viennent de sources
 publiques et attendent votre validation.
 
