@@ -1108,7 +1108,8 @@ a:focus-visible > .photo-zoom .photo-image {
   margin: 0;
 }
 
-.footer-fermeture {
+.footer-ouverture {
+  margin: 0 0 var(--sp-2);
   color: var(--accent);
 }
 
