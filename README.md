@@ -62,8 +62,8 @@ Trois informations sont **à confirmer** avant toute mise en ligne. Elles vienne
 de sources publiques et n’ont pas été validées :
 
 - le téléphone **021 555 41 14** ;
-- l’e-mail **contact@restaurant-tennis-club.ch** ;
-- le nom de domaine **restaurant-tennis-club.ch**, qui n’est pas réservé à ce jour.
+- l’e-mail **contact@restaurant-tennis-ecublens.ch** ;
+- le nom de domaine **restaurant-tennis-ecublens.ch**, qui n’est pas réservé à ce jour.
 
 ---
 
@@ -372,7 +372,40 @@ ne mélangez pas.
 
 ---
 
-## Mettre le site en ligne
+## Mise en ligne sur Infomaniak
+
+À faire **une seule fois** (une vingtaine de minutes). Ensuite, chaque push sur `main`
+met le site à jour tout seul (`.github/workflows/deploy-infomaniak.yml`, par FTPS).
+
+1. **Un site pour le domaine.** Manager Infomaniak → Web & Domaines → **Sites Web** →
+   Ajouter un site → choisissez **restaurant-tennis-ecublens.ch**. (Si votre hébergement n'a plus de place
+   pour un site de plus, il faut en commander un : un hébergement « Starter » suffit.)
+2. **Le certificat SSL.** Il est installé automatiquement ; attendez que
+   `https://restaurant-tennis-ecublens.ch` s'ouvre sans avertissement avant d'aller plus loin
+   (le `.htaccess` redirige tout vers https).
+3. **PHP.** Site → PHP → choisissez la version la plus récente proposée.
+4. **Un compte FTP.** Site → Connexions FTP / SSH → Ajouter un compte FTP.
+   Mettez comme **répertoire la racine du site** (par exemple `/web/tennis`).
+   Notez le serveur (du genre `xxxx.ftp.infomaniak.com`), l'identifiant et le mot de passe.
+5. **Les trois secrets GitHub.** Dans le repo : Settings → Secrets and variables →
+   Actions → New repository secret : `FTP_SERVER`, `FTP_USERNAME`, `FTP_PASSWORD`.
+6. **Le premier déploiement.** Onglet Actions → « Déployer sur Infomaniak » → Run workflow.
+   Cochez d'abord **Simulation** (rien n'est écrit, on voit ce qui serait envoyé), puis
+   relancez sans la case. Les envois suivants partent seuls à chaque push sur `main`.
+7. **Le formulaire de contact** : créez la boîte `contact@restaurant-tennis-ecublens.ch` et posez
+   `contact-config.php` (section « Le formulaire de contact » plus bas).
+8. **Vérifiez** : le site en https, une page intérieure, un message test du formulaire.
+
+Tant que les secrets de l'étape 5 n'existent pas, le workflow s'ignore proprement (il
+l'écrit dans son journal) : pousser du code ne casse rien.
+
+Le déploiement n'envoie ni les sources de travail (photos d'origine, scripts), ni les
+fichiers `.md`, ni `contact-config.php` : ce dernier reste sur le serveur.
+
+---
+
+## Autres hébergements (pour mémoire)
+
 
 Il n’y a rien à construire. Les fichiers du dossier **sont** le site.
 
@@ -396,7 +429,7 @@ mise en page disparaît.
 
 Le formulaire envoie un courriel au restaurant, **sans service tiers**. Il poste vers
 **`envoyer-message.php`** (à la racine du site), qui se connecte en SMTP à une boîte mail
-de votre domaine chez Infomaniak et transmet le message à **contact@restaurant-tennis-club.ch**. Si l’envoi échoue,
+de votre domaine chez Infomaniak et transmet le message à **contact@restaurant-tennis-ecublens.ch**. Si l’envoi échoue,
 le visiteur voit un message et le numéro de téléphone du restaurant.
 
 **Pourquoi pas la fonction `mail()` de PHP ?** Infomaniak la déconseille : envoi non
@@ -408,7 +441,7 @@ sont `mail.infomaniak.com`, port 587 (STARTTLS) ou 465 (SSL), identifiant = adre
 ### Mise en service — à faire une seule fois
 
 1. **Une boîte mail du domaine.** Dans le Manager Infomaniak, créez (ou choisissez) une
-   adresse du domaine, par exemple **contact@restaurant-tennis-club.ch**, et notez son mot de passe.
+   adresse du domaine, par exemple **contact@restaurant-tennis-ecublens.ch**, et notez son mot de passe.
 2. **Le fichier de configuration.** Copiez `contact-config.example.php` sous le nom
    **`contact-config.php`** et renseignez l’adresse et le mot de passe de la boîte.
 3. **Posez-le sur le serveur**, dans le même dossier que `envoyer-message.php` (la racine

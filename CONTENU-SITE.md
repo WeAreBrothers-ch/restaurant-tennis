@@ -37,8 +37,8 @@ informations existent à plusieurs endroits ».
 | | | |
 | --- | --- | --- |
 | Téléphone | +41 21 555 41 14 — affiché « 021 555 41 14 » | **À CONFIRMER** |
-| E-mail | contact@restaurant-tennis-club.ch | **À CONFIRMER** |
-| Site | https://www.restaurant-tennis-club.ch/ | **À CONFIRMER** — le nom de domaine n'est pas réservé |
+| E-mail | contact@restaurant-tennis-ecublens.ch | **À CRÉER** dans le Manager Infomaniak : c'est la boîte qui envoie ET reçoit les messages du formulaire. Remplace `contact@restaurant-tennis-club.ch`, dont le domaine n'a jamais été réservé |
+| Site | https://www.restaurant-tennis-ecublens.ch/ | Domaine réservé chez Infomaniak |
 | Réservation | Par téléphone uniquement | **À CONFIRMER** |
 
 ## Les horaires

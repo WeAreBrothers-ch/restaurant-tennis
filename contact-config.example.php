@@ -16,7 +16,7 @@ return [
     'hote'         => 'mail.infomaniak.com',
     'port'         => 587,
     'chiffrement'  => 'starttls',          // 'starttls' avec le port 587, ou 'ssl' avec le port 465
-    'utilisateur'  => 'contact@restaurant-tennis-club.ch',   // l'adresse COMPLÈTE de la boîte Infomaniak
+    'utilisateur'  => 'contact@restaurant-tennis-ecublens.ch',   // l'adresse COMPLÈTE de la boîte Infomaniak
     'mot_de_passe' => '',
     // 'expediteur' => '',                 // par défaut : l'adresse ci-dessus (à garder ainsi)
 ];
