@@ -56,7 +56,7 @@ l’étoile ».
 | **Les photographies** | Neuf photographies sont les vôtres et sont en ligne. Cinq d’entre elles sont prises le soir, en salle : sur une page crème, elles font un trou. Le brief pour en obtenir de jour est dans `PHOTOS-A-FOURNIR.md` |
 | **Trois dessins d’un autre style** | Le premier écran fait tomber huit dessins au trait, **et les huit sont les vôtres** : plus aucun ne vient du modèle. Mais cinq sont au trait continu et trois au crayon (la raquette, le filet, les chaussures). Le mélange se voit un peu. Trois dessins au trait continu de plus, et la série sera d’un seul tenant |
 | **Les horaires** | Ceux qui s’affichent ne sont pas confirmés (voir plus bas) |
-| **Le service de formulaire** | `contact.html` pointe vers `formspree.io/f/VOTRE-IDENTIFIANT` (voir plus bas) |
+| **La boîte d’envoi du formulaire** | Le formulaire est branché sur `envoyer-message.php` ; il reste à créer la boîte mail et à poser `contact-config.php` sur le serveur (voir « Le formulaire de contact ») |
 
 Trois informations sont **à confirmer** avant toute mise en ligne. Elles viennent
 de sources publiques et n’ont pas été validées :
@@ -166,6 +166,8 @@ dossier dans un petit serveur local, ou regardez-les directement en ligne.
 | `pizzeria.html` | Pizza & Pasta — quatre familles, 22 plats |
 | `contact.html` | Contact, horaires, plan et formulaire |
 | `404.html` | La page affichée quand une adresse n’existe pas |
+| `envoyer-message.php` | Reçoit le formulaire de contact et l’envoie par courriel (voir « Le formulaire de contact ») |
+| `contact-config.example.php` | Modèle du fichier `contact-config.php` (la boîte mail d’envoi), à copier et remplir **sur le serveur** — jamais dans git |
 | `css/` | Cinq feuilles de style, une par sujet (voir plus bas) |
 | `js/` | Neuf petits fichiers, un par comportement (voir plus bas) |
 | `scripts/` | Six outils d’entretien : deux essais qui vérifient le site, quatre qui fabriquent des images ou des polices. Ne servent qu’à vous, jamais au visiteur |
@@ -392,16 +394,55 @@ mise en page disparaît.
 
 ## Le formulaire de contact
 
-Le site n’a pas de serveur : il ne peut donc pas recevoir un message lui-même. Le
-formulaire s’adresse à un **service de réception** — Formspree, Basin, Formcarry,
-ou un script sur votre hébergement.
-
-Dans **`contact.html`**, cherchez `formspree.io/f/VOTRE-IDENTIFIANT` et remplacez
-cette adresse par la vôtre. Tant que ce n’est pas fait, l’envoi échoue proprement :
+Le formulaire envoie un courriel au restaurant, **sans service tiers**. Il poste vers
+**`envoyer-message.php`** (à la racine du site), qui se connecte en SMTP à une boîte mail
+de votre domaine chez Infomaniak et transmet le message à **contact@restaurant-tennis-club.ch**. Si l’envoi échoue,
 le visiteur voit un message et le numéro de téléphone du restaurant.
 
-C’est volontairement **un formulaire de contact, pas de réservation** : une demande
-de table qui n’aboutirait pas serait pire qu’un numéro bien visible.
+**Pourquoi pas la fonction `mail()` de PHP ?** Infomaniak la déconseille : envoi non
+authentifié, quota réduit, messages qui finissent en indésirables. Un envoi
+authentifié par une vraie boîte arrive en boîte de réception. Les
+[paramètres officiels](https://www.infomaniak.com/en/support/faq/468/understanding-mail-ports-and-protocols)
+sont `mail.infomaniak.com`, port 587 (STARTTLS) ou 465 (SSL), identifiant = adresse complète.
+
+### Mise en service — à faire une seule fois
+
+1. **Une boîte mail du domaine.** Dans le Manager Infomaniak, créez (ou choisissez) une
+   adresse du domaine, par exemple **contact@restaurant-tennis-club.ch**, et notez son mot de passe.
+2. **Le fichier de configuration.** Copiez `contact-config.example.php` sous le nom
+   **`contact-config.php`** et renseignez l’adresse et le mot de passe de la boîte.
+3. **Posez-le sur le serveur**, dans le même dossier que `envoyer-message.php` (la racine
+   du site) : Manager → Gestionnaire de fichiers, ou FTP. 
+   Il contient un mot de passe : il n’est **pas dans git** (il est dans `.gitignore`) et
+   n’est donc **jamais déployé automatiquement**. C’est le seul fichier à poser à la main.
+4. **PHP 8.0 ou plus** pour le site (Manager → Hébergement → Site → PHP).
+5. **Testez** : envoyez un message depuis la page Contact et vérifiez qu’il arrive
+   (regardez les indésirables la première fois ; marquez-le « pas du courrier indésirable »).
+
+Sans `contact-config.php`, rien ne part : le site reste utilisable et renvoie le visiteur
+vers le téléphone. C’est volontaire.
+
+### Ce qui protège la boîte
+
+Un champ-piège invisible pour les robots ; l’origine de la requête, qui doit être le
+site lui-même ; 5 messages par heure et par visiteur, 100 par jour au total (pour ne
+jamais atteindre le quota d’envoi de la boîte) ; les retours à la ligne retirés de tout
+ce qui finit dans un en-tête (on ne peut pas ajouter de destinataire en cachette) ;
+des longueurs plafonnées.
+
+### Changer l’adresse qui reçoit, ou le téléphone affiché en cas d’échec
+
+C’est le tableau `SITE` en tête de **`envoyer-message.php`** (adresse de réception,
+domaines autorisés, téléphone, couleurs de la petite page de réponse).
+
+### Si un message n’arrive pas
+
+Regardez le journal d’erreurs PHP de l’hébergement (Manager → Hébergement → Logs) : chaque
+ligne qui commence par `[contact` dit pourquoi (mot de passe refusé, boîte injoignable,
+configuration absente…). Les messages du visiteur et vos identifiants n’y figurent jamais.
+
+C’est volontairement **un formulaire de contact, pas de réservation** : une demande de
+table qui n’aboutirait pas serait pire qu’un numéro bien visible.
 
 ---
 
