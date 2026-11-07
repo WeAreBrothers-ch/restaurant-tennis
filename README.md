@@ -295,6 +295,16 @@ La liste complète des emplacements, avec le sujet, le format et la taille atten
 est dans **`PHOTOS-A-FOURNIR.md`** — c’est aussi le document à remettre au
 photographe.
 
+**Quatre photos en bandeau sont à une définition plus grande que les autres** :
+`terrasse-cocktails` (2240 × 1260), `salle-bar` (2240 × 1968), `plat-burger`
+(2240 × 1680) et `plat-salade` (1680 × 2240). Elles occupent 1120 px de large à
+l’écran, soit 2240 px sur un écran Retina, et la photo d’origine était trop petite
+pour cela. La première a été refaite depuis l’original (`photos-source/`), les trois
+autres agrandies par super-résolution (Real-ESRGAN) : les bords sont nets, mais le
+détail n’a pas été inventé. Chacune a aussi sa version de 1200 px (`-1200-`) pour le
+téléphone. Si vous les remplacez par de vraies photos, fournissez-les **au moins à
+ces dimensions** ; elles ne doivent pas être agrandies une seconde fois.
+
 ---
 
 ## Le plan de la page Contact
