@@ -119,6 +119,13 @@
     })
       .then(function (reponse) {
         if (!reponse.ok) throw new Error(String(reponse.status));
+        // `envoyer-message.php` répond toujours un JSON avec « success » : c'est lui
+        // qui fait foi. Une réponse qui n'est pas ce JSON (page d'erreur du serveur,
+        // PHP absent…) n'est jamais prise pour un succès.
+        return reponse.json();
+      })
+      .then(function (resultat) {
+        if (!resultat || resultat.success !== true) throw new Error("refus");
         form.reset();
         repondre("Message envoyé. Nous vous répondons au plus vite.", "succes");
         rendreLeBouton();
