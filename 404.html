@@ -2,6 +2,7 @@
 <html lang="fr-CH">
   <head>
     <meta charset="utf-8" />
+    <base href="/" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <!-- Les deux polices sont demandées avant tout le reste : le nom de la maison
          est du texte, pas une image, et il ne doit pas s'afficher d'abord en
@@ -14,9 +15,10 @@
     <meta name="description" content="Brasserie de club-house, pizzas et pâtes, à Écublens" />
     <meta name="application-name" content="Restaurant Tennis Club Écublens" />
     <meta name="robots" content="noindex, follow" />
-    <link rel="icon" href="favicon.ico" sizes="any" />
-    <link rel="icon" href="images/logo-mono.svg" type="image/svg+xml" />
-    <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" href="/images/logo-mono.svg" type="image/svg+xml" sizes="any" />
+    <link rel="icon" href="/icon-192.png" type="image/png" sizes="192x192" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="stylesheet" href="css/tokens.css" />
     <link rel="stylesheet" href="css/base.css" />
     <link rel="stylesheet" href="css/composants.css" />
@@ -36,12 +38,12 @@
     <header class="header-entete" data-compact="false">
       <div class="header-barre">
         <div class="wrap header-barreContenu">
-          <a class="header-logoLien" aria-label="Restaurant Tennis Club, accueil" href="index.html"
+          <a class="header-logoLien" aria-label="Restaurant Tennis Club, accueil" href="/"
             ><span class="enseigne enseigne--barre"><span class="enseigne-sur">Restaurant</span><span class="enseigne-nom">Tennis Club</span><span class="enseigne-lieu">Écublens</span></span></a>
           <nav class="header-nav" aria-label="Navigation principale">
-            <a class="header-lienNav" href="carte.html">La carte</a
-            ><a class="header-lienNav" href="pizzeria.html">Pizza &amp; Pasta</a
-            ><a class="header-lienNav" href="contact.html">Contact</a>
+            <a class="header-lienNav" href="carte">La carte</a
+            ><a class="header-lienNav" href="pizzeria">Pizza &amp; Pasta</a
+            ><a class="header-lienNav" href="contact">Contact</a>
           </nav>
           <div class="header-actions">
             <span class="header-etat etatouverturelive-etat"
@@ -118,7 +120,7 @@
           </button>
         </div>
         <nav class="menumobile-liens" aria-label="Navigation principale">
-          <a class="menumobile-lien" href="carte.html"
+          <a class="menumobile-lien" href="carte"
             >La carte<svg
               width="20"
               height="20"
@@ -132,7 +134,7 @@
               focusable="false"
             >
               <path d="M4 12h15 M13 6l6 6-6 6"></path></svg></a
-          ><a class="menumobile-lien" href="pizzeria.html"
+          ><a class="menumobile-lien" href="pizzeria"
             >Pizza &amp; Pasta<svg
               width="20"
               height="20"
@@ -146,7 +148,7 @@
               focusable="false"
             >
               <path d="M4 12h15 M13 6l6 6-6 6"></path></svg></a
-          ><a class="menumobile-lien" href="contact.html"
+          ><a class="menumobile-lien" href="contact"
             >Contact<svg
               width="20"
               height="20"
@@ -199,8 +201,8 @@
             Le lien a peut-être changé. La carte complète, elle, est toujours au même endroit.
           </p>
           <div class="not-found-actions">
-            <a class="bouton-base bouton-primaire" href="carte.html">Voir la carte</a
-            ><a class="bouton-base bouton-secondaire" href="index.html">Retour à l’accueil</a
+            <a class="bouton-base bouton-primaire" href="carte">Voir la carte</a
+            ><a class="bouton-base bouton-secondaire" href="/">Retour à l’accueil</a
             ><a href="tel:+41215554114" class="bouton-base bouton-tertiaire" data-analytics="call"
               ><svg
                 width="16"
@@ -265,8 +267,8 @@
           <div class="footer-colonne">
             <h2>Le site</h2>
             <nav class="footer-navPied" aria-label="Navigation de pied de page">
-              <a href="index.html">Accueil</a><a href="carte.html">La carte</a
-              ><a href="pizzeria.html">Pizza &amp; Pasta</a><a href="contact.html">Contact</a>
+              <a href="/">Accueil</a><a href="carte">La carte</a
+              ><a href="pizzeria">Pizza &amp; Pasta</a><a href="contact">Contact</a>
             </nav>
           </div>
         </div>
@@ -281,7 +283,7 @@
       </div>
     </footer>
     <div class="barreaction-barre" data-visible="false" aria-hidden="true">
-      <a class="barreaction-action barreaction-carte" tabindex="-1" href="carte.html">La carte</a
+      <a class="barreaction-action barreaction-carte" tabindex="-1" href="carte">La carte</a
       ><a
         class="barreaction-action barreaction-appeler"
         href="tel:+41215554114"

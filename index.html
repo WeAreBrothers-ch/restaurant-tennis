@@ -51,9 +51,10 @@
       content="https://www.restaurant-tennis-ecublens.ch/images/og-2026-09b.jpg"
     />
 
-    <link rel="icon" href="favicon.ico" sizes="any" />
-    <link rel="icon" href="images/logo-mono.svg" type="image/svg+xml" />
-    <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" href="/images/logo-mono.svg" type="image/svg+xml" sizes="any" />
+    <link rel="icon" href="/icon-192.png" type="image/png" sizes="192x192" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 
     <!-- La feuille de style est découpée par sujet. Les fichiers sont liés
          séparément plutôt qu'enchaînés par @import : le navigateur les demande
@@ -82,9 +83,9 @@
         "email": "contact@restaurant-tennis-ecublens.ch",
         "priceRange": "$$",
         "servesCuisine": ["Brasserie", "Italienne", "Suisse", "Pizza"],
-        "acceptsReservations": "https://www.restaurant-tennis-ecublens.ch/contact.html",
+        "acceptsReservations": "https://www.restaurant-tennis-ecublens.ch/contact",
         "hasMap": "https://www.openstreetmap.org/?mlat=46.533237&mlon=6.568724#map=17/46.533237/6.568724",
-        "hasMenu": "https://www.restaurant-tennis-ecublens.ch/carte.html",
+        "hasMenu": "https://www.restaurant-tennis-ecublens.ch/carte",
         "address": {
           "@type": "PostalAddress",
           "streetAddress": "Chemin des Esserts 6",
@@ -139,14 +140,14 @@
     <header class="header-entete" data-compact="false">
       <div class="header-barre">
         <div class="wrap header-barreContenu">
-          <a class="header-logoLien" aria-label="Restaurant Tennis Club, accueil" href="index.html">
+          <a class="header-logoLien" aria-label="Restaurant Tennis Club, accueil" href="/">
             <span class="enseigne enseigne--barre"><span class="enseigne-sur">Restaurant</span><span class="enseigne-nom">Tennis Club</span><span class="enseigne-lieu">Écublens</span></span>
           </a>
 
           <nav class="header-nav" aria-label="Navigation principale">
-            <a class="header-lienNav" href="carte.html">La carte</a>
-            <a class="header-lienNav" href="pizzeria.html">Pizza &amp; Pasta</a>
-            <a class="header-lienNav" href="contact.html">Contact</a>
+            <a class="header-lienNav" href="carte">La carte</a>
+            <a class="header-lienNav" href="pizzeria">Pizza &amp; Pasta</a>
+            <a class="header-lienNav" href="contact">Contact</a>
           </nav>
 
           <div class="header-actions">
@@ -213,7 +214,7 @@
         </div>
 
         <nav class="menumobile-liens" aria-label="Navigation principale">
-          <a class="menumobile-lien" href="carte.html">
+          <a class="menumobile-lien" href="carte">
             La carte
             <svg
               width="20"
@@ -229,7 +230,7 @@
               <path d="M4 12h15 M13 6l6 6-6 6"></path>
             </svg>
           </a>
-          <a class="menumobile-lien" href="pizzeria.html">
+          <a class="menumobile-lien" href="pizzeria">
             Pizza &amp; Pasta
             <svg
               width="20"
@@ -245,7 +246,7 @@
               <path d="M4 12h15 M13 6l6 6-6 6"></path>
             </svg>
           </a>
-          <a class="menumobile-lien" href="contact.html">
+          <a class="menumobile-lien" href="contact">
             Contact
             <svg
               width="20"
@@ -386,7 +387,7 @@
            ================================================================== -->
       <div class="surface-creme accesdirect-bande">
         <nav class="accesdirect-grille" aria-label="Accès direct">
-          <a class="accesdirect-cellule" href="carte.html">
+          <a class="accesdirect-cellule" href="carte">
             <span class="accesdirect-libelle">
               La carte
               <svg
@@ -406,7 +407,7 @@
             <span class="accesdirect-valeur">Pizzas, pâtes, grillades</span>
           </a>
 
-          <a class="accesdirect-cellule" href="contact.html#horaires">
+          <a class="accesdirect-cellule" href="contact#horaires">
             <span class="accesdirect-libelle">
               Horaires
               <svg
@@ -669,7 +670,7 @@
               l’emporter.
             </p>
             <div data-actions="true">
-              <a class="bouton-base bouton-secondaire" href="pizzeria.html">Voir les pizzas et les pâtes</a>
+              <a class="bouton-base bouton-secondaire" href="pizzeria">Voir les pizzas et les pâtes</a>
             </div>
           </div>
         </div>
@@ -713,7 +714,7 @@
                 seize.
               </p>
             </div>
-            <a class="bouton-base bouton-tertiaire" href="carte.html">
+            <a class="bouton-base bouton-tertiaire" href="carte">
               Toute la carte
               <svg
                 width="15"
@@ -735,61 +736,61 @@
             <li class="tableau-ligne">
               <p class="tableau-code">Expérience clubhouse</p>
               <p class="tableau-nom">
-                <a href="carte.html#partager">Plateau entrecôte Café de Paris</a>
+                <a href="carte#partager">Plateau entrecôte Café de Paris</a>
               </p>
               <p class="tableau-prix">42.—</p>
             </li>
             <li class="tableau-ligne">
               <p class="tableau-code">Le coup puissant</p>
               <p class="tableau-nom">
-                <a href="carte.html#partager">Tomahawk ou côte de bœuf</a>
+                <a href="carte#partager">Tomahawk ou côte de bœuf</a>
               </p>
               <p class="tableau-prix">90.— à 120.—</p>
             </li>
             <li class="tableau-ligne">
               <p class="tableau-code">Le capitaine</p>
-              <p class="tableau-nom"><a href="carte.html#viandes">Tagliata de bœuf</a></p>
+              <p class="tableau-nom"><a href="carte#viandes">Tagliata de bœuf</a></p>
               <p class="tableau-prix">39.—</p>
             </li>
             <li class="tableau-ligne">
               <p class="tableau-code">Le smash</p>
               <p class="tableau-nom">
-                <a href="pizzeria.html#risotto">Risotto aux crevettes &amp; safran</a>
+                <a href="pizzeria#risotto">Risotto aux crevettes &amp; safran</a>
               </p>
               <p class="tableau-prix">28.—</p>
             </li>
             <li class="tableau-ligne">
               <p class="tableau-code">Le bon coup</p>
               <p class="tableau-nom">
-                <a href="carte.html#classiques">Entrecôte de cheval au Café de Paris</a>
+                <a href="carte#classiques">Entrecôte de cheval au Café de Paris</a>
               </p>
               <p class="tableau-prix">26.—</p>
             </li>
             <li class="tableau-ligne">
               <p class="tableau-code">Signature Écublens</p>
-              <p class="tableau-nom"><a href="carte.html#burgers">Hamburger Tennis</a></p>
+              <p class="tableau-nom"><a href="carte#burgers">Hamburger Tennis</a></p>
               <p class="tableau-prix">26.—</p>
             </li>
             <li class="tableau-ligne">
               <p class="tableau-code">Tie-break</p>
-              <p class="tableau-nom"><a href="carte.html#froides">Salade César liftée</a></p>
+              <p class="tableau-nom"><a href="carte#froides">Salade César liftée</a></p>
               <p class="tableau-prix">24.—</p>
             </li>
             <li class="tableau-ligne">
               <p class="tableau-code">Écublens signature</p>
-              <p class="tableau-nom"><a href="pizzeria.html#pizzas">Pizza Tennis</a></p>
+              <p class="tableau-nom"><a href="pizzeria#pizzas">Pizza Tennis</a></p>
               <p class="tableau-prix">24.—</p>
             </li>
             <li class="tableau-ligne">
               <p class="tableau-code">Simple &amp; bon</p>
               <p class="tableau-nom">
-                <a href="carte.html#classiques">Saucisse de veau du boucher aux oignons</a>
+                <a href="carte#classiques">Saucisse de veau du boucher aux oignons</a>
               </p>
               <p class="tableau-prix">20.—</p>
             </li>
             <li class="tableau-ligne">
               <p class="tableau-code">Point décisif</p>
-              <p class="tableau-nom"><a href="pizzeria.html#pates">Linguine bolognaise</a></p>
+              <p class="tableau-nom"><a href="pizzeria#pates">Linguine bolognaise</a></p>
               <p class="tableau-prix">20.—</p>
             </li>
           </ol>
@@ -957,10 +958,10 @@
           <div class="footer-colonne">
             <h2>Le site</h2>
             <nav class="footer-navPied" aria-label="Navigation de pied de page">
-              <a href="index.html">Accueil</a>
-              <a href="carte.html">La carte</a>
-              <a href="pizzeria.html">Pizza &amp; Pasta</a>
-              <a href="contact.html">Contact</a>
+              <a href="/">Accueil</a>
+              <a href="carte">La carte</a>
+              <a href="pizzeria">Pizza &amp; Pasta</a>
+              <a href="contact">Contact</a>
             </nav>
           </div>
         </div>
@@ -975,7 +976,7 @@
 
     <!-- La barre d'appel du téléphone, cachée tant qu'on n'a pas défilé. -->
     <div class="barreaction-barre" data-visible="false" aria-hidden="true">
-      <a class="barreaction-action barreaction-carte" tabindex="-1" href="carte.html">La carte</a>
+      <a class="barreaction-action barreaction-carte" tabindex="-1" href="carte">La carte</a>
       <a
         class="barreaction-action barreaction-appeler"
         href="tel:+41215554114"
