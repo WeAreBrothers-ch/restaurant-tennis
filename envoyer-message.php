@@ -4,7 +4,7 @@ declare(strict_types=1);
 /* ============================================================================
    ENVOYER-MESSAGE.PHP — le formulaire de contact, branché sur l'hébergement
 
-   Le formulaire de `contact.html` poste ici. Ce script vérifie le message et le
+   Le formulaire de la page Contact poste ici. Ce script vérifie le message et le
    transmet par courriel à l'adresse du restaurant, en SMTP authentifié sur une
    boîte mail du domaine (Infomaniak : mail.infomaniak.com). Il ne dépend
    d'aucun service tiers et n'a rien à installer.
@@ -41,7 +41,7 @@ const SITE = [
     'destinataire' => 'contact@restaurant-tennis-ecublens.ch',
     'hotes'        => ['www.restaurant-tennis-ecublens.ch', 'restaurant-tennis-ecublens.ch'],
     'telephone'    => '021 555 41 14',
-    'retour'       => '/contact.html',
+    'retour'       => '/contact',
     'couleurs'     => [
         'fond'   => '#f4f1e9',
         'texte'  => '#12291f',
