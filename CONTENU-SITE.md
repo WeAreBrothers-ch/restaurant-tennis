@@ -37,7 +37,7 @@ informations existent à plusieurs endroits ».
 | | | |
 | --- | --- | --- |
 | Téléphone | +41 21 555 41 14 — affiché « 021 555 41 14 » | **À CONFIRMER** |
-| E-mail | contact@restaurant-tennis-ecublens.ch | **À CRÉER** dans le Manager (boîte ou redirection) : c'est l'adresse affichée ET celle qui reçoit le formulaire. Elle remplace `contact@restaurant-tennis-club.ch`, dont le domaine n'a jamais été réservé. L'envoi du formulaire, lui, part de la boîte d'Étoile |
+| E-mail | contact@restaurant-tennis-ecublens.ch | **À CRÉER** dans le Manager (boîte ou redirection) : c'est l'adresse affichée sur le site. Elle remplace `contact@restaurant-tennis-club.ch`, dont le domaine n'a jamais été réservé. |
 | Site | https://www.restaurant-tennis-ecublens.ch/ | Domaine réservé chez Infomaniak |
 | Réservation | Par téléphone uniquement | **À CONFIRMER** |
 
@@ -131,7 +131,6 @@ battue. Le club-house a été rénové ; le restaurant y a rouvert.
 | **Les horaires** | Voir plus haut. L'ouverture 7/7 est confirmée, et le lundi se fait comme les autres jours de semaine ; aucune heure ne l'est |
 | **Les photographies de jour** | Neuf photographies du restaurant sont en ligne. Quatre sont de jour et tiennent très bien ; **cinq sont prises le soir, en salle, sur fond sombre** — sur une page crème, elles font un trou. Le brief est dans `PHOTOS-A-FOURNIR.md` |
 | **L'unité de style des dessins** | Les huit dessins du premier écran sont ceux du client — plus aucun ne vient du site modèle. Cinq sont au **trait continu** (le service, le joueur, les balles, les verres, le couvert), trois au **crayon** (la raquette, le filet, les chaussures). Le mélange se voit. Si les trois derniers sont refaits au trait continu, la série sera d'un seul tenant |
-| **Le service de formulaire** | `contact.html` pointe vers `formspree.io/f/VOTRE-IDENTIFIANT`. Tant que ce n'est pas remplacé, l'envoi échoue proprement et affiche le téléphone |
 | **Le téléphone, l'e-mail, le domaine** | Toujours à confirmer — voir plus haut |
 
 Le plan d'accès, lui, **est bon** : `images/plan.jpg` a été refabriqué sur Écublens.

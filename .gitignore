@@ -14,4 +14,3 @@
 # qu'ils sont arrivés, avant détourage. Sans eux, on ne peut plus refaire le
 # travail de `scripts/preparer-dessins.py`. Ils ne sont simplement pas envoyés
 # sur le FTP du site — ils ne servent qu'à la fabrication.
-contact-config.php

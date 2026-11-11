@@ -1346,24 +1346,85 @@ h1.duo-titre {
   line-height: 1.06;
 }
 
-.bandeauappel-numero {
-  display: inline-block;
+/* Le bouton d'appel : la réservation se fait au téléphone, c'est donc un VRAI bouton,
+   plein, grand, avec une icône, et pas un simple lien souligné. Le libellé dit ce
+   qui se passe (« Appeler »), le numéro est lisible d'un coup d'œil pour qui ne
+   peut pas téléphoner depuis son écran. Au doigt il prend toute la largeur. */
+.appel {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-5);
+  min-height: 76px;
   margin-top: var(--sp-6);
-  color: var(--encre);
-  font-family: var(--serif);
-  font-size: clamp(2.25rem, 1.2rem + 4.6vw, 4rem);
-  font-weight: 500;
-  letter-spacing: -0.03em;
-  line-height: 1;
-  font-variant-numeric: tabular-nums;
-  text-decoration: underline;
-  text-decoration-thickness: 1px;
-  text-underline-offset: 12px;
-  transition: text-decoration-thickness var(--dur-vif) var(--sortie);
+  padding: var(--sp-4) var(--sp-7) var(--sp-4) var(--sp-5);
+  border-radius: var(--arrondi-bouton);
+  background-color: var(--btn-fond);
+  color: var(--btn-texte);
+  text-align: left;
+  text-decoration: none;
+  transition:
+    background-color var(--dur-vif) var(--sortie),
+    transform var(--dur-vif) var(--sortie);
 }
 
-.bandeauappel-numero:hover {
-  text-decoration-thickness: 2px;
+.appel:hover {
+  background-color: var(--btn-fond-survol);
+  transform: translateY(-2px);
+}
+
+.appel:focus-visible {
+  outline: none;
+  box-shadow: var(--focus);
+}
+
+.appel:active {
+  transform: scale(0.98);
+}
+
+.appel-icone {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+}
+
+.appel-icone svg {
+  width: 22px;
+  height: 22px;
+}
+
+.appel-texte {
+  display: grid;
+  gap: var(--sp-2);
+}
+
+.appel-label {
+  font-family: var(--mono);
+  font-size: var(--fs-legende);
+  letter-spacing: 0.16em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.appel-numero {
+  font-family: var(--serif);
+  font-size: clamp(1.75rem, 1.1rem + 2.6vw, 2.5rem);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+@media (max-width: 560px) {
+  .appel {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    padding-inline: var(--sp-5);
+  }
 }
 
 .bandeauappel-detail {
@@ -1372,4 +1433,9 @@ h1.duo-titre {
   font-family: var(--mono);
   font-size: var(--fs-legende);
   line-height: 1.8;
+}
+
+/* Deux lignes de détail l'une sous l'autre : elles se lisent ensemble. */
+.bandeauappel-detail + .bandeauappel-detail {
+  margin-top: var(--sp-3);
 }

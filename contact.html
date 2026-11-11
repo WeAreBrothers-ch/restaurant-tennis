@@ -12,7 +12,7 @@
     <title>Contact et accès — Restaurant Tennis Club, Écublens</title>
     <meta
       name="description"
-      content="Restaurant Tennis Club, chemin des Esserts 6 à Écublens. Horaires, plan d’accès, itinéraire et formulaire de contact. Réservation par téléphone au 021 555 41 14."
+      content="Restaurant Tennis Club, chemin des Esserts 6 à Écublens. Horaires, plan d’accès et itinéraire. Réservation par téléphone uniquement au 021 555 41 14."
     />
     <meta name="application-name" content="Restaurant Tennis Club Écublens" />
     <meta name="robots" content="index, follow, max-image-preview:large" />
@@ -20,7 +20,7 @@
     <meta property="og:title" content="Contact et accès — Restaurant Tennis Club, Écublens" />
     <meta
       property="og:description"
-      content="Restaurant Tennis Club, chemin des Esserts 6 à Écublens. Horaires, plan d’accès, itinéraire et formulaire de contact. Réservation par téléphone au 021 555 41 14."
+      content="Restaurant Tennis Club, chemin des Esserts 6 à Écublens. Horaires, plan d’accès et itinéraire. Réservation par téléphone uniquement au 021 555 41 14."
     />
     <meta property="og:url" content="https://www.restaurant-tennis-ecublens.ch/contact" />
     <meta property="og:site_name" content="Restaurant Tennis Club Écublens" />
@@ -37,7 +37,7 @@
     <meta name="twitter:title" content="Contact et accès — Restaurant Tennis Club, Écublens" />
     <meta
       name="twitter:description"
-      content="Restaurant Tennis Club, chemin des Esserts 6 à Écublens. Horaires, plan d’accès, itinéraire et formulaire de contact. Réservation par téléphone au 021 555 41 14."
+      content="Restaurant Tennis Club, chemin des Esserts 6 à Écublens. Horaires, plan d’accès et itinéraire. Réservation par téléphone uniquement au 021 555 41 14."
     />
     <meta name="twitter:image" content="https://www.restaurant-tennis-ecublens.ch/images/og-2026-09b.jpg" />
     <link rel="icon" href="/favicon.ico" sizes="48x48" />
@@ -56,7 +56,6 @@
     <script src="js/horaires.js" defer></script>
     <script src="js/galerie.js" defer></script>
     <script src="js/plan.js" defer></script>
-    <script src="js/formulaire.js" defer></script>
   </head>
   <body data-page="contact">
     <a class="lienEvitement" href="#contenu">Aller au contenu</a>
@@ -347,13 +346,19 @@
             Une table se réserve <em class="italique">au téléphone</em>
           </h2>
           <a
-            class="bandeauappel-numero"
+            class="appel"
             href="tel:+41215554114"
             data-analytics="call"
             aria-label="Appeler le restaurant au +41 21 555 41 14"
-            >+41 21 555 41 14</a
           >
+            <span class="appel-icone"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg></span>
+            <span class="appel-texte">
+              <span class="appel-label">Appeler</span>
+              <span class="appel-numero">+41 21 555 41 14</span>
+            </span>
+          </a>
           <p class="bandeauappel-detail">Ouvert 7/7, midi et soir.</p>
+          <p class="bandeauappel-detail">Groupe, allergie, événement privé&nbsp;: appelez-nous aussi.</p>
         </div>
       </section>
       <section class="surface-creme section" aria-label="Plan d’accès">
@@ -401,112 +406,6 @@
           </p>
         </div>
       </section>
-      <!--
-  LE FORMULAIRE DE CONTACT
-  Il poste vers `envoyer-message.php`, à la racine du site, qui transmet le
-  message par courriel depuis une boîte du domaine (SMTP Infomaniak). Les
-  identifiants de cette boîte sont dans `contact-config.php`, posé à la main sur
-  le serveur et absent de git : voir « Le formulaire de contact » dans le README.
-  Tant que ce fichier manque, l'envoi échoue et le visiteur est renvoyé vers le
-  téléphone.
--->
-      <section class="surface-creme section" aria-labelledby="titre-message">
-        <div class="wrapLarge page-message">
-          <div class="page-messageTexte">
-            <img
-                class="marque marque--raquette"
-                src="images/trait-raquette-2026-09a.png"
-                alt=""
-                width="240"
-                height="373"
-                loading="lazy"
-                decoding="async"
-              />
-            <h2 class="titreSection" id="titre-message">Écrivez-nous</h2>
-            <p class="chapo">
-              Groupe, allergie, événement privé&nbsp;: posez votre question ici. Pour réserver une table,
-              le téléphone reste le plus rapide.
-            </p>
-          </div>
-          <div class="page-carteFormulaire">
-            <form
-              data-telephone="021 555 41 14"
-              class="formulairecontact-formulaire"
-              novalidate=""
-              action="/envoyer-message.php"
-              enctype="multipart/form-data"
-              method="post"
-            >
-              <div class="formulairecontact-duo">
-                <p class="formulairecontact-champ" data-erreur="false">
-                  <label for="nom">Votre nom</label
-                  ><input
-                    id="nom"
-                    type="text"
-                    autocomplete="name"
-                    required=""
-                    maxlength="80"
-                    aria-invalid="false"
-                    name="nom"
-                  />
-                </p>
-                <p class="formulairecontact-champ" data-erreur="false">
-                  <label for="email">Votre e-mail</label
-                  ><input
-                    id="email"
-                    type="email"
-                    inputmode="email"
-                    autocomplete="email"
-                    spellcheck="false"
-                    required=""
-                    maxlength="120"
-                    aria-invalid="false"
-                    name="email"
-                  />
-                </p>
-              </div>
-              <p class="formulairecontact-champ">
-                <label for="sujet">Sujet</label
-                ><input
-                  id="sujet"
-                  type="text"
-                  autocomplete="off"
-                  maxlength="120"
-                  placeholder="Table de 12 le samedi soir…"
-                  name="sujet"
-                />
-              </p>
-              <p class="formulairecontact-champ" data-erreur="false">
-                <label for="message">Votre message</label
-                ><textarea
-                  id="message"
-                  name="message"
-                  autocomplete="off"
-                  required=""
-                  maxlength="2000"
-                  aria-invalid="false"
-                  aria-describedby="aide-message"
-                ></textarea
-                ><span class="formulairecontact-aide" id="aide-message"
-                  >Pour réserver une table, appelez-nous&nbsp;: c’est immédiat et confirmé.</span
-                >
-              </p>
-              <p class="formulairecontact-piege" aria-hidden="true">
-                <label for="site">Ne remplissez pas ce champ</label
-                ><input id="site" type="text" tabindex="-1" autocomplete="off" name="site" />
-              </p>
-              <div aria-live="polite" data-reponse></div>
-              <button
-                type="submit"
-                class="bouton-base bouton-primaire bouton-grand formulairecontact-envoi"
-              >
-                Envoyer le message
-              </button>
-            </form>
-          </div>
-        </div>
-      </section>
-      
     </main>
     <footer class="surface-sapin footer-pied">
       <div class="wrap">

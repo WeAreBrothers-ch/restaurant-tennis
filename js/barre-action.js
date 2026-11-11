@@ -44,7 +44,7 @@
      LE CLAVIER
 
      La seule chose que le navigateur ne fait pas à notre place. Quand le
-     clavier s'ouvre — sur le formulaire de contact —, il prend le bas de
+     clavier s'ouvre — sur un champ de recherche, par exemple —, il prend le bas de
      l'écran, et la barre viendrait se percher dessus. Elle s'efface donc le
      temps de la saisie.
 
