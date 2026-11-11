@@ -1346,21 +1346,41 @@ h1.duo-titre {
   line-height: 1.06;
 }
 
-/* Le bouton d'appel : la réservation se fait au téléphone, c'est donc un VRAI bouton,
-   plein, grand, avec une icône, et pas un simple lien souligné. Le libellé dit ce
-   qui se passe (« Appeler »), le numéro est lisible d'un coup d'œil pour qui ne
-   peut pas téléphoner depuis son écran. Au doigt il prend toute la largeur. */
+/* Le bloc d'appel : UNE colonne centrée, un rythme régulier. La réservation se fait au
+   téléphone, uniquement : c'est donc le bouton qui parle, pas un lien souligné. Il tient
+   sur une seule ligne (icône | APPELER | numéro) : l'action d'abord, le numéro lisible
+   d'un coup d'œil pour qui ne peut pas téléphoner depuis son écran. Au doigt il prend la
+   largeur de la colonne, et le numéro passe sous le mot « Appeler ». */
+.bandeauappel-contenu {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-5);
+  max-width: 44rem;
+}
+
+/* Le dessin de la marque est calé à gauche partout ailleurs ; dans ce bloc centré,
+   il se centre aussi, sinon il flotte seul. */
+.bandeauappel-contenu .marque {
+  margin: 0 auto var(--sp-2);
+}
+
+.bandeauappel-contenu .bandeauappel-titre {
+  margin: 0;
+  text-wrap: balance;
+}
+
 .appel {
   display: inline-flex;
   align-items: center;
-  gap: var(--sp-5);
-  min-height: 76px;
-  margin-top: var(--sp-6);
-  padding: var(--sp-4) var(--sp-7) var(--sp-4) var(--sp-5);
+  justify-content: center;
+  gap: var(--sp-4);
+  min-height: 64px;
+  margin-top: var(--sp-3);
+  padding: 0 var(--sp-7);
   border-radius: var(--arrondi-bouton);
   background-color: var(--btn-fond);
   color: var(--btn-texte);
-  text-align: left;
   text-decoration: none;
   transition:
     background-color var(--dur-vif) var(--sortie),
@@ -1382,13 +1402,8 @@ h1.duo-titre {
 }
 
 .appel-icone {
-  display: grid;
+  display: flex;
   flex: none;
-  place-items: center;
-  width: 48px;
-  height: 48px;
-  border: 1px solid currentColor;
-  border-radius: 50%;
 }
 
 .appel-icone svg {
@@ -1397,8 +1412,9 @@ h1.duo-titre {
 }
 
 .appel-texte {
-  display: grid;
-  gap: var(--sp-2);
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
 }
 
 .appel-label {
@@ -1410,20 +1426,30 @@ h1.duo-titre {
 }
 
 .appel-numero {
+  padding-left: var(--sp-4);
+  border-left: 1px solid color-mix(in srgb, currentColor 40%, transparent);
   font-family: var(--serif);
-  font-size: clamp(1.75rem, 1.1rem + 2.6vw, 2.5rem);
+  font-size: clamp(1.375rem, 1.1rem + 0.9vw, 1.75rem);
   font-weight: 500;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.01em;
   line-height: 1;
   font-variant-numeric: tabular-nums;
 }
 
 @media (max-width: 560px) {
   .appel {
-    display: flex;
-    justify-content: center;
     width: 100%;
-    padding-inline: var(--sp-5);
+    padding: var(--sp-4) var(--sp-5);
+  }
+
+  .appel-texte {
+    flex-direction: column;
+    gap: var(--sp-2);
+  }
+
+  .appel-numero {
+    padding-left: 0;
+    border-left: 0;
   }
 }
 
@@ -1435,7 +1461,18 @@ h1.duo-titre {
   line-height: 1.8;
 }
 
-/* Deux lignes de détail l'une sous l'autre : elles se lisent ensemble. */
-.bandeauappel-detail + .bandeauappel-detail {
-  margin-top: var(--sp-3);
+/* Dans le bloc d'appel, le rythme vient du « gap » de la colonne : pas de grande marge
+   au-dessus, et les deux lignes de détail se lisent ensemble. */
+.bandeauappel-contenu .bandeauappel-detail {
+  max-width: 34rem;
+  margin: 0;
+  text-wrap: balance;
+}
+
+.bandeauappel-contenu .bandeauappel-detail:first-of-type {
+  margin-top: var(--sp-2);
+}
+
+.bandeauappel-contenu .bandeauappel-detail + .bandeauappel-detail {
+  margin-top: calc(var(--sp-3) - var(--sp-5));
 }
